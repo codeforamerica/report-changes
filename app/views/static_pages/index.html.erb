@@ -1,0 +1,31 @@
+<% content_for(:template_name) { "homepage" }  %>
+
+<section class="slab--hero-<%= rand(1..3) %> slab slab--hero slab--hero-centered">
+  <div class="grid">
+    <div class="hero--cta-options grid__item text--centered">
+      <h1>
+        Leave a job? Report the change to your Food Stamps case
+      </h1>
+      <%= link_to '#' do %>
+        <button class="button button--small button--cta">Start my report <i class="button__icon icon-arrow_forward"></i></button>
+      <% end %>
+      <p class="text--small">
+        It only takes 10 minutes
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<section class="slab slab--white">
+  <div class="grid">
+    <div class="grid__item text--small">
+      <p>
+        If you stopped working at a job, you may be eligible for more food assistance benefits. This includes quitting, being laid off, fired, or leaving for any other reason.
+      </p>
+      <p>
+        <%= link_to 'Start your report', '#' %> now. We’ll guide you through the process with simple step-by-step directions.
+      </p>
+    </div>
+  </div>
+</section>

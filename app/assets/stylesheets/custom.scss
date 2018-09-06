@@ -1,0 +1,21 @@
+.template--homepage {
+  @for $i from 1 through 3 {
+    .slab--hero-#{$i} {
+      &:before {
+        background-image: image-url('hero-#{$i}-mobile');
+        @include media($tablet-up) {
+          background-image: image-url('hero-#{$i}-landscape');
+        }
+      }
+    }
+  }
+
+  .slab--hero {
+    padding: 12em 0 0 0;
+  }
+
+  .hero--cta-options {
+    background: rgba(20, 20, 20, 0.6);
+    padding: 1em;
+  }
+}
