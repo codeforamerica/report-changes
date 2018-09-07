@@ -65,6 +65,9 @@ GEM
       sass (~> 3.4)
       thor (~> 0.19)
     builder (3.2.3)
+    bundler-audit (0.6.0)
+      bundler (~> 1.2)
+      thor (~> 0.18)
     byebug (10.0.2)
     capybara (3.6.0)
       addressable
@@ -73,11 +76,6 @@ GEM
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
       xpath (~> 3.1)
-    capybara-selenium (0.0.6)
-      capybara
-      selenium-webdriver
-    childprocess (0.9.0)
-      ffi (~> 1.0, >= 1.0.11)
     concurrent-ruby (1.0.5)
     crass (1.0.4)
     diff-lcs (1.3)
@@ -172,8 +170,9 @@ GEM
       rspec-mocks (~> 3.7.0)
       rspec-support (~> 3.7.0)
     rspec-support (3.7.1)
+    rspec_junit_formatter (0.4.1)
+      rspec-core (>= 2, < 4, != 2.12.0)
     ruby_dep (1.5.0)
-    rubyzip (1.2.2)
     sass (3.5.7)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -185,9 +184,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    selenium-webdriver (3.14.0)
-      childprocess (~> 0.5)
-      rubyzip (~> 1.2)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -221,9 +217,9 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.1.0)
+  bundler-audit
   byebug
   capybara
-  capybara-selenium
   cfa-styleguide!
   jbuilder (~> 2.5)
   jquery-rails
@@ -232,6 +228,7 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 5.2.0)
   rspec-rails
+  rspec_junit_formatter
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)

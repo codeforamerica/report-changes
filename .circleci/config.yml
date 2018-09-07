@@ -1,0 +1,90 @@
+# Ruby CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-ruby/ for more details
+#
+
+working_dir_defaults: &working_dir_defaults
+  working_directory: ~/repo
+
+defaults: &defaults
+  <<: *working_dir_defaults
+  docker:
+    - image: chartsockcfa/michigan-benefits-ci:initial
+
+version: 2
+jobs:
+  install_dependencies:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "Gemfile.lock" }}
+          - v1-dependencies-
+      - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+  run_checks:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "Gemfile.lock" }}
+          - v1-dependencies-
+      - run: bundle --path vendor/bundle
+      - run: bundle exec bundle-audit update && bundle exec bundle-audit check
+
+  run_tests:
+    <<: *working_dir_defaults
+    docker:
+      - image: chartsockcfa/michigan-benefits-ci:initial
+        environment:
+          PGHOST: 127.0.0.1
+          PGUSER: root
+          RAILS_ENV: test
+          RACK_ENV: test
+      - image: circleci/postgres:9.6.2-alpine
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle-test_test
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "Gemfile.lock" }}
+          - v1-dependencies-
+      - run: bundle --path vendor/bundle
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+      - run: mkdir /tmp/test-results
+      - type: shell
+        command: |
+          bundle exec rspec --profile 10 \
+                            --require ./spec/support/pre_documentation_formatter.rb \
+                            --format RspecJunitFormatter \
+                            --out /tmp/test-results/rspec.xml \
+                            --format PreDocumentationFormatter \
+                            $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      # collect reports
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - install_dependencies
+      - run_checks:
+          requires:
+             - install_dependencies
+      - run_tests:
+          requires:
+             - install_dependencies
