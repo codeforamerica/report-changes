@@ -1,0 +1,18 @@
+.template--homepage {
+  margin-bottom: 150px;
+
+  .slab--hero {
+    background: none;
+
+    h1 {
+      font-size: $font-size-h2;
+      font-weight: 600;
+      line-height: $line-height-display;
+      margin-bottom: .5em;
+    }
+  }
+
+  .main-footer {
+    height: inherit;
+  }
+}
