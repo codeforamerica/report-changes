@@ -3,7 +3,7 @@
     .slab--hero-#{$i} {
       &:before {
         background-image: image-url('hero-#{$i}-mobile');
-        @include media($tablet-up) {
+        @include media($mobile-up) {
           background-image: image-url('hero-#{$i}-landscape');
         }
       }
@@ -11,11 +11,19 @@
   }
 
   .slab--hero {
-    padding: 12em 0 0 0;
+    min-height: 450px;
+
+    @include media($tablet-up) {
+      min-height: 600px;
+    }
   }
 
   .hero--cta-options {
-    background: rgba(20, 20, 20, 0.6);
+    background: rgba(shade($color-dark-grey, 80%), .6);
     padding: 1em;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
   }
 }
