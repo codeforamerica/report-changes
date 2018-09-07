@@ -38,6 +38,7 @@ jobs:
       - run: bundle --path vendor/bundle
       - run: bundle exec bundle-audit update && bundle exec bundle-audit check
       - run: bundle exec brakeman
+      - run: bundle exec rubocop
 
   run_tests:
     <<: *working_dir_defaults
