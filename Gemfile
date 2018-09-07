@@ -13,7 +13,8 @@ gem 'rails', '~> 5.2.0'
 gem 'sass-rails', '~> 5.0'
 
 group :development, :test do
-  gem 'bundler-audit'
+  gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
 end

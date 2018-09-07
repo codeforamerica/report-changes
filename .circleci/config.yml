@@ -37,6 +37,7 @@ jobs:
           - v1-dependencies-
       - run: bundle --path vendor/bundle
       - run: bundle exec bundle-audit update && bundle exec bundle-audit check
+      - run: bundle exec brakeman
 
   run_tests:
     <<: *working_dir_defaults
