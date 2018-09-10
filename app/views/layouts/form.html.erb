@@ -1,0 +1,16 @@
+<% content_for :content do %>
+    <% content_for :template_name, 'form' %>
+    <header class="main-header">
+      <div class="toolbar">
+        <div class="toolbar__left"><b><%= link_to "Colorado!", root_path %></b></div>
+      </div>
+    </header>
+
+    <div class="slab">
+      <% if content_for? :form_card %>
+          <%= yield :form_card %>
+      <% end %>
+    </div>
+<% end %>
+
+<%= render template: 'layouts/application' %>

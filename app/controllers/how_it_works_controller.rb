@@ -1,0 +1,2 @@
+class HowItWorksController < FormsController
+end
