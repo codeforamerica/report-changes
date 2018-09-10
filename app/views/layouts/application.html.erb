@@ -12,7 +12,7 @@
 
   <body class="template--<%= content_for(:template_name) if content_for?(:template_name) %>">
     <div class="page-wrapper">
-      <%= yield %>
+      <%= content_for?(:content) ? content_for(:content) : yield %>
     </div>
     <%= render 'shared/footer' %>
   </body>
