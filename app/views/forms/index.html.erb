@@ -1,0 +1,19 @@
+<% content_for :header_title, 'Navigation' %>
+
+<% content_for :form_card_title, 'Form Section Navigation' %>
+
+<% content_for :form_card_body do %>
+    <div class="slab">
+      <% FormNavigation.form_controllers.each do |form| %>
+        <div>
+          <%= link_to form.to_param.titleize,
+                      section_path(form.to_param),
+                      class: 'button button--small button--full-mobile' %>
+        </div>
+      <% end %>
+    </div>
+<% end %>
+
+<% content_for :form_card_footer do %>
+    <p>Please select the page you'd like to view 😌</p>
+<% end %>
