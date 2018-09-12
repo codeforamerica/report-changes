@@ -35,9 +35,18 @@ RSpec.describe WhereDoYouLiveController do
         }
       end
 
-      it "redirects to next path and updates the change report" do
+      it "redirects to next path and updates the change report navigator" do
         current_change_report = create(:change_report, :with_navigator)
         session[:current_change_report_id] = current_change_report.id
+
+        county_finder = instance_double(CountyFinder)
+        expect(CountyFinder).to receive(:new).with(
+          street_address: "123 Main St",
+          city: "Littleton",
+          zip: "11111",
+          state: "CO",
+        ).and_return(county_finder)
+        allow(county_finder).to receive(:run).and_return("Arapahoe")
 
         put :update, params: { form: valid_params }
 
@@ -47,6 +56,7 @@ RSpec.describe WhereDoYouLiveController do
         expect(current_change_report.navigator.street_address).to eq "123 Main St"
         expect(current_change_report.navigator.city).to eq "Littleton"
         expect(current_change_report.navigator.zip_code).to eq "11111"
+        expect(current_change_report.navigator.county_from_address).to eq "Arapahoe"
       end
     end
 

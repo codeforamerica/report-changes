@@ -5,6 +5,7 @@ ruby "2.5.1"
 
 gem "bootsnap", ">= 1.1.0", require: false
 gem "cfa-styleguide", git: "https://github.com/codeforamerica/cfa-styleguide-gem"
+gem "geocoder"
 gem "jbuilder", "~> 2.5"
 gem "jquery-rails"
 gem "pg", ">= 0.18", "< 2.0"
@@ -17,6 +18,7 @@ group :development, :test do
   gem "bundler-audit", require: false
   gem "byebug", platforms: %i[mri mingw x64_mingw]
   gem "factory_bot_rails"
+  gem "pry-byebug"
   gem "rails-controller-testing"
   gem "rspec-rails"
 end
