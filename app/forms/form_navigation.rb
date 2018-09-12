@@ -1,9 +1,9 @@
 class FormNavigation
   MAIN = [
-      HowItWorksController,
-      CountyLocationController,
-      SuccessController
-    ].freeze
+    HowItWorksController,
+    CountyLocationController,
+    SuccessController,
+  ].freeze
 
   class << self
     delegate :first, to: :form_controllers

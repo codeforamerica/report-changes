@@ -36,16 +36,16 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
       options = item[:options].to_h
 
       <<~HTML.html_safe
-        <label class="radio-button">
-          #{radio_button(method, item[:value], options)}
-      #{item[:label]}
-        </label>
+          <label class="radio-button">
+            #{radio_button(method, item[:value], options)}
+        #{item[:label]}
+          </label>
       HTML
     end
     <<~HTML.html_safe
-#{radiogroup_tag}
-    #{radio_collection.join}
-      </radiogroup>
+      #{radiogroup_tag}
+          #{radio_collection.join}
+            </radiogroup>
     HTML
   end
 
@@ -117,11 +117,11 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     )
     if prefix
       <<~HTML
-#{formatted_label}
-        <div class="text-input-group">
-          <div class="text-input-group__prefix">#{prefix}</div>
-          #{field}
-        </div>
+        #{formatted_label}
+                <div class="text-input-group">
+                  <div class="text-input-group__prefix">#{prefix}</div>
+                  #{field}
+                </div>
       HTML
     else
       formatted_label + field
