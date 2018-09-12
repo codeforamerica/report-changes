@@ -2,9 +2,15 @@ require "rails_helper"
 
 RSpec.describe FormNavigation do
   before(:each) do
-    class FirstController; end
-    class SecondController; end
-    class ThirdController; end
+    class BaseController
+      def self.skip?(_); end
+
+      def current_change_report; end
+    end
+
+    class FirstController < BaseController; end
+    class SecondController < BaseController; end
+    class ThirdController < BaseController; end
 
     stub_const("FormNavigation::MAIN",
                [
@@ -33,10 +39,14 @@ RSpec.describe FormNavigation do
   end
 
   describe "#next" do
-    context "when current controller is not the last" do
-      it "returns the next controller in the list" do
+    context "when current controller is second to last or before" do
+      before do
+        allow(SecondController).to receive(:skip?) { true }
+      end
+
+      it "returns numeric index for next non-skipped controller in main flow" do
         navigation = FormNavigation.new(FirstController.new)
-        expect(navigation.next).to eq SecondController
+        expect(navigation.next).to eq(ThirdController)
       end
     end
 

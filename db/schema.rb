@@ -10,16 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_11_213433) do
+ActiveRecord::Schema.define(version: 2018_09_12_190008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "change_report_navigators", force: :cascade do |t|
     t.bigint "change_report_id"
+    t.string "city"
     t.datetime "created_at", null: false
     t.integer "selected_county_location", default: 0
+    t.string "street_address"
     t.datetime "updated_at", null: false
+    t.string "zip_code"
     t.index ["change_report_id"], name: "index_change_report_navigators_on_change_report_id"
   end
 

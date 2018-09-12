@@ -1,6 +1,49 @@
 class CfaFormBuilder < ActionView::Helpers::FormBuilder
   include ActionView::Helpers::DateHelper
 
+  def cfa_input_field(
+    method,
+    label_text,
+    type: "text",
+    help_text: nil,
+    options: {},
+    classes: [],
+    prefix: nil,
+    autofocus: nil,
+    optional: false
+  )
+    classes = classes.append(%w[text-input])
+
+    text_field_options = standard_options.merge(
+      autofocus: autofocus,
+      type: type,
+      class: classes.join(" "),
+    ).merge(options).merge(error_attributes(method: method))
+
+    text_field_options[:id] ||= sanitized_id(method)
+    options[:input_id] ||= sanitized_id(method)
+
+    text_field_html = text_field(method, text_field_options)
+
+    label_and_field_html = label_and_field(
+      method,
+      label_text,
+      text_field_html,
+      help_text: help_text,
+      prefix: prefix,
+      optional: optional,
+      options: options,
+    )
+
+    html_output = <<~HTML
+      <div class="form-group#{error_state(object, method)}">
+      #{label_and_field_html}
+      #{errors_for(object, method)}
+      </div>
+    HTML
+    html_output.html_safe
+  end
+
   def cfa_radio_set(
     method,
     label_text: "",
@@ -23,6 +66,15 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   private
+
+  def standard_options
+    {
+      autocomplete: "off",
+      autocorrect: "off",
+      autocapitalize: "off",
+      spellcheck: "false",
+    }
+  end
 
   def cfa_radio_button(method, collection, layouts)
     classes = layouts.map { |layout| "input-group--#{layout}" }.join(" ")

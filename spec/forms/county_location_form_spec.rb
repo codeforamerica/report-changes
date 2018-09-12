@@ -1,4 +1,5 @@
 require "rails_helper"
+
 RSpec.describe CountyLocationForm do
   describe "validations" do
     context "when county location is provided" do

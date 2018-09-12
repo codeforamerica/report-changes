@@ -1,0 +1,11 @@
+<% content_for :form_card_title, "Where do you live?" %>
+
+<% content_for :form_card_body do %>
+  <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+    <%= f.cfa_input_field :street_address, "Street address" %>
+    <%= f.cfa_input_field :city, "City", classes: ["form-width--long"] %>
+    <%= f.cfa_input_field :zip_code, "Zip code", classes: ["form-width--zip"] %>
+  <% end %>
+<% end %>
+
+<% content_for :progress_indicator_percentage, '25' %>
