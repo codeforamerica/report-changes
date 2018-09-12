@@ -27,6 +27,14 @@ class FormsController < ApplicationController
     end
   end
 
+  def self.skip?(change_report)
+    skip_rule_sets(change_report).any?
+  end
+
+  def current_change_report
+    ChangeReport.find_by(id: session[:current_change_report_id])
+  end
+
   private
 
   delegate :form_class, to: :class
@@ -62,10 +70,6 @@ class FormsController < ApplicationController
     form_params.slice(*Attributes.new(attrs).to_s)
   end
 
-  def current_change_report
-    ChangeReport.find_by(id: session[:current_change_report_id])
-  end
-
   class << self
     def to_param
       controller_name.dasherize
@@ -73,6 +77,10 @@ class FormsController < ApplicationController
 
     def form_class
       (controller_name + "_form").classify.constantize
+    end
+
+    def skip_rule_sets(_)
+      []
     end
   end
 end

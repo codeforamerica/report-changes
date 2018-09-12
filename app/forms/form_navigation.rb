@@ -2,6 +2,7 @@ class FormNavigation
   MAIN = [
     HowItWorksController,
     CountyLocationController,
+    WhereDoYouLiveController,
     SuccessController,
   ].freeze
 
@@ -22,12 +23,18 @@ class FormNavigation
   def next
     return unless index
     form_controllers_until_end = form_controllers[index + 1..-1]
-    form_controllers_until_end.first
+    seek(form_controllers_until_end)
   end
 
   private
 
   def index
     form_controllers.index(@form_controller.class)
+  end
+
+  def seek(list)
+    list.detect do |form_controller_class|
+      !form_controller_class.skip?(@form_controller.current_change_report)
+    end
   end
 end

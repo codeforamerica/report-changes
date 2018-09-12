@@ -47,4 +47,57 @@ RSpec.describe CfaFormBuilder do
       HTML
     end
   end
+
+  describe "#cfa_input_field" do
+    it "renders a label that contains a p tag" do
+      class SampleForm < Form
+        set_attributes_for :navigator, :name
+      end
+
+      form = SampleForm.new
+      form_builder = CfaFormBuilder.new("form", form, template, {})
+      output = form_builder.cfa_input_field(:name, "How is name?")
+      expect(output).to be_html_safe
+      expect(output).to match_html <<-HTML
+        <div class="form-group">
+          <label for="form_name">
+            <p class="form-question">How is name?</p>
+          </label>
+          <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="text-input" id="form_name" name="form[name]" />
+        </div>
+      HTML
+    end
+
+    it "adds help text and error ids to aria-labelledby" do
+      class SampleForm < Form
+        set_attributes_for :navigator, :name
+        validates_presence_of :name
+      end
+
+      form = SampleForm.new
+      form.validate
+
+      form_builder = CfaFormBuilder.new("form", form, template, {})
+      output = form_builder.cfa_input_field(
+        :name,
+        "How is name?",
+        help_text: "Name is name",
+      )
+      expect(output).to be_html_safe
+      expect(output).to match_html <<-HTML
+        <div class="form-group form-group--error">
+          <div class="field_with_errors">
+            <label for="form_name">
+              <p class="form-question">How is name?</p>
+              <p class="text--help"">Name is name</p>
+            </label>
+          </div>
+          <div class="field_with_errors">
+            <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="text-input" aria-describedby="form_name__errors" id="form_name" name="form[name]" />
+          </div>
+          <span class="text--error" id="form_name__errors"><i class="icon-warning"></i> can't be blank </div>
+        </div>
+      HTML
+    end
+  end
 end

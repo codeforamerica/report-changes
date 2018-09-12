@@ -11,7 +11,14 @@ feature "Reporting a change" do
     click_on "Start the form"
     expect(page).to have_text "do you live in Arapahoe County?"
 
-    choose "Yes"
+    choose "I'm not sure"
+    click_on "Continue"
+
+    expect(page).to have_text "Where do you live?"
+
+    fill_in "Street address", with: "123 Main St"
+    fill_in "City", with: "Littleton"
+    fill_in "Zip code", with: "80110"
     click_on "Continue"
 
     expect(page).to have_text "Success"
