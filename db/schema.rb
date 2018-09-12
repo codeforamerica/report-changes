@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2018_09_11_213433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "change_report_navigators", force: :cascade do |t|
+    t.bigint "change_report_id"
+    t.datetime "created_at", null: false
+    t.integer "selected_county_location", default: 0
+    t.datetime "updated_at", null: false
+    t.index ["change_report_id"], name: "index_change_report_navigators_on_change_report_id"
+  end
+
+  create_table "change_reports", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end

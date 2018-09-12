@@ -1,0 +1,16 @@
+<% content_for :form_card_title, "First thing, do you live in Arapahoe County?" %>
+
+<% content_for :form_card_body do %>
+    <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+        <%= f.cfa_radio_set :selected_county_location,
+                            label_text: "Do you live in Arapahoe County?",
+                            legend_class: "sr-only",
+                            collection: [
+                             { value: :arapahoe, label: "Yes" },
+                             { value: :not_arapahoe, label: "No" },
+                             { value: :not_sure, label: "I'm not sure" },
+                           ] %>
+    <% end %>
+<% end %>
+
+<% content_for :progress_indicator_percentage, '20' %>

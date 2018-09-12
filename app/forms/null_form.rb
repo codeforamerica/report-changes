@@ -1,0 +1,2 @@
+class NullForm < Form
+end
