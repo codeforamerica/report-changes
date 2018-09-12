@@ -66,11 +66,13 @@ class FormsController < ApplicationController
     ChangeReport.find_by(id: session[:current_change_report_id])
   end
 
-  def self.to_param
-    controller_name.dasherize
-  end
+  class << self
+    def to_param
+      controller_name.dasherize
+    end
 
-  def self.form_class
-    (controller_name + "_form").classify.constantize
+    def form_class
+      (controller_name + "_form").classify.constantize
+    end
   end
 end
