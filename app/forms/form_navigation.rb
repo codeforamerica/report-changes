@@ -3,6 +3,7 @@ class FormNavigation
     HowItWorksController,
     CountyLocationController,
     WhereDoYouLiveController,
+    SupportedCountyController,
     SuccessController,
   ].freeze
 

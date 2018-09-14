@@ -16,11 +16,14 @@ feature "Reporting a change" do
 
     expect(page).to have_text "Where do you live?"
 
-    fill_in "Street address", with: "123 Main St"
-    fill_in "City", with: "Littleton"
-    fill_in "Zip code", with: "80110"
+    fill_in "Street address", with: "1355 South Laredo Court"
+    fill_in "City", with: "Aurora"
+    fill_in "Zip code", with: "80017"
     click_on "Continue"
 
+    expect(page).to have_text "Great, it looks like you live in Arapahoe County."
+
+    click_on "Continue"
     expect(page).to have_text "Success"
   end
 end
