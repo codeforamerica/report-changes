@@ -4,6 +4,7 @@ class FormNavigation
     CountyLocationController,
     WhereDoYouLiveController,
     SupportedCountyController,
+    NotYetSupportedCountyController,
     SuccessController,
   ].freeze
 

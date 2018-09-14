@@ -6,4 +6,8 @@ class SkipRules
   def self.must_have_supported_county(change_report)
     true unless change_report.navigator.supported_county?
   end
+
+  def self.must_have_not_yet_supported_county(change_report)
+    true if change_report.navigator.supported_county?
+  end
 end

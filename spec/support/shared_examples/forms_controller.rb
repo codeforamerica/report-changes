@@ -14,6 +14,15 @@ RSpec.shared_examples_for "form controller" do |is_last_section|
       end
     end
 
+    describe "#edit" do
+      it "sets the form and renders the template" do
+        get :edit
+
+        expect(response).to render_template(:edit)
+        expect(assigns[:form]).to be_a Form
+      end
+    end
+
     describe "#current_path" do
       it "returns the path for this route" do
         expect(controller.current_path).to eq "/sections/#{controller.class.to_param}"
