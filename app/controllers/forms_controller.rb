@@ -27,8 +27,8 @@ class FormsController < ApplicationController
     end
   end
 
-  def self.skip?(change_report)
-    skip_rule_sets(change_report).any?
+  def self.show?(change_report)
+    show_rule_sets(change_report).all?
   end
 
   def current_change_report
@@ -79,8 +79,8 @@ class FormsController < ApplicationController
       (controller_name + "_form").classify.constantize
     end
 
-    def skip_rule_sets(_)
-      []
+    def show_rule_sets(_)
+      [ShowRules.defaults_to_true]
     end
   end
 end

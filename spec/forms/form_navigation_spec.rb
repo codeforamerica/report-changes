@@ -3,7 +3,9 @@ require "rails_helper"
 RSpec.describe FormNavigation do
   before(:each) do
     class BaseController
-      def self.skip?(_); end
+      def self.show?(_)
+        true
+      end
 
       def current_change_report; end
     end
@@ -41,7 +43,7 @@ RSpec.describe FormNavigation do
   describe "#next" do
     context "when current controller is second to last or before" do
       before do
-        allow(SecondController).to receive(:skip?) { true }
+        allow(SecondController).to receive(:show?) { false }
       end
 
       it "returns numeric index for next non-skipped controller in main flow" do
