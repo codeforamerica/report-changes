@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_12_205907) do
+ActiveRecord::Schema.define(version: 2018_09_14_173605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,8 +28,21 @@ ActiveRecord::Schema.define(version: 2018_09_12_205907) do
   end
 
   create_table "change_reports", force: :cascade do |t|
+    t.string "case_number"
     t.datetime "created_at", null: false
+    t.string "phone_number"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "household_members", force: :cascade do |t|
+    t.datetime "birthday"
+    t.bigint "change_report_id"
+    t.datetime "created_at", null: false
+    t.string "encrypted_ssn"
+    t.string "encrypted_ssn_iv"
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.index ["change_report_id"], name: "index_household_members_on_change_report_id"
   end
 
 end

@@ -65,6 +65,59 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     HTML
   end
 
+  def cfa_date_select(
+    method,
+    label_text,
+    help_text: nil,
+    options: {},
+    autofocus: nil
+  )
+
+    <<~HTML.html_safe
+      <fieldset class="form-group#{error_state(object, method)}">
+        #{fieldset_label_contents(label_text: label_text, help_text: help_text)}
+        <div class="input-group--inline">
+          <div class="select">
+            <label for="#{sanitized_id(method, 'month')}" class="sr-only">Month</label>
+            #{select_month(
+              OpenStruct.new(month: object.send(subfield_name(method, 'month')).to_i),
+              { field_name: subfield_name(method, 'month'),
+                field_id: subfield_id(method, 'month'),
+                prefix: object_name,
+                prompt: 'Month' }.reverse_merge(options),
+              class: 'select__element',
+              autofocus: autofocus,
+            )}
+          </div>
+          <div class="select">
+            <label for="#{sanitized_id(method, 'day')}" class="sr-only">Day</label>
+
+            #{select_day(
+              OpenStruct.new(day: object.send(subfield_name(method, 'day')).to_i),
+              { field_name: subfield_name(method, 'day'),
+                field_id: subfield_id(method, 'day'),
+                prefix: object_name,
+                prompt: 'Day' }.merge(options),
+              class: 'select__element',
+            )}
+          </div>
+          <div class="select">
+            <label for="#{sanitized_id(method, 'year')}" class="sr-only">Year</label>
+            #{select_year(
+              OpenStruct.new(year: object.send(subfield_name(method, 'year')).to_i),
+              { field_name: subfield_name(method, 'year'),
+                field_id: subfield_id(method, 'year'),
+                prefix: object_name,
+                prompt: 'Year' }.merge(options),
+              class: 'select__element',
+            )}
+          </div>
+        </div>
+        #{errors_for(object, method)}
+      </fieldset>
+    HTML
+  end
+
   private
 
   def standard_options
@@ -139,7 +192,7 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
 
   def optional_text(optional)
     if optional
-      "<span class='form-card__optional'>(optional)</span>"
+      "<em class='form-card__optional'> Optional</em>"
     else
       ""
     end
@@ -202,7 +255,7 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def subfield_name(method, position)
-    "#{method}(#{position})"
+    "#{method}_#{position}"
   end
 
   def sanitized_id(method, position = nil)
