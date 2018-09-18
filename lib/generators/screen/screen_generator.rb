@@ -1,4 +1,4 @@
-class SectionGenerator < Rails::Generators::NamedBase
+class ScreenGenerator < Rails::Generators::NamedBase
   source_root File.expand_path("templates", __dir__)
   class_option :doc, type: :boolean, default: false, desc: "Include documentation."
 
@@ -9,7 +9,7 @@ class SectionGenerator < Rails::Generators::NamedBase
     generate_form_model_spec
     generate_form_controller_spec
 
-    puts "\nDone generating the #{model} section!"
+    puts "\nDone generating the #{model} screen!"
     puts "Be sure to add #{model}Controller in the desired application order in `form_navigation.rb`"
   end
 
