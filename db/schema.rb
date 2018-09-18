@@ -28,9 +28,22 @@ ActiveRecord::Schema.define(version: 2018_09_18_004259) do
   end
 
   create_table "change_reports", force: :cascade do |t|
+    t.string "case_number"
     t.datetime "created_at", null: false
+    t.string "phone_number"
     t.string "signature"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "household_members", force: :cascade do |t|
+    t.datetime "birthday"
+    t.bigint "change_report_id"
+    t.datetime "created_at", null: false
+    t.string "encrypted_ssn"
+    t.string "encrypted_ssn_iv"
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.index ["change_report_id"], name: "index_household_members_on_change_report_id"
   end
 
 end

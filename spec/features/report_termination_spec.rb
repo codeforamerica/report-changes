@@ -20,8 +20,16 @@ feature "Reporting a change" do
     fill_in "City", with: "Aurora"
     fill_in "Zip code", with: "80017"
     click_on "Continue"
-
     expect(page).to have_text "Great, it looks like you live in Arapahoe County."
+    click_on "Continue"
+    expect(page).to have_text "Tell us about yourself."
+
+    fill_in "What is your name?", with: "Jane Doe"
+    fill_in "What is your phone number?", with: "111-222-3333"
+    fill_in "What is your social security number?", with: "111-22-3333"
+    select "January", from: "form[birthday_month]"
+    select "1", from: "form[birthday_day]"
+    select "2000", from: "form[birthday_year]"
     click_on "Continue"
 
     expect(page).to have_text "Sign your change report"
