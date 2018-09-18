@@ -43,7 +43,7 @@
                       <% if @form.is_a? NullForm %>
                           <%= render "shared/next_step_link", button_label: content_for(:form_card_footer_button_label) || 'Continue' %>
                       <% else %>
-                          <%= render "shared/next_step" %>
+                          <%= render "shared/next_step", button_label: content_for(:form_card_footer_button_label) || 'Continue' %>
                       <% end %>
                   <% end %>
                 </div>

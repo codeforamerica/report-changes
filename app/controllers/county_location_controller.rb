@@ -1,4 +1,6 @@
 class CountyLocationController < FormsController
+  skip_before_action :ensure_change_report_present
+
   def update_models
     unless current_change_report.present?
       change_report = ChangeReport.create

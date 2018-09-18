@@ -1,0 +1,18 @@
+<% content_for :form_card_title, "Sign your change report" %>
+
+<% content_for :form_card_body do %>
+    <p>
+      I understand the penalty for hiding or giving false information. I also understand I will owe the value of any extra food stamps I receive because I have not fully reported changes in my household. I agree to prove any changes I report. My answers on my form are correct and complete to the best of my knowledge.
+    </p>
+
+    <p>
+      I understand that my signature authorizes Federal, State, and Local officials to contact other persons or organizations to verify the information I have provided.
+    </p>
+    <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+        <%= f.cfa_input_field :signature, "Type your full legal name" %>
+    <% end %>
+<% end %>
+
+<% content_for :form_card_footer_button_label, "Sign and submit" %>
+
+<% content_for :progress_indicator_percentage, "90" %>

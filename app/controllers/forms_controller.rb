@@ -1,6 +1,8 @@
 class FormsController < ApplicationController
   layout "form"
 
+  before_action :ensure_change_report_present, only: %i[edit update]
+
   def edit
     attribute_keys = Attributes.new(form_attrs).to_sym
     @form = form_class.new(existing_attributes.slice(*attribute_keys))
@@ -52,6 +54,12 @@ class FormsController < ApplicationController
   def update_models; end
 
   # Don't override in subclasses
+
+  def ensure_change_report_present
+    if current_change_report.blank?
+      redirect_to root_path
+    end
+  end
 
   def form_attrs
     form_class.attribute_names
