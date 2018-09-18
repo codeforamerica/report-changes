@@ -22,8 +22,12 @@ feature "Reporting a change" do
     click_on "Continue"
 
     expect(page).to have_text "Great, it looks like you live in Arapahoe County."
-
     click_on "Continue"
+
+    expect(page).to have_text "Sign your change report"
+    fill_in "Type your full legal name", with: "Person McPeoples"
+    click_on "Sign and submit"
+
     expect(page).to have_text "Success"
   end
 end
