@@ -1,0 +1,34 @@
+class <%= model.camelcase %>Form < Form
+
+  <%- if options.doc? -%>
+  # Whitelist top-level parameter names for ChangeReport, e.g.
+  #
+  #   given params: { form: { living_situation: "stable_housing" } }
+  #
+  #   set_attributes_for :change_report, :living_situation
+  #
+  # Delete the method if you aren't updating the ChangeReport.
+  <%- end -%>
+  set_attributes_for :change_report, :foo
+
+  <%- if options.doc? -%>
+  # Whitelist top-level parameter names for ChangeReportNavigator, e.g.
+  #
+  #   given params: { form: { anyone_requesting_food: "yes" } }
+  #
+  #   set_attributes_for :navigator, :anyone_requesting_food
+  #
+  # These attributes should be used for application flow, and not to fill out
+  # the application PDF.
+  #
+  # Delete the method if you aren't updating the ChangeReportNavigator.
+  <%- end -%>
+  set_attributes_for :navigator, :street_address, :city, :zip_code
+
+  <%- if options.doc? -%>
+  # Add any validations below. Be sure to include helpful error messages.
+  <%- end -%>
+  validates_presence_of :street_address, message: "Please add your street address"
+  validates_presence_of :city, message: "Please add the city you live in"
+  validates :zip_code, length: { is: 5, message: "Please add a five digit ZIP code" }
+end

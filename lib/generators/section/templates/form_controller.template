@@ -1,0 +1,24 @@
+class <%= model.camelcase %>Controller < FormsController
+  <%- if options.doc? -%>
+  # Specify under what conditions controller should be accessible:
+  <%- end -%>
+  def self.show?(change_report)
+    # change_report.stable_housing?
+  end
+
+  <%- if options.doc? -%>
+  # What happens during update action:
+  <%- end -%>
+  def update_models
+    # current_change_report.update(params_for(:change_report))
+  end
+
+  private
+
+  <%- if options.doc? -%>
+  # Assign any existing attributes, for showing previously submitted information:
+  <%- end -%>
+  def existing_attributes
+    {}
+  end
+end
