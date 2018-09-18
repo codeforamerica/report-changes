@@ -1,13 +1,4 @@
 class TellUsAboutYourselfController < FormsController
-  def update_models
-    @form.save
-  end
-
-  def assign_attributes_to_form
-    super
-    @form.change_report = current_change_report
-  end
-
   private
 
   def existing_attributes

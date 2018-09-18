@@ -22,4 +22,25 @@ RSpec.describe SignSubmitForm do
       end
     end
   end
+
+  describe "#save" do
+    let(:change_report) { create :change_report }
+
+    let(:valid_params) do
+      {
+        signature: "Jane Doe",
+        change_report: change_report,
+      }
+    end
+
+    it "persists the values to the correct models" do
+      form = SignSubmitForm.new(valid_params)
+      form.valid?
+      form.save
+
+      change_report.reload
+
+      expect(change_report.signature).to eq "Jane Doe"
+    end
+  end
 end

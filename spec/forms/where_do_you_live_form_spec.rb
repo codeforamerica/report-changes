@@ -60,4 +60,38 @@ RSpec.describe WhereDoYouLiveForm do
       end
     end
   end
+
+  describe "#save" do
+    let(:change_report) { create :change_report, :with_navigator }
+    let(:valid_params) do
+      {
+        zip_code: "11111",
+        city: "Littleton",
+        street_address: "123 Main St",
+        change_report: change_report,
+      }
+    end
+
+    it "persists the values to the correct models" do
+      county_finder = instance_double(CountyFinder)
+      expect(CountyFinder).to receive(:new).with(
+        street_address: "123 Main St",
+        city: "Littleton",
+        zip: "11111",
+        state: "CO",
+      ).and_return(county_finder)
+      allow(county_finder).to receive(:run).and_return("Arapahoe")
+
+      form = WhereDoYouLiveForm.new(valid_params)
+      form.valid?
+      form.save
+
+      change_report.reload
+
+      expect(change_report.navigator.zip_code).to eq "11111"
+      expect(change_report.navigator.city).to eq "Littleton"
+      expect(change_report.navigator.street_address).to eq "123 Main St"
+      expect(change_report.navigator.county_from_address).to eq "Arapahoe"
+    end
+  end
 end

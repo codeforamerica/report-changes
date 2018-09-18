@@ -11,7 +11,8 @@ class FormsController < ApplicationController
   def update
     assign_attributes_to_form
     if @form.valid?
-      update_models
+      @form.save
+      update_session
       redirect_to(next_path)
     else
       render :edit
@@ -49,9 +50,10 @@ class FormsController < ApplicationController
 
   def assign_attributes_to_form
     @form = form_class.new(form_params)
+    @form.change_report = current_change_report
   end
 
-  def update_models; end
+  def update_session; end
 
   # Don't override in subclasses
 
