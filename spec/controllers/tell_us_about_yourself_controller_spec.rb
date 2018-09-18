@@ -100,12 +100,14 @@ RSpec.describe TellUsAboutYourselfController do
       end
 
       it "renders edit" do
+        current_change_report = create(:change_report, :with_navigator)
+        session[:current_change_report_id] = current_change_report.id
         put :update, params: { form: invalid_params }
 
         form = assigns(:form)
-        expect(form.birthday_year).to eq "2000"
 
         expect(response).to render_template(:edit)
+        expect(form.birthday_year).to eq "2000"
       end
     end
   end
