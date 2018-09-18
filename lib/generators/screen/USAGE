@@ -1,8 +1,8 @@
 Description:
-    Create files for adding a new section to the change reporting application.
+    Create files for adding a new screen to the change reporting application.
 
 Example:
-    rails generate section FoodAssistance
+    rails generate screen FoodAssistance
 
     This will create:
         app/forms/food_assistance_form.rb

@@ -19,13 +19,13 @@ class FormsController < ApplicationController
   end
 
   def current_path(params = nil)
-    section_path(self.class.to_param, params)
+    screen_path(self.class.to_param, params)
   end
 
   def next_path(params = {})
     next_step = form_navigation.next
     if next_step
-      section_path(next_step.to_param, params)
+      screen_path(next_step.to_param, params)
     end
   end
 

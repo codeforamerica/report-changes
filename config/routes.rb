@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root "static_pages#index"
 
-  resources :sections, controller: :forms, only: %i[index show] do
+  resources :screens, controller: :forms, only: %i[index show] do
     collection do
       FormNavigation.form_controllers.each do |controller_class|
         { get: :edit, put: :update }.each do |method, action|

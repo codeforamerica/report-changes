@@ -7,7 +7,7 @@
       <% FormNavigation.form_controllers.each do |form| %>
         <div>
           <%= link_to form.to_param.titleize,
-                      section_path(form.to_param),
+                      screen_path(form.to_param),
                       class: 'button button--small button--full-mobile' %>
         </div>
       <% end %>
