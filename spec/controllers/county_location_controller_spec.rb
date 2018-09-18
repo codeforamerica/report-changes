@@ -3,6 +3,13 @@ require "rails_helper"
 RSpec.describe CountyLocationController do
   it_behaves_like "form controller"
 
+  describe "show?" do
+    it "is always true" do
+      show_form = CountyLocationController.show?(nil)
+      expect(show_form).to eq(true)
+    end
+  end
+
   describe "edit" do
     context "with an existing change report" do
       it "assigns existing attributes" do

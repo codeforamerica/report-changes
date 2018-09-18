@@ -1,6 +1,6 @@
 class WhereDoYouLiveController < FormsController
-  def self.skip_rule_sets(change_report)
-    super << SkipRules.must_not_know_county_location(change_report)
+  def self.show_rule_sets(change_report)
+    super << ShowRules.must_not_know_county_location(change_report)
   end
 
   def update_models
