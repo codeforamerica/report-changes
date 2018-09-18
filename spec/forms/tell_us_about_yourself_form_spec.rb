@@ -141,4 +141,53 @@ RSpec.describe TellUsAboutYourselfForm do
       end
     end
   end
+
+  describe "#save" do
+    let(:change_report) { create :change_report }
+    let(:valid_params) do
+      {
+        name: "Jane Doe",
+        phone_number: "111-222-3333",
+        ssn: "111-22-3333",
+        case_number: "123abc",
+        birthday_day: "15",
+        birthday_month: "1",
+        birthday_year: "2000",
+        change_report: change_report,
+      }
+    end
+
+    context "when the member does not yet exist" do
+      it "persists the values to the correct models" do
+        form = TellUsAboutYourselfForm.new(valid_params)
+        form.valid?
+        form.save
+
+        change_report.reload
+
+        expect(change_report.case_number).to eq "123abc"
+        expect(change_report.phone_number).to eq "1112223333"
+        expect(change_report.member.name).to eq "Jane Doe"
+        expect(change_report.member.ssn).to eq "111223333"
+        expect(change_report.member.birthday.year).to eq 2000
+        expect(change_report.member.birthday.month).to eq 1
+        expect(change_report.member.birthday.day).to eq 15
+      end
+    end
+
+    context "when the member already exists" do
+      it "updates the member" do
+        create(:household_member, name: "John Doe", change_report: change_report)
+        form = TellUsAboutYourselfForm.new(valid_params)
+
+        expect do
+          form.save
+        end.not_to(change { HouseholdMember.count })
+
+        change_report.reload
+
+        expect(change_report.member.name).to eq "Jane Doe"
+      end
+    end
+  end
 end
