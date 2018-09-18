@@ -1,0 +1,10 @@
+<%% content_for :form_card_title, "Template" %>
+
+<%% content_for :form_card_help, "Here's what you do" %>
+
+<%% content_for :form_card_body do %>
+    <%%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+    <%% end %>
+<%% end %>
+
+<%% content_for :progress_indicator_percentage, "" %>

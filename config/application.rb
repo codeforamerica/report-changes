@@ -29,5 +29,13 @@ module ColoradoBenefits
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.generators do |g|
+      g.orm             :active_record
+      g.template_engine :erb
+      g.test_framework  :rspec, fixture: true
+      g.stylesheets     false
+      g.javascripts     false
+    end
   end
 end
