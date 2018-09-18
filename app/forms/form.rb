@@ -4,6 +4,7 @@ class Form
   include ActiveModel::Validations::Callbacks
 
   class_attribute :attribute_names
+  attr_accessor :change_report
 
   def assign_attribute(name, value)
     assign_attributes(name => value)

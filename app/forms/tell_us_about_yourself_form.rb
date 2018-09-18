@@ -3,7 +3,6 @@ class TellUsAboutYourselfForm < Form
 
   set_attributes_for :member, :name, :ssn, :birthday_year, :birthday_month, :birthday_day
   set_attributes_for :change_report, :phone_number, :case_number
-  attr_accessor :change_report
 
   before_validation :strip_dashes_from_phone_number, :strip_dashes_from_ssn
 
@@ -13,7 +12,7 @@ class TellUsAboutYourselfForm < Form
   validate :birthday_must_be_present, :birthday_must_be_valid_date
 
   def save
-    change_report.update!(change_report_data)
+    change_report.update(change_report_data)
 
     if change_report.member.present?
       change_report.member.update(member_data)
