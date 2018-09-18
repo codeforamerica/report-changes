@@ -70,6 +70,9 @@ RSpec.describe WhereDoYouLiveController do
       end
 
       it "renders edit" do
+        current_change_report = create(:change_report, :with_navigator)
+        session[:current_change_report_id] = current_change_report.id
+
         put :update, params: { form: invalid_params }
 
         expect(response).to render_template(:edit)

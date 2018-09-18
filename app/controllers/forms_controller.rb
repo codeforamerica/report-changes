@@ -1,6 +1,8 @@
 class FormsController < ApplicationController
   layout "form"
 
+  before_action :ensure_change_report_present, only: %i[edit update]
+
   def edit
     attribute_keys = Attributes.new(form_attrs).to_sym
     @form = form_class.new(existing_attributes.slice(*attribute_keys))
@@ -17,13 +19,13 @@ class FormsController < ApplicationController
   end
 
   def current_path(params = nil)
-    section_path(self.class.to_param, params)
+    screen_path(self.class.to_param, params)
   end
 
   def next_path(params = {})
     next_step = form_navigation.next
     if next_step
-      section_path(next_step.to_param, params)
+      screen_path(next_step.to_param, params)
     end
   end
 
@@ -52,6 +54,12 @@ class FormsController < ApplicationController
   def update_models; end
 
   # Don't override in subclasses
+
+  def ensure_change_report_present
+    if current_change_report.blank?
+      redirect_to root_path
+    end
+  end
 
   def form_attrs
     form_class.attribute_names

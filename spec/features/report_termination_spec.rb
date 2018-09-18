@@ -21,7 +21,6 @@ feature "Reporting a change" do
     fill_in "Zip code", with: "80017"
     click_on "Continue"
     expect(page).to have_text "Great, it looks like you live in Arapahoe County."
-
     click_on "Continue"
     expect(page).to have_text "Tell us about yourself."
 
@@ -32,6 +31,11 @@ feature "Reporting a change" do
     select "1", from: "form[birthday_day]"
     select "2000", from: "form[birthday_year]"
     click_on "Continue"
+
+    expect(page).to have_text "Sign your change report"
+    fill_in "Type your full legal name", with: "Person McPeoples"
+    click_on "Sign and submit"
+
     expect(page).to have_text "Success"
   end
 end
