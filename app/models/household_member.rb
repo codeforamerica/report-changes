@@ -4,6 +4,6 @@ class HouseholdMember < ActiveRecord::Base
   attribute :ssn
   attr_encrypted(
     :ssn,
-    key: Rails.application.credentials[Rails.env.to_sym][:secret_key_for_ssn_encryption],
+    key: CredentialsHelper.secret_key_for_ssn_encryption,
   )
 end
