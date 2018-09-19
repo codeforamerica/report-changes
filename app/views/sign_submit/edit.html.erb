@@ -1,15 +1,37 @@
 <% content_for :form_card_title, "Sign your change report" %>
 
 <% content_for :form_card_body do %>
-    <p>
-      I understand the penalty for hiding or giving false information. I also understand I will owe the value of any extra food stamps I receive because I have not fully reported changes in my household. I agree to prove any changes I report. My answers on my form are correct and complete to the best of my knowledge.
+    <p class="notice">
+      If you have a legal guardian, he or she should sign below. If you have a power of attorney or an authorized representative, either you or that person may sign this application. If anyone else is helping you fill out the application, you should sign the application yourself.
     </p>
+    <div class="textwell">
+      <section class="legal textwell__content">
+        <p>
+          If you have a legal guardian, he or she should sign below. If you have a power of attorney or an authorized representative, either you or that person may sign this application. If anyone else is helping you fill out the application, you should sign the application yourself.
+        </p>
 
-    <p>
-      I understand that my signature authorizes Federal, State, and Local officials to contact other persons or organizations to verify the information I have provided.
-    </p>
+        <p>
+          I have agreed to submit this application for myself and/or my family. By signing this application electronically, I certify that I have reviewed this application; that I understand and agree to the Rights, Responsibilities and Penalties; and that under the penalty of perjury, I certify the information I have given is true including the information including citizenship and alien status. I have received information on how to apply, what information is available, and what I may need to give the application site to help me with getting benefits.
+        </p>
+        <ul class="list--bulleted">
+          <li>I understand the questions and statements on this application.</li>
+          <li>I have read and understand my Rights & Responsibilities on the previous page.</li>
+          <li>I understand the penalties for giving false information or breaking the rules.</li>
+          <li>I understand that the application site may contact other persons or organizations to obtain needed proof of my eligibility and level of benefits.</li>
+          <li>I understand that failure to report or verify any listed expenses will be seen as a statement by me that I do not want to receive a deduction for the unreported or unverified expenses.</li>
+          <li>I understand I can be punished by law if I do not tell the complete truth.</li>
+          <li>I understand that an electronic signature has the same legal effect and can be enforced in the same way as a written signature.</li>
+          <li>I understand that in order to receive Food Assistance, certain members of the household need to register for work.</li>
+        </ul>
+        <p>I have read the Rights and Responsibilities.</p>
+      </section>
+    </div>
+
     <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
-        <%= f.cfa_input_field :signature, "Type your full legal name" %>
+      <%= f.cfa_checkbox :signature_confirmation,
+        "By checking this box and typing my name below, I am electronically signing my change report.",
+        options: { checked_value: "confirmed", unchecked_value: "unfilled" }%>
+      <%= f.cfa_input_field :signature, "Type your full legal name" %>
     <% end %>
 <% end %>
 

@@ -47,6 +47,7 @@ feature "Reporting a change" do
 
     expect(page).to have_text "Sign your change report"
     fill_in "Type your full legal name", with: "Person McPeoples"
+    check "By checking this box and typing my name below, I am electronically signing my change report."
     click_on "Sign and submit"
 
     expect(page).to have_text "Success"

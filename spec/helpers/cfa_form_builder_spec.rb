@@ -9,6 +9,99 @@ RSpec.describe CfaFormBuilder do
     template.extend ActionView::Helpers::FormOptionsHelper
   end
 
+  describe "#cfa_checkbox" do
+    it "renders an accessible checkbox input" do
+      class SampleForm < Form
+        set_attributes_for(:member, :read_tos)
+        validates_presence_of :read_tos
+      end
+
+      sample = SampleForm.new
+      sample.validate
+      form = CfaFormBuilder.new("sample", sample, template, {})
+      output = form.cfa_checkbox(
+        :read_tos,
+        "Confirm that you agree to Terms of Service",
+      )
+
+      expect(output).to be_html_safe
+
+      expect(output).to match_html <<-HTML
+      <fieldset class="input-group form-group form-group--error">
+        <label class="checkbox">
+          <input name="sample[read_tos]" type="hidden" value="0" />
+          <div class="field_with_errors">
+            <input aria-describedby="sample_read_tos__errors" type="checkbox" value="1" name="sample[read_tos]" id="sample_read_tos"/>
+          </div>
+          Confirm that you agree to Terms of Service
+        </label>
+        <span class="text--error" id="sample_read_tos__errors">
+          <i class="icon-warning"></i> can't be blank
+        </span>
+      </fieldset>
+      HTML
+    end
+
+    context "when checkbox value is equal to checked value" do
+      it "renders checkbox as selected" do
+        class SampleForm < Form
+          set_attributes_for(:member, :read_tos)
+        end
+
+        sample = SampleForm.new(read_tos: "yes")
+        form = CfaFormBuilder.new("sample", sample, template, {})
+        output = form.cfa_checkbox(:read_tos,
+          "Confirm that you agree to Terms of Service",
+          options: {
+            checked_value: "yes",
+            unchecked_value: "no",
+          })
+
+        expect(output).to be_html_safe
+
+        expect(output).to match_html <<-HTML
+        <fieldset class="input-group form-group">
+          <label class="checkbox">
+            <input name="sample[read_tos]" type="hidden" value="no" />
+            <input checked_value="yes" unchecked_value="no" type="checkbox" value="yes" checked="checked" name="sample[read_tos]" id="sample_read_tos" />
+            Confirm that you agree to Terms of Service
+          </label>
+        </fieldset>
+        HTML
+      end
+    end
+
+    context "when checkbox is disabled and value is equal to checked value" do
+      it "renders disabled checkbox as selected" do
+        class SampleForm < Form
+          set_attributes_for(:member, :read_tos)
+        end
+
+        sample = SampleForm.new(read_tos: "yes")
+        form = CfaFormBuilder.new("sample", sample, template, {})
+        output = form.cfa_checkbox(:read_tos,
+          "Confirm that you agree to Terms of Service",
+          options: {
+            checked_value: "yes",
+            unchecked_value: "no",
+            disabled: true,
+          })
+
+        expect(output).to be_html_safe
+
+        expect(output).to match_html <<-HTML
+        <fieldset class="input-group form-group">
+          <label class="checkbox is-selected is-disabled">
+            <input name="sample[read_tos]" disabled="disabled" type="hidden" value="no" />
+            <input checked_value="yes" unchecked_value="no" disabled="disabled" type="checkbox" value="yes" checked="checked" name="sample[read_tos]" id="sample_read_tos" />
+            Confirm that you agree to Terms of Service
+          </label>
+        </fieldset>
+        HTML
+      end
+    end
+  end
+
   describe "#cfa_radio_set" do
     it "renders an accessible set of radio inputs" do
       class SampleForm < Form
