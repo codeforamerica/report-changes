@@ -1,0 +1,16 @@
+<% content_for :form_card_title, "May we send you text messages about your case?" %>
+
+<% content_for :form_card_body do %>
+    <p>We'll send them to <%= @form.phone_number %></p>
+    <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+      <%= f.cfa_radio_set :consent_to_sms,
+        label_text: "May we send you text messages about your case?",
+        legend_class: "sr-only",
+        collection: [
+          { value: :yes, label: "Yes" },
+          { value: :no, label: "No" },
+        ] %>
+    <% end %>
+<% end %>
+
+<% content_for :progress_indicator_percentage, "80" %>

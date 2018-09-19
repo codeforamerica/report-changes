@@ -9,5 +9,6 @@ class ChangeReport < ActiveRecord::Base
            foreign_key: "change_report_id",
            dependent: :destroy
 
-  enum signature_confirmation: { unfilled: 0, confirmed: 1 }
+  enum signature_confirmation: { unfilled: 0, yes: 1 }, _prefix: :confirmed_signature
+  enum consent_to_sms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms
 end

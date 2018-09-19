@@ -6,7 +6,7 @@ RSpec.describe SignSubmitForm do
       it "is valid" do
         form = SignSubmitForm.new(
           signature: "best person",
-          signature_confirmation: "confirmed",
+          signature_confirmation: "yes",
         )
 
         expect(form).to be_valid
@@ -17,7 +17,7 @@ RSpec.describe SignSubmitForm do
       it "is invalid" do
         form = SignSubmitForm.new(
           signature: nil,
-          signature_confirmation: "confirmed",
+          signature_confirmation: "yes",
         )
 
         expect(form).to_not be_valid
@@ -42,7 +42,7 @@ RSpec.describe SignSubmitForm do
     let(:valid_params) do
       {
         signature: "Jane Doe",
-        signature_confirmation: "confirmed",
+        signature_confirmation: "yes",
         change_report: change_report,
       }
     end
@@ -55,7 +55,7 @@ RSpec.describe SignSubmitForm do
       change_report.reload
 
       expect(change_report.signature).to eq "Jane Doe"
-      expect(change_report.signature_confirmation).to eq "confirmed"
+      expect(change_report.signature_confirmation).to eq "yes"
     end
   end
 end
