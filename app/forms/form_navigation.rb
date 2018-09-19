@@ -6,6 +6,7 @@ class FormNavigation
     SupportedCountyController,
     NotYetSupportedCountyController,
     TellUsAboutYourselfController,
+    TellUsAboutTheJobController,
     SignSubmitController,
     SuccessController,
   ].freeze
