@@ -6,7 +6,7 @@ class SignSubmitForm < Form
 
   validates :signature_confirmation,
     acceptance: {
-      accept: ["confirmed"],
+      accept: ["yes"],
       message: "Please check the box to proceed",
     }
 

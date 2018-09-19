@@ -30,7 +30,7 @@
     <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
       <%= f.cfa_checkbox :signature_confirmation,
         "By checking this box and typing my name below, I am electronically signing my change report.",
-        options: { checked_value: "confirmed", unchecked_value: "unfilled" }%>
+        options: { checked_value: "yes", unchecked_value: "unfilled" }%>
       <%= f.cfa_input_field :signature, "Type your full legal name" %>
     <% end %>
 <% end %>
