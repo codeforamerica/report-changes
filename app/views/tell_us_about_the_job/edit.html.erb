@@ -1,0 +1,19 @@
+<% content_for :form_card_title, "Tell us about the job that ended." %>
+
+<% content_for :form_card_body do %>
+    <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+        <%= f.cfa_input_field :company_name, "What is the name of the company?" %>
+        <%= f.cfa_input_field :company_address, "What is the company's address?" %>
+        <%= f.cfa_input_field :company_phone_number, "What is the company's phone number?", classes: ["form-width--phone"] %>
+        <%= f.cfa_date_select :last_day,
+                              "What was your last day at work?",
+                              help_text: "Estimate if you're not sure.",
+                              options: { start_year: Time.now.year, end_year: Time.now.year - 3 } %>
+        <%= f.cfa_date_select :last_paycheck,
+                              "What was the date of your final paycheck?",
+                              help_text: "Estimate if you're not sure.",
+                              options: { start_year: Time.now.year, end_year: Time.now.year - 3 } %>
+    <% end %>
+<% end %>
+
+<% content_for :progress_indicator_percentage, "40" %>

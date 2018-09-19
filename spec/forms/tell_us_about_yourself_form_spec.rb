@@ -136,7 +136,7 @@ RSpec.describe TellUsAboutYourselfForm do
 
           expect(form).not_to be_valid
           expect(form.errors[:birthday].count).to eq 1
-          expect(form.errors[:birthday].first).to eq "Please provide a real birthday."
+          expect(form.errors[:birthday].first).to eq "Please provide a real date."
         end
       end
     end

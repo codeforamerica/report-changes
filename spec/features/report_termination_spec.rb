@@ -32,6 +32,19 @@ feature "Reporting a change" do
     select "2000", from: "form[birthday_year]"
     click_on "Continue"
 
+    expect(page).to have_text "Tell us about the job that ended"
+
+    fill_in "What is the name of the company?", with: "Abc Corp"
+    fill_in "What is the company's address?", with: "123 Main St Denver"
+    fill_in "What is the company's phone number?", with: "999-888-7777"
+    select "February", from: "form[last_day_month]"
+    select "2", from: "form[last_day_day]"
+    select "2018", from: "form[last_day_year]"
+    select "February", from: "form[last_paycheck_month]"
+    select "12", from: "form[last_paycheck_day]"
+    select "2018", from: "form[last_paycheck_year]"
+    click_on "Continue"
+
     expect(page).to have_text "Sign your change report"
     fill_in "Type your full legal name", with: "Person McPeoples"
     click_on "Sign and submit"

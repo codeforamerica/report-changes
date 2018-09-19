@@ -27,4 +27,14 @@ class Form
       scoped_attributes[model] || []
     end
   end
+
+  private
+
+  def strip_dashes(field_name)
+    send("#{field_name}=", send(field_name).delete("-")) unless send(field_name).nil?
+  end
+
+  def to_datetime(year, month, day)
+    DateTime.new(year.to_i, month.to_i, day.to_i)
+  end
 end
