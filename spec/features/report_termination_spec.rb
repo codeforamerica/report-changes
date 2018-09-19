@@ -45,6 +45,9 @@ feature "Reporting a change" do
     select "2018", from: "form[last_paycheck_year]"
     click_on "Continue"
 
+    expect(page).to have_text "Please read your Rights and Responsibilities"
+    click_on "Continue"
+
     expect(page).to have_text "Sign your change report"
     fill_in "Type your full legal name", with: "Person McPeoples"
     check "By checking this box and typing my name below, I am electronically signing my change report."
