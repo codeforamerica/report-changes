@@ -1,24 +1,21 @@
 require "rails_helper"
 
-RSpec.describe <%= model.camelcase %>Controller do
+RSpec.describe DoYouHaveALetterController do
   it_behaves_like "form controller base behavior"
-  it_behaves_like "form controller successful update", {
-    signature_confirmation: "yes",
-    signature: "Best E. Person",
-  }
+  it_behaves_like "form controller successful update", { has_letter: "yes" }
   it_behaves_like "form controller unsuccessful update"
   it_behaves_like "form controller always shows"
 
   describe "edit" do
     it "assigns existing attributes" do
-      current_change_report = create(:change_report, :with_navigator)
+      current_change_report = create(:change_report, navigator: build(:change_report_navigator, has_letter: "yes"))
       session[:current_change_report_id] = current_change_report.id
 
       get :edit
 
       form = assigns(:form)
 
-      # expectation
+      expect(form.has_letter).to eq("yes")
     end
   end
 end

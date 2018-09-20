@@ -49,6 +49,11 @@ feature "Reporting a change" do
 
     click_on "Continue"
 
+    expect(page).to have_text "Do you have a letter?"
+
+    choose "Yes, I have this with me"
+    click_on "Continue"
+
     expect(page).to have_text "May we send you text messages"
     expect(page).to have_text "We'll send them to (555) 222-3333"
     choose "Yes"
