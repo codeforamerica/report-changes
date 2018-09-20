@@ -7,17 +7,7 @@ RSpec.describe <%= model.camelcase %>Controller do
     signature: "Best E. Person",
   }
   it_behaves_like "form controller unsuccessful update"
-
-  describe "#show?" do
-    context "when change report has certain attributes" do
-      it "returns true" do
-        change_report = create(:change_report)
-
-        show_form = <%= model.camelcase %>Controller.show?(change_report)
-        expect(show_form).to eq(true)
-      end
-    end
-  end
+  it_behaves_like "form controller always shows"
 
   describe "edit" do
     it "assigns existing attributes" do

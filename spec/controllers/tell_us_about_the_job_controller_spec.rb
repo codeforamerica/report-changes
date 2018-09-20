@@ -14,6 +14,7 @@ RSpec.describe TellUsAboutTheJobController do
     last_paycheck_year: "2018",
   }
   it_behaves_like "form controller unsuccessful update"
+  it_behaves_like "form controller always shows"
 
   describe "#edit" do
     it "assigns the fields to the form" do
