@@ -11,13 +11,17 @@ class TellUsAboutTheJobForm < Form
   before_validation :strip_dashes_from_phone_number
 
   def save
-    change_report.update(
-      company_name: company_name,
-      company_address: company_address,
-      company_phone_number: company_phone_number,
-      last_day: to_datetime(last_day_year, last_day_month, last_day_day),
-      last_paycheck: to_datetime(last_paycheck_year, last_paycheck_month, last_paycheck_day),
-    )
+    attributes = attributes_for(:change_report)
+    attributes[:last_day] = to_datetime(last_day_year, last_day_month, last_day_day)
+    attributes[:last_paycheck] = to_datetime(last_paycheck_year, last_paycheck_month, last_paycheck_day)
+    change_report.update(attributes.except(
+                           :last_day_year,
+      :last_day_month,
+      :last_day_day,
+      :last_paycheck_year,
+      :last_paycheck_month,
+      :last_paycheck_day,
+    ))
   end
 
   private

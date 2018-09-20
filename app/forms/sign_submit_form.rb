@@ -11,9 +11,6 @@ class SignSubmitForm < Form
     }
 
   def save
-    change_report.update(
-      signature: signature,
-      signature_confirmation: signature_confirmation,
-    )
+    change_report.update(attributes_for(:change_report))
   end
 end

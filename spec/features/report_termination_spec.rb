@@ -25,7 +25,7 @@ feature "Reporting a change" do
     expect(page).to have_text "Tell us about yourself."
 
     fill_in "What is your name?", with: "Jane Doe"
-    fill_in "What is your phone number?", with: "111-222-3333"
+    fill_in "What is your phone number?", with: "555-222-3333"
     fill_in "What is your social security number?", with: "111-22-3333"
     select "January", from: "form[birthday_month]"
     select "1", from: "form[birthday_day]"
@@ -50,6 +50,7 @@ feature "Reporting a change" do
     click_on "Continue"
 
     expect(page).to have_text "May we send you text messages"
+    expect(page).to have_text "We'll send them to (555) 222-3333"
     choose "Yes"
 
     click_on "Continue"

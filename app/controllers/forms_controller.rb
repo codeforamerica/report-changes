@@ -75,11 +75,6 @@ class FormsController < ApplicationController
     @form_navigation ||= FormNavigation.new(self)
   end
 
-  def params_for(model)
-    attrs = form_class.attributes_for(model)
-    form_params.slice(*Attributes.new(attrs).to_s)
-  end
-
   class << self
     def to_param
       controller_name.dasherize
