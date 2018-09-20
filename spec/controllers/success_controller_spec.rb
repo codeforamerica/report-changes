@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe SuccessController do
-  it_behaves_like "form controller", is_last_section: true
+  it_behaves_like "form controller base behavior", is_last_section: true
 
   describe "show?" do
     it "is always true" do

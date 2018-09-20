@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe SupportedCountyController do
-  it_behaves_like "form controller"
+  it_behaves_like "form controller base behavior"
 
   describe "show?" do
     context "when the client selects Arapahoe as their county" do

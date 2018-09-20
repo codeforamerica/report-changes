@@ -23,4 +23,25 @@ RSpec.describe <%= model.camelcase %>Form do
       end
     end
   end
+
+  describe "#save" do
+    let(:change_report) { create :change_report }
+
+    let(:valid_params) do
+      {
+        change_report: change_report,
+        # some attributes
+      }
+    end
+
+    it "persists the values to the correct models" do
+      form = <%= "#{model.camelcase}Form".classify %>.new(valid_params)
+      form.valid?
+      form.save
+
+      change_report.reload
+
+      # expectations
+    end
+  end
 end

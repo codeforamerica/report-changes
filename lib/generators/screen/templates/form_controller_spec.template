@@ -1,7 +1,12 @@
 require "rails_helper"
 
 RSpec.describe <%= model.camelcase %>Controller do
-  it_behaves_like "form controller"
+  it_behaves_like "form controller base behavior"
+  it_behaves_like "form controller successful update", {
+    signature_confirmation: "yes",
+    signature: "Best E. Person",
+  }
+  it_behaves_like "form controller unsuccessful update"
 
   describe "#show?" do
     context "when change report has certain attributes" do
@@ -24,53 +29,6 @@ RSpec.describe <%= model.camelcase %>Controller do
       form = assigns(:form)
 
       # expectation
-    end
-  end
-
-  describe "#update" do
-    context "with valid params" do
-      let(:valid_params) do
-        {
-          # valid params
-        }
-      end
-
-      context "without change report" do
-        it "redirects to homepage" do
-          put :update, params: { form: valid_params }
-
-          expect(response).to redirect_to(root_path)
-        end
-      end
-
-      context "with an existing change report and navigator" do
-        it "redirects to next path updates the models" do
-          current_change_report = create(:change_report, :with_navigator)
-          session[:current_change_report_id] = current_change_report.id
-
-          put :update, params: { form: valid_params }
-
-          current_change_report.reload
-
-          expect(response).to redirect_to(subject.next_path)
-          # update expectations
-        end
-      end
-    end
-
-    context "with invalid params" do
-      let(:invalid_params) do
-        { }
-      end
-
-      it "renders edit without updating" do
-        current_change_report = create(:change_report, :with_navigator)
-        session[:current_change_report_id] = current_change_report.id
-
-        put :update, params: { form: invalid_params }
-
-        expect(response).to render_template(:edit)
-      end
     end
   end
 end
