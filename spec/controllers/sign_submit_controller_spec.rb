@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe SignSubmitController do
   it_behaves_like "form controller base behavior"
-  it_behaves_like "form controller successful update", { signature: "Best E. Person" }
+  it_behaves_like "form controller successful update", { signature: "Best E. Person", signature_confirmation: "yes" }
   it_behaves_like "form controller unsuccessful update"
   it_behaves_like "form controller always shows"
 

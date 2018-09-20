@@ -28,7 +28,7 @@ RSpec.describe SignSubmitForm do
       it "is invalid" do
         form = SignSubmitForm.new(
           signature: "Best Person",
-          signature_confirmation: "unfilled",
+          signature_confirmation: nil,
         )
 
         expect(form).to_not be_valid

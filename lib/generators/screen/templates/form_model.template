@@ -1,5 +1,4 @@
 class <%= model.camelcase %>Form < Form
-
   <%- if options.doc? -%>
   # Whitelist top-level parameter names for ChangeReport, e.g.
   #

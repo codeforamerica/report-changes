@@ -4,11 +4,7 @@ class SignSubmitForm < Form
   validates_presence_of :signature,
     message: "Make sure you enter your full legal name"
 
-  validates :signature_confirmation,
-    acceptance: {
-      accept: ["yes"],
-      message: "Please check the box to proceed",
-    }
+  validates_presence_of :signature_confirmation, message: "Please check the box to proceed."
 
   def save
     change_report.update(attributes_for(:change_report))
