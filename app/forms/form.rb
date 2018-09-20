@@ -10,6 +10,13 @@ class Form
     assign_attributes(name => value)
   end
 
+  def attributes_for(model)
+    self.class.scoped_attributes[model].reduce({}) do |hash, attribute_name|
+      hash[attribute_name] = send(attribute_name)
+      hash
+    end
+  end
+
   class << self
     def set_attributes_for(model, *attributes)
       scoped_attributes[model] = attributes
@@ -21,10 +28,6 @@ class Form
 
     def scoped_attributes
       @scoped_attributes ||= {}
-    end
-
-    def attributes_for(model)
-      scoped_attributes[model] || []
     end
   end
 

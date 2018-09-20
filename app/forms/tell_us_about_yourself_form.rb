@@ -11,7 +11,7 @@ class TellUsAboutYourselfForm < Form
   validates :birthday, date: true
 
   def save
-    change_report.update(change_report_data)
+    change_report.update(attributes_for(:change_report))
 
     if change_report.member.present?
       change_report.member.update(member_data)
@@ -30,18 +30,13 @@ class TellUsAboutYourselfForm < Form
     strip_dashes(:ssn)
   end
 
-  def change_report_data
-    {
-      phone_number: phone_number,
-      case_number: case_number,
-    }
-  end
-
   def member_data
-    {
-      name: name,
-      ssn: ssn,
-      birthday: to_datetime(birthday_year, birthday_month, birthday_day),
-    }
+    attributes = attributes_for(:member)
+    attributes[:birthday] = to_datetime(birthday_year, birthday_month, birthday_day)
+    attributes.except(
+      :birthday_year,
+      :birthday_month,
+      :birthday_day,
+    )
   end
 end

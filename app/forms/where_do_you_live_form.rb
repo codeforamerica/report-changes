@@ -6,12 +6,7 @@ class WhereDoYouLiveForm < Form
   validates :zip_code, length: { is: 5, message: "Please add a five digit ZIP code" }
 
   def save
-    change_report.navigator.update!(
-      street_address: street_address,
-      city: city,
-      zip_code: zip_code,
-      county_from_address: county,
-    )
+    change_report.navigator.update!(attributes_for(:navigator).merge(county_from_address: county))
   end
 
   private

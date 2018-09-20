@@ -10,6 +10,6 @@ class CountyLocationForm < Form
       change_report.create_navigator
     end
 
-    change_report.navigator.update(selected_county_location: selected_county_location)
+    change_report.navigator.update(attributes_for(:navigator))
   end
 end
