@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe TextMessageConsentController do
-  it_behaves_like "form controller"
+  it_behaves_like "form controller base behavior"
+  it_behaves_like "form controller successful update", { consent_to_sms: "yes" }
 
   describe "#show?" do
     it "always returns true" do

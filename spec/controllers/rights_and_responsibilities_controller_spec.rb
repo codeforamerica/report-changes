@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe RightsAndResponsibilitiesController do
-  it_behaves_like "form controller"
+  it_behaves_like "form controller base behavior"
 
   describe "#show?" do
     it "returns true" do
