@@ -9,6 +9,7 @@ class FormNavigation
     TellUsAboutTheJobController,
     ProofRequiredInfoController,
     DoYouHaveALetterController,
+    AddLetterController,
     TextMessageConsentController,
     RightsAndResponsibilitiesController,
     SignSubmitController,

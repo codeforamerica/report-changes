@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "Reporting a change" do
+feature "Reporting a change", js: true do
   scenario "job termination" do
     visit "/"
     expect(page).to have_text "Leave a job?"
@@ -52,6 +52,12 @@ feature "Reporting a change" do
     expect(page).to have_text "Do you have a letter?"
 
     choose "Yes, I have this with me"
+    click_on "Continue"
+
+    expect(page).to have_text "Add your letter."
+
+    page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
+    expect(page).to have_text "image.jpg"
     click_on "Continue"
 
     expect(page).to have_text "May we send you text messages"

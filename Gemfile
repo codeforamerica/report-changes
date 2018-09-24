@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.5.1"
 
 gem "attr_encrypted"
+gem "aws-sdk-s3", require: false
 gem "bootsnap", ">= 1.1.0", require: false
 gem "cfa-styleguide", git: "https://github.com/codeforamerica/cfa-styleguide-gem"
 gem "geocoder"
@@ -35,6 +36,8 @@ end
 
 group :test do
   gem "capybara"
+  gem "capybara-selenium"
+  gem "chromedriver-helper"
   gem "rspec_junit_formatter"
 end
 
