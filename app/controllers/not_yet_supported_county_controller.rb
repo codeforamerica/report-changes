@@ -1,6 +1,6 @@
 class NotYetSupportedCountyController < FormsController
   def self.show_rule_sets(change_report)
-    super << ShowRules.must_have_not_yet_supported_county(change_report)
+    super << !change_report.navigator.supported_county?
   end
 
   def form_class

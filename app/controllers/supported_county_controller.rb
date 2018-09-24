@@ -1,6 +1,6 @@
 class SupportedCountyController < FormsController
   def self.show_rule_sets(change_report)
-    super << ShowRules.must_have_entered_supported_county_address(change_report)
+    super << change_report.navigator.county_from_address == "Arapahoe County"
   end
 
   def form_class

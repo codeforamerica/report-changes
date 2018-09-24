@@ -1,0 +1,28 @@
+<% content_for :form_card_title, "Add your letter." %>
+
+<% content_for :form_card_body do %>
+    <%= fields_for(:form, @form) do |f| %>
+        <%= f.file_field :letters, multiple: true, direct_upload: true, style: "display: none;" %>
+    <% end %>
+    <div class="uploaded-files">
+      <% @form.letters.each do |letter| %>
+          <div class="doc-preview">
+            <div class="doc-preview__info">
+              <h4><%= letter.filename %></h4>
+            </div>
+            <div class="doc-preview__thumb">
+              <%= image_tag url_for(letter), size: "100x100" %>
+            </div>
+          </div>
+      <% end %>
+    </div>
+    <div class="text--centered">
+      <div class="verification-upload-icon"></div>
+      <div>
+        <button class="button button--cta is-tablet-hidden--inline" id="file-upload">Pick a file from this computer</button>
+        <button class="button button--cta is-desktop-hidden--inline" id="file-upload">Take a picture</button>
+      </div>
+    </div>
+<% end %>
+
+<% content_for :progress_indicator_percentage, "70" %>

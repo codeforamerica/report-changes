@@ -43,3 +43,16 @@
 .emoji--white-heavy-check-mark {
   background-image: image-url('emojis/white-heavy-check-mark.svg');
 }
+
+.verification-upload-icon {
+  background-image: image-url('verification-upload-icon.png');
+
+  display: inline-block;
+  text-indent: -9999px;
+  height: 12em;
+  width: 12em;
+  content: '';
+  background-size: 100% auto;
+  position: relative;
+  background-repeat: no-repeat;
+}
