@@ -6,6 +6,7 @@ var directUpload = (function () {
 
                 var uploadBtn = document.getElementById('file-upload');
                 uploadBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
                     fileInput.click();
                 });
 
@@ -14,22 +15,13 @@ var directUpload = (function () {
                         $('.verification-upload-icon').hide();
                         const upload = new ActiveStorage.DirectUpload(file, url);
                         upload.create(function (error, blob) {
-                            const hiddenField = document.createElement('input');
-                            hiddenField.setAttribute("type", "hidden");
-                            hiddenField.setAttribute("value", blob.signed_id);
-                            hiddenField.name = fileInput.name;
-                            document.querySelector('form').appendChild(hiddenField);
+                            var hiddenInputContext = {inputValue: blob.signed_id, inputName: fileInput.name};
+                            var hiddenInputHtml = HandlebarsTemplates['hidden_input'](hiddenInputContext);
+                            $('form').append(hiddenInputHtml);
 
-                            $('.uploaded-files').append(
-                                '<div class="doc-preview">' +
-                                '<div class="doc-preview__info">' +
-                            '<h4>' + blob.filename + '</h4>' +
-                            '</div>' +
-                            '<div class="doc-preview__thumb">' +
-                            '<img src="' + '/rails/active_storage/blobs/' + blob.signed_id + '/' + blob.filename + '">' +
-                            '</div>' +
-                            '</div>'
-                            );
+                            var context = {filename: blob.filename, signed_id: blob.signed_id};
+                            var docPreviewHtml = HandlebarsTemplates['doc_preview'](context);
+                            $('.uploaded-files').append(docPreviewHtml);
                         });
                     };
                     fileInput.value = null;
@@ -38,7 +30,6 @@ var directUpload = (function () {
         }
     }
 })();
-
 
 $(document).ready(function () {
     directUpload.init();

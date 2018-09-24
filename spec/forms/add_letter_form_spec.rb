@@ -12,6 +12,17 @@ RSpec.describe AddLetterForm do
       end
     end
 
+    context "when letters is just the empty string that comes from the client" do
+      it "is invalid" do
+        form = AddLetterForm.new(
+          letters: [""],
+        )
+
+        expect(form).not_to be_valid
+        expect(form.errors[:letters]).to be_present
+      end
+    end
+
     context "when letters is not provided" do
       it "is invalid" do
         form = AddLetterForm.new(

@@ -15,14 +15,16 @@ RSpec.describe AddLetterController do
 
     context "with change report" do
       let(:current_change_report) { create(:change_report, :with_navigator) }
-      let(:active_storage_file) do
-        ActiveStorage::Attachment.create(name: "letters",
-                                         record_type: "ChangeReport",
-                                         record_id: current_change_report.id)
+      let(:active_storage_blob) do
+        ActiveStorage::Blob.create_after_upload!(
+          io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
+          filename: "image.jpg",
+          content_type: "image/jpg",
+        )
       end
       let(:valid_params) do
         {
-          letters: ["", active_storage_file.id],
+          letters: ["", active_storage_blob.signed_id],
         }
       end
 
