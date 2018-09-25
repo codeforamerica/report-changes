@@ -5,12 +5,12 @@ RSpec.describe SupportedCountyController do
 
   describe "show?" do
     context "when the client selects Arapahoe as their county" do
-      it "returns true" do
+      it "returns false" do
         navigator = build(:change_report_navigator, selected_county_location: :arapahoe)
         change_report = create(:change_report, navigator: navigator)
 
         show_form = SupportedCountyController.show?(change_report)
-        expect(show_form).to eq(true)
+        expect(show_form).to eq(false)
       end
     end
 
