@@ -6,16 +6,23 @@
     <% end %>
     <div class="uploaded-files">
       <% @form.letters.each do |letter| %>
-          <div class="doc-preview">
-            <div class="doc-preview__info">
-              <h4><%= letter.filename %></h4>
+          <div class="uploaded-file-detail">
+            <div class="doc-preview">
+              <div class="doc-preview__info">
+                <h4><%= letter.filename %></h4>
+                <p class="text--help">
+                  <a class="delete-file-link link--subtle" href="#">
+                    Delete
+                  </a>
+                </p>
+              </div>
+              <div class="doc-preview__thumb">
+                <%= image_tag url_for(letter), size: "100x100" %>
+              </div>
             </div>
-            <div class="doc-preview__thumb">
-              <%= image_tag url_for(letter), size: "100x100" %>
-            </div>
+            <input type="hidden" value="<%= letter.signed_id %>" name="form[letters][]" />
           </div>
-          <input type="hidden" value="<%= letter.signed_id %>" name="form[letters][]" />
-      <% end %>
+        <% end %>
     </div>
     <div class="text--centered">
       <div class="verification-upload-icon" <% if @form.letters.present? %>style="display: none;"<% end %>></div>
