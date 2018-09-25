@@ -25,7 +25,7 @@ var directUpload = (function () {
                         upload.create(function (error, blob) {
                             var context = {
                                 filename: blob.filename,
-                                signed_id: blob.signed_id,
+                                signedId: blob.signed_id,
                                 isPdf: (blob.content_type === "application/pdf"),
                                 inputName: fileInput.name
                             };
