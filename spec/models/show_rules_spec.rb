@@ -21,22 +21,22 @@ RSpec.describe ShowRules do
     end
   end
 
-  describe "#must_have_supported_county" do
-    context "with supported county" do
+  describe "#must_have_entered_supported_county_address" do
+    context "with an Arapahoe address" do
       it "returns true" do
-        change_report_navigator = instance_double(ChangeReportNavigator, supported_county?: true)
+        change_report_navigator = instance_double(ChangeReportNavigator, county_from_address: "Arapahoe County")
         change_report = instance_double(ChangeReport, navigator: change_report_navigator)
 
-        expect(ShowRules.must_have_supported_county(change_report)).to eq(true)
+        expect(ShowRules.must_have_entered_supported_county_address(change_report)).to eq(true)
       end
     end
 
-    context "with not supported county" do
+    context "without an Arapahoe address" do
       it "returns false" do
-        change_report_navigator = instance_double(ChangeReportNavigator, supported_county?: false)
+        change_report_navigator = instance_double(ChangeReportNavigator, county_from_address: "A different county")
         change_report = instance_double(ChangeReport, navigator: change_report_navigator)
 
-        expect(ShowRules.must_have_supported_county(change_report)).to be_falsey
+        expect(ShowRules.must_have_entered_supported_county_address(change_report)).to be_falsey
       end
     end
   end
