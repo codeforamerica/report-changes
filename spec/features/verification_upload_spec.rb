@@ -1,7 +1,7 @@
 require "rails_helper"
 
 feature "Uploading verifications", js: true do
-  scenario "add letters" do
+  scenario "add and delete letters" do
     visit "/"
     click_on "Start my report", match: :first
     click_on "Start the form"
@@ -15,7 +15,15 @@ feature "Uploading verifications", js: true do
 
     click_on "Continue"
 
+    expect(page).to_not have_text "Add your letter."
+
     visit add_letter_screens_path
     expect(page).to have_text "image.jpg"
+
+    click_on "Continue"
+
+    expect(page).to_not have_text "Add your letter."
+
+    visit add_letter_screens_path
   end
 end

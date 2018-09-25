@@ -5,7 +5,10 @@ class AddLetterForm < Form
   validates_presence_of :letters, message: "Please attach your letter."
 
   def save
-    change_report.letters.attach(letters)
+    letters_to_attach = letters.reject do |letter_signed_id|
+      change_report.letters.map(&:signed_id).include?(letter_signed_id)
+    end
+    change_report.letters.attach(letters_to_attach)
   end
 
   private

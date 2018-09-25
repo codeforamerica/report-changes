@@ -37,6 +37,8 @@ RSpec.describe AddLetterController do
           put :update, params: { form: valid_params }
 
           expect(response).to redirect_to(subject.next_path)
+
+          put :update, params: { form: valid_params }
         end
       end
     end
