@@ -8,9 +8,13 @@
               </a>
             </p>
         </div>
-        <div class="doc-preview__thumb">
-            <img src="/rails/active_storage/blobs/{{signed_id}}/{{filename}}">
-        </div>
+        {{#if isPdf}}
+            <div class="doc-preview__thumb emoji emoji--page-facing-up"></div>
+        {{else}}
+            <div class="doc-preview__thumb">
+                <img src="/rails/active_storage/blobs/{{signed_id}}/{{filename}}">
+            </div>
+        {{/if}}
     </div>
     <input type="hidden" value="{{signed_id}}" name="{{inputName}}" />
 </div>

@@ -23,7 +23,12 @@ var directUpload = (function () {
                         $('.verification-upload-icon').hide();
                         const upload = new ActiveStorage.DirectUpload(file, url);
                         upload.create(function (error, blob) {
-                            var context = {filename: blob.filename, signed_id: blob.signed_id, inputName: fileInput.name};
+                            var context = {
+                                filename: blob.filename,
+                                signed_id: blob.signed_id,
+                                isPdf: (blob.content_type === "application/pdf"),
+                                inputName: fileInput.name
+                            };
                             var uploadedFileDetailHtml = HandlebarsTemplates['uploaded_file_detail'](context);
                             $('.uploaded-files').append(uploadedFileDetailHtml);
                             addDeleteFileListener();
