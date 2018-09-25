@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_20_214010) do
+ActiveRecord::Schema.define(version: 2018_09_25_202142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 2018_09_20_214010) do
     t.string "company_phone_number"
     t.integer "consent_to_sms", default: 0
     t.datetime "created_at", null: false
+    t.text "feedback_comments"
+    t.integer "feedback_rating", default: 0
     t.datetime "last_day"
     t.datetime "last_paycheck"
     t.string "phone_number"

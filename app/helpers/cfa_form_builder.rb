@@ -141,6 +141,40 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     HTML
   end
 
+  def cfa_textarea(
+    method,
+    label_text,
+    help_text: nil,
+    options: {},
+    classes: [],
+    placeholder: nil,
+    autofocus: nil,
+    hide_label: false
+  )
+    classes = classes.append(%w[textarea])
+    text_options = standard_options.merge(
+      autofocus: autofocus,
+      class: classes.join(" "),
+      placeholder: placeholder,
+    ).merge(options).merge(error_attributes(method: method))
+
+    <<~HTML.html_safe
+      <div class="form-group#{error_state(object, method)}">
+      #{label_and_field(
+        method,
+        label_text,
+        text_area(
+          method,
+            text_options,
+          ),
+          help_text: help_text,
+          options: { class: hide_label ? 'sr-only' : '' },
+        )}
+        #{errors_for(object, method)}
+      </div>
+    HTML
+  end
+
   private
 
   def standard_options

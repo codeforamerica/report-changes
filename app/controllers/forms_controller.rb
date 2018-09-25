@@ -6,6 +6,7 @@ class FormsController < ApplicationController
   def edit
     attribute_keys = Attributes.new(form_attrs).to_sym
     @form = form_class.new(existing_attributes.slice(*attribute_keys))
+    @form.change_report = current_change_report
   end
 
   def update

@@ -34,7 +34,7 @@ RSpec.shared_examples_for "form controller base behavior" do |is_last_section|
         form_navigation = FormNavigation.new(controller)
 
         if is_last_section
-          expect(controller.next_path).to be_nil
+          expect(controller.next_path).to eq "/screens/#{controller.class.to_param}"
         else
           expect(controller.next_path).to eq "/screens/#{form_navigation.next.to_param}"
         end

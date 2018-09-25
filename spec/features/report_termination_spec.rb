@@ -69,6 +69,11 @@ feature "Reporting a change" do
     check "By checking this box and typing my name below, I am electronically signing my change report."
     click_on "Sign and submit"
 
-    expect(page).to have_text "Success"
+    expect(page).to have_text "You have successfully submitted your change report"
+    choose "Good", allow_label_click: true
+    fill_in "Do you have any feedback for us?", with: "My feedback"
+    click_on "Submit"
+
+    expect(page).to have_content("Thanks for your feedback")
   end
 end

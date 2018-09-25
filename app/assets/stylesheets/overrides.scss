@@ -29,3 +29,11 @@
 .form-group:last-of-type {
   margin-bottom: 3em;
 }
+
+.dark-background .form-card__footer {
+  border-top-color: $color-darkest-grey;
+}
+
+.dark-background .form-card__header {
+  border-bottom-color: $color-darkest-grey;
+}
