@@ -7,5 +7,8 @@ class AddLetterForm < Form
         change_report.letters.map(&:signed_id).include?(letter_signed_id)
     end
     change_report.letters.attach(letters_to_attach)
+    change_report.letters.each do |letter|
+      letter.delete if letters.exclude?(letter.signed_id)
+    end
   end
 end

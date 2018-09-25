@@ -1,6 +1,14 @@
 var directUpload = (function () {
     return {
         init: function () {
+            var addDeleteFileListener = function() {
+                $('.delete-file-link').each(function (index, deleteFileLink) {
+                    deleteFileLink.addEventListener('click', function (e) {
+                        deleteFileLink.closest('.uploaded-file-detail').remove();
+                    });
+                });
+            };
+
             $('input[type=file]').each(function (index, fileInput) {
                 const url = fileInput.dataset.directUploadUrl;
 
@@ -15,18 +23,17 @@ var directUpload = (function () {
                         $('.verification-upload-icon').hide();
                         const upload = new ActiveStorage.DirectUpload(file, url);
                         upload.create(function (error, blob) {
-                            var hiddenInputContext = {inputValue: blob.signed_id, inputName: fileInput.name};
-                            var hiddenInputHtml = HandlebarsTemplates['hidden_input'](hiddenInputContext);
-                            $('form').append(hiddenInputHtml);
-
-                            var context = {filename: blob.filename, signed_id: blob.signed_id};
-                            var docPreviewHtml = HandlebarsTemplates['doc_preview'](context);
-                            $('.uploaded-files').append(docPreviewHtml);
+                            var context = {filename: blob.filename, signed_id: blob.signed_id, inputName: fileInput.name};
+                            var uploadedFileDetailHtml = HandlebarsTemplates['uploaded_file_detail'](context);
+                            $('.uploaded-files').append(uploadedFileDetailHtml);
+                            addDeleteFileListener();
                         });
                     };
                     fileInput.value = null;
                 });
             });
+
+            addDeleteFileListener();
         }
     }
 })();
