@@ -30,4 +30,9 @@ class <%= model.camelcase %>Form < Form
   validates_presence_of :street_address, message: "Please add your street address"
   validates_presence_of :city, message: "Please add the city you live in"
   validates :zip_code, length: { is: 5, message: "Please add a five digit ZIP code" }
+
+  def save
+    change_report.update(attributes_for(:change_report))
+    change_report.navigator.update(attributes_for(:navigator))
+  end
 end
