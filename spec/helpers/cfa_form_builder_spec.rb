@@ -301,7 +301,7 @@ RSpec.describe CfaFormBuilder do
         set_attributes_for :navigator, :description
         validates_presence_of :description
       end
-      sample = SampleForm.new
+      sample = SampleForm.new(nil)
       sample.validate
 
       form = CfaFormBuilder.new("sample", sample, template, {})
