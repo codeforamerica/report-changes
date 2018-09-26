@@ -11,6 +11,10 @@ test:
   <<: *default
   database: colorado-benefits_test
 
+staging:
+  adapter: postgresql
+  url: <%= ENV["DATABASE_URL"] %>
+
 production:
   adapter: postgresql
   url: <%= ENV["DATABASE_URL"] %>
