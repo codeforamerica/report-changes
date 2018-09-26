@@ -3,6 +3,15 @@ Rails.application.routes.draw do
 
   root "static_pages#index"
 
+  devise_for :admin_users
+  authenticate :admin_user do
+    namespace :admin do
+      resources :change_reports, only: %i[index show]
+
+      root to: "change_reports#index"
+    end
+  end
+
   resources :screens, controller: :forms, only: %i[index show] do
     collection do
       FormNavigation.form_controllers.each do |controller_class|
