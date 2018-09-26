@@ -6,6 +6,11 @@ class Form
   class_attribute :attribute_names
   attr_accessor :change_report
 
+  def initialize(change_report, params = {})
+    @change_report = change_report
+    super(params)
+  end
+
   def assign_attribute(name, value)
     assign_attributes(name => value)
   end
@@ -26,8 +31,19 @@ class Form
       attr_accessor(*attribute_strings)
     end
 
+    def from_change_report(change_report)
+      attribute_keys = Attributes.new(attribute_names).to_sym
+      new(change_report, existing_attributes(change_report).slice(*attribute_keys))
+    end
+
     def scoped_attributes
       @scoped_attributes ||= {}
+    end
+
+    # Override in subclasses if needed
+
+    def existing_attributes(change_report)
+      HashWithIndifferentAccess.new(change_report.attributes)
     end
   end
 

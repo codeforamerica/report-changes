@@ -7,12 +7,11 @@ RSpec.describe TextMessageConsentForm do
     let(:valid_params) do
       {
         consent_to_sms: "yes",
-        change_report: change_report,
       }
     end
 
     it "persists the values to the correct models" do
-      form = TextMessageConsentForm.new(valid_params)
+      form = TextMessageConsentForm.new(change_report, valid_params)
       form.valid?
       form.save
 
