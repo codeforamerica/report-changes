@@ -28,6 +28,7 @@
   }
 }
 
+// _emojis.scss
 .emoji--memo {
   background-image: image-url('emojis/memo.svg');
 }
@@ -40,8 +41,36 @@
   background-image: image-url('emojis/envelope-with-arrow.svg');
 }
 
+.emoji--party-popper {
+  background-image: image-url('emojis/party-popper.svg');
+}
+
 .emoji--white-heavy-check-mark {
   background-image: image-url('emojis/white-heavy-check-mark.svg');
+}
+
+// _utilities.scss
+.center {
+  text-align: center;
+}
+
+.top-full-border {
+  margin-left: -40px;
+  margin-right: -40px;
+  padding-top: 40px;
+  border-top: 2px solid $color-light-grey;
+}
+
+// _form-molecules.scss
+.feedback-survey__form {
+  textarea {
+    max-width: 400px;
+  }
+}
+
+// MichiganBenefits _base.scss
+.dark-background {
+  background-color: $color-darkest-grey;
 }
 
 .verification-upload-icon {

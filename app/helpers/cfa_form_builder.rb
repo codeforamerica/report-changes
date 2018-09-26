@@ -160,20 +160,20 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     ).merge(options).merge(error_attributes(method: method))
 
     <<~HTML.html_safe
-        <div class="form-group#{error_state(object, method)}">
+      <div class="form-group#{error_state(object, method)}">
         #{label_and_field(
           method,
-        label_text,
-        text_area(
-          method,
-          text_options,
-        ),
-        help_text: help_text,
-        optional: optional,
-        options: { class: hide_label ? 'sr-only' : '' },
-      )}
-      #{errors_for(object, method)}
-        </div>
+          label_text,
+          text_area(
+            method,
+            text_options,
+          ),
+          help_text: help_text,
+          optional: optional,
+          options: { class: hide_label ? 'sr-only' : '' },
+        )}
+        #{errors_for(object, method)}
+      </div>
     HTML
   end
 

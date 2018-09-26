@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(version: 2018_09_26_182007) do
     t.string "company_phone_number"
     t.integer "consent_to_sms", default: 0
     t.datetime "created_at", null: false
+    t.text "feedback_comments"
+    t.integer "feedback_rating", default: 0
     t.datetime "last_day"
     t.datetime "last_paycheck"
     t.string "manager_additional_information"

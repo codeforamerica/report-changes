@@ -33,6 +33,7 @@ class FormNavigation
 
   def next
     return unless index
+
     form_controllers_until_end = form_controllers[index + 1..-1]
     seek(form_controllers_until_end)
   end

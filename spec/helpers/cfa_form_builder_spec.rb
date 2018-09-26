@@ -294,4 +294,38 @@ RSpec.describe CfaFormBuilder do
       HTML
     end
   end
+
+  describe "#cfa_textarea" do
+    it "renders a label with the sr-only class when hide_label set to true" do
+      class SampleForm < Form
+        set_attributes_for :navigator, :description
+        validates_presence_of :description
+      end
+      sample = SampleForm.new(nil)
+      sample.validate
+
+      form = CfaFormBuilder.new("sample", sample, template, {})
+      output = form.cfa_textarea(
+        :description,
+        "Write a lot?",
+        help_text: "Name for texting",
+        hide_label: true,
+      )
+      expect(output).to be_html_safe
+      expect(output).to match_html <<-HTML
+        <div class="form-group form-group--error">
+         <div class="field_with_errors">
+           <label class="sr-only" for="sample_description">
+             <p class="form-question">Write a lot?</p>
+             <p class="text--help">Name for texting</p>
+           </label>
+         </div>
+         <div class="field_with_errors">
+           <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="textarea" aria-describedby="sample_description__errors" name="sample[description]" id="sample_description"></textarea>
+         </div>
+         <span class="text--error" id="sample_description__errors"><i class="icon-warning"></i> can't be blank </span>
+       </div>
+      HTML
+    end
+  end
 end

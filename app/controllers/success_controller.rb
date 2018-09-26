@@ -1,5 +1,5 @@
 class SuccessController < FormsController
-  def form_class
-    NullForm
+  def next_path(params = {})
+    screen_path(SuccessController.to_param, params)
   end
 end

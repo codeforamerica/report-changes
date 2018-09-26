@@ -11,7 +11,7 @@
   </head>
 
   <body class="template--<%= content_for(:template_name) if content_for?(:template_name) %>">
-    <div class="page-wrapper">
+    <div class="page-wrapper <%= content_for?(:dark_background) ? 'dark-background' : '' %>">
       <%= content_for?(:content) ? content_for(:content) : yield %>
     </div>
     <%= render 'shared/footer' %>
