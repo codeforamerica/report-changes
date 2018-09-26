@@ -12,6 +12,8 @@
 //
 // = require jquery
 // = require jquery_ujs
+// = require activestorage
+// = require handlebars.runtime
 // = require cfa_styleguide_main
+// = require_tree ./templates
 // = require_tree .
-

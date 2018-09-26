@@ -1,6 +1,6 @@
 class WhereDoYouLiveController < FormsController
   def self.show_rule_sets(change_report)
-    super << ShowRules.must_not_know_county_location(change_report)
+    super << change_report.navigator.selected_county_location_not_sure?
   end
 
   private

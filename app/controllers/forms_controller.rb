@@ -5,7 +5,10 @@ class FormsController < ApplicationController
 
   def edit
     attribute_keys = Attributes.new(form_attrs).to_sym
+
     @form = form_class.new(existing_attributes.slice(*attribute_keys))
+    attributes = form_class == NullForm ? {} : existing_attributes.slice(*attribute_keys)
+    @form = form_class.new(attributes)
     @form.change_report = current_change_report
   end
 
@@ -46,7 +49,7 @@ class FormsController < ApplicationController
   # Override in subclasses
 
   def existing_attributes
-    {}
+    HashWithIndifferentAccess.new(current_change_report.attributes)
   end
 
   def assign_attributes_to_form

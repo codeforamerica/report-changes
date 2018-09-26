@@ -2,7 +2,8 @@ class TellUsAboutYourselfForm < Form
   set_attributes_for :member, :name, :ssn, :birthday_year, :birthday_month, :birthday_day
   set_attributes_for :change_report, :phone_number, :case_number
 
-  before_validation :strip_dashes_from_phone_number, :strip_dashes_from_ssn
+  before_validation -> { strip_dashes(:phone_number) }
+  before_validation -> { strip_dashes(:ssn) }
 
   validates_presence_of :name, message: "Please add your name."
   validates :phone_number, ten_digit_phone_number: true
@@ -21,14 +22,6 @@ class TellUsAboutYourselfForm < Form
   end
 
   private
-
-  def strip_dashes_from_phone_number
-    strip_dashes(:phone_number)
-  end
-
-  def strip_dashes_from_ssn
-    strip_dashes(:ssn)
-  end
 
   def member_data
     attributes = attributes_for(:member)
