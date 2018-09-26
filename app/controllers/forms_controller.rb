@@ -4,14 +4,11 @@ class FormsController < ApplicationController
   before_action :ensure_change_report_present, only: %i[edit update]
 
   def edit
-    attribute_keys = Attributes.new(form_attrs).to_sym
-
-    attributes = form_class == NullForm ? {} : existing_attributes.slice(*attribute_keys)
-    @form = form_class.new(attributes)
+    @form = form_class.from_change_report(current_change_report)
   end
 
   def update
-    assign_attributes_to_form
+    @form = form_class.new(current_change_report, form_params)
     if @form.valid?
       @form.save
       update_session
@@ -46,15 +43,6 @@ class FormsController < ApplicationController
 
   # Override in subclasses
 
-  def existing_attributes
-    HashWithIndifferentAccess.new(current_change_report.attributes)
-  end
-
-  def assign_attributes_to_form
-    @form = form_class.new(form_params)
-    @form.change_report = current_change_report
-  end
-
   def update_session; end
 
   # Don't override in subclasses
@@ -65,12 +53,8 @@ class FormsController < ApplicationController
     end
   end
 
-  def form_attrs
-    form_class.attribute_names
-  end
-
   def form_params
-    params.fetch(:form, {}).permit(*form_attrs)
+    params.fetch(:form, {}).permit(*form_class.attribute_names)
   end
 
   def form_navigation

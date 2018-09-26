@@ -29,7 +29,6 @@ RSpec.describe <%= model.camelcase %>Form do
 
     let(:valid_params) do
       {
-        change_report: change_report,
         # some attributes
       }
     end
@@ -42,6 +41,16 @@ RSpec.describe <%= model.camelcase %>Form do
       change_report.reload
 
       # expectations
+    end
+  end
+
+  describe ".from_change_report" do
+    it "assigns values from change report" do
+      change_report = create(:change_report, :with_navigator)
+
+      form = <%= "#{model.camelcase}Form".classify %>.from_change_report(change_report)
+
+      # expectation
     end
   end
 end

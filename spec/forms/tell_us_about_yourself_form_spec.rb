@@ -14,7 +14,7 @@ RSpec.describe TellUsAboutYourselfForm do
 
     context "when all params are valid" do
       it "is valid" do
-        form = TellUsAboutYourselfForm.new(valid_params)
+        form = TellUsAboutYourselfForm.new(nil, valid_params)
 
         expect(form).to be_valid
       end
@@ -24,7 +24,7 @@ RSpec.describe TellUsAboutYourselfForm do
       context "when the name is not included" do
         it "is invalid" do
           invalid_params = valid_params.merge(name: nil)
-          form = TellUsAboutYourselfForm.new(invalid_params)
+          form = TellUsAboutYourselfForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
         end
@@ -35,7 +35,7 @@ RSpec.describe TellUsAboutYourselfForm do
       context "when the phone number includes dashes" do
         it "is valid" do
           params = valid_params.merge(phone_number: "111-222-3333")
-          form = TellUsAboutYourselfForm.new(params)
+          form = TellUsAboutYourselfForm.new(nil, params)
 
           expect(form).to be_valid
         end
@@ -44,7 +44,7 @@ RSpec.describe TellUsAboutYourselfForm do
       context "when the phone_number is not included" do
         it "is invalid" do
           invalid_params = valid_params.merge(phone_number: nil)
-          form = TellUsAboutYourselfForm.new(invalid_params)
+          form = TellUsAboutYourselfForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
         end
@@ -53,7 +53,7 @@ RSpec.describe TellUsAboutYourselfForm do
       context "when phone_number is less than 10 digits long" do
         it "is invalid" do
           invalid_params = valid_params.merge(phone_number: "111222333")
-          form = TellUsAboutYourselfForm.new(invalid_params)
+          form = TellUsAboutYourselfForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
         end
@@ -64,7 +64,7 @@ RSpec.describe TellUsAboutYourselfForm do
       context "when the ssn is not included" do
         it "is valid" do
           params = valid_params.merge(ssn: nil)
-          form = TellUsAboutYourselfForm.new(params)
+          form = TellUsAboutYourselfForm.new(nil, params)
 
           expect(form).to be_valid
         end
@@ -73,7 +73,7 @@ RSpec.describe TellUsAboutYourselfForm do
       context "when the ssn is included and is 9 digits long" do
         it "is valid" do
           params = valid_params.merge(ssn: "111223333")
-          form = TellUsAboutYourselfForm.new(params)
+          form = TellUsAboutYourselfForm.new(nil, params)
 
           expect(form).to be_valid
         end
@@ -82,7 +82,7 @@ RSpec.describe TellUsAboutYourselfForm do
       context "when the ssn includes dashes" do
         it "is valid" do
           params = valid_params.merge(ssn: "111-22-3333")
-          form = TellUsAboutYourselfForm.new(params)
+          form = TellUsAboutYourselfForm.new(nil, params)
 
           expect(form).to be_valid
         end
@@ -91,7 +91,7 @@ RSpec.describe TellUsAboutYourselfForm do
       context "when the ssn is included but is not 9 digits long" do
         it "is invalid" do
           invalid_params = valid_params.merge(ssn: "11122333")
-          form = TellUsAboutYourselfForm.new(invalid_params)
+          form = TellUsAboutYourselfForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
         end
@@ -106,7 +106,7 @@ RSpec.describe TellUsAboutYourselfForm do
             birthday_month: nil,
             birthday_day: nil,
           )
-          form = TellUsAboutYourselfForm.new(invalid_params)
+          form = TellUsAboutYourselfForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
           expect(form.errors[:birthday].count).to eq 1
@@ -121,7 +121,7 @@ RSpec.describe TellUsAboutYourselfForm do
             birthday_month: 2,
             birthday_day: nil,
           )
-          form = TellUsAboutYourselfForm.new(invalid_params)
+          form = TellUsAboutYourselfForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
           expect(form.errors[:birthday].count).to eq 1
@@ -132,7 +132,10 @@ RSpec.describe TellUsAboutYourselfForm do
 
       context "when the birthday is not a valid date" do
         it "is invalid" do
-          form = TellUsAboutYourselfForm.new(birthday_year: 1992, birthday_month: 2, birthday_day: 30)
+          form = TellUsAboutYourselfForm.new(nil,
+            birthday_year: 1992,
+            birthday_month: 2,
+            birthday_day: 30)
 
           expect(form).not_to be_valid
           expect(form.errors[:birthday].count).to eq 1
@@ -153,13 +156,12 @@ RSpec.describe TellUsAboutYourselfForm do
         birthday_day: "15",
         birthday_month: "1",
         birthday_year: "2000",
-        change_report: change_report,
       }
     end
 
     context "when the member does not yet exist" do
       it "persists the values to the correct models" do
-        form = TellUsAboutYourselfForm.new(valid_params)
+        form = TellUsAboutYourselfForm.new(change_report, valid_params)
         form.valid?
         form.save
 
@@ -178,7 +180,7 @@ RSpec.describe TellUsAboutYourselfForm do
     context "when the member already exists" do
       it "updates the member" do
         create(:household_member, name: "John Doe", change_report: change_report)
-        form = TellUsAboutYourselfForm.new(valid_params)
+        form = TellUsAboutYourselfForm.new(change_report, valid_params)
 
         expect do
           form.save
@@ -188,6 +190,29 @@ RSpec.describe TellUsAboutYourselfForm do
 
         expect(change_report.member.name).to eq "Jane Doe"
       end
+    end
+  end
+
+  describe ".from_change_report" do
+    it "assigns values from change report and other objects" do
+      change_report = create(:change_report,
+        :with_navigator,
+        case_number: "1A1234",
+        phone_number: "1234567890",
+        member: build(:household_member,
+          name: "Jane Doe",
+          ssn: "111223333",
+          birthday: DateTime.new(1950, 1, 31)))
+
+      form = TellUsAboutYourselfForm.from_change_report(change_report)
+
+      expect(form.name).to eq("Jane Doe")
+      expect(form.birthday_year).to eq(1950)
+      expect(form.birthday_month).to eq(1)
+      expect(form.birthday_day).to eq(31)
+      expect(form.phone_number).to eq("1234567890")
+      expect(form.ssn).to eq("111223333")
+      expect(form.case_number).to eq("1A1234")
     end
   end
 end

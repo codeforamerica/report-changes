@@ -11,7 +11,7 @@ RSpec.describe EmployerContactInformationForm do
 
     context "when manager_name and manager_phone_number is provided" do
       it "is valid" do
-        form = EmployerContactInformationForm.new(valid_params)
+        form = EmployerContactInformationForm.new(nil, valid_params)
 
         expect(form).to be_valid
       end
@@ -20,7 +20,7 @@ RSpec.describe EmployerContactInformationForm do
     context "when manager_name is not provided" do
       it "is invalid" do
         invalid_params = valid_params.merge(manager_name: nil)
-        form = EmployerContactInformationForm.new(invalid_params)
+        form = EmployerContactInformationForm.new(nil, invalid_params)
 
         expect(form).not_to be_valid
         expect(form.errors[:manager_name]).to be_present
@@ -30,7 +30,7 @@ RSpec.describe EmployerContactInformationForm do
     context "when manager_phone_number is not provided" do
       it "is invalid" do
         invalid_params = valid_params.merge(manager_phone_number: nil)
-        form = EmployerContactInformationForm.new(invalid_params)
+        form = EmployerContactInformationForm.new(nil, invalid_params)
 
         expect(form).not_to be_valid
         expect(form.errors[:manager_phone_number]).to be_present
@@ -40,7 +40,7 @@ RSpec.describe EmployerContactInformationForm do
     context "when manager_phone_number is too short" do
       it "is invalid" do
         invalid_params = valid_params.merge(manager_phone_number: "5551234")
-        form = EmployerContactInformationForm.new(invalid_params)
+        form = EmployerContactInformationForm.new(nil, invalid_params)
 
         expect(form).not_to be_valid
         expect(form.errors[:manager_phone_number]).to be_present
@@ -53,7 +53,6 @@ RSpec.describe EmployerContactInformationForm do
 
     let(:valid_params) do
       {
-        change_report: change_report,
         manager_name: "Jane Doe",
         manager_phone_number: "555-555-5555",
         manager_additional_information: "No.",
@@ -61,7 +60,7 @@ RSpec.describe EmployerContactInformationForm do
     end
 
     it "persists the values to the correct models" do
-      form = EmployerContactInformationForm.new(valid_params)
+      form = EmployerContactInformationForm.new(change_report, valid_params)
       form.valid?
       form.save
 

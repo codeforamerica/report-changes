@@ -4,35 +4,6 @@ RSpec.describe CountyLocationController do
   it_behaves_like "form controller base behavior"
   it_behaves_like "form controller always shows"
 
-  describe "edit" do
-    context "with an existing change report" do
-      it "assigns existing attributes" do
-        current_change_report = create(:change_report)
-        create(:change_report_navigator,
-               change_report: current_change_report,
-               selected_county_location: "arapahoe")
-        session[:current_change_report_id] = current_change_report.id
-
-        get :edit
-
-        form = assigns(:form)
-
-        expect(form.selected_county_location).to eq("arapahoe")
-      end
-    end
-
-    context "without a change report" do
-      it "renders edit" do
-        get :edit
-
-        form = assigns(:form)
-
-        expect(response).to render_template(:edit)
-        expect(form.selected_county_location).to be_nil
-      end
-    end
-  end
-
   describe "#update" do
     context "with valid params" do
       let(:valid_params) do

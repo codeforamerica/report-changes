@@ -4,9 +4,7 @@
    describe "validations" do
      context "when has_letter is provided" do
        it "is valid" do
-         form = DoYouHaveALetterForm.new(
-           has_letter: "yes",
-         )
+         form = DoYouHaveALetterForm.new(nil, has_letter: "yes")
 
          expect(form).to be_valid
        end
@@ -14,9 +12,7 @@
 
      context "when has_letter is not provided" do
        it "is invalid" do
-         form = DoYouHaveALetterForm.new(
-           has_letter: nil,
-         )
+         form = DoYouHaveALetterForm.new(nil, has_letter: nil)
 
          expect(form).not_to be_valid
          expect(form.errors[:has_letter]).to be_present
@@ -29,19 +25,28 @@
 
      let(:valid_params) do
        {
-         change_report: change_report,
          has_letter: "yes",
        }
      end
 
      it "persists the values to the correct models" do
-       form = DoYouHaveALetterForm.new(valid_params)
+       form = DoYouHaveALetterForm.new(change_report, valid_params)
        form.valid?
        form.save
 
        change_report.reload
 
        expect(change_report.navigator.has_letter_yes?).to be_truthy
+     end
+   end
+
+   describe ".from_change_report" do
+     it "assigns values from change report navigator" do
+       change_report = create(:change_report, navigator: build(:change_report_navigator, has_letter: "yes"))
+
+       form = DoYouHaveALetterForm.from_change_report(change_report)
+
+       expect(form.has_letter).to eq("yes")
      end
    end
  end

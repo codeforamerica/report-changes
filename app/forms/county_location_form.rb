@@ -12,4 +12,12 @@ class CountyLocationForm < Form
 
     change_report.navigator.update(attributes_for(:navigator))
   end
+
+  def self.existing_attributes(change_report)
+    if change_report.present?
+      HashWithIndifferentAccess.new(change_report.navigator.attributes)
+    else
+      {}
+    end
+  end
 end

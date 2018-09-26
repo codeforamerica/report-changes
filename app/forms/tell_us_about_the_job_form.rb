@@ -24,4 +24,13 @@ class TellUsAboutTheJobForm < Form
       :last_paycheck_day,
     ))
   end
+
+  def self.existing_attributes(change_report)
+    attributes = change_report.attributes
+    %i[year month day].each do |sym|
+      attributes["last_day_#{sym}"] = change_report.last_day.try(sym)
+      attributes["last_paycheck_#{sym}"] = change_report.last_paycheck.try(sym)
+    end
+    HashWithIndifferentAccess.new(attributes)
+  end
 end

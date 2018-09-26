@@ -16,7 +16,7 @@ RSpec.describe CfaFormBuilder do
         validates_presence_of :read_tos
       end
 
-      sample = SampleForm.new
+      sample = SampleForm.new(nil)
       sample.validate
       form = CfaFormBuilder.new("sample", sample, template, {})
       output = form.cfa_checkbox(
@@ -48,7 +48,7 @@ RSpec.describe CfaFormBuilder do
           set_attributes_for(:member, :read_tos)
         end
 
-        sample = SampleForm.new(read_tos: "yes")
+        sample = SampleForm.new(nil, read_tos: "yes")
         form = CfaFormBuilder.new("sample", sample, template, {})
         output = form.cfa_checkbox(:read_tos,
           "Confirm that you agree to Terms of Service",
@@ -77,7 +77,7 @@ RSpec.describe CfaFormBuilder do
           set_attributes_for(:member, :read_tos)
         end
 
-        sample = SampleForm.new(read_tos: "yes")
+        sample = SampleForm.new(nil, read_tos: "yes")
         form = CfaFormBuilder.new("sample", sample, template, {})
         output = form.cfa_checkbox(:read_tos,
           "Confirm that you agree to Terms of Service",
@@ -109,7 +109,7 @@ RSpec.describe CfaFormBuilder do
         validates_presence_of :selected_county_location
       end
 
-      form = SampleForm.new
+      form = SampleForm.new(nil)
       form.validate
       form_builder = CfaFormBuilder.new("form", form, template, {})
       output = form_builder.cfa_radio_set(
@@ -147,7 +147,7 @@ RSpec.describe CfaFormBuilder do
         set_attributes_for :navigator, :name
       end
 
-      form = SampleForm.new
+      form = SampleForm.new(nil)
       form_builder = CfaFormBuilder.new("form", form, template, {})
       output = form_builder.cfa_input_field(:name, "How is name?")
       expect(output).to be_html_safe
@@ -167,7 +167,7 @@ RSpec.describe CfaFormBuilder do
         validates_presence_of :name
       end
 
-      form = SampleForm.new
+      form = SampleForm.new(nil)
       form.validate
 
       form_builder = CfaFormBuilder.new("form", form, template, {})
@@ -203,7 +203,7 @@ RSpec.describe CfaFormBuilder do
                            :birthday_day
       end
 
-      form = SampleForm.new
+      form = SampleForm.new(nil)
       form.birthday_year = 1990
       form.birthday_month = 3
       form.birthday_day = 25

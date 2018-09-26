@@ -6,4 +6,8 @@ class DoYouHaveALetterForm < Form
   def save
     change_report.navigator.update(attributes_for(:navigator))
   end
+
+  def self.existing_attributes(change_report)
+    HashWithIndifferentAccess.new(change_report.navigator.attributes)
+  end
 end

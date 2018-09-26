@@ -11,4 +11,10 @@ class AddLetterForm < Form
       letter.delete if letters.exclude?(letter.signed_id)
     end
   end
+
+  def self.existing_attributes(change_report)
+    {
+      letters: change_report.letters,
+    }
+  end
 end

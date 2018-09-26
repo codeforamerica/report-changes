@@ -64,23 +64,4 @@ RSpec.describe AddLetterController do
       end
     end
   end
-
-  describe "edit" do
-    it "assigns existing attributes" do
-      current_change_report = create(:change_report, :with_navigator)
-      session[:current_change_report_id] = current_change_report.id
-      current_change_report.letters.attach(
-        io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
-        filename: "image.jpg",
-        content_type: "image/jpg",
-      )
-
-      get :edit
-
-      form = assigns(:form)
-
-      expect(form.letters.count).to eq 1
-      expect(form.letters.first.filename).to eq "image.jpg"
-    end
-  end
 end

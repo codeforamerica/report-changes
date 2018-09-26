@@ -21,6 +21,19 @@ class TellUsAboutYourselfForm < Form
     end
   end
 
+  def self.existing_attributes(change_report)
+    if change_report.member.present?
+      attributes = change_report.attributes.merge(change_report.member.attributes)
+      %i[year month day].each do |sym|
+        attributes["birthday_#{sym}"] = change_report.member.birthday.try(sym)
+      end
+      attributes[:ssn] = change_report.member.ssn
+      HashWithIndifferentAccess.new(attributes)
+    else
+      {}
+    end
+  end
+
   private
 
   def member_data
