@@ -5,6 +5,7 @@ class SuccessForm < Form
 
   def feedback_entered
     return true if feedback_rating.present? || feedback_comments.present?
+
     errors.add(:feedback_rating, "Please select a rating or enter a comment.")
   end
 

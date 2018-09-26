@@ -167,7 +167,7 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
           text_area(
             method,
             text_options,
-           ),
+          ),
           help_text: help_text,
           optional: optional,
           options: { class: hide_label ? 'sr-only' : '' },
