@@ -9,6 +9,10 @@ class WhereDoYouLiveForm < Form
     change_report.navigator.update!(attributes_for(:navigator).merge(county_from_address: county))
   end
 
+  def self.existing_attributes(change_report)
+    HashWithIndifferentAccess.new(change_report.navigator.attributes)
+  end
+
   private
 
   def county

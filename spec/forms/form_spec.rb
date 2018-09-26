@@ -10,9 +10,9 @@ RSpec.describe Form do
       TestFormFour.set_attributes_for :navigator, :baz
 
       expect(TestFormFour.attribute_names).to match_array(%i[foo bar baz])
-      expect { TestFormFour.new.foo }.not_to raise_error
-      expect { TestFormFour.new.bar }.not_to raise_error
-      expect { TestFormFour.new.baz }.not_to raise_error
+      expect { TestFormFour.new(nil).foo }.not_to raise_error
+      expect { TestFormFour.new(nil).bar }.not_to raise_error
+      expect { TestFormFour.new(nil).baz }.not_to raise_error
     end
   end
 end

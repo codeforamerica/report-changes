@@ -4,10 +4,9 @@ RSpec.describe SignSubmitForm do
   describe "validations" do
     context "when signature and signature confirmation are provided" do
       it "is valid" do
-        form = SignSubmitForm.new(
+        form = SignSubmitForm.new(nil,
           signature: "best person",
-          signature_confirmation: "yes",
-        )
+          signature_confirmation: "yes")
 
         expect(form).to be_valid
       end
@@ -15,10 +14,9 @@ RSpec.describe SignSubmitForm do
 
     context "when no signature is provided" do
       it "is invalid" do
-        form = SignSubmitForm.new(
+        form = SignSubmitForm.new(nil,
           signature: nil,
-          signature_confirmation: "yes",
-        )
+          signature_confirmation: "yes")
 
         expect(form).to_not be_valid
       end
@@ -26,10 +24,9 @@ RSpec.describe SignSubmitForm do
 
     context "when signature confirmation is not provided" do
       it "is invalid" do
-        form = SignSubmitForm.new(
+        form = SignSubmitForm.new(nil,
           signature: "Best Person",
-          signature_confirmation: "unfilled",
-        )
+          signature_confirmation: "unfilled")
 
         expect(form).to_not be_valid
       end
@@ -43,12 +40,11 @@ RSpec.describe SignSubmitForm do
       {
         signature: "Jane Doe",
         signature_confirmation: "yes",
-        change_report: change_report,
       }
     end
 
     it "persists the values to the correct models" do
-      form = SignSubmitForm.new(valid_params)
+      form = SignSubmitForm.new(change_report, valid_params)
       form.valid?
       form.save
 
