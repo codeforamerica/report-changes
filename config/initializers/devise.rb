@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -18,7 +17,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = "sandbox610d23a2c4f441c78f8e077c7daf45e0.mailgun.org"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -294,7 +293,7 @@ Devise.setup do |config|
   # OTP is mandatory, users are going to be asked to
   # enroll OTP the next time they sign in, before they can successfully complete the session establishment.
   # This is the global value, can also be set on each user.
-  #config.otp_mandatory = false
+  config.otp_mandatory = !(Rails.env.test? || Rails.env.development?)
 
   # Drift: a window which provides allowance for drift between a user's token device clock
   # (and therefore their OTP tokens) and the authentication server's clock.
@@ -316,6 +315,5 @@ Devise.setup do |config|
 
   # The name of the token issuer, to be added to the provisioning
   # url. Display will vary based on token application. (defaults to the Rails application class)
-  #config.otp_issuer = 'my_application'
-
+  config.otp_issuer = "Colorado Benefits - #{ENV.fetch("RAILS_ENV")}"
 end
