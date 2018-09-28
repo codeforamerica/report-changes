@@ -6,16 +6,17 @@
 # you're free to overwrite the RESTful controller actions.
 module Admin
   class ApplicationController < Administrate::ApplicationController
-    before_action :authenticate_admin
+    before_action :default_params
+    around_action :add_tags_to_logs
 
-    def authenticate_admin
-      # TODO Add authentication logic here.
+    def default_params
+      params[:order] ||= "created_at"
+      params[:direction] ||= "desc"
     end
 
-    # Override this value to specify the number of elements to display at a time
-    # on index pages. Defaults to 20.
-    # def records_per_page
-    #   params[:per_page] || 20
-    # end
+    def add_tags_to_logs
+      user_email = current_admin_user.email
+      Rails.logger.tagged(user_email) { yield }
+    end
   end
 end

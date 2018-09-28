@@ -44,6 +44,7 @@ group :test do
   gem "capybara"
   gem "capybara-selenium"
   gem "chromedriver-helper"
+  gem "launchy"
   gem "rspec_junit_formatter"
 end
 

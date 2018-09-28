@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
   mount Cfa::Styleguide::Engine => "/cfa"
 
-  root "static_pages#index"
-
   devise_for :admin_users
+
   authenticate :admin_user do
     namespace :admin do
       resources :change_reports, only: %i[index show]
@@ -11,6 +10,8 @@ Rails.application.routes.draw do
       root to: "change_reports#index"
     end
   end
+
+  root "static_pages#index"
 
   resources :screens, controller: :forms, only: %i[index show] do
     collection do

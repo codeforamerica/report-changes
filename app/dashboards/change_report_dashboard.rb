@@ -33,53 +33,53 @@ class ChangeReportDashboard < Administrate::BaseDashboard
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = [
-    :id,
-    :case_number,
+  COLLECTION_ATTRIBUTES = %i[
+    id
+    case_number
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [
-    :id,
-    :created_at,
-    :updated_at,
-    :case_number,
-    :phone_number,
-    :signature,
-    :company_name,
-    :company_address,
-    :company_phone_number,
-    :last_day,
-    :last_paycheck,
-    :signature_confirmation,
-    :consent_to_sms,
-    :feedback_rating,
-    :feedback_comments,
-    :manager_name,
-    :manager_phone_number,
-    :manager_additional_information,
+  SHOW_PAGE_ATTRIBUTES = %i[
+    id
+    created_at
+    updated_at
+    case_number
+    phone_number
+    signature
+    company_name
+    company_address
+    company_phone_number
+    last_day
+    last_paycheck
+    signature_confirmation
+    consent_to_sms
+    feedback_rating
+    feedback_comments
+    manager_name
+    manager_phone_number
+    manager_additional_information
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [
-    :case_number,
-    :phone_number,
-    :signature,
-    :company_name,
-    :company_address,
-    :company_phone_number,
-    :last_day,
-    :last_paycheck,
-    :signature_confirmation,
-    :consent_to_sms,
-    :feedback_rating,
-    :feedback_comments,
-    :manager_name,
-    :manager_phone_number,
-    :manager_additional_information,
+  FORM_ATTRIBUTES = %i[
+    case_number
+    phone_number
+    signature
+    company_name
+    company_address
+    company_phone_number
+    last_day
+    last_paycheck
+    signature_confirmation
+    consent_to_sms
+    feedback_rating
+    feedback_comments
+    manager_name
+    manager_phone_number
+    manager_additional_information
   ].freeze
 
   # Overwrite this method to customize how change reports are displayed
