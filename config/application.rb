@@ -30,6 +30,9 @@ module ColoradoBenefits
     # Don't generate system test files.
     config.generators.system_tests = nil
 
+    # Filter parameters from logs
+    config.filter_parameters += [:ssn]
+
     config.generators do |g|
       g.orm             :active_record
       g.template_engine :erb

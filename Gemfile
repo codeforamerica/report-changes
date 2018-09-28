@@ -3,10 +3,16 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "2.5.1"
 
+gem "administrate"
+gem "administrate-field-enum"
 gem "attr_encrypted"
 gem "aws-sdk-s3", require: false
 gem "bootsnap", ">= 1.1.0", require: false
 gem "cfa-styleguide", git: "https://github.com/codeforamerica/cfa-styleguide-gem"
+gem "devise"
+gem "devise-otp",
+  git: "https://github.com/pynixwang/devise-otp",
+  ref: "a181217a2d436de7ebb9a278bcb326bbddefa514"
 gem "geocoder"
 gem "handlebars_assets"
 gem "jbuilder", "~> 2.5"
@@ -39,6 +45,7 @@ group :test do
   gem "capybara"
   gem "capybara-selenium"
   gem "chromedriver-helper"
+  gem "launchy"
   gem "rspec_junit_formatter"
 end
 

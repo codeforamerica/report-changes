@@ -5,3 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+admin_user = AdminUser.find_or_initialize_by(email: "admin@example.com")
+admin_user.update!(password: "password")
+puts "Found or created: Admin user with email '#{admin_user.email}' and pass '#{admin_user.password}'"
+
+change_report = ChangeReport.find_or_initialize_by(case_number: "8675309")
+change_report.update!(phone_number: "5551231234")
+puts "Found or created: Case report with case number '#{change_report.case_number}'"
+
+member = HouseholdMember.find_or_initialize_by(name: "Todd Chavez")
+member.update!(change_report: change_report)
+puts "Found or created: Member with name '#{member.name}'"

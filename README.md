@@ -44,8 +44,9 @@ If you do not have this binary, [use this guide to get set up on MacOS].
 
 ### Local Server
 
-* Run the server(s): `rails s`
+* Run the server(s): `foreman start`
 * Visit [your local server](http://localhost:3000)
+* To preview any emails that were sent while testing locally, visit the [running mailhog instance](http://localhost:8025/)
 * Run tests, Rubocop, bundle audit, and Brakeman: `rake`
 
 ### Conventions
