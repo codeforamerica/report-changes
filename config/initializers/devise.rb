@@ -315,5 +315,5 @@ Devise.setup do |config|
 
   # The name of the token issuer, to be added to the provisioning
   # url. Display will vary based on token application. (defaults to the Rails application class)
-  config.otp_issuer = "Colorado Benefits - #{ENV.fetch("RAILS_ENV")}"
+  config.otp_issuer = "Colorado Benefits - #{ENV.fetch("RAILS_ENV", "development")}"
 end
