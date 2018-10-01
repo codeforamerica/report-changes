@@ -9,6 +9,6 @@ class SignSubmitForm < Form
   }
 
   def save
-    change_report.update(attributes_for(:change_report))
+    change_report.update(attributes_for(:change_report).merge(submitted_at: Time.zone.now))
   end
 end

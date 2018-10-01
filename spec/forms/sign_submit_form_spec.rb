@@ -52,6 +52,7 @@ RSpec.describe SignSubmitForm do
 
       expect(change_report.signature).to eq "Jane Doe"
       expect(change_report.signature_confirmation).to eq "yes"
+      expect(change_report.submitted_at).to be_within(1.second).of(Time.zone.now)
     end
   end
 end
