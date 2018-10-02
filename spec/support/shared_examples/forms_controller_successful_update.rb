@@ -11,7 +11,7 @@ RSpec.shared_examples_for "form controller successful update" do |valid_params|
     end
 
     context "with change report" do
-      let(:current_change_report) { create(:change_report, :with_navigator) }
+      let(:current_change_report) { create(:change_report, :with_navigator, :with_member) }
 
       before do
         session[:current_change_report_id] = current_change_report.id

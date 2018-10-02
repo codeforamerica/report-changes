@@ -18,4 +18,17 @@ class ChangeReport < ActiveRecord::Base
   def has_feedback?
     !feedback_rating_unfilled? || feedback_comments.present?
   end
+
+  def mixpanel_data
+    {
+      selected_county_location: navigator.selected_county_location,
+      county_from_address: navigator.county_from_address,
+      age: member.try(:age),
+      has_letter: navigator.has_letter,
+      letter_count: letters.count,
+      consent_to_sms: consent_to_sms,
+      signature_confirmation: signature_confirmation,
+      feedback_rating: feedback_rating,
+    }
+  end
 end

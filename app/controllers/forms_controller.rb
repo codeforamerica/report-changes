@@ -12,6 +12,7 @@ class FormsController < ApplicationController
     if @form.valid?
       @form.save
       update_session
+      send_mixpanel_event
       redirect_to(next_path)
     else
       render :edit
@@ -59,6 +60,14 @@ class FormsController < ApplicationController
 
   def form_navigation
     @form_navigation ||= FormNavigation.new(self)
+  end
+
+  def send_mixpanel_event
+    MixpanelService.instance.run(
+      unique_id: current_change_report.id,
+      event_name: @form.class.analytics_event_name,
+      data: current_change_report.mixpanel_data,
+    )
   end
 
   class << self
