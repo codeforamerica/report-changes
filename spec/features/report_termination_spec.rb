@@ -34,8 +34,8 @@ feature "Reporting a change", js: true do
     expect(page).to have_text "Tell us about the job that ended"
 
     fill_in "What is the name of the company?", with: "Abc Corp"
-    fill_in "What is the company's address?", with: "123 Main St Denver"
-    fill_in "What is the company's phone number?", with: "999-888-7777"
+    fill_in "What is the name of someone from the company who can verify your employment?", with: "My boss"
+    fill_in "What is their phone number?", with: "999-888-7777"
     select "February", from: "form[last_day_month]"
     select "2", from: "form[last_day_day]"
     select "2018", from: "form[last_day_year]"

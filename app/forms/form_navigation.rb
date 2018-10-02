@@ -10,7 +10,6 @@ class FormNavigation
     ProofRequiredInfoController,
     DoYouHaveALetterController,
     AddLetterController,
-    EmployerContactInformationController,
     TextMessageConsentController,
     RightsAndResponsibilitiesController,
     SignSubmitController,
