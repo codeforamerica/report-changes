@@ -26,7 +26,6 @@ feature "Reporting a change", js: true do
 
     fill_in "What is your name?", with: "Jane Doe"
     fill_in "What is your phone number?", with: "555-222-3333"
-    fill_in "What is your social security number?", with: "111-22-3333"
     select "January", from: "form[birthday_month]"
     select "1", from: "form[birthday_day]"
     select "2000", from: "form[birthday_year]"
