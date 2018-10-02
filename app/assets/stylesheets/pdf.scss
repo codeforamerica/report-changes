@@ -12,4 +12,8 @@
   h1 {
     font-size: 8em;
   }
+
+  div.alwaysbreak {
+    page-break-before: always;
+  }
 }
