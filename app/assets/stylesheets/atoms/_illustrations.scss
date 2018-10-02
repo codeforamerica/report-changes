@@ -5,3 +5,10 @@
   margin-left: 0;
   margin-top: 1em;
 }
+
+.illustration--safety {
+  @include retina-bg(safety, 100% auto);
+  width: 18px;
+  height: 22px;
+  margin-top: 2px;
+}

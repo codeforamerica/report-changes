@@ -5,13 +5,26 @@
   <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
     <%= f.cfa_input_field :name, "What is your name?" %>
     <%= f.cfa_date_select :birthday, "What is your date of birth?", { options: { start_year: Time.now.year, end_year: 1900 } } %>
-    <%= f.cfa_input_field :phone_number, "What is your phone number?", classes: ["form-width--phone"] %>
-    <%= f.cfa_input_field :ssn, "What is your social security number?", classes: ["form-width--ssn"] %>
     <%= f.cfa_input_field :case_number,
                           "What is your case number?",
                           help_text: "You can find this on letters that the county has sent you.",
                           optional: true %>
+    <div class="notice grid">
+      <div class="grid__item width-one-twelfth">
+        <i class="illustration illustration--safety"></i>
+      </div>
+      <div class="grid__item width-five-sixths">
+        <p>
+          If you don't have an SSN or don't want to give one now it's okay to skip this. But if you add it now, the application process may go faster.
+        </p>
+      </div>
+    </div>
+    <%= f.cfa_input_field :ssn,
+                          "What is your social security number?",
+                          classes: ["form-width--ssn"],
+                          optional: true %>
+    <%= f.cfa_input_field :phone_number, "What is your phone number?", classes: ["form-width--phone"] %>
   <% end %>
 <% end %>
 
-<% content_for :progress_indicator_percentage, '30' %>
+<% content_for :progress_indicator_percentage, "30" %>
