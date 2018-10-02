@@ -15,7 +15,6 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 Capybara.javascript_driver = :selenium_chrome_headless
-Capybara.default_max_wait_time = 0.2
 Capybara.server = :puma, { Silent: true }
 
 RSpec.configure do |config|
