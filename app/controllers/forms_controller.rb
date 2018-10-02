@@ -15,6 +15,7 @@ class FormsController < ApplicationController
       send_mixpanel_event
       redirect_to(next_path)
     else
+      send_mixpanel_validation_errors
       render :edit
     end
   end
@@ -67,6 +68,23 @@ class FormsController < ApplicationController
       unique_id: current_change_report.id,
       event_name: @form.class.analytics_event_name,
       data: current_change_report.mixpanel_data,
+    )
+  end
+
+  def send_mixpanel_validation_errors
+    data = {
+      screen: @form.class.analytics_event_name,
+      errors: @form.errors.messages.keys,
+    }
+
+    if current_change_report.present?
+      data.merge!(current_change_report.try(:mixpanel_data))
+    end
+
+    MixpanelService.instance.run(
+      unique_id: current_change_report.try(:id),
+      event_name: "validation_error",
+      data: data,
     )
   end
 
