@@ -9,6 +9,7 @@ class ChangeReportDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
+    download_link: ChangeReportDownloadLinkField,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     case_number: Field::String,
@@ -36,6 +37,7 @@ class ChangeReportDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     case_number
+    download_link
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
