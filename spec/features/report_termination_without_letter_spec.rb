@@ -15,13 +15,6 @@ feature "Report termination without letter" do
     choose "No, I don't have this"
     click_on "Continue"
 
-    expect(page).to have_content "How can we contact this employer?"
-
-    fill_in "What is the name of the supervisor or manager the county should contact?", with: "Burton Guster"
-    fill_in "What is their phone number?", with: "555-555-5555"
-    fill_in "Is there anything the caseworker should know before they talk to your old employer?", with: "No"
-    click_on "Continue"
-
     expect(page).to have_content "May we send you text messages"
   end
 end

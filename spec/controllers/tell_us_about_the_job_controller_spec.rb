@@ -4,8 +4,8 @@ RSpec.describe TellUsAboutTheJobController do
   it_behaves_like "form controller base behavior"
   it_behaves_like "form controller successful update", {
     company_name: "Abc Corp",
-    company_address: "123 Main St Denver",
-    company_phone_number: "111-222-3333",
+    manager_name: "My Boss",
+    manager_phone_number: "111-222-3333",
     last_day_day: "15",
     last_day_month: "1",
     last_day_year: "2000",

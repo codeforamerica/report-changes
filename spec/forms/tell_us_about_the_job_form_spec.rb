@@ -5,8 +5,8 @@ RSpec.describe TellUsAboutTheJobForm do
     let(:valid_params) do
       {
         company_name: "Abc Corp",
-        company_address: "123 Main St Denver",
-        company_phone_number: "111-222-3333",
+        manager_name: "Boss McBosserson",
+        manager_phone_number: "111-222-3333",
         last_day_day: "15",
         last_day_month: "1",
         last_day_year: "2000",
@@ -16,7 +16,7 @@ RSpec.describe TellUsAboutTheJobForm do
       }
     end
 
-    context "when some_attribute is provided" do
+    context "when all required attributes provided" do
       it "is valid" do
         form = TellUsAboutTheJobForm.new(nil, valid_params)
 
@@ -35,10 +35,10 @@ RSpec.describe TellUsAboutTheJobForm do
       end
     end
 
-    describe "company_address" do
-      context "when the company_address is not included" do
+    describe "manager_name" do
+      context "when the manager_name is not included" do
         it "is invalid" do
-          invalid_params = valid_params.merge(company_address: nil)
+          invalid_params = valid_params.merge(manager_name: nil)
           form = TellUsAboutTheJobForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
@@ -46,19 +46,19 @@ RSpec.describe TellUsAboutTheJobForm do
       end
     end
 
-    describe "company_phone_number" do
-      context "when the company_phone_number is not included" do
+    describe "manager_phone_number" do
+      context "when the manager_phone_number is not included" do
         it "is invalid" do
-          invalid_params = valid_params.merge(company_phone_number: nil)
+          invalid_params = valid_params.merge(manager_phone_number: nil)
           form = TellUsAboutTheJobForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
         end
       end
 
-      context "when the company_phone_number has less than 10 digits" do
+      context "when the manager_phone_number has less than 10 digits" do
         it "is invalid" do
-          invalid_params = valid_params.merge(company_phone_number: "111-111-111")
+          invalid_params = valid_params.merge(manager_phone_number: "111-111-111")
           form = TellUsAboutTheJobForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
@@ -164,8 +164,8 @@ RSpec.describe TellUsAboutTheJobForm do
     let(:valid_params) do
       {
         company_name: "Abc Corp",
-        company_address: "123 Main St Denver",
-        company_phone_number: "111-222-3333",
+        manager_name: "Boss McBosser",
+        manager_phone_number: "111-222-3333",
         last_day_day: "15",
         last_day_month: "1",
         last_day_year: "2000",
@@ -184,8 +184,8 @@ RSpec.describe TellUsAboutTheJobForm do
         change_report.reload
 
         expect(change_report.company_name).to eq "Abc Corp"
-        expect(change_report.company_address).to eq "123 Main St Denver"
-        expect(change_report.company_phone_number).to eq "1112223333"
+        expect(change_report.manager_name).to eq "Boss McBosser"
+        expect(change_report.manager_phone_number).to eq "1112223333"
         expect(change_report.last_day.year).to eq 2000
         expect(change_report.last_day.month).to eq 1
         expect(change_report.last_day.day).to eq 15
@@ -201,16 +201,16 @@ RSpec.describe TellUsAboutTheJobForm do
       change_report = create(:change_report,
         :with_navigator,
         company_name: "Abc Corp",
-        company_address: "123 Main St Denver",
-        company_phone_number: "1112223333",
+        manager_name: "Boss McBosser",
+        manager_phone_number: "1112223333",
         last_day: DateTime.new(2000, 1, 15),
         last_paycheck: DateTime.new(2018, 2, 28))
 
       form = TellUsAboutTheJobForm.from_change_report(change_report)
 
       expect(form.company_name).to eq("Abc Corp")
-      expect(form.company_address).to eq("123 Main St Denver")
-      expect(form.company_phone_number).to eq("1112223333")
+      expect(form.manager_name).to eq("Boss McBosser")
+      expect(form.manager_phone_number).to eq("1112223333")
       expect(form.last_day_year).to eq(2000)
       expect(form.last_day_month).to eq(1)
       expect(form.last_day_day).to eq(15)

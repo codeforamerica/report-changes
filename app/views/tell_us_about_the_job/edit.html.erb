@@ -3,8 +3,13 @@
 <% content_for :form_card_body do %>
     <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
         <%= f.cfa_input_field :company_name, "What is the name of the company?" %>
-        <%= f.cfa_input_field :company_address, "What is the company's address?" %>
-        <%= f.cfa_input_field :company_phone_number, "What is the company's phone number?", classes: ["form-width--phone"] %>
+        <%= f.cfa_input_field :manager_name,
+                              "What is the name of someone from the company who can verify your employment?",
+                              help_text: "This might be your manager, or someone from HR. The county may call them." %>
+        <%= f.cfa_input_field :manager_phone_number, "What is their phone number?", classes: ["form-width--phone"] %>
+        <%= f.cfa_textarea :manager_additional_information,
+                           "Is there anything the caseworker should know before they talk to your old employer?",
+                           optional: true %>
         <%= f.cfa_date_select :last_day,
                               "What was your last day at work?",
                               help_text: "Estimate if you're not sure.",

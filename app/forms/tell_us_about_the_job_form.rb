@@ -1,15 +1,18 @@
 class TellUsAboutTheJobForm < Form
-  set_attributes_for :change_report, :company_name, :company_address, :company_phone_number, :last_day_year,
-                     :last_day_month, :last_day_day, :last_paycheck_year, :last_paycheck_month, :last_paycheck_day
+  set_attributes_for :change_report, :company_name, :last_day_year,
+                     :last_day_month, :last_day_day, :last_paycheck_year,
+                     :last_paycheck_month, :last_paycheck_day, :manager_name,
+                     :manager_phone_number, :manager_additional_information
 
-  before_validation -> { strip_dashes(:company_phone_number) }
+  before_validation -> { strip_dashes(:manager_phone_number) }
 
   validates_presence_of :company_name, message: "Please add a name."
-  validates_presence_of :company_address, message: "Please add an address or cross streets."
-  validates :company_phone_number, ten_digit_phone_number: true
-  attr_internal_reader :last_day, :last_paycheck
+  validates_presence_of :manager_name, message: "Please add a name."
+  validates :manager_phone_number, ten_digit_phone_number: true
   validates :last_day, date: true
   validates :last_paycheck, date: true
+
+  attr_internal_reader :last_day, :last_paycheck
 
   def save
     attributes = attributes_for(:change_report)

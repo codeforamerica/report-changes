@@ -15,8 +15,6 @@ class ChangeReportDashboard < Administrate::BaseDashboard
     phone_number: Field::String,
     signature: Field::String,
     company_name: Field::String,
-    company_address: Field::String,
-    company_phone_number: Field::String,
     last_day: Field::DateTime,
     last_paycheck: Field::DateTime,
     signature_confirmation: Field::Enum.with_options(searchable: false),
@@ -48,8 +46,6 @@ class ChangeReportDashboard < Administrate::BaseDashboard
     phone_number
     signature
     company_name
-    company_address
-    company_phone_number
     last_day
     last_paycheck
     signature_confirmation
@@ -69,8 +65,6 @@ class ChangeReportDashboard < Administrate::BaseDashboard
     phone_number
     signature
     company_name
-    company_address
-    company_phone_number
     last_day
     last_paycheck
     signature_confirmation
