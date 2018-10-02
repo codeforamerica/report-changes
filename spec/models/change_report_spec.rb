@@ -16,4 +16,26 @@ RSpec.describe ChangeReport, type: :model do
       expect(change_report.has_feedback?).to be_falsey
     end
   end
+
+  describe "#mixpanel_data" do
+    let(:change_report) do
+      create :change_report, :with_navigator, :with_letter,
+        member: create(:household_member, birthday: (30.years.ago - 1.day))
+    end
+
+    it "returns a non-PII representation of change report data" do
+      expect(change_report.mixpanel_data).to eq(
+        {
+          selected_county_location: "unfilled",
+          county_from_address: nil,
+          age: 30,
+          has_letter: "unfilled",
+          letter_count: 1,
+          consent_to_sms: "unfilled",
+          signature_confirmation: "unfilled",
+          feedback_rating: "unfilled",
+        },
+      )
+    end
+  end
 end

@@ -1,7 +1,11 @@
 require "rails_helper"
 
 feature "Reporting a change", js: true do
+  let(:mock_mixpanel_service) { spy(MixpanelService) }
+
   scenario "job termination" do
+    allow(MixpanelService).to receive(:instance).and_return(mock_mixpanel_service)
+
     visit "/"
     expect(page).to have_text "Leave a job?"
 
@@ -29,7 +33,7 @@ feature "Reporting a change", js: true do
     fill_in "What is your social security number?", with: "111-22-3333"
     select "January", from: "form[birthday_month]"
     select "1", from: "form[birthday_day]"
-    select "2000", from: "form[birthday_year]"
+    select 20.years.ago.year.to_s, from: "form[birthday_year]"
     click_on "Continue"
 
     expect(page).to have_text "Tell us about the job that ended"
@@ -81,5 +85,25 @@ feature "Reporting a change", js: true do
     click_on "Submit"
 
     expect(page).to have_content("Thanks for your feedback")
+
+    # Verify that multiple events were sent
+    expect(mock_mixpanel_service).to have_received(:run).exactly(9).times
+
+    # Verify that the final data sent is correct
+    change_report = ChangeReport.last
+    expect(mock_mixpanel_service).to have_received(:run).with(
+      unique_id: change_report.id,
+      event_name: "sign_submit",
+      data: a_hash_including(
+        selected_county_location: "not_sure",
+        county_from_address: "Arapahoe County",
+        age: 20,
+        has_letter: "yes",
+        letter_count: 1,
+        consent_to_sms: "yes",
+        signature_confirmation: "yes",
+        feedback_rating: "unfilled",
+      ),
+    )
   end
 end

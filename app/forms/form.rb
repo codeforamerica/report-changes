@@ -40,6 +40,10 @@ class Form
       @scoped_attributes ||= {}
     end
 
+    def analytics_event_name
+      name.underscore.gsub("_form", "")
+    end
+
     # Override in subclasses if needed
 
     def existing_attributes(change_report)
