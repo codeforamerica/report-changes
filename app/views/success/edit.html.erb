@@ -1,49 +1,46 @@
-<% content_for :form_card do %>
-    <main id="main" class="form-card">
-      <header class="form-card__header center">
-        <div class="emoji emoji--big emoji--party-popper with-padding-small"></div>
-        <h1 class="form-card__title">You have successfully submitted your change report</h1>
-      </header>
+<% content_for :form_card_header do %>
+  <div class="center">
+    <div class="emoji emoji--big emoji--party-popper with-padding-small"></div>
+    <h1 class="form-card__title">You have successfully submitted your change report</h1>
+  </div>
+<% end %>
 
-      <div class="form-card__content">
-        <p>
-          What’s next? We’ll use your answers on this form to see if your household benefits change. If they do, you’ll be notified.
-        </p>
+<% content_for :form_card_body do %>
+    <p>
+      What’s next? We’ll use your answers on this form to see if your household benefits change. If they do, you’ll be notified.
+    </p>
 
-        <p>
-          If you don’t agree with the decision, you can have a fair hearing. A hearing official will decide if you are right.
-        </p>
+    <p>
+      If you don’t agree with the decision, you can have a fair hearing. A hearing official will decide if you are right.
+    </p>
+  </div>
+  <hr>
+  <% if @form.change_report.has_feedback? %>
+    <div class="center">
+      <div class="emoji emoji--big emoji--blush"></div>
+      <h3>Thanks for your feedback! It will help improve this service.</h3>
+    </div>
+  <% else %>
+    <div id="feedback-form" class="center">
+      <div class="feedback-survey__form">
+        <%= form_tag @step, as: :step, url: current_path, method: :put %>
+          <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+            <%= f.cfa_radio_set :feedback_rating,
+              label_text: "<h3>How was your experience with this application?</h3>",
+              collection: [
+                { value: "negative", label: '<span class="radio-button__image emoji emoji--med emoji--frowning-face">Bad</span>' },
+                { value: "neutral", label: '<span class="radio-button__image emoji emoji--med emoji--neutral-face">Ok</span>' },
+                { value: "positive", label: '<span class="radio-button__image emoji emoji--med emoji--grinning-face">Good</span>' }
+              ],
+              layouts: ["inline", "image"] %>
+
+            <%= f.cfa_textarea :feedback_comments, '<strong>Do you have any feedback for us?</strong>', options: {rows: '2'} %>
+            <button class="button button--full-mobile" type="submit">Submit</button>
+          <% end %>
+        </form>
       </div>
-      <div class="form-card__footer">
-        <% if @form.change_report.has_feedback? %>
-          <div class="center">
-            <div class="emoji emoji--big emoji--blush"></div>
-            <h3>Thanks for your feedback! It will help improve this service.</h3>
-          </div>
-        <% else %>
-          <div id="feedback-form" class="center">
-            <div class="feedback-survey__form">
-              <%= form_tag @step, as: :step, url: current_path, method: :put %>
-                <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
-                  <%= f.cfa_radio_set :feedback_rating,
-                    label_text: "<h3>How was your experience with this application?</h3>",
-                    collection: [
-                      { value: "negative", label: '<span class="radio-button__image emoji emoji--med emoji--frowning-face">Bad</span>' },
-                      { value: "neutral", label: '<span class="radio-button__image emoji emoji--med emoji--neutral-face">Ok</span>' },
-                      { value: "positive", label: '<span class="radio-button__image emoji emoji--med emoji--grinning-face">Good</span>' }
-                    ],
-                    layouts: ["inline", "image"] %>
-
-                  <%= f.cfa_textarea :feedback_comments, '<strong>Do you have any feedback for us?</strong>', options: {rows: '2'} %>
-                  <button class="button button--full-mobile" type="submit">Submit</button>
-                <% end %>
-              </form>
-            </div>
-          </div>
-        <% end %>
-      </div>
-
-    </main>
+    </div>
+  <% end %>
 <% end %>
 
 <% content_for :dark_background, true %>
