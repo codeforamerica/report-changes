@@ -19,6 +19,10 @@ class ChangeReport < ActiveRecord::Base
     !feedback_rating_unfilled? || feedback_comments.present?
   end
 
+  def pdf_letters
+    letters.select { |letter| letter.content_type == "application/pdf" }
+  end
+
   def mixpanel_data
     {
       selected_county_location: navigator.selected_county_location,

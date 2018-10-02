@@ -25,7 +25,14 @@ module Admin
         end
         format.pdf do
           change_report = ChangeReport.find(params[:id])
-          render pdf: "change_report", locals: { change_report: ChangeReportDecorator.new(change_report) }
+          pdf_from_html = render_to_string(
+            pdf: "change_report",
+            template: "admin/change_reports/show",
+            locals: { change_report: ChangeReportDecorator.new(change_report) },
+          )
+
+          pdf = PdfBuilder.new(pdf_from_html: pdf_from_html, attachments: change_report.pdf_letters).run
+          send_data pdf, type: "application/pdf", disposition: "inline"
         end
       end
     end

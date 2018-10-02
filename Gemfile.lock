@@ -133,6 +133,8 @@ GEM
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
     coderay (1.1.2)
+    combine_pdf (1.0.15)
+      ruby-rc4 (>= 0.1.5)
     concurrent-ruby (1.0.5)
     crass (1.0.4)
     datetime_picker_rails (0.0.7)
@@ -374,6 +376,7 @@ DEPENDENCIES
   capybara-selenium
   cfa-styleguide!
   chromedriver-helper
+  combine_pdf
   devise
   devise-otp!
   factory_bot_rails

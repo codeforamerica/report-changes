@@ -9,6 +9,7 @@ gem "attr_encrypted"
 gem "aws-sdk-s3", require: false
 gem "bootsnap", ">= 1.1.0", require: false
 gem "cfa-styleguide", git: "https://github.com/codeforamerica/cfa-styleguide-gem"
+gem "combine_pdf"
 gem "devise"
 gem "devise-otp",
   git: "https://github.com/pynixwang/devise-otp",

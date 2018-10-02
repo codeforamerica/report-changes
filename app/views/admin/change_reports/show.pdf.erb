@@ -108,6 +108,15 @@
     <span class="value">
       See attached
     </span>
+    <% change_report.letters.each do |letter| %>
+      <% if letter.image? %>
+        <div class="alwaysbreak">
+          <% ActiveStorage::Current.set(host: Rails.application.config.action_mailer.default_url_options[:host]) do %>
+            <img src="<%= letter.service_url %>">
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
   <% else %>
     <span class="value">
       Client does not have this
@@ -131,8 +140,7 @@
     <span class="value">
       <%= change_report.manager_additional_information %>
     </span>
-
-<% end %>
+  <% end %>
 </div>
 </body>
 </html>

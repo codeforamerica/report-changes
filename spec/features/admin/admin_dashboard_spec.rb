@@ -20,9 +20,20 @@ RSpec.feature "Admin viewing dashboard" do
 
   context "with verifications" do
     scenario "viewing the pdf" do
+      change_report = build(:change_report, navigator: build(:change_report_navigator, has_letter: "yes"))
       create(:household_member,
              name: "Todd Chavez",
-             change_report: build(:change_report, navigator: build(:change_report_navigator, has_letter: "yes")))
+             change_report: change_report)
+      change_report.letters.attach(
+        io: File.open(Rails.root.join("spec", "fixtures", "document.pdf")),
+        filename: "document.pdf",
+        content_type: "application/pdf",
+      )
+      change_report.letters.attach(
+        io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
+        filename: "image.jpg",
+        content_type: "image/jpg",
+      )
 
       visit admin_root_path
 
@@ -36,6 +47,7 @@ RSpec.feature "Admin viewing dashboard" do
       expect(pdf_text).to have_content "Change Request Form"
       expect(pdf_text).to have_content "Todd Chavez"
       expect(pdf_text).to have_content "See attached"
+      expect(pdf_text).to have_content "This is the test pdf contents."
       expect(pdf_text).to_not have_content "Supervisor or manager's name"
     end
   end
