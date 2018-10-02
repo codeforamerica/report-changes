@@ -38,7 +38,10 @@ If you do not have this binary, [use this guide to get set up on MacOS].
 
 ### Configuring the Application
 
-* After cloning this repo, run: `bin/setup`.
+1. Clone this repo
+2. Ask the team for the RAILS_MASTER_KEY
+3. Add it to a new file `config/master.key`
+4. Run `bin/setup`
 
 ## Day-to-day Development
 
