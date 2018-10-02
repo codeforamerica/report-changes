@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <%= wicked_pdf_stylesheet_link_tag 'pdf' %>
+</head>
+<body>
+<div class="pdf">
+  <h1>Change Request Form</h1>
+
+  <div class="row">
+    <p class="label">
+      Date Submitted
+    </p>
+    <span class="value">
+      <%= change_report.formatted_submitted_at %>
+    </span>
+
+    <hr/>
+  </div>
+
+  <div class="row">
+    <p class="label">
+      Full name
+    </p>
+    <span class="value">
+      <%= change_report.member.name %>
+    </span>
+  </div>
+
+  <div class="row">
+  <span class="label">
+    Social Security Number
+  </span>
+    <span class="value">
+    <%= change_report.formatted_ssn %>
+  </span>
+
+    <span class="label">
+    Case Number
+  </span>
+    <span class="value">
+    <%= change_report.case_number %>
+  </span>
+
+    <span class="label">
+    Date of Birth
+  </span>
+    <span class="value">
+      <%= change_report.formatted_birthday %>
+    </span>
+
+    <hr/>
+  </div>
+
+  <p class="label">
+    Change type
+  </p>
+  <span class="value">
+    Job termination
+  </span>
+
+  <p class="label">
+    Employer name
+  </p>
+  <span class="value">
+    <%= change_report.company_name %>
+  </span>
+
+  <p class="label">
+    Employer address
+  </p>
+  <span class="value">
+    <%= change_report.company_address %>
+  </span>
+
+  <p class="label">
+    Employer phone number
+  </p>
+  <span class="value">
+    <%= change_report.formatted_company_phone_number %>
+  </span>
+
+  <p class="label">
+    Last day of work
+  </p>
+  <span class="value">
+    <%= change_report.formatted_last_day %>
+  </span>
+
+  <p class="label">
+    Last paycheck
+  </p>
+  <span class="value">
+    <%= change_report.formatted_last_paycheck %>
+  </span>
+
+  <hr/>
+
+  <p class="label">
+    Verifications
+  </p>
+  <p class="label">
+    Termination letter?
+  </p>
+
+  <% if change_report.navigator.has_letter_yes? %>
+    <span class="value">
+      See attached
+    </span>
+  <% else %>
+    <span class="value">
+      Client does not have this
+    </span>
+
+    <p class="label">
+      Supervisor or manager's name
+    </p>
+    <span class="value">
+      <%= change_report.manager_name %>
+    </span>
+    <p class="label">
+      Supervisor or manager's phone number
+    </p>
+    <span class="value">
+      <%= change_report.manager_phone_number %>
+    </span>
+    <p class="label">
+      Additional info
+    </p>
+    <span class="value">
+      <%= change_report.manager_additional_information %>
+    </span>
+
+<% end %>
+</div>
+</body>
+</html>
