@@ -24,4 +24,8 @@ class ChangeReportDecorator < SimpleDelegator
   def formatted_last_paycheck
     last_paycheck&.strftime("%D")
   end
+
+  def member_name
+    member&.name
+  end
 end
