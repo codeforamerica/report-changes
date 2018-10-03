@@ -1,8 +1,9 @@
 GIT
   remote: https://github.com/codeforamerica/cfa-styleguide-gem
-  revision: 8b61aaca6f4d332b8382f53804ad01f1ac25e402
+  revision: 7912b5988af97125ec2d6d98a0f8382d366f407e
+  ref: 7912b59
   specs:
-    cfa-styleguide (0.3.0)
+    cfa-styleguide (0.3.1)
       autoprefixer-rails
       bourbon
       jquery-rails
