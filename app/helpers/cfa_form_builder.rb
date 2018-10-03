@@ -33,7 +33,8 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     classes: [],
     prefix: nil,
     autofocus: nil,
-    optional: false
+    optional: false,
+    notice: nil
   )
     classes = classes.append(%w[text-input])
 
@@ -56,6 +57,7 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
       prefix: prefix,
       optional: optional,
       options: options,
+      notice: notice
     )
 
     html_output = <<~HTML
@@ -264,7 +266,8 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     help_text: nil,
     prefix: nil,
     optional: false,
-    options: {}
+    options: {},
+    notice: nil
   )
     if options[:input_id]
       for_options = options.merge(
@@ -279,13 +282,15 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
       label_contents(label_text, help_text, optional),
       (for_options || options),
     )
+    formatted_label += notice_html(notice).html_safe if notice
+
     if prefix
       <<~HTML
         #{formatted_label}
-                <div class="text-input-group">
-                  <div class="text-input-group__prefix">#{prefix}</div>
-                  #{field}
-                </div>
+        <div class="text-input-group">
+          <div class="text-input-group__prefix">#{prefix}</div>
+          #{field}
+        </div>
       HTML
     else
       formatted_label + field
@@ -302,6 +307,19 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
         </span>
       HTML
     end
+  end
+
+  def notice_html(notice_text)
+    <<~HTML
+      <div class="notice grid">
+        <div class="grid__item width-one-twelfth">
+          <i class="illustration illustration--safety"></i>
+        </div>
+        <div class="grid__item width-five-sixths">
+          #{notice_text}
+        </div>
+      </div>
+    HTML
   end
 
   def error_state(object, method)
