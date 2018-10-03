@@ -9,105 +9,146 @@
   <h1>Change Request Form</h1>
 
   <div class="row">
-    <p class="label">
-      Date Submitted
-    </p>
-    <span class="value">
-      <%= change_report.formatted_submitted_at %>
-    </span>
+    <div class="column one-of-two">
+      <p class="label">
+        Date Submitted
+      </p>
+      <span class="value">
+        <%= change_report.formatted_submitted_at %>
+      </span>
+    </div>
 
-    <hr/>
+    <div class="divider"></div>
   </div>
 
   <div class="row">
-    <p class="label">
-      Full name
-    </p>
-    <span class="value">
-      <%= change_report.member_name %>
-    </span>
+    <div class="column one-of-one">
+      <p class="label">
+        Full name
+      </p>
+      <span class="value">
+        <%= change_report.member_name %>
+      </span>
+    </div>
   </div>
 
   <div class="row">
-  <span class="label">
-    Social Security Number
-  </span>
-    <span class="value">
-    <%= change_report.formatted_ssn %>
-  </span>
+    <div class="column one-of-two">
+      <p class="label">
+        Social Security Number
+      </p>
+      <span class="value">
+        <%= change_report.formatted_ssn %>
+      </span>
+    </div>
 
-    <span class="label">
-    Case Number
-  </span>
-    <span class="value">
-    <%= change_report.case_number %>
-  </span>
+    <div class="column one-of-four">
+      <p class="label">
+        Case Number
+      </p>
+      <span class="value">
+        <%= change_report.formatted_case_number %>
+      </span>
+    </div>
 
-    <span class="label">
-    Date of Birth
-  </span>
-    <span class="value">
-      <%= change_report.formatted_birthday %>
-    </span>
+    <div class="column one-of-four">
+      <p class="label">
+        Date of Birth
+      </p>
+      <span class="value">
+        <%= change_report.formatted_birthday %>
+      </span>
+    </div>
 
-    <hr/>
+    <div class="divider"></div>
   </div>
 
-  <p class="label">
-    Change type
-  </p>
-  <span class="value">
-    Job termination
-  </span>
 
-  <p class="label">
-    Employer name
-  </p>
-  <span class="value">
-    <%= change_report.company_name %>
-  </span>
+  <div class="row">
+    <div class="column three-of-four">
+      <p class="label">
+        Change type
+      </p>
+      <span class="value">
+        Income change: job termination
+      </span>
+    </div>
+  </div>
 
-  <p class="label">
-    Employer address
-  </p>
-  <span class="value">
-    <%= change_report.company_address %>
-  </span>
+  <div class="row">
+    <div class="column one-of-two">
+      <p class="label">
+        Employer name
+      </p>
+      <span class="value">
+        <%= change_report.company_name %>
+      </span>
+    </div>
+    <div class="column one-of-two">
+      <p class="label">
+        Employer address
+      </p>
+      <span class="value">
+        <%= change_report.company_address %>
+      </span>
+    </div>
+  </div>
 
-  <p class="label">
-    Employer phone number
-  </p>
-  <span class="value">
-    <%= change_report.formatted_company_phone_number %>
-  </span>
 
-  <p class="label">
-    Last day of work
-  </p>
-  <span class="value">
-    <%= change_report.formatted_last_day %>
-  </span>
+  <div class="row">
+    <div class="column one-of-two">
+      <p class="label">
+        Employer phone number
+      </p>
+      <span class="value">
+        <%= change_report.formatted_company_phone_number %>
+      </span>
+    </div>
 
-  <p class="label">
-    Last paycheck
-  </p>
-  <span class="value">
-    <%= change_report.formatted_last_paycheck %>
-  </span>
+    <div class="column one-of-four">
+      <p class="label">
+        Last day of work
+      </p>
+      <span class="value">
+        <%= change_report.formatted_last_day %>
+      </span>
+    </div>
 
-  <hr/>
+    <div class="column one-of-four">
+      <p class="label">
+        Last paycheck
+      </p>
+      <span class="value">
+      <%= change_report.formatted_last_paycheck %>
+    </span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
 
   <p class="label">
     Verifications
   </p>
-  <p class="label">
-    Termination letter?
-  </p>
+
+  <div class="row">
+    <div class="column one-of-two">
+      <p class="label">
+        Termination letter?
+      </p>
+
+      <% if change_report.navigator.has_letter_yes? %>
+        <span class="value">
+          See attached
+        </span>
+      <% else %>
+        <span class="value">
+          Client does not have this
+        </span>
+      <% end %>
+    </div>
+  </div>
 
   <% if change_report.navigator.has_letter_yes? %>
-    <span class="value">
-      See attached
-    </span>
     <% change_report.letters.each do |letter| %>
       <% if letter.image? %>
         <div class="alwaysbreak">
@@ -118,28 +159,35 @@
       <% end %>
     <% end %>
   <% else %>
-    <span class="value">
-      Client does not have this
-    </span>
+    <div class="row">
+      <div class="column one-of-two">
+        <p class="label">
+          Supervisor or manager's name
+        </p>
+        <span class="value">
+          <%= change_report.manager_name %>
+        </span>
+      </div>
+      <div class="column one-of-two">
+        <p class="label">
+          Supervisor or manager's phone number
+        </p>
+        <span class="value">
+          <%= change_report.formatted_manager_phone_number %>
+        </span>
+      </div>
+    </div>
 
-    <p class="label">
-      Supervisor or manager's name
-    </p>
-    <span class="value">
-      <%= change_report.manager_name %>
-    </span>
-    <p class="label">
-      Supervisor or manager's phone number
-    </p>
-    <span class="value">
-      <%= change_report.manager_phone_number %>
-    </span>
-    <p class="label">
-      Additional info
-    </p>
-    <span class="value">
-      <%= change_report.manager_additional_information %>
-    </span>
+    <div class="row">
+      <div class="column one-of-one">
+        <p class="label">
+          Additional info
+        </p>
+        <span class="value">
+          <%= change_report.manager_additional_information %>
+        </span>
+      </div>
+    </div>
   <% end %>
 </div>
 </body>
