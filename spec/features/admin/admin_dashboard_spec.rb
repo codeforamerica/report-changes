@@ -40,15 +40,15 @@ RSpec.feature "Admin viewing dashboard" do
       click_on "Download"
 
       pdf = PDF::Reader.new(StringIO.new(page.html))
-      pdf_text = pdf.pages.map do |page|
-        page.text.gsub("\t", " ").gsub("\n", " ").squeeze(" ")
-      end.join(" ")
+      pdf_text = pdf.pages.first.text.gsub("\t", " ").gsub("\n", " ").squeeze(" ")
+      pdf_attachment_text = pdf.pages.last.text
 
       expect(pdf_text).to have_content "Change Request Form"
       expect(pdf_text).to have_content "Todd Chavez"
       expect(pdf_text).to have_content "See attached"
-      expect(pdf_text).to have_content "This is the test pdf contents."
       expect(pdf_text).to_not have_content "Supervisor or manager's name"
+
+      expect(pdf_attachment_text).to have_content "This is the test pdf contents."
     end
   end
 
@@ -65,9 +65,7 @@ RSpec.feature "Admin viewing dashboard" do
       click_on "Download"
 
       pdf = PDF::Reader.new(StringIO.new(page.html))
-      pdf_text = pdf.pages.map do |page|
-        page.text.gsub("\t", " ").gsub("\n", " ").squeeze(" ")
-      end.join(" ")
+      pdf_text = pdf.pages.first.text.gsub("\t", " ").gsub("\n", " ").squeeze(" ")
 
       expect(pdf_text).to have_content "Client does not have this"
       expect(pdf_text).to have_content "Supervisor or manager's name"
