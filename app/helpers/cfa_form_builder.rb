@@ -57,7 +57,7 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
       prefix: prefix,
       optional: optional,
       options: options,
-      notice: notice
+      notice: notice,
     )
 
     html_output = <<~HTML
