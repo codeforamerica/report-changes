@@ -3,14 +3,49 @@
     font-size: 4em;
   }
 
+  .divider {
+    margin-top: 40px;
+    border-bottom: 5px solid black;
+  }
+
+  .label {
+    font-weight: 800;
+  }
+
   .value {
-    background-color: #cfe7fd;
-    padding: 20px;
     display: inline-block;
+    border: 1px solid black;
+    padding: 10px;
+    width: 100%;
   }
 
   h1 {
     font-size: 8em;
+  }
+
+  .row {
+    width: 100%;
+  }
+
+  .column {
+    display: inline-block;
+    margin-right: 40px;
+
+    &.one-of-one {
+      width: 96%;
+    }
+
+    &.one-of-two {
+      width: 47%;
+    }
+
+    &.one-of-four {
+      width: 23%;
+    }
+
+    &.three-of-four {
+      width: 71%;
+    }
   }
 
   div.alwaysbreak {

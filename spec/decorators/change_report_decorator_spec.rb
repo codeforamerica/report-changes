@@ -6,7 +6,7 @@ RSpec.describe ChangeReportDecorator do
       it "formats it" do
         change_report = create :change_report, company_phone_number: "5553339999"
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_company_phone_number).to eq "(555) 333-9999"
+        expect(decorator.formatted_company_phone_number).to eq "555-333-9999"
       end
     end
 
@@ -15,6 +15,24 @@ RSpec.describe ChangeReportDecorator do
         change_report = create :change_report, company_phone_number: nil
         decorator = ChangeReportDecorator.new(change_report)
         expect(decorator.formatted_company_phone_number).to be_nil
+      end
+    end
+  end
+
+  describe "#formatted_manager_phone_number" do
+    context "when there is a manager_phone_number" do
+      it "formats it" do
+        change_report = create :change_report, manager_phone_number: "5553339999"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.formatted_manager_phone_number).to eq "555-333-9999"
+      end
+    end
+
+    context "when there is not a manager_phone_number" do
+      it "returns nil" do
+        change_report = create :change_report, manager_phone_number: nil
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.formatted_manager_phone_number).to be_nil
       end
     end
   end
@@ -30,19 +48,19 @@ RSpec.describe ChangeReportDecorator do
     end
 
     context "when there is not a ssn" do
-      it "returns nil" do
+      it "returns 'no response'" do
         change_report = build :change_report
-        create :household_member, change_report: change_report, ssn: nil
+        create :household_member, change_report: change_report, ssn: ""
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_ssn).to be_nil
+        expect(decorator.formatted_ssn).to eq "no response"
       end
     end
 
     context "when there is not a member" do
-      it "returns nil" do
+      it "returns 'no response'" do
         change_report = create :change_report
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_ssn).to be_nil
+        expect(decorator.formatted_ssn).to eq "no response"
       end
     end
   end
@@ -148,6 +166,24 @@ RSpec.describe ChangeReportDecorator do
         change_report = create :change_report, last_paycheck: nil
         decorator = ChangeReportDecorator.new(change_report)
         expect(decorator.formatted_last_paycheck).to be_nil
+      end
+    end
+  end
+
+  describe "#formatted_case_number" do
+    context "when there is a case number" do
+      it "returns it" do
+        change_report = create :change_report, case_number: "123abc"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.formatted_case_number).to eq "123abc"
+      end
+    end
+
+    context "when there is no case number" do
+      it "returns 'no response'" do
+        change_report = create :change_report, case_number: nil
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.formatted_case_number).to eq "no response"
       end
     end
   end
