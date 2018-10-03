@@ -1,10 +1,4 @@
 class ChangeReportDecorator < SimpleDelegator
-  def formatted_company_phone_number
-    if company_phone_number
-      "#{company_phone_number[0..2]}-#{company_phone_number[3..5]}-#{company_phone_number[6..9]}"
-    end
-  end
-
   def formatted_manager_phone_number
     if manager_phone_number
       "#{manager_phone_number[0..2]}-#{manager_phone_number[3..5]}-#{manager_phone_number[6..9]}"

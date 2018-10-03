@@ -1,24 +1,6 @@
 require "rails_helper"
 
 RSpec.describe ChangeReportDecorator do
-  describe "#formatted_company_phone_number" do
-    context "when there is a company_phone_number" do
-      it "formats it" do
-        change_report = create :change_report, company_phone_number: "5553339999"
-        decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_company_phone_number).to eq "555-333-9999"
-      end
-    end
-
-    context "when there is not a company_phone_number" do
-      it "returns nil" do
-        change_report = create :change_report, company_phone_number: nil
-        decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_company_phone_number).to be_nil
-      end
-    end
-  end
-
   describe "#formatted_manager_phone_number" do
     context "when there is a manager_phone_number" do
       it "formats it" do
