@@ -9,20 +9,11 @@
                           "What is your case number?",
                           help_text: "You can find this on letters that the county has sent you.",
                           optional: true %>
-    <div class="notice grid">
-      <div class="grid__item width-one-twelfth">
-        <i class="illustration illustration--safety"></i>
-      </div>
-      <div class="grid__item width-five-sixths">
-        <p>
-          If you don't have an SSN or don't want to give one now it's okay to skip this. But if you add it now, the application process may go faster.
-        </p>
-      </div>
-    </div>
     <%= f.cfa_input_field :ssn,
                           "What is your social security number?",
                           classes: ["form-width--ssn"],
-                          optional: true %>
+                          optional: true,
+                          notice: "If you don't have an SSN or don't want to give one now it's okay to skip this. But if you add it now, the application process may go faster." %>
     <%= f.cfa_input_field :phone_number, "What is your phone number?", classes: ["form-width--phone"] %>
   <% end %>
 <% end %>
