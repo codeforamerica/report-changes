@@ -15,6 +15,8 @@ class ChangeReport < ActiveRecord::Base
   enum consent_to_sms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms
   enum feedback_rating: { unfilled: 0, positive: 1, negative: 2, neutral: 3 }, _prefix: :feedback_rating
 
+  scope :signed, -> { where(signature_confirmation: "yes").where.not(signature: nil) }
+
   def has_feedback?
     !feedback_rating_unfilled? || feedback_comments.present?
   end
@@ -34,5 +36,15 @@ class ChangeReport < ActiveRecord::Base
       signature_confirmation: signature_confirmation,
       feedback_rating: feedback_rating,
     }
+  end
+
+  def self.to_csv
+    CSV.generate(headers: true) do |csv|
+      csv << ChangeReport.attribute_names
+
+      all.each do |user|
+        csv << ChangeReport.attribute_names.map{ |attr| user.send(attr) }
+      end
+    end
   end
 end

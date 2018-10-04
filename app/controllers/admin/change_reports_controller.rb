@@ -1,3 +1,5 @@
+require "csv"
+
 module Admin
   class ChangeReportsController < Admin::ApplicationController
     # To customize the behavior of this controller,
@@ -34,6 +36,14 @@ module Admin
           pdf = PdfBuilder.new(pdf_from_html: pdf_from_html, attachments: change_report.pdf_letters).run
           send_data pdf, type: "application/pdf", disposition: "inline"
         end
+      end
+    end
+
+    def download
+      @change_reports = ChangeReport.signed
+
+      respond_to do |format|
+        format.csv { send_data @change_reports.to_csv, filename: "change-reports.csv" }
       end
     end
   end

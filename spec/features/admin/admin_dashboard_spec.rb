@@ -78,4 +78,14 @@ RSpec.feature "Admin viewing dashboard" do
 
     expect(page).to have_content("Change Report")
   end
+
+  scenario "can download a csv of all the change reports" do
+    change_report = create(:change_report, :with_member, signature: "YOOOOOOOO", signature_confirmation: "yes")
+
+    visit admin_root_path
+
+    click_on "Download All"
+
+    expect(page).to have_text "YOOOOOOOO"
+  end
 end
