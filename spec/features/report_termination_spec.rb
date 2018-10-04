@@ -44,7 +44,7 @@ feature "Reporting a change", js: true do
     select "2018", from: "form[last_paycheck_year]"
     click_on "Continue"
 
-    expect(page).to have_text "It's time to provide proof of this change."
+    expect(page).to have_text "Do you have proof of this change?"
 
     click_on "Continue"
 
