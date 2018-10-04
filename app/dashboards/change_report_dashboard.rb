@@ -19,6 +19,7 @@ class ChangeReportDashboard < Administrate::BaseDashboard
     last_day: Field::DateTime,
     last_paycheck: Field::DateTime,
     signature_confirmation: Field::Enum.with_options(searchable: false),
+    submitted_at: Field::DateTime,
     consent_to_sms: Field::Enum.with_options(searchable: false),
     feedback_rating: Field::Enum,
     feedback_comments: Field::Text,
@@ -35,6 +36,8 @@ class ChangeReportDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     case_number
+    signature_confirmation
+    submitted_at
     download_link
   ].freeze
 
