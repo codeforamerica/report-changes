@@ -1,12 +1,12 @@
 require "rails_helper"
 
 RSpec.describe ChangeReportDecorator do
-  describe "#formatted_manager_phone_number" do
+  describe "#manager_phone_number" do
     context "when there is a manager_phone_number" do
       it "formats it" do
         change_report = create :change_report, manager_phone_number: "5553339999"
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_manager_phone_number).to eq "555-333-9999"
+        expect(decorator.manager_phone_number).to eq "555-333-9999"
       end
     end
 
@@ -14,18 +14,18 @@ RSpec.describe ChangeReportDecorator do
       it "returns nil" do
         change_report = create :change_report, manager_phone_number: nil
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_manager_phone_number).to be_nil
+        expect(decorator.manager_phone_number).to be_nil
       end
     end
   end
 
-  describe "#formatted_ssn" do
+  describe "#ssn" do
     context "when there is a member with a ssn" do
       it "formats it" do
         change_report = build :change_report
         create :household_member, change_report: change_report, ssn: "333224444"
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_ssn).to eq "333-22-4444"
+        expect(decorator.ssn).to eq "333-22-4444"
       end
     end
 
@@ -34,7 +34,7 @@ RSpec.describe ChangeReportDecorator do
         change_report = build :change_report
         create :household_member, change_report: change_report, ssn: ""
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_ssn).to eq "no response"
+        expect(decorator.ssn).to eq "no response"
       end
     end
 
@@ -42,19 +42,19 @@ RSpec.describe ChangeReportDecorator do
       it "returns 'no response'" do
         change_report = create :change_report
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_ssn).to eq "no response"
+        expect(decorator.ssn).to eq "no response"
       end
     end
   end
 
-  describe "#formatted_birthday" do
+  describe "#birthday" do
     context "when there is a member with a birthday" do
       it "formats it" do
         birthday = DateTime.new(2018, 2, 3, 19, 5, 6)
         change_report = build :change_report
         create :household_member, change_report: change_report, birthday: birthday
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_birthday).to eq "02/03/18"
+        expect(decorator.birthday).to eq "02/03/18"
       end
     end
 
@@ -63,7 +63,7 @@ RSpec.describe ChangeReportDecorator do
         change_report = build :change_report
         create :household_member, change_report: change_report, birthday: nil
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_birthday).to be_nil
+        expect(decorator.birthday).to be_nil
       end
     end
 
@@ -71,18 +71,18 @@ RSpec.describe ChangeReportDecorator do
       it "returns nil" do
         change_report = create :change_report
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_birthday).to be_nil
+        expect(decorator.birthday).to be_nil
       end
     end
   end
 
-  describe "#member_name" do
+  describe "#client_name" do
     context "when there is a member" do
       it "returns it" do
         change_report = build :change_report
         create :household_member, change_report: change_report, name: "Jane"
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.member_name).to eq "Jane"
+        expect(decorator.client_name).to eq "Jane"
       end
     end
 
@@ -90,18 +90,18 @@ RSpec.describe ChangeReportDecorator do
       it "returns nil" do
         change_report = create :change_report
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.member_name).to be_nil
+        expect(decorator.client_name).to be_nil
       end
     end
   end
 
-  describe "#formatted_submitted_at" do
+  describe "#submitted_at" do
     context "when there is a submitted_at" do
       it "formats it and converts it to Mountain time" do
         submitted_at = DateTime.new(2018, 2, 3, 19, 5, 6)
         change_report = create :change_report, submitted_at: submitted_at
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_submitted_at).to eq "02/03/18, 12:05 PM"
+        expect(decorator.submitted_at).to eq "02/03/18, 12:05 PM"
       end
     end
 
@@ -109,18 +109,18 @@ RSpec.describe ChangeReportDecorator do
       it "returns nil" do
         change_report = create :change_report, submitted_at: nil
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_submitted_at).to be_nil
+        expect(decorator.submitted_at).to be_nil
       end
     end
   end
 
-  describe "#formatted_last_day" do
+  describe "#last_day" do
     context "when there is a last_day" do
       it "formats it" do
         last_day = DateTime.new(2018, 2, 3, 19, 5, 6)
         change_report = create :change_report, last_day: last_day
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_last_day).to eq "02/03/18"
+        expect(decorator.last_day).to eq "02/03/18"
       end
     end
 
@@ -128,18 +128,18 @@ RSpec.describe ChangeReportDecorator do
       it "returns nil" do
         change_report = create :change_report, last_day: nil
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_last_day).to be_nil
+        expect(decorator.last_day).to be_nil
       end
     end
   end
 
-  describe "#formatted_last_paycheck" do
+  describe "#last_paycheck" do
     context "when there is a last_paycheck" do
       it "formats it" do
         last_paycheck = DateTime.new(2018, 2, 3, 19, 5, 6)
         change_report = create :change_report, last_paycheck: last_paycheck
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_last_paycheck).to eq "02/03/18"
+        expect(decorator.last_paycheck).to eq "02/03/18"
       end
     end
 
@@ -147,17 +147,17 @@ RSpec.describe ChangeReportDecorator do
       it "returns nil" do
         change_report = create :change_report, last_paycheck: nil
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_last_paycheck).to be_nil
+        expect(decorator.last_paycheck).to be_nil
       end
     end
   end
 
-  describe "#formatted_case_number" do
+  describe "#case_number" do
     context "when there is a case number" do
       it "returns it" do
         change_report = create :change_report, case_number: "123abc"
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_case_number).to eq "123abc"
+        expect(decorator.case_number).to eq "123abc"
       end
     end
 
@@ -165,7 +165,43 @@ RSpec.describe ChangeReportDecorator do
       it "returns 'no response'" do
         change_report = create :change_report, case_number: nil
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.formatted_case_number).to eq "no response"
+        expect(decorator.case_number).to eq "no response"
+      end
+    end
+  end
+
+  describe "#client_phone_number" do
+    context "when there is a phone_number" do
+      it "formats it" do
+        change_report = create :change_report, phone_number: "5553339999"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.client_phone_number).to eq "555-333-9999"
+      end
+    end
+
+    context "when there is not a phone_number" do
+      it "returns nil" do
+        change_report = create :change_report, phone_number: nil
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.client_phone_number).to be_nil
+      end
+    end
+  end
+
+  describe "#uploaded_proof" do
+    context "when the client uploaded a verification document" do
+      it "returns 'yes'" do
+        change_report = create :change_report, :with_letter
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.uploaded_proof).to eq "yes"
+      end
+    end
+
+    context "when the client did not upload a verification document" do
+      it "returns 'no'" do
+        change_report = create :change_report
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.uploaded_proof).to eq "no"
       end
     end
   end

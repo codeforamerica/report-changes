@@ -14,7 +14,7 @@
         Date Submitted
       </p>
       <span class="value">
-        <%= change_report.formatted_submitted_at %>
+        <%= change_report.submitted_at %>
       </span>
     </div>
 
@@ -22,12 +22,21 @@
   </div>
 
   <div class="row">
-    <div class="column one-of-one">
+    <div class="column one-of-two">
       <p class="label">
         Full name
       </p>
       <span class="value">
-        <%= change_report.member_name %>
+        <%= change_report.client_name %>
+      </span>
+    </div>
+
+    <div class="column one-of-two">
+      <p class="label">
+        Phone Number
+      </p>
+      <span class="value">
+        <%= change_report.client_phone_number %>
       </span>
     </div>
   </div>
@@ -38,7 +47,7 @@
         Social Security Number
       </p>
       <span class="value">
-        <%= change_report.formatted_ssn %>
+        <%= change_report.ssn %>
       </span>
     </div>
 
@@ -47,7 +56,7 @@
         Case Number
       </p>
       <span class="value">
-        <%= change_report.formatted_case_number %>
+        <%= change_report.case_number %>
       </span>
     </div>
 
@@ -56,7 +65,7 @@
         Date of Birth
       </p>
       <span class="value">
-        <%= change_report.formatted_birthday %>
+        <%= change_report.birthday %>
       </span>
     </div>
 
@@ -90,7 +99,7 @@
         Last day of work
       </p>
       <span class="value">
-        <%= change_report.formatted_last_day %>
+        <%= change_report.last_day %>
       </span>
     </div>
 
@@ -99,7 +108,7 @@
         Last paycheck
       </p>
       <span class="value">
-      <%= change_report.formatted_last_paycheck %>
+      <%= change_report.last_paycheck %>
     </span>
     </div>
   </div>
@@ -153,7 +162,7 @@
           Supervisor or manager's phone number
         </p>
         <span class="value">
-          <%= change_report.formatted_manager_phone_number %>
+          <%= change_report.manager_phone_number %>
         </span>
       </div>
     </div>
