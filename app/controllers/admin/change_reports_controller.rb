@@ -1,5 +1,3 @@
-require "csv"
-
 module Admin
   class ChangeReportsController < Admin::ApplicationController
     # To customize the behavior of this controller,
@@ -41,9 +39,10 @@ module Admin
 
     def download
       @change_reports = ChangeReport.signed
+      csv = CsvService.new(@change_reports).run
 
       respond_to do |format|
-        format.csv { send_data @change_reports.to_csv, filename: "change-reports.csv" }
+        format.csv { send_data csv, filename: "change-reports.csv" }
       end
     end
   end

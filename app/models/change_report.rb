@@ -37,14 +37,4 @@ class ChangeReport < ActiveRecord::Base
       feedback_rating: feedback_rating,
     }
   end
-
-  def self.to_csv
-    CSV.generate(headers: true) do |csv|
-      csv << ChangeReport.attribute_names
-
-      all.each do |user|
-        csv << ChangeReport.attribute_names.map{ |attr| user.send(attr) }
-      end
-    end
-  end
 end
