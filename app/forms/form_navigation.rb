@@ -7,7 +7,7 @@ class FormNavigation
     NotYetSupportedCountyController,
     TellUsAboutYourselfController,
     TellUsAboutTheJobController,
-    ProofRequiredInfoController,
+    ProofInfoController,
     DoYouHaveALetterController,
     AddLetterController,
     TextMessageConsentController,
