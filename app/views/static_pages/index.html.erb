@@ -19,15 +19,33 @@
   <div class="grid">
     <div class="grid__item text--small width-seven-twelfths">
       <p class="h3">
-        If you stopped working at a job, you may be eligible for more food assistance benefits. This includes quitting, being laid off, fired, or leaving for any other reason.
+        If your income rises by a certain amount you need to report the change to your Food Assistance case. If your income falls, you may be eligible for more benefits.
       </p>
       <p class="h3">
         <%= link_to 'Start your report', screen_path(FormNavigation.first) %> now. We’ll guide you through the process with simple step-by-step directions.
       </p>
     </div>
     <div class="grid__item width-one-fourth shift-one-sixth trust-badge">
-      <a href="https://www.colorado.gov/cdhs" class="illustration illustration--co_cdhs">CDHS</a>
-      <p class="text--small">In partnership with the Colorado Department of Human Services</p>
+      <%= image_tag("arapahoe.jpg") %>
+      <p class="text--small">In partnership with the Colorado Department of Human Services and Arapahoe County.</p>
     </div>
   </div>
 </section>
+
+<section class="slab slab--off-white">
+  <div class="grid">
+    <div class="grid__item text--small width-one-third center">
+      <div class="emoji emoji--med emoji--memo"></div>
+      <p class="text--small with-padding-small"><strong>Fill out</strong> a form about the job that ended and provide proof.</p>
+    </div>
+    <div class="grid__item text--small width-one-third center">
+    <div class="emoji emoji--med emoji--card-file-box"></div>
+      <p class="text--small with-padding-small">The <strong>county reviews</strong> your case and figures out if your benefits need to change.</p>
+    </div>
+    <div class="grid__item text--small width-one-third center">
+      <div class="emoji emoji--med emoji--envelope-with-arrow"></div>
+      <p class="text--small with-padding-small">You <strong>get a letter</strong> in the mail telling you if your benefits will change.</p>
+    </div>
+  </div>
+</section>
+
