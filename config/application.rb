@@ -40,5 +40,9 @@ module ColoradoBenefits
       g.stylesheets     false
       g.javascripts     false
     end
+
+    config.to_prepare do
+      Administrate::ApplicationController.helper ColoradoBenefits::Application.helpers
+    end
   end
 end
