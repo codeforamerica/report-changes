@@ -25,7 +25,7 @@ gem "puma", "~> 3.11"
 gem "rails", "~> 5.2.0"
 gem "sass-rails", "~> 5.0"
 gem "wicked_pdf"
-gem "wkhtmltopdf-binary"
+gem "wkhtmltopdf-binary-edge"
 
 group :development, :test do
   gem "brakeman", require: false
