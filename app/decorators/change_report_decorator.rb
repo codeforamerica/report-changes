@@ -1,11 +1,27 @@
 class ChangeReportDecorator < SimpleDelegator
-  def formatted_manager_phone_number
-    if manager_phone_number
-      "#{manager_phone_number[0..2]}-#{manager_phone_number[3..5]}-#{manager_phone_number[6..9]}"
-    end
+  def self.header_attributes
+    [
+      "submitted_at",
+      "case_number",
+      "client_name",
+      "birthday",
+      "ssn",
+      "client_phone_number",
+      "company_name",
+      "last_day",
+      "last_paycheck",
+      "manager_name",
+      "manager_phone_number",
+      "manager_additional_information",
+      "uploaded_proof",
+    ]
   end
 
-  def formatted_ssn
+  def manager_phone_number
+    format_phone_number(super)
+  end
+
+  def ssn
     if member&.ssn.present?
       "#{member.ssn[0..2]}-#{member.ssn[3..4]}-#{member.ssn[5..8]}"
     else
@@ -13,27 +29,43 @@ class ChangeReportDecorator < SimpleDelegator
     end
   end
 
-  def formatted_submitted_at
-    submitted_at&.in_time_zone("Mountain Time (US & Canada)")&.strftime("%D, %l:%M %p")
+  def submitted_at
+    super&.in_time_zone("Mountain Time (US & Canada)")&.strftime("%D, %l:%M %p")
   end
 
-  def formatted_birthday
+  def birthday
     member.birthday.strftime("%D") if member&.birthday
   end
 
-  def formatted_last_day
-    last_day&.strftime("%D")
+  def last_day
+    super&.strftime("%D")
   end
 
-  def formatted_last_paycheck
-    last_paycheck&.strftime("%D")
+  def last_paycheck
+    super&.strftime("%D")
   end
 
-  def member_name
+  def client_name
     member&.name
   end
 
-  def formatted_case_number
-    case_number.present? ? case_number : "no response"
+  def client_phone_number
+    format_phone_number(phone_number)
+  end
+
+  def case_number
+    super || "no response"
+  end
+
+  def uploaded_proof
+    letters.attached? ? "yes" : "no"
+  end
+
+  private
+
+  def format_phone_number(phone_number)
+    if phone_number
+      "#{phone_number[0..2]}-#{phone_number[3..5]}-#{phone_number[6..9]}"
+    end
   end
 end

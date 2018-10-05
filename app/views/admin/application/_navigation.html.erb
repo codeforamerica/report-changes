@@ -15,6 +15,7 @@ as defined by the routes in the `admin/` namespace
       class: "navigation__link navigation__link--#{nav_link_state(resource)}",
     ) %>
   <% end %>
+  <%= link_to "Download All", admin_download_all_path, class: "navigation__link navigation__link--sign-out" %>
   <%= link_to(
     "2FA Setup",
     admin_user_otp_token_path,

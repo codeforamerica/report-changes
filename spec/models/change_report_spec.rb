@@ -1,6 +1,16 @@
 require "rails_helper"
 
 RSpec.describe ChangeReport, type: :model do
+  describe ".signed" do
+    it "only returns signed change reports" do
+      signed_change_report = create :change_report, signature_confirmation: "yes", signature: "Quincy Jones"
+      second_signed_change_report = create :change_report, signature_confirmation: "yes", signature: "Frank Sinatra"
+      _unsigned_change_report = create :change_report, signature_confirmation: "unfilled", signature: "Count Basie"
+
+      expect(ChangeReport.signed).to eq [signed_change_report, second_signed_change_report]
+    end
+  end
+
   describe "#has_feedback?" do
     let(:change_report) do
       create :change_report, feedback_rating: "unfilled", feedback_comments: "This was so helpful."
