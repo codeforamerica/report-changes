@@ -163,9 +163,7 @@
 
   <% change_report.image_letters.each do |letter| %>
     <div class="alwaysbreak">
-      <% ActiveStorage::Current.set(host: Rails.application.config.action_mailer.default_url_options[:host]) do %>
-        <img src="<%= letter.service_url %>">
-      <% end %>
+      <%= image_tag(wicked_blob_path(letter), alt: '_', width: "100%") %>
     </div>
   <% end %>
 </div>

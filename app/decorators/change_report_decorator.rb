@@ -54,7 +54,7 @@ class ChangeReportDecorator < SimpleDelegator
   end
 
   def case_number
-    super || "no response"
+    super.present? ? super : "no response"
   end
 
   def uploaded_proof

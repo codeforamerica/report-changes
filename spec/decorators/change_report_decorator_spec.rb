@@ -168,6 +168,14 @@ RSpec.describe ChangeReportDecorator do
         expect(decorator.case_number).to eq "no response"
       end
     end
+
+    context "when there is no case number" do
+      it "returns 'no response'" do
+        change_report = create :change_report, case_number: ""
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.case_number).to eq "no response"
+      end
+    end
   end
 
   describe "#client_phone_number" do
