@@ -67,4 +67,23 @@ RSpec.describe ChangeReport, type: :model do
       expect(change_report.pdf_letters.first.filename).to eq "document.pdf"
     end
   end
+
+  describe "#image_letters" do
+    it "returns all letters that are of image type" do
+      change_report = create :change_report
+      change_report.letters.attach(
+        io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
+        filename: "image.jpg",
+        content_type: "image/jpg",
+      )
+      change_report.letters.attach(
+        io: File.open(Rails.root.join("spec", "fixtures", "document.pdf")),
+        filename: "document.pdf",
+        content_type: "application/pdf",
+      )
+
+      expect(change_report.image_letters.count).to eq 1
+      expect(change_report.image_letters.first.filename).to eq "image.jpg"
+    end
+  end
 end

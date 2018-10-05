@@ -125,57 +125,47 @@
         Termination letter?
       </p>
 
-      <% if change_report.navigator.has_letter_yes? %>
-        <span class="value">
-          See attached
-        </span>
-      <% else %>
-        <span class="value">
-          Client does not have this
-        </span>
-      <% end %>
+      <span class="value">
+        <%= change_report.termination_letter %>
+      </span>
     </div>
   </div>
 
-  <% if change_report.navigator.has_letter_yes? %>
-    <% change_report.letters.each do |letter| %>
-      <% if letter.image? %>
-        <div class="alwaysbreak">
-          <% ActiveStorage::Current.set(host: Rails.application.config.action_mailer.default_url_options[:host]) do %>
-            <img src="<%= letter.service_url %>">
-          <% end %>
-        </div>
-      <% end %>
-    <% end %>
-  <% else %>
-    <div class="row">
-      <div class="column one-of-two">
-        <p class="label">
-          Supervisor or manager's name
-        </p>
-        <span class="value">
+  <div class="row">
+    <div class="column one-of-two">
+      <p class="label">
+        Supervisor or manager's name
+      </p>
+      <span class="value">
           <%= change_report.manager_name %>
         </span>
-      </div>
-      <div class="column one-of-two">
-        <p class="label">
-          Supervisor or manager's phone number
-        </p>
-        <span class="value">
+    </div>
+    <div class="column one-of-two">
+      <p class="label">
+        Supervisor or manager's phone number
+      </p>
+      <span class="value">
           <%= change_report.manager_phone_number %>
         </span>
-      </div>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="column one-of-one">
-        <p class="label">
-          Additional info
-        </p>
-        <span class="value">
+  <div class="row">
+    <div class="column one-of-one">
+      <p class="label">
+        Additional info
+      </p>
+      <span class="value">
           <%= change_report.manager_additional_information %>
         </span>
-      </div>
+    </div>
+  </div>
+
+  <% change_report.image_letters.each do |letter| %>
+    <div class="alwaysbreak">
+      <% ActiveStorage::Current.set(host: Rails.application.config.action_mailer.default_url_options[:host]) do %>
+        <img src="<%= letter.service_url %>">
+      <% end %>
     </div>
   <% end %>
 </div>

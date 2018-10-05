@@ -25,6 +25,10 @@ class ChangeReport < ActiveRecord::Base
     letters.select { |letter| letter.content_type == "application/pdf" }
   end
 
+  def image_letters
+    letters.select(&:image?)
+  end
+
   def mixpanel_data
     {
       selected_county_location: navigator.selected_county_location,

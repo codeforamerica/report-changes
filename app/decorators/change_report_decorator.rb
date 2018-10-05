@@ -61,6 +61,10 @@ class ChangeReportDecorator < SimpleDelegator
     letters.attached? ? "yes" : "no"
   end
 
+  def termination_letter
+    navigator.has_letter_yes? ? "See attached" : "Client does not have this"
+  end
+
   private
 
   def format_phone_number(phone_number)
