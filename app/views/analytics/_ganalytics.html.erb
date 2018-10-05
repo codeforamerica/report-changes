@@ -1,0 +1,11 @@
+<% if Rails.env.production? || Rails.env.staging?  %>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=<%= CredentialsHelper.ganalytics %>"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', <%= CredentialsHelper.ganalytics %>);
+  </script>
+<% end %>

@@ -6,4 +6,8 @@ module CredentialsHelper
       Rails.application.credentials[Rails.env.to_sym][:secret_key_for_ssn_encryption]
     end
   end
+
+  def self.ganalytics
+    Rails.application.credentials[Rails.env.to_sym][:ganalytics]
+  end
 end
