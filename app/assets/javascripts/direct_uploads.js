@@ -19,19 +19,37 @@ var directUpload = (function () {
                 });
 
                 fileInput.addEventListener('change', function (e) {
-                    for(var i=0,file;file=this.files[i];i++) {
-                        $('.verification-upload-icon').hide();
+                    $('button[type="submit"]').prop('disabled', true);
+                    $('.verification-upload-icon').hide();
+
+                    for(let i=0,file;file=this.files[i];i++) {
+                        var context = {
+                          filename: "Uploading",
+                          signedId: null,
+                          isPdf: null,
+                          inputName: fileInput.name,
+                          uploadInProgress: true,
+                          id: 'uploaded-file-detail-' + i
+                        };
+                        var uploadedFileDetailHtml = HandlebarsTemplates['uploaded_file_detail'](context);
+                        $('.uploaded-files').append(uploadedFileDetailHtml);
                         const upload = new ActiveStorage.DirectUpload(file, url);
+
                         upload.create(function (error, blob) {
                             var context = {
                                 filename: blob.filename,
                                 signedId: blob.signed_id,
                                 isPdf: (blob.content_type === "application/pdf"),
-                                inputName: fileInput.name
+                                inputName: fileInput.name,
+                                uploadInProgress: false
                             };
                             var uploadedFileDetailHtml = HandlebarsTemplates['uploaded_file_detail'](context);
-                            $('.uploaded-files').append(uploadedFileDetailHtml);
+                            $('#uploaded-file-detail-' + i).replaceWith(uploadedFileDetailHtml);
                             addDeleteFileListener();
+
+                            if ($('h4.loading').length == 0) {
+                                $('button[type="submit"]').prop('disabled', false);
+                            }
                         });
                     };
                     fileInput.value = null;
