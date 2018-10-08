@@ -26,6 +26,7 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   config.include Warden::Test::Helpers, type: :feature
+  config.include Devise::Test::ControllerHelpers, type: :controller
 end
 
 FactoryBot::SyntaxRunner.class_eval do
