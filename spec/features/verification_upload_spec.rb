@@ -11,7 +11,6 @@ feature "Uploading verifications", js: true do
 
   scenario "add letters" do
     visit add_letter_screens_path
-
     page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
     expect(page).to have_text "image.jpg"
 
