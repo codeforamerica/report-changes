@@ -24,14 +24,9 @@ var directUpload = (function () {
 
                     for(let i=0,file;file=this.files[i];i++) {
                         var context = {
-                          filename: "Uploading",
-                          signedId: null,
-                          isPdf: null,
-                          inputName: fileInput.name,
-                          uploadInProgress: true,
                           id: 'uploaded-file-detail-' + i
                         };
-                        var uploadedFileDetailHtml = HandlebarsTemplates['uploaded_file_detail'](context);
+                        var uploadedFileDetailHtml = HandlebarsTemplates['file_uploading'](context);
                         $('.uploaded-files').append(uploadedFileDetailHtml);
                         const upload = new ActiveStorage.DirectUpload(file, url);
 
@@ -40,8 +35,7 @@ var directUpload = (function () {
                                 filename: blob.filename,
                                 signedId: blob.signed_id,
                                 isPdf: (blob.content_type === "application/pdf"),
-                                inputName: fileInput.name,
-                                uploadInProgress: false
+                                inputName: fileInput.name
                             };
                             var uploadedFileDetailHtml = HandlebarsTemplates['uploaded_file_detail'](context);
                             $('#uploaded-file-detail-' + i).replaceWith(uploadedFileDetailHtml);
