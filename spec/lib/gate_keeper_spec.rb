@@ -16,4 +16,20 @@ describe GateKeeper do
       end
     end
   end
+
+  describe ".feature_enabled?" do
+    context "when environment variable is set" do
+      it "returns true" do
+        with_modified_env BEST_THING_ENABLED: "true" do
+          expect(GateKeeper.feature_enabled?("BEST_THING")).to eq(true)
+        end
+      end
+    end
+
+    context "when environment variable is not set" do
+      it "returns false" do
+        expect(GateKeeper.feature_enabled?("BEST_THING")).to eq(false)
+      end
+    end
+  end
 end
