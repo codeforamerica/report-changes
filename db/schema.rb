@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_02_222810) do
+ActiveRecord::Schema.define(version: 2018_10_09_001739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,7 +92,6 @@ ActiveRecord::Schema.define(version: 2018_10_02_222810) do
     t.string "manager_phone_number"
     t.string "phone_number"
     t.string "signature"
-    t.integer "signature_confirmation", default: 0
     t.datetime "submitted_at"
     t.datetime "updated_at", null: false
   end

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe SignSubmitController do
-  valid_params = { signature: "Best E. Person", signature_confirmation: "yes" }
+  valid_params = { signature: "Best E. Person" }
 
   it_behaves_like "form controller base behavior"
   it_behaves_like "form controller successful update", valid_params

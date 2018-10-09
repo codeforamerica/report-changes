@@ -2,11 +2,9 @@ require "rails_helper"
 
 RSpec.describe SignSubmitForm do
   describe "validations" do
-    context "when signature and signature confirmation are provided" do
+    context "when signature is provided" do
       it "is valid" do
-        form = SignSubmitForm.new(nil,
-          signature: "best person",
-          signature_confirmation: "yes")
+        form = SignSubmitForm.new(nil, signature: "best person")
 
         expect(form).to be_valid
       end
@@ -14,19 +12,7 @@ RSpec.describe SignSubmitForm do
 
     context "when no signature is provided" do
       it "is invalid" do
-        form = SignSubmitForm.new(nil,
-          signature: nil,
-          signature_confirmation: "yes")
-
-        expect(form).to_not be_valid
-      end
-    end
-
-    context "when signature confirmation is not provided" do
-      it "is invalid" do
-        form = SignSubmitForm.new(nil,
-          signature: "Best Person",
-          signature_confirmation: "unfilled")
+        form = SignSubmitForm.new(nil, signature: nil)
 
         expect(form).to_not be_valid
       end
@@ -39,7 +25,6 @@ RSpec.describe SignSubmitForm do
     let(:valid_params) do
       {
         signature: "Jane Doe",
-        signature_confirmation: "yes",
       }
     end
 
@@ -51,7 +36,6 @@ RSpec.describe SignSubmitForm do
       change_report.reload
 
       expect(change_report.signature).to eq "Jane Doe"
-      expect(change_report.signature_confirmation).to eq "yes"
       expect(change_report.submitted_at).to be_within(1.second).of(Time.zone.now)
     end
   end

@@ -11,7 +11,6 @@ class FormNavigation
     DoYouHaveALetterController,
     AddLetterController,
     TextMessageConsentController,
-    RightsAndResponsibilitiesController,
     SignSubmitController,
     SuccessController,
   ].freeze
