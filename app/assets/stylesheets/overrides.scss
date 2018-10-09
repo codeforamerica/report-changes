@@ -30,8 +30,9 @@
   margin-bottom: 3em;
 }
 
-.dark-background .form-card {
-  border: 2px solid $color-light-grey;
+.form-card--transition .form-card__header .form-card__title{
+  max-width: 57rem;
+  margin-bottom: .5em;
 }
 
 .button[disabled] {

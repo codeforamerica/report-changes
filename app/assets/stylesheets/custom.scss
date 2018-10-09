@@ -75,7 +75,16 @@
 // MichiganBenefits _base.scss
 .dark-background {
   background-color: $color-darkest-grey;
+
+  .main-header {
+    background-color: $color-background;
+  }
+
+  .form-card {
+    border: 2px solid $color-light-grey;
+  }
 }
+
 
 .verification-upload-icon {
   background-image: image-url('verification-upload-icon.png');

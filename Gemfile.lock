@@ -132,6 +132,7 @@ GEM
     chromedriver-helper (2.1.0)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
+    climate_control (0.2.0)
     coderay (1.1.2)
     combine_pdf (1.0.15)
       ruby-rc4 (>= 0.1.5)
@@ -383,6 +384,7 @@ DEPENDENCIES
   capybara-selenium
   cfa-styleguide!
   chromedriver-helper
+  climate_control
   combine_pdf
   devise
   devise-otp!
@@ -417,4 +419,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.2
+   1.16.6

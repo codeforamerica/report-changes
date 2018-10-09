@@ -7,6 +7,7 @@ chdir APP_ROOT do
   step "Adding heroku git remotes" do
     system!("heroku git:remote -a colorado-benefits-staging -r co-staging")
     system!("heroku git:remote -a colorado-benefits-production -r co-production")
+    system!("heroku git:remote -a colorado-benefits-demo -r co-demo")
   end
   
   step "Install dependencies from Brewfile" do
