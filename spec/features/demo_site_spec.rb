@@ -1,8 +1,10 @@
 require "rails_helper"
 
 RSpec.feature "Demo site" do
-  before do
-    allow(Rails).to receive(:env) { "demo".inquiry }
+  around do |example|
+    with_modified_env DEMO_MODE: "true" do
+      example.run
+    end
   end
 
   scenario "applying" do
