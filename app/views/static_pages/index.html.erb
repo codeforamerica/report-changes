@@ -6,11 +6,16 @@
       Report job changes to your Food Assistance (Food Stamps) case
     </h1>
 
-    <%= link_to screen_path(FormNavigation.first) do %>
-      <button class="button button--large button--cta">Start my report <i class="button__icon icon-arrow_forward"></i></button>
+    <% if GateKeeper.feature_enabled?("PRE_LAUNCH") %>
+      <button class="button button--large button--cta" disabled>Start my report <i class="button__icon icon-arrow_forward"></i></button>
+      <p>Coming soon — check back!</p>
+    <% else %>
+      <%= link_to screen_path(FormNavigation.first) do %>
+        <button class="button button--large button--cta">Start my report <i class="button__icon icon-arrow_forward"></i></button>
+      <% end %>
+      <p>It only takes 10 minutes</p>
     <% end %>
 
-    <p>It only takes 10 minutes</p>
   </div>
 </section>
 
@@ -22,7 +27,10 @@
         If your income rises by a certain amount you need to report the change to your Food Assistance case. If your income falls, you may be eligible for more benefits.
       </p>
       <p class="h3">
-        <%= link_to 'Start your report', screen_path(FormNavigation.first) %> now. We’ll guide you through the process with simple step-by-step directions.
+        <% unless GateKeeper.feature_enabled?("PRE_LAUNCH") %>
+          <%= link_to 'Start your report', screen_path(FormNavigation.first) %> now.
+        <% end %>
+        We’ll guide you through the process with simple step-by-step directions.
       </p>
     </div>
     <div class="grid__item width-one-fourth shift-one-sixth trust-badge">
