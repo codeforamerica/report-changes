@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "Reporting a change", js: true do
+RSpec.feature "Reporting a change", js: true do
   scenario "job termination" do
     visit "/"
     expect(page).to have_text "Report job changes"

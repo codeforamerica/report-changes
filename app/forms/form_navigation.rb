@@ -1,6 +1,7 @@
 class FormNavigation
   MAIN = [
     HowItWorksController,
+    DemoConfirmationController,
     CountyLocationController,
     WhereDoYouLiveController,
     SupportedCountyController,
