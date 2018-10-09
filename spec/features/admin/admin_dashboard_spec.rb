@@ -58,9 +58,9 @@ RSpec.feature "Admin viewing dashboard" do
   end
 
   scenario "can download a csv of all the change reports" do
-    create(:change_report, :with_member, signature: "st", signature_confirmation: "yes", manager_name: "Lavar Burton")
-    create(:change_report, :with_member, signature: "julie", signature_confirmation: "yes", manager_name: "Bob Ross")
-    create(:change_report, :with_member, signature: nil, signature_confirmation: "unfilled", manager_name: "Mr Burns")
+    create(:change_report, :with_member, signature: "st", manager_name: "Lavar Burton")
+    create(:change_report, :with_member, signature: "julie", manager_name: "Bob Ross")
+    create(:change_report, :with_member, signature: nil, manager_name: "Mr Burns")
 
     visit admin_root_path
 

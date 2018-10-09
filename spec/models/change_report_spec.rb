@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe ChangeReport, type: :model do
   describe ".signed" do
     it "only returns signed change reports" do
-      signed_change_report = create :change_report, signature_confirmation: "yes", signature: "Quincy Jones"
-      second_signed_change_report = create :change_report, signature_confirmation: "yes", signature: "Frank Sinatra"
-      _unsigned_change_report = create :change_report, signature_confirmation: "unfilled", signature: "Count Basie"
+      signed_change_report = create :change_report, signature: "Quincy Jones"
+      second_signed_change_report = create :change_report, signature: "Frank Sinatra"
+      _unsigned_change_report = create :change_report
 
       expect(ChangeReport.signed).to eq [signed_change_report, second_signed_change_report]
     end
@@ -42,7 +42,6 @@ RSpec.describe ChangeReport, type: :model do
           has_letter: "unfilled",
           letter_count: 1,
           consent_to_sms: "unfilled",
-          signature_confirmation: "unfilled",
           feedback_rating: "unfilled",
         },
       )
