@@ -1,8 +1,12 @@
 FactoryBot.define do
   factory :change_report do
     trait :with_navigator do
-      after(:create) do |change_report|
-        create(:change_report_navigator, change_report: change_report)
+      transient do
+        source { nil }
+      end
+
+      after(:create) do |change_report, evaluator|
+        create(:change_report_navigator, change_report: change_report, source: evaluator.source)
       end
     end
 

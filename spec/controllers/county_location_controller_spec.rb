@@ -5,6 +5,10 @@ RSpec.describe CountyLocationController do
   it_behaves_like "form controller always shows"
 
   describe "#update" do
+    before do
+      session[:source] = "awesome-cbo"
+    end
+
     context "with valid params" do
       let(:valid_params) do
         {
@@ -23,6 +27,7 @@ RSpec.describe CountyLocationController do
 
           expect(response).to redirect_to(subject.next_path)
           expect(current_change_report.navigator.selected_county_location_arapahoe?).to be_truthy
+          expect(current_change_report.navigator.source).to eq "awesome-cbo"
         end
       end
 

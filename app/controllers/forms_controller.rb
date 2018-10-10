@@ -47,16 +47,16 @@ class FormsController < ApplicationController
 
   def update_session; end
 
+  def form_params
+    params.fetch(:form, {}).permit(*form_class.attribute_names)
+  end
+
   # Don't override in subclasses
 
   def ensure_change_report_present
     if current_change_report.blank?
       redirect_to root_path
     end
-  end
-
-  def form_params
-    params.fetch(:form, {}).permit(*form_class.attribute_names)
   end
 
   def form_navigation

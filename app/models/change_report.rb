@@ -37,6 +37,7 @@ class ChangeReport < ActiveRecord::Base
       letter_count: letters.count,
       consent_to_sms: consent_to_sms,
       feedback_rating: feedback_rating,
+      source: navigator.source,
     }
   end
 end

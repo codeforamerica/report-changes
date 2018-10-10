@@ -12,4 +12,14 @@ RSpec.describe StaticPagesController, type: :controller do
       end
     end
   end
+
+  context "with a source param" do
+    describe "#index" do
+      it "sets the session source to the param value" do
+        get :index, params: { source: "great-cbo" }
+
+        expect(session[:source]).to eq "great-cbo"
+      end
+    end
+  end
 end
