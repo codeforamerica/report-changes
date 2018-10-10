@@ -23,6 +23,7 @@ RSpec.describe CountyLocationForm do
     let(:valid_params) do
       {
         selected_county_location: :arapahoe,
+        source: "awesome-cbo",
       }
     end
 
@@ -39,6 +40,7 @@ RSpec.describe CountyLocationForm do
         end.to_not(change { ChangeReport.count })
 
         expect(ChangeReport.last.navigator.selected_county_location_arapahoe?).to eq(true)
+        expect(ChangeReport.last.navigator.source).to eq("awesome-cbo")
       end
     end
 

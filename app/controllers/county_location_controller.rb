@@ -4,4 +4,8 @@ class CountyLocationController < FormsController
   def update_session
     session[:current_change_report_id] = @form.change_report.id
   end
+
+  def form_params
+    super.merge source: session[:source]
+  end
 end

@@ -1,5 +1,5 @@
 class CountyLocationForm < Form
-  set_attributes_for :navigator, :selected_county_location
+  set_attributes_for :navigator, :selected_county_location, :source
 
   validates_presence_of :selected_county_location,
     message: "Please answer this question"

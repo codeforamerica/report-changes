@@ -29,8 +29,11 @@ RSpec.describe ChangeReport, type: :model do
 
   describe "#mixpanel_data" do
     let(:change_report) do
-      create :change_report, :with_navigator, :with_letter,
-        member: create(:household_member, birthday: (30.years.ago - 1.day))
+      create :change_report,
+             :with_navigator,
+             :with_letter,
+             source: "awesome-cbo",
+             member: create(:household_member, birthday: (30.years.ago - 1.day))
     end
 
     it "returns a non-PII representation of change report data" do
@@ -43,6 +46,7 @@ RSpec.describe ChangeReport, type: :model do
           letter_count: 1,
           consent_to_sms: "unfilled",
           feedback_rating: "unfilled",
+          source: "awesome-cbo",
         },
       )
     end
