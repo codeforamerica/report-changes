@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_10_195032) do
+ActiveRecord::Schema.define(version: 2018_10_11_153217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_195032) do
 
   create_table "change_reports", force: :cascade do |t|
     t.string "case_number"
+    t.integer "change_type", default: 0
     t.string "company_name"
     t.integer "consent_to_sms", default: 0
     t.datetime "created_at", null: false

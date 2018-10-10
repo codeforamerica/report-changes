@@ -6,6 +6,7 @@ class FormNavigation
     WhereDoYouLiveController,
     SupportedCountyController,
     NotYetSupportedCountyController,
+    ChangeTypeController,
     TellUsAboutYourselfController,
     TellUsAboutTheJobController,
     ProofInfoController,

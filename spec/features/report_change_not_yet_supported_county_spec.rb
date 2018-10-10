@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Report termination" do
+RSpec.feature "Report change" do
   scenario "county not yet supported" do
     visit "/"
     click_on "Start my report", match: :first

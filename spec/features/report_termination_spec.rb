@@ -77,4 +77,50 @@ RSpec.feature "Reporting a change", js: true do
 
     expect(page).to have_content("Thanks for your feedback")
   end
+
+  context "when new job flow is enabled" do
+    around do |example|
+      with_modified_env NEW_JOB_FLOW_ENABLED: "true" do
+        example.run
+      end
+    end
+
+    scenario "job termination" do
+      visit "/"
+
+      expect(page).to have_text "Report job changes"
+      click_on "Start my report", match: :first
+
+      expect(page).to have_text "Welcome! Here’s how reporting a change works"
+      click_on "Start the form"
+
+      expect(page).to have_text "do you live in Arapahoe County?"
+      choose "I'm not sure"
+      click_on "Continue"
+
+      expect(page).to have_text "Where do you live?"
+
+      fill_in "Street address", with: "1355 South Laredo Court"
+      fill_in "City", with: "Aurora"
+      fill_in "Zip code", with: "80017"
+      click_on "Continue"
+      expect(page).to have_text "Great, it looks like you live in Arapahoe County."
+      click_on "Continue"
+
+      expect(page).to have_text "What changed?"
+      choose "My job ended or I stopped working"
+      click_on "Continue"
+
+      expect(page).to have_text "Tell us about yourself."
+
+      fill_in "What is your name?", with: "Jane Doe"
+      fill_in "What is your phone number?", with: "555-222-3333"
+      select "January", from: "form[birthday_month]"
+      select "1", from: "form[birthday_day]"
+      select 20.years.ago.year.to_s, from: "form[birthday_year]"
+      click_on "Continue"
+
+      expect(page).to have_text "Tell us about the job that ended"
+    end
+  end
 end

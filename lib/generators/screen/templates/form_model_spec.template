@@ -5,6 +5,7 @@ RSpec.describe <%= model.camelcase %>Form do
     context "when some_attribute is provided" do
       it "is valid" do
         form = <%= "#{model.camelcase}Form".classify %>.new(
+          nil,
           some_attribute: "best attribute",
         )
 
@@ -15,6 +16,7 @@ RSpec.describe <%= model.camelcase %>Form do
     context "when some_attribute is not provided" do
       it "is invalid" do
         form = <%= "#{model.camelcase}Form".classify %>.new(
+          nil,
           some_attribute: nil,
         )
 
@@ -34,7 +36,7 @@ RSpec.describe <%= model.camelcase %>Form do
     end
 
     it "persists the values to the correct models" do
-      form = <%= "#{model.camelcase}Form".classify %>.new(valid_params)
+      form = <%= "#{model.camelcase}Form".classify %>.new(change_report, valid_params)
       form.valid?
       form.save
 
