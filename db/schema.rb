@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_10_171847) do
+ActiveRecord::Schema.define(version: 2018_10_10_195032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 2018_10_10_171847) do
     t.integer "feedback_rating", default: 0
     t.datetime "last_day"
     t.datetime "last_paycheck"
+    t.decimal "last_paycheck_amount", precision: 8, scale: 2
     t.string "manager_additional_information"
     t.string "manager_name"
     t.string "manager_phone_number"

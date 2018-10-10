@@ -18,6 +18,11 @@
                               "What was the date of your final paycheck?",
                               help_text: "Estimate if you're not sure.",
                               options: { start_year: Time.now.year, end_year: Time.now.year - 3 } %>
+        <%= f.cfa_input_field :last_paycheck_amount,
+                              "What was the amount of your final paystub, pre-tax?",
+                              classes: ["form-width--phone"],
+                              prefix: "$",
+                              optional: true %>
     <% end %>
 <% end %>
 
