@@ -233,4 +233,22 @@ RSpec.describe ChangeReportDecorator do
       end
     end
   end
+
+  describe "#last_paycheck_amount" do
+    context "when there is not an amount" do
+      it "returns no response" do
+        change_report = create :change_report, last_paycheck_amount: nil
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.last_paycheck_amount).to eq "no response"
+      end
+    end
+
+    context "when there is an amount" do
+      it "returns the formatted amount" do
+        change_report = create :change_report, last_paycheck_amount: 1127.14
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.last_paycheck_amount).to eq "$1,127.14"
+      end
+    end
+  end
 end

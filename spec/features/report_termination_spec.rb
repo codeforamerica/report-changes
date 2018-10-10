@@ -42,6 +42,7 @@ RSpec.feature "Reporting a change", js: true do
     select "February", from: "form[last_paycheck_month]"
     select "12", from: "form[last_paycheck_day]"
     select "2018", from: "form[last_paycheck_year]"
+    fill_in "What was the amount of your final paystub, pre-tax?", with: "127.14"
     click_on "Continue"
 
     expect(page).to have_text "Do you have proof of this change?"

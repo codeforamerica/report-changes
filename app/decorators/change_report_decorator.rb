@@ -1,4 +1,6 @@
 class ChangeReportDecorator < SimpleDelegator
+  include ActionView::Helpers::NumberHelper
+
   def self.header_attributes
     [
       "submitted_at",
@@ -10,6 +12,7 @@ class ChangeReportDecorator < SimpleDelegator
       "company_name",
       "last_day",
       "last_paycheck",
+      "last_paycheck_amount",
       "manager_name",
       "manager_phone_number",
       "manager_additional_information",
@@ -63,6 +66,14 @@ class ChangeReportDecorator < SimpleDelegator
 
   def termination_letter
     navigator.has_letter_yes? ? "See attached" : "Client does not have this"
+  end
+
+  def last_paycheck_amount
+    if super.present?
+      number_to_currency(super)
+    else
+      "no response"
+    end
   end
 
   private

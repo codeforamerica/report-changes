@@ -54,7 +54,15 @@ class Form
   private
 
   def strip_dashes(field_name)
-    send("#{field_name}=", send(field_name).delete("-")) unless send(field_name).nil?
+    strip_characters("-", field_name)
+  end
+
+  def strip_commas(field_name)
+    strip_characters(",", field_name)
+  end
+
+  def strip_characters(character, field_name)
+    send("#{field_name}=", send(field_name).delete(character)) unless send(field_name).nil?
   end
 
   def to_datetime(year, month, day)

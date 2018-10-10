@@ -157,6 +157,45 @@ RSpec.describe TellUsAboutTheJobForm do
         end
       end
     end
+
+    describe "last_paycheck_amount" do
+      context "when the last_paycheck_amount is not included" do
+        it "is valid" do
+          params = valid_params.merge(
+            last_paycheck_amount: nil,
+          )
+          form = TellUsAboutTheJobForm.new(nil, params)
+
+          expect(form).to be_valid
+          expect(form.last_paycheck_amount).to be_nil
+        end
+      end
+
+      context "when the last_paycheck_amount is included and is a money shaped decimal" do
+        it "is valid" do
+          params = valid_params.merge(
+            last_paycheck_amount: "127.14",
+          )
+          form = TellUsAboutTheJobForm.new(nil, params)
+
+          expect(form).to be_valid
+          expect(form.last_paycheck_amount).to eq "127.14"
+        end
+      end
+
+      context "when the last_paycheck_amount is included and contains non-numeric (or , or .) characters" do
+        it "is valid" do
+          params = valid_params.merge(
+            last_paycheck_amount: "abc",
+          )
+          form = TellUsAboutTheJobForm.new(nil, params)
+
+          expect(form).not_to be_valid
+          expect(form.errors[:last_paycheck_amount].count).to eq 1
+          expect(form.errors[:last_paycheck_amount].first).to eq "Please add a number."
+        end
+      end
+    end
   end
 
   describe "#save" do
@@ -172,6 +211,7 @@ RSpec.describe TellUsAboutTheJobForm do
         last_paycheck_day: "28",
         last_paycheck_month: "2",
         last_paycheck_year: "2018",
+        last_paycheck_amount: "1,127.143",
       }
     end
 
@@ -192,6 +232,7 @@ RSpec.describe TellUsAboutTheJobForm do
         expect(change_report.last_paycheck.year).to eq 2018
         expect(change_report.last_paycheck.month).to eq 2
         expect(change_report.last_paycheck.day).to eq 28
+        expect(change_report.last_paycheck_amount).to eq 1127.14
       end
     end
   end
