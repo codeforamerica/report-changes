@@ -6,13 +6,4 @@ class <%= model.camelcase %>Controller < FormsController
   # def self.show_rule_sets(change_report)
   #   super << ShowRules.must_have_supported_county(change_report)
   # end
-
-  private
-
-  <%- if options.doc? -%>
-  # Assign any existing attributes, for showing previously submitted information:
-  <%- end -%>
-  def existing_attributes
-    {}
-  end
 end

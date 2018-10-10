@@ -14,5 +14,5 @@ RSpec.describe TellUsAboutTheJobController do
     last_paycheck_year: "2018",
   }
   it_behaves_like "form controller unsuccessful update"
-  it_behaves_like "form controller always shows"
+  it_behaves_like "form controller shows when job termination"
 end

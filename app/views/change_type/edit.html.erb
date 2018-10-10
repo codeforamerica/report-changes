@@ -1,0 +1,15 @@
+<% content_for :form_card_title, "What changed?" %>
+
+<% content_for :form_card_body do %>
+    <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+        <%= f.cfa_radio_set :change_type,
+                            label_text: "What changed?",
+                            legend_class: "sr-only",
+                            collection: [
+                              { value: :job_termination, label: "My job ended or I stopped working" },
+                              { value: :new_job, label: "I started a new job" },
+                            ] %>
+    <% end %>
+<% end %>
+
+<% content_for :progress_indicator_percentage, "27" %>

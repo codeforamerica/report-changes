@@ -13,6 +13,8 @@ class ChangeReport < ActiveRecord::Base
 
   enum consent_to_sms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms
   enum feedback_rating: { unfilled: 0, positive: 1, negative: 2, neutral: 3 }, _prefix: :feedback_rating
+  enum change_type: { unfilled: 0, job_termination: 1, new_job: 2 },
+       _prefix: :change_type
 
   scope :signed, -> { where.not(signature: nil) }
 
