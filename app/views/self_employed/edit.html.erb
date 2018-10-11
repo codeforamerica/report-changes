@@ -1,0 +1,22 @@
+<% content_for :form_card_title, "Are you self-employed?" %>
+
+<% content_for :form_card_help, "You are self-employed if you have business expenses that are not reimbursed." %>
+
+<% content_for :form_card_body do %>
+  <p class="center">Examples of self-employment:</p>
+  <p class="center">
+    <span class="example">If you file a 1099 form</span>
+    <span class="example">Business owners</span>
+    <span class="example">Uber/Lyft drivers</span>
+    <span class="example">Day care providers</span>
+  </p>
+  <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+  <%= f.cfa_radio_set :is_self_employed,
+    collection: [
+      { value: :yes, label: "I am self-employed" },
+      { value: :no, label: "I am not self-employed" },
+    ] %>
+  <% end %>
+<% end %>
+
+<% content_for :progress_indicator_percentage, "28" %>
