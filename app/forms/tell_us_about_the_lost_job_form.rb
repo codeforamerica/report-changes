@@ -1,4 +1,4 @@
-class TellUsAboutTheJobForm < Form
+class TellUsAboutTheLostJobForm < Form
   set_attributes_for :change_report, :company_name, :last_day_year,
                      :last_day_month, :last_day_day, :last_paycheck_year,
                      :last_paycheck_month, :last_paycheck_day, :manager_name,

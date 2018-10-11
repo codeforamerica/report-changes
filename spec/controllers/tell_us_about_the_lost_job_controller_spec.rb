@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe TellUsAboutTheJobController do
+RSpec.describe TellUsAboutTheLostJobController do
   it_behaves_like "form controller base behavior"
   it_behaves_like "form controller successful update", {
     company_name: "Abc Corp",
