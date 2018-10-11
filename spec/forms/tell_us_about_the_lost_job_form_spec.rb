@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe TellUsAboutTheJobForm do
+RSpec.describe TellUsAboutTheLostJobForm do
   describe "validations" do
     let(:valid_params) do
       {
@@ -18,7 +18,7 @@ RSpec.describe TellUsAboutTheJobForm do
 
     context "when all required attributes provided" do
       it "is valid" do
-        form = TellUsAboutTheJobForm.new(nil, valid_params)
+        form = TellUsAboutTheLostJobForm.new(nil, valid_params)
 
         expect(form).to be_valid
       end
@@ -28,7 +28,7 @@ RSpec.describe TellUsAboutTheJobForm do
       context "when the company_name is not included" do
         it "is invalid" do
           invalid_params = valid_params.merge(company_name: nil)
-          form = TellUsAboutTheJobForm.new(nil, invalid_params)
+          form = TellUsAboutTheLostJobForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
         end
@@ -39,7 +39,7 @@ RSpec.describe TellUsAboutTheJobForm do
       context "when the manager_name is not included" do
         it "is invalid" do
           invalid_params = valid_params.merge(manager_name: nil)
-          form = TellUsAboutTheJobForm.new(nil, invalid_params)
+          form = TellUsAboutTheLostJobForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
         end
@@ -50,7 +50,7 @@ RSpec.describe TellUsAboutTheJobForm do
       context "when the manager_phone_number is not included" do
         it "is invalid" do
           invalid_params = valid_params.merge(manager_phone_number: nil)
-          form = TellUsAboutTheJobForm.new(nil, invalid_params)
+          form = TellUsAboutTheLostJobForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
         end
@@ -59,7 +59,7 @@ RSpec.describe TellUsAboutTheJobForm do
       context "when the manager_phone_number has less than 10 digits" do
         it "is invalid" do
           invalid_params = valid_params.merge(manager_phone_number: "111-111-111")
-          form = TellUsAboutTheJobForm.new(nil, invalid_params)
+          form = TellUsAboutTheLostJobForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
         end
@@ -74,7 +74,7 @@ RSpec.describe TellUsAboutTheJobForm do
             last_day_month: nil,
             last_day_day: nil,
           )
-          form = TellUsAboutTheJobForm.new(nil, invalid_params)
+          form = TellUsAboutTheLostJobForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
           expect(form.errors[:last_day].count).to eq 1
@@ -90,7 +90,7 @@ RSpec.describe TellUsAboutTheJobForm do
             last_day_month: 2,
             last_day_day: nil,
           )
-          form = TellUsAboutTheJobForm.new(nil, invalid_params)
+          form = TellUsAboutTheLostJobForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
           expect(form.errors[:last_day].count).to eq 1
@@ -102,7 +102,7 @@ RSpec.describe TellUsAboutTheJobForm do
 
       context "when the last_day is not a valid date" do
         it "is invalid" do
-          form = TellUsAboutTheJobForm.new(nil, last_day_year: 1992, last_day_month: 2, last_day_day: 30)
+          form = TellUsAboutTheLostJobForm.new(nil, last_day_year: 1992, last_day_month: 2, last_day_day: 30)
 
           expect(form).not_to be_valid
           expect(form.errors[:last_day].count).to eq 1
@@ -119,7 +119,7 @@ RSpec.describe TellUsAboutTheJobForm do
             last_paycheck_month: nil,
             last_paycheck_day: nil,
           )
-          form = TellUsAboutTheJobForm.new(nil, invalid_params)
+          form = TellUsAboutTheLostJobForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
           expect(form.errors[:last_paycheck].count).to eq 1
@@ -135,7 +135,7 @@ RSpec.describe TellUsAboutTheJobForm do
             last_paycheck_month: 2,
             last_paycheck_day: nil,
           )
-          form = TellUsAboutTheJobForm.new(nil, invalid_params)
+          form = TellUsAboutTheLostJobForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
           expect(form.errors[:last_paycheck].count).to eq 1
@@ -146,7 +146,7 @@ RSpec.describe TellUsAboutTheJobForm do
 
       context "when the last_paycheck is not a valid date" do
         it "is invalid" do
-          form = TellUsAboutTheJobForm.new(nil,
+          form = TellUsAboutTheLostJobForm.new(nil,
             last_paycheck_year: 1992,
             last_paycheck_month: 2,
             last_paycheck_day: 30)
@@ -164,7 +164,7 @@ RSpec.describe TellUsAboutTheJobForm do
           params = valid_params.merge(
             last_paycheck_amount: nil,
           )
-          form = TellUsAboutTheJobForm.new(nil, params)
+          form = TellUsAboutTheLostJobForm.new(nil, params)
 
           expect(form).to be_valid
           expect(form.last_paycheck_amount).to be_nil
@@ -188,7 +188,7 @@ RSpec.describe TellUsAboutTheJobForm do
           params = valid_params.merge(
             last_paycheck_amount: "127.14",
           )
-          form = TellUsAboutTheJobForm.new(nil, params)
+          form = TellUsAboutTheLostJobForm.new(nil, params)
 
           expect(form).to be_valid
           expect(form.last_paycheck_amount).to eq "127.14"
@@ -200,7 +200,7 @@ RSpec.describe TellUsAboutTheJobForm do
           params = valid_params.merge(
             last_paycheck_amount: "abc",
           )
-          form = TellUsAboutTheJobForm.new(nil, params)
+          form = TellUsAboutTheLostJobForm.new(nil, params)
 
           expect(form).not_to be_valid
           expect(form.errors[:last_paycheck_amount].count).to eq 1
@@ -242,7 +242,7 @@ RSpec.describe TellUsAboutTheJobForm do
 
     context "when the member does not yet exist" do
       it "persists the values to the correct models" do
-        form = TellUsAboutTheJobForm.new(change_report, valid_params)
+        form = TellUsAboutTheLostJobForm.new(change_report, valid_params)
         form.valid?
         form.save
 
@@ -272,7 +272,7 @@ RSpec.describe TellUsAboutTheJobForm do
         last_day: DateTime.new(2000, 1, 15),
         last_paycheck: DateTime.new(2018, 2, 28))
 
-      form = TellUsAboutTheJobForm.from_change_report(change_report)
+      form = TellUsAboutTheLostJobForm.from_change_report(change_report)
 
       expect(form.company_name).to eq("Abc Corp")
       expect(form.manager_name).to eq("Boss McBosser")

@@ -10,7 +10,7 @@ class FormNavigation
     SelfEmployedController,
     NotYetSupportedController,
     TellUsAboutYourselfController,
-    TellUsAboutTheJobController,
+    TellUsAboutTheLostJobController,
     ProofInfoController,
     DoYouHaveALetterController,
     AddLetterController,
