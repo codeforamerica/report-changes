@@ -1,20 +1,7 @@
 <% content_for :form_card_title, "Welcome! Here’s how reporting a change works:" %>
 
 <% content_for :form_card_body do %>
-    <div class="vertical-steps text--centered">
-      <div class="vertical-steps__step">
-        <div class="emoji emoji--med emoji--memo"></div>
-        <p class="text--small with-padding-small">Fill out a form about the change and provide proof.</p>
-      </div>
-      <div class="vertical-steps__step">
-        <div class="emoji emoji--med emoji--card-file-box"></div>
-        <p class="text--small with-padding-small">The county reviews your case and figures out if your benefits need to change.</p>
-      </div>
-      <div class="vertical-steps__step">
-        <div class="emoji emoji--med emoji--envelope-with-arrow"></div>
-        <p class="text--small with-padding-small">You get a letter in the mail telling you if your benefits will change.</p>
-      </div>
-    </div>
+  <%= render "shared/how_it_works" %>
 <% end %>
 
 <% content_for :form_card_footer_button_label, "Start the form" %>
