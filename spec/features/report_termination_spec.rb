@@ -1,6 +1,15 @@
 require "rails_helper"
 
 RSpec.feature "Reporting a change", js: true do
+  include ActiveJob::TestHelper
+
+  around do |example|
+    ActionMailer::Base.deliveries.clear
+    perform_enqueued_jobs do
+      example.run
+    end
+  end
+
   scenario "job termination" do
     visit "/"
     expect(page).to have_text "Report job changes"
@@ -24,7 +33,7 @@ RSpec.feature "Reporting a change", js: true do
     click_on "Continue"
     expect(page).to have_text "Tell us about yourself."
 
-    fill_in "What is your name?", with: "Jane Doe"
+    fill_in "What is your name?", with: "Person McPeoples"
     fill_in "What is your phone number?", with: "555-222-3333"
     select "January", from: "form[birthday_month]"
     select "1", from: "form[birthday_day]"
@@ -76,6 +85,11 @@ RSpec.feature "Reporting a change", js: true do
     click_on "Submit"
 
     expect(page).to have_content("Thanks for your feedback")
+
+    emails = ActionMailer::Base.deliveries
+
+    expect(emails.count).to eq 1
+    expect(emails.last.attachments.count).to eq 1
   end
 
   context "when new job flow is enabled" do

@@ -20,4 +20,19 @@ RSpec.describe SignSubmitController do
       expect(form.signature).to eq("Best E. Person")
     end
   end
+
+  describe "#update" do
+    context "on success" do
+      it "enqueues a pdf mailer job" do
+        current_change_report = create(:change_report, :with_navigator)
+        session[:current_change_report_id] = current_change_report.id
+
+        allow(EmailChangeReportToOfficeJob).to receive(:perform_later)
+
+        put :update, params: { form: valid_params }
+
+        expect(EmailChangeReportToOfficeJob).to have_received(:perform_later).with(change_report: current_change_report)
+      end
+    end
+  end
 end

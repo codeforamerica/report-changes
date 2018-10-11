@@ -11,8 +11,12 @@ FactoryBot.define do
     end
 
     trait :with_member do
-      after(:create) do |change_report|
-        create(:household_member, birthday: 25.years.ago - 1.day, change_report: change_report)
+      transient do
+        name { "Quincy Jones" }
+      end
+
+      after(:create) do |change_report, evaluator|
+        create(:household_member, birthday: 25.years.ago - 1.day, change_report: change_report, name: evaluator.name)
       end
     end
 
@@ -21,5 +25,7 @@ FactoryBot.define do
         [fixture_file_upload(Rails.root.join("spec", "fixtures", "image.jpg"), "image/jpg")]
       end
     end
+
+    factory :change_report_with_letter, traits: %i[with_navigator with_member with_letter]
   end
 end
