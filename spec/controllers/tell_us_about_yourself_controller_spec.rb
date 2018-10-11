@@ -12,5 +12,4 @@ RSpec.describe TellUsAboutYourselfController do
     birthday_year: "2000",
   }
   it_behaves_like "form controller unsuccessful update"
-  it_behaves_like "form controller shows when job termination"
 end

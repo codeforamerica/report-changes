@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe NotYetSupportedCountyController do
+RSpec.describe NotYetSupportedController do
   it_behaves_like "form controller base behavior"
 
   describe "show?" do
@@ -9,7 +9,7 @@ RSpec.describe NotYetSupportedCountyController do
         navigator = build(:change_report_navigator, selected_county_location: :arapahoe)
         change_report = create(:change_report, navigator: navigator)
 
-        show_form = NotYetSupportedCountyController.show?(change_report)
+        show_form = NotYetSupportedController.show?(change_report)
         expect(show_form).to eq(false)
       end
     end
@@ -19,7 +19,7 @@ RSpec.describe NotYetSupportedCountyController do
         navigator = build(:change_report_navigator, county_from_address: "Arapahoe County")
         change_report = create(:change_report, navigator: navigator)
 
-        show_form = NotYetSupportedCountyController.show?(change_report)
+        show_form = NotYetSupportedController.show?(change_report)
         expect(show_form).to eq(false)
       end
     end
@@ -31,8 +31,29 @@ RSpec.describe NotYetSupportedCountyController do
                           county_from_address: "Jefferson County")
         change_report = create(:change_report, navigator: navigator)
 
-        show_form = NotYetSupportedCountyController.show?(change_report)
+        show_form = NotYetSupportedController.show?(change_report)
         expect(show_form).to eq(true)
+      end
+    end
+
+    context "when a client is self-employed" do
+      it "returns true" do
+        navigator = build(:change_report_navigator, selected_county_location: :arapahoe)
+        change_report = create(:change_report, navigator: navigator, is_self_employed: "yes")
+
+        show_form = NotYetSupportedController.show?(change_report)
+
+        expect(show_form).to be_truthy
+      end
+    end
+
+    context "when a client is not self-employed" do
+      it "returns false" do
+        navigator = build(:change_report_navigator, selected_county_location: :arapahoe)
+        change_report = create(:change_report, navigator: navigator, is_self_employed: "no")
+        show_form = NotYetSupportedController.show?(change_report)
+
+        expect(show_form).to be_falsey
       end
     end
   end

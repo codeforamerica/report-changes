@@ -15,6 +15,8 @@ class ChangeReport < ActiveRecord::Base
   enum feedback_rating: { unfilled: 0, positive: 1, negative: 2, neutral: 3 }, _prefix: :feedback_rating
   enum change_type: { unfilled: 0, job_termination: 1, new_job: 2 },
        _prefix: :change_type
+  enum is_self_employed: { unfilled: 0, yes: 1, no: 2 },
+       _prefix: :is_self_employed
 
   scope :signed, -> { where.not(signature: nil) }
 

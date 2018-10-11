@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 2018_10_12_184307) do
     t.datetime "created_at", null: false
     t.text "feedback_comments"
     t.integer "feedback_rating", default: 0
+    t.integer "is_self_employed", default: 0
     t.datetime "last_day"
     t.datetime "last_paycheck"
     t.decimal "last_paycheck_amount", precision: 8, scale: 2
