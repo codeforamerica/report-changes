@@ -159,7 +159,7 @@ RSpec.describe TellUsAboutTheJobForm do
     end
 
     describe "last_paycheck_amount" do
-      context "when the last_paycheck_amount is not included" do
+      context "when the last_paycheck_amount is nil" do
         it "is valid" do
           params = valid_params.merge(
             last_paycheck_amount: nil,
@@ -168,6 +168,18 @@ RSpec.describe TellUsAboutTheJobForm do
 
           expect(form).to be_valid
           expect(form.last_paycheck_amount).to be_nil
+        end
+      end
+
+      context "when the last_paycheck_amount is blank" do
+        it "is valid" do
+          params = valid_params.merge(
+            last_paycheck_amount: "",
+          )
+          form = TellUsAboutTheJobForm.new(nil, params)
+
+          expect(form).to be_valid
+          expect(form.last_paycheck_amount).to eq ""
         end
       end
 
@@ -187,6 +199,19 @@ RSpec.describe TellUsAboutTheJobForm do
         it "is valid" do
           params = valid_params.merge(
             last_paycheck_amount: "abc",
+          )
+          form = TellUsAboutTheJobForm.new(nil, params)
+
+          expect(form).not_to be_valid
+          expect(form.errors[:last_paycheck_amount].count).to eq 1
+          expect(form.errors[:last_paycheck_amount].first).to eq "Please add a number."
+        end
+      end
+
+      context "when the last_paycheck_amount is too long" do
+        it "is valid" do
+          params = valid_params.merge(
+            last_paycheck_amount: "100,000",
           )
           form = TellUsAboutTheJobForm.new(nil, params)
 

@@ -13,7 +13,12 @@ class TellUsAboutTheJobForm < Form
   validates :manager_phone_number, ten_digit_phone_number: true
   validates :last_day, date: true
   validates :last_paycheck, date: true
-  validates :last_paycheck_amount, numericality: { allow_nil: true, message: "Please add a number." }
+  validates :last_paycheck_amount, numericality: {
+    allow_nil: true,
+    allow_blank: true,
+    less_than: 100_000,
+    message: "Please add a number.",
+  }
 
   attr_internal_reader :last_day, :last_paycheck
 
