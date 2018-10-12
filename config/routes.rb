@@ -5,10 +5,12 @@ Rails.application.routes.draw do
 
   authenticate :admin_user do
     namespace :admin do
+      match "/delayed_job" => DelayedJobWeb, :anchor => false, :via => %i[get post]
+
       resources :change_reports, only: %i[index show]
+      get "download_all", to: "change_reports#download", format: "csv"
 
       root to: "change_reports#index"
-      get "download_all", to: "change_reports#download", format: "csv"
     end
   end
 

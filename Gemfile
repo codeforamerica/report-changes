@@ -10,6 +10,8 @@ gem "aws-sdk-s3", require: false
 gem "bootsnap", ">= 1.1.0", require: false
 gem "cfa-styleguide", git: "https://github.com/codeforamerica/cfa-styleguide-gem"
 gem "combine_pdf"
+gem "delayed_job_active_record"
+gem "delayed_job_web"
 gem "devise"
 gem "devise-otp",
   git: "https://github.com/pynixwang/devise-otp",
