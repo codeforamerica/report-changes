@@ -39,3 +39,9 @@
   opacity: .5;
   cursor: not-allowed;
 }
+
+@media screen and (min-width: 601px) {
+  .slab.is-tablet-hidden--inline {
+    display: block !important;
+  }
+}
