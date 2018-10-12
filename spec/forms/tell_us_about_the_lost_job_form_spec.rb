@@ -176,7 +176,7 @@ RSpec.describe TellUsAboutTheLostJobForm do
           params = valid_params.merge(
             last_paycheck_amount: "",
           )
-          form = TellUsAboutTheJobForm.new(nil, params)
+          form = TellUsAboutTheLostJobForm.new(nil, params)
 
           expect(form).to be_valid
           expect(form.last_paycheck_amount).to eq ""
@@ -213,7 +213,7 @@ RSpec.describe TellUsAboutTheLostJobForm do
           params = valid_params.merge(
             last_paycheck_amount: "100,000",
           )
-          form = TellUsAboutTheJobForm.new(nil, params)
+          form = TellUsAboutTheLostJobForm.new(nil, params)
 
           expect(form).not_to be_valid
           expect(form.errors[:last_paycheck_amount].count).to eq 1
