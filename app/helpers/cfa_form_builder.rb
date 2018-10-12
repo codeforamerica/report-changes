@@ -36,12 +36,10 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     optional: false,
     notice: nil
   )
-    classes = classes.append(%w[text-input])
-
     text_field_options = standard_options.merge(
       autofocus: autofocus,
       type: type,
-      class: classes.join(" "),
+      class: (classes + ["text-input"]).join(" "),
     ).merge(options).merge(error_attributes(method: method))
 
     text_field_options[:id] ||= sanitized_id(method)
@@ -58,6 +56,7 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
       optional: optional,
       options: options,
       notice: notice,
+      wrapper_classes: classes,
     )
 
     html_output = <<~HTML
@@ -237,7 +236,7 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     label_html.html_safe
   end
 
-  def label_contents(label_text, help_text, optional)
+  def label_contents(label_text, help_text, optional = false)
     label_text = <<~HTML
       <p class="form-question">#{label_text + optional_text(optional)}</p>
     HTML
@@ -267,7 +266,8 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     prefix: nil,
     optional: false,
     options: {},
-    notice: nil
+    notice: nil,
+    wrapper_classes: []
   )
     if options[:input_id]
       for_options = options.merge(
@@ -285,12 +285,14 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     formatted_label += notice_html(notice).html_safe if notice
 
     if prefix
-      <<~HTML
-        #{formatted_label}
-        <div class="text-input-group">
-          <div class="text-input-group__prefix">#{prefix}</div>
-          #{field}
-        </div>
+      content_parts = [
+        "<div class=\"text-input-group__prefix\">#{prefix}</div>",
+        field,
+      ]
+
+      <<-HTML
+        #{label(method, label_contents(formatted_label, help_text), (for_options || options))}
+        <div class="text-input-group-container"><div class="#{(['text-input-group'] + wrapper_classes).join(' ')}">#{content_parts.join}</div></div>
       HTML
     else
       formatted_label + field
