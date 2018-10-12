@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_11_204945) do
+ActiveRecord::Schema.define(version: 2018_10_15_173630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 2018_10_11_204945) do
     t.datetime "created_at", null: false
     t.text "feedback_comments"
     t.integer "feedback_rating", default: 0
+    t.datetime "first_day"
     t.integer "is_self_employed", default: 0
     t.datetime "last_day"
     t.datetime "last_paycheck"
@@ -94,6 +95,7 @@ ActiveRecord::Schema.define(version: 2018_10_11_204945) do
     t.string "manager_additional_information"
     t.string "manager_name"
     t.string "manager_phone_number"
+    t.integer "paid_yet"
     t.string "phone_number"
     t.string "signature"
     t.datetime "submitted_at"

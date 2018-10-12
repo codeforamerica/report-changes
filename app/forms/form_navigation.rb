@@ -11,6 +11,7 @@ class FormNavigation
     NotYetSupportedController,
     TellUsAboutYourselfController,
     TellUsAboutTheLostJobController,
+    TellUsAboutTheNewJobController,
     ProofInfoController,
     DoYouHaveALetterController,
     AddLetterController,

@@ -1,0 +1,25 @@
+<% content_for :form_card_title, "Tell us about the new job." %>
+
+<% content_for :form_card_body do %>
+  <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+    <%= f.cfa_input_field :company_name, "What is the name of the company?" %>
+    <%= f.cfa_input_field :manager_name,
+      "What is the name of your supervisor or manager?",
+      help_text: "Someone from the county may contact them to verify details about your job.
+
+" %>
+    <%= f.cfa_input_field :manager_phone_number, "What is their phone number?", classes: ["form-width--phone"] %>
+    <%= f.cfa_date_select :first_day,
+      "What was your first day at work?",
+      help_text: "Estimate if you're not sure.",
+      options: { start_year: Time.now.year, end_year: Time.now.year - 3 } %>
+    <%= f.cfa_radio_set :paid_yet,
+      label_text: "Have you been paid yet?",
+      collection: [
+        { value: :yes, label: "Yes" },
+        { value: :no, label: "No" },
+      ] %>
+  <% end %>
+<% end %>
+
+<% content_for :progress_indicator_percentage, "40" %>

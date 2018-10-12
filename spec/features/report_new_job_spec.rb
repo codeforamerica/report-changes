@@ -38,6 +38,17 @@ RSpec.feature "Reporting a change" do
       select 20.years.ago.year.to_s, from: "form[birthday_year]"
       click_on "Continue"
 
+      expect(page).to have_text "Tell us about the new job."
+
+      fill_in "What is the name of the company?", with: "Abc Corp"
+      fill_in "What is the name of your supervisor or manager?", with: "My boss"
+      fill_in "What is their phone number?", with: "999-888-7777"
+      select "February", from: "form[first_day_month]"
+      select "2", from: "form[first_day_day]"
+      select "2018", from: "form[first_day_year]"
+      choose "No"
+      click_on "Continue"
+
       expect(page).to have_text "May we send you text messages"
       choose "Yes"
 
