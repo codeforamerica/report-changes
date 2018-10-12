@@ -1,2 +1,3 @@
 web: bin/rails server -p 3000
+worker: bin/rake jobs:work
 mail: mailhog &> /dev/null
