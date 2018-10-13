@@ -64,7 +64,7 @@ class ChangeReportDecorator < SimpleDelegator
     letters.attached? ? "yes" : "no"
   end
 
-  def termination_letter
+  def termination_verification
     navigator.has_letter_yes? ? "See attached" : "Client does not have this"
   end
 

@@ -214,13 +214,13 @@ RSpec.describe ChangeReportDecorator do
     end
   end
 
-  describe "#termination_letter" do
+  describe "#termination_verification" do
     context "when the client has one" do
       it "returns See attached" do
         navigator = build :change_report_navigator, has_letter: "yes"
         change_report = create :change_report, navigator: navigator
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.termination_letter).to eq "See attached"
+        expect(decorator.termination_verification).to eq "See attached"
       end
     end
 
@@ -229,7 +229,7 @@ RSpec.describe ChangeReportDecorator do
         navigator = build :change_report_navigator, has_letter: "no"
         change_report = create :change_report, navigator: navigator
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.termination_letter).to eq "Client does not have this"
+        expect(decorator.termination_verification).to eq "Client does not have this"
       end
     end
   end
