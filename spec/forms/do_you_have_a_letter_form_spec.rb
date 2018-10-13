@@ -2,51 +2,68 @@
 
  RSpec.describe DoYouHaveALetterForm do
    describe "validations" do
-     context "when has_letter is provided" do
+     context "when no proof types provided" do
        it "is valid" do
-         form = DoYouHaveALetterForm.new(nil, has_letter: "yes")
+         form = DoYouHaveALetterForm.new(nil)
 
          expect(form).to be_valid
        end
      end
 
-     context "when has_letter is not provided" do
+     context "when proof types are valid" do
+       it "is valid" do
+         form = DoYouHaveALetterForm.new(nil, proof_types: ["final_paycheck"])
+
+         expect(form).to be_valid
+       end
+     end
+
+     context "when proof types are not valid" do
        it "is invalid" do
-         form = DoYouHaveALetterForm.new(nil, has_letter: nil)
+         form = DoYouHaveALetterForm.new(nil, proof_types: ["bloop"])
 
          expect(form).not_to be_valid
-         expect(form.errors[:has_letter]).to be_present
+         expect(form.errors[:proof_types]).to be_present
        end
      end
    end
 
    describe "#save" do
-     let(:change_report) { create :change_report, :with_navigator }
+     context "when proof types selected" do
+       it "persists the values to the correct models" do
+         change_report = create(:change_report, :with_navigator)
+         form = DoYouHaveALetterForm.new(change_report, proof_types: ["final_paycheck", "termination_letter"])
+         form.valid?
+         form.save
 
-     let(:valid_params) do
-       {
-         has_letter: "yes",
-       }
+         change_report.reload
+
+         expect(change_report.navigator.proof_types).to match_array(%w{final_paycheck termination_letter})
+       end
      end
 
-     it "persists the values to the correct models" do
-       form = DoYouHaveALetterForm.new(change_report, valid_params)
-       form.valid?
-       form.save
+     context "when proof types not selected" do
+       it "persists the values to the correct models" do
+         change_report = create(:change_report, :with_navigator)
+         form = DoYouHaveALetterForm.new(change_report, proof_types: nil)
+         form.valid?
+         form.save
 
-       change_report.reload
+         change_report.reload
 
-       expect(change_report.navigator.has_letter_yes?).to be_truthy
+         expect(change_report.navigator.proof_types).to match_array([])
+       end
      end
    end
 
    describe ".from_change_report" do
      it "assigns values from change report navigator" do
-       change_report = create(:change_report, navigator: build(:change_report_navigator, has_letter: "yes"))
+       navigator = build(:change_report_navigator, proof_types: ["final_paycheck"])
+       change_report = create(:change_report, navigator: navigator)
 
        form = DoYouHaveALetterForm.from_change_report(change_report)
 
-       expect(form.has_letter).to eq("yes")
+       expect(form.proof_types).to match_array(%w{final_paycheck})
      end
    end
  end

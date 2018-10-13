@@ -24,6 +24,61 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     HTML
   end
 
+  def cfa_checkbox_set_with_none(
+      method,
+      collection,
+      label_text: nil,
+      value_is_array: false,
+      none_text: "None of the above",
+      options: {}
+    )
+
+    if value_is_array
+      options[:multiple] = true
+    end
+
+    checkbox_collection_html = collection.map do |item|
+      checkbox_html = if value_is_array
+                        check_box(method, options, item[:method].to_s, "")
+                      else
+                        check_box(item[:method], options)
+                      end
+
+      <<~HTML.html_safe
+        <label class="checkbox">
+          #{checkbox_html} #{item[:label]}
+        </label>
+      HTML
+    end.join.html_safe
+
+    none_html = if value_is_array
+                  <<~HTML.html_safe
+                    <label class="checkbox">
+                      <input type="checkbox" name="#{@object_name}[#{method}][]" class="" id="none__checkbox">
+                      #{none_text}
+                    </label>
+                  HTML
+                else
+                  <<~HTML.html_safe
+                    <label class="checkbox">
+                      <input type="checkbox" name="" class="" id="none__checkbox">
+                      #{none_text}
+                    </label>
+                  HTML
+                end
+
+    <<~HTML.html_safe
+      <fieldset class="input-group">
+        <legend class="sr-only">
+          #{label_text}
+        </legend>
+        #{checkbox_collection_html}
+        <hr>
+        #{none_html}
+      </fieldset>
+    HTML
+  end
+
   def cfa_input_field(
     method,
     label_text,

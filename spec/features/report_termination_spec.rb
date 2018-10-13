@@ -58,12 +58,13 @@ RSpec.feature "Reporting a change", js: true do
 
     click_on "Continue"
 
-    expect(page).to have_text "Do you have a letter?"
+    expect(page).to have_text "What do you have?"
 
-    choose "Yes, I have this with me"
+    check "I have a final paycheck"
+    check "I have a letter"
     click_on "Continue"
 
-    expect(page).to have_text "Add your letter."
+    expect(page).to have_text "Add your letter and final paycheck."
 
     page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
     expect(page).to have_text "image.jpg"

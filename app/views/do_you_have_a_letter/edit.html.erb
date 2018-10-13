@@ -1,14 +1,14 @@
-<% content_for :form_card_title, "Do you have a letter?" %>
+<% content_for :form_card_title, "What do you have?" %>
 
 <% content_for :form_card_body do %>
     <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
-        <%= f.cfa_radio_set :has_letter,
-                            label_text: "Do you have a letter?",
-                            legend_class: "sr-only",
-                            collection: [
-                              { value: :yes, label: "Yes, I have this with me" },
-                              { value: :no, label: "No, I don't have this" },
-                            ] %>
+      <%= f.cfa_checkbox_set_with_none(:proof_types,
+        ChangeReportNavigator::PROOF_TYPES.map { |proof_type, label|
+          { value: proof_type, label: label }
+        },
+        label_text: "What do you have?",
+        none_text: "I don't have either of these",
+        value_is_array: true) %>
     <% end %>
 <% end %>
 

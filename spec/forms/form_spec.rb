@@ -3,16 +3,25 @@ require "rails_helper"
 RSpec.describe Form do
   describe ".attribute_names" do
     it "returns what is set by application and member attributes" do
-      class FourthTestForm < Form; end
+      class FirstTestForm < Form; end
 
-      FourthTestForm.set_attributes_for :application, :foo
-      FourthTestForm.set_attributes_for :member, :bar
-      FourthTestForm.set_attributes_for :navigator, :baz
+      FirstTestForm.set_attributes_for :application, :foo
+      FirstTestForm.set_attributes_for :member, :bar
+      FirstTestForm.set_attributes_for :navigator, :baz
 
-      expect(FourthTestForm.attribute_names).to match_array(%i[foo bar baz])
-      expect { FourthTestForm.new(nil).foo }.not_to raise_error
-      expect { FourthTestForm.new(nil).bar }.not_to raise_error
-      expect { FourthTestForm.new(nil).baz }.not_to raise_error
+      expect(FirstTestForm.attribute_names).to match_array(%i[foo bar baz])
+      expect { FirstTestForm.new(nil).foo }.not_to raise_error
+      expect { FirstTestForm.new(nil).bar }.not_to raise_error
+      expect { FirstTestForm.new(nil).baz }.not_to raise_error
+    end
+
+    it "can accept hashes" do
+      class SecondTestForm < Form; end
+
+      SecondTestForm.set_attributes_for :application, foo: []
+
+      expect(SecondTestForm.attribute_names).to match_array([{ foo: [] }])
+      expect { SecondTestForm.new(nil).foo }.not_to raise_error
     end
   end
 

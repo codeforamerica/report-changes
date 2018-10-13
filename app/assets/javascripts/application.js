@@ -18,3 +18,37 @@
 // = require cfa_styleguide_main
 // = require_tree ./templates
 // = require_tree .
+
+var noneOfTheAbove = (function() {
+    var noneOf = {
+        init: function () {
+            var $noneCheckbox = $('#none__checkbox');
+            var $otherCheckboxes = $('input[type=checkbox]').not('#none__checkbox');
+
+            // Nothing checked?
+            if ($('input:checked').length === 0) {
+                $noneCheckbox.prop('checked', true);
+                $noneCheckbox.parent().addClass('is-selected');
+            }
+
+            // Uncheck None if another checkbox is checked
+            $otherCheckboxes.click(function(e) {
+                $noneCheckbox.prop('checked', false);
+                $noneCheckbox.parent().removeClass('is-selected');
+            });
+
+            // Uncheck all others if None is checked
+            $noneCheckbox.click(function(e) {
+                $otherCheckboxes.prop('checked', false);
+                $otherCheckboxes.parent().removeClass('is-selected');
+            });
+        }
+    };
+    return {
+        init: noneOf.init
+    }
+})();
+
+$(document).ready(function () {
+    noneOfTheAbove.init();
+})

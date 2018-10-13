@@ -17,7 +17,11 @@ class Form
 
   def attributes_for(model)
     self.class.scoped_attributes[model].reduce({}) do |hash, attribute_name|
-      hash[attribute_name] = send(attribute_name)
+      if attribute_name.is_a?(Hash)
+        hash[attribute_name.keys.first] = send(attribute_name.keys.first)
+      else
+        hash[attribute_name] = send(attribute_name)
+      end
       hash
     end
   end

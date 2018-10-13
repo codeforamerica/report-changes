@@ -36,8 +36,6 @@ RSpec.describe AddLetterController do
           put :update, params: { form: valid_params }
 
           expect(response).to redirect_to(subject.next_path)
-
-          put :update, params: { form: valid_params }
         end
       end
     end
@@ -46,7 +44,7 @@ RSpec.describe AddLetterController do
   describe "show?" do
     context "when client has their letter and lost a job" do
       it "returns true" do
-        navigator = build(:change_report_navigator, has_letter: "yes")
+        navigator = build(:change_report_navigator, :has_termination_letter)
         change_report = create(:change_report, navigator: navigator, change_type: :job_termination)
 
         show_form = AddLetterController.show?(change_report)
@@ -56,7 +54,7 @@ RSpec.describe AddLetterController do
 
     context "when client does not have letter and lost a job" do
       it "returns false" do
-        navigator = build(:change_report_navigator, has_letter: "no")
+        navigator = build(:change_report_navigator)
         change_report = create(:change_report, navigator: navigator, change_type: :job_termination)
 
         show_form = AddLetterController.show?(change_report)
@@ -66,7 +64,7 @@ RSpec.describe AddLetterController do
 
     context "when client has a letter but did not lose a job" do
       it "returns false" do
-        navigator = build(:change_report_navigator, has_letter: "yes")
+        navigator = build(:change_report_navigator, :has_termination_letter)
         change_report = create(:change_report, navigator: navigator, change_type: :new_job)
 
         show_form = AddLetterController.show?(change_report)

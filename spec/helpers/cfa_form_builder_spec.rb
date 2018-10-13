@@ -102,6 +102,69 @@ RSpec.describe CfaFormBuilder do
     end
   end
 
+  describe "#cfa_checkbox_set_with_none" do
+    it "renders an accessible set of checkbox inputs" do
+      class SampleForm < Form
+        set_attributes_for(:captains, :tng, :voyager)
+      end
+
+      sample = SampleForm.new(nil, tng: true)
+      form = CfaFormBuilder.new("sample", sample, template, {})
+      output = form.cfa_checkbox_set_with_none(
+        :foo,
+        [
+          { method: :tng, label: "Picard" },
+          { method: :voyager, label: "Janeway" },
+        ],
+        label_text: "Which captains do you think are cool?",
+      )
+
+      expect(output).to be_html_safe
+
+      expect(output).to match_html <<-HTML
+        <fieldset class="input-group">
+          <legend class="sr-only"> Which captains do you think are cool? </legend>
+          <label class="checkbox"><input name="sample[tng]" type="hidden" value="0" /><input type="checkbox" value="1" checked="checked" name="sample[tng]" id="sample_tng" /> Picard </label>
+          <label class="checkbox"><input name="sample[voyager]" type="hidden" value="0" /><input type="checkbox" value="1" name="sample[voyager]" id="sample_voyager" /> Janeway </label>
+          <hr />
+          <label class="checkbox"><input type="checkbox" name="" class="" id="none__checkbox" /> None of the above </label>
+        </fieldset>
+      HTML
+    end
+
+    context "when value is an array on the model" do
+      it "renders an accessible set of checkbox inputs" do
+        class SampleForm < Form
+          set_attributes_for(:crew, captains: [])
+        end
+
+        sample = SampleForm.new(nil, captains: ["tng"])
+        form = CfaFormBuilder.new("sample", sample, template, {})
+        output = form.cfa_checkbox_set_with_none(
+          :captains,
+          [
+            { method: :tng, label: "Picard" },
+            { method: :ds9, label: "Sisko" },
+          ],
+          label_text: "Which captains do you think are cool?",
+          value_is_array: true,
+        )
+
+        expect(output).to be_html_safe
+
+        expect(output).to match_html <<-HTML
+          <fieldset class="input-group">
+            <legend class="sr-only"> Which captains do you think are cool? </legend>
+            <label class="checkbox"><input name="sample[captains][]" type="hidden" value="" /><input type="checkbox" value="tng" checked="checked" name="sample[captains][]" id="sample_captains_tng" /> Picard </label>
+            <label class="checkbox"><input name="sample[captains][]" type="hidden" value="" /><input type="checkbox" value="ds9" name="sample[captains][]" id="sample_captains_ds9" /> Sisko </label>
+            <hr />
+            <label class="checkbox"><input type="checkbox" name="sample[captains][]" class="" id="none__checkbox" /> None of the above </label>
+          </fieldset>
+        HTML
+      end
+    end
+  end
+
   describe "#cfa_radio_set" do
     it "renders an accessible set of radio inputs" do
       class SampleForm < Form
