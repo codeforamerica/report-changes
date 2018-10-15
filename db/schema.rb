@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 2018_10_15_173630) do
     t.string "manager_additional_information"
     t.string "manager_name"
     t.string "manager_phone_number"
-    t.integer "paid_yet"
+    t.integer "paid_yet", default: 0
     t.string "phone_number"
     t.string "signature"
     t.datetime "submitted_at"
