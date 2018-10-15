@@ -47,6 +47,18 @@ RSpec.feature "Reporting a change" do
       choose "No"
       click_on "Continue"
 
+      expect(page).to have_text "Tell us about how much you will make at this job."
+
+      fill_in "What is your hourly wage?", with: "15"
+      choose "Yes" # same number of hours
+      fill_in "How many hours a week will you work?", with: "25"
+      fill_in "How often do you get paid?", with: "Every two weeks"
+      select "February", from: "form[first_paycheck_month]"
+      select "21", from: "form[first_paycheck_day]"
+      select "2018", from: "form[first_paycheck_year]"
+      fill_in "Is there anything else we should know about your hours or wages at this job?", with: "Not really"
+      click_on "Continue"
+
       expect(page).to have_text "May we send you text messages"
       choose "Yes"
 

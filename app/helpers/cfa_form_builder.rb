@@ -34,7 +34,8 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     prefix: nil,
     autofocus: nil,
     optional: false,
-    notice: nil
+    notice: nil,
+    show_error: true
   )
     text_field_options = standard_options.merge(
       autofocus: autofocus,
@@ -60,9 +61,9 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     )
 
     html_output = <<~HTML
-      <div class="form-group#{error_state(object, method)}">
+      <div class="form-group#{error_state(object, method) if show_error}">
       #{label_and_field_html}
-      #{errors_for(object, method)}
+      #{errors_for(object, method) if show_error}
       </div>
     HTML
     html_output.html_safe
@@ -86,6 +87,78 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
       #{cfa_radio_button(method, collection, layouts)}
       #{errors_for(object, method)}
         </fieldset>
+    HTML
+  end
+
+  def cfa_radio_set_with_follow_up(
+    method,
+    label_text: "",
+    collection:,
+    help_text: nil,
+    layouts: ["block"],
+    legend_class: "",
+    first_follow_up: nil,
+    second_follow_up: nil
+  )
+    first_follow_up_html = if first_follow_up
+                             first_follow_up_id = "#{method}-first-follow-up"
+                             collection.first[:input_html] = { "data-follow-up" => "##{first_follow_up_id}" }
+
+                             <<~HTML.html_safe
+                               <div class="question-with-follow-up__follow-up" id="#{first_follow_up_id}">
+                                 #{first_follow_up.()}
+                               </div>
+                             HTML
+                           end
+
+    second_follow_up_html = if second_follow_up
+                              second_follow_up_id = "#{method}-second-follow-up"
+                              collection.second[:input_html] = { "data-follow-up" => "##{second_follow_up_id}" }
+
+                              <<~HTML.html_safe
+                                <div class="question-with-follow-up__follow-up" id="#{second_follow_up_id}">
+                                  #{second_follow_up.()}
+                                </div>
+                              HTML
+                            end
+
+    <<~HTML.html_safe
+      <div class="question-with-follow-up">
+        <div class="question-with-follow-up__question">
+          #{cfa_radio_set(method,
+            label_text: label_text,
+            collection: collection,
+            help_text: help_text,
+            layouts: layouts,
+            legend_class: legend_class)}
+        </div>
+        #{[first_follow_up_html, second_follow_up_html].compact.join}
+      </div>
+    HTML
+  end
+
+  def cfa_range_field(lower_method, upper_method, label_text)
+    e_messages = object.errors.messages
+    lower_error = e_messages[lower_method.to_sym]
+    upper_error = e_messages[upper_method.to_sym]
+    range_errors_present = lower_error.present? || upper_error.present?
+    range_error_html = <<~HTML.html_safe
+      <span class="text--error">
+        <i class="icon-warning"></i>
+        #{[lower_error, upper_error].uniq.join}
+      </span>
+    HTML
+
+    <<~HTML.html_safe
+      <fieldset class="form-group#{' form-group--error' if range_errors_present}">
+        #{fieldset_label_contents(label_text: label_text, help_text: nil)}
+        <div class="input-group--inline">
+          #{cfa_input_field(lower_method, '', classes: ['form-width--short'], show_error: false)}
+          <span class="range-text">to</span>
+          #{cfa_input_field(upper_method, '', classes: ['form-width--short'], show_error: false)}
+        </div>
+        #{range_error_html if range_errors_present}
+      </fieldset>
     HTML
   end
 
@@ -198,13 +271,13 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     radio_collection = collection.map do |item|
       item = { value: item, label: item } unless item.is_a?(Hash)
 
-      options = item[:options].to_h
+      input_html = item.fetch(:input_html, {})
 
       <<~HTML.html_safe
-          <label class="radio-button">
-            #{radio_button(method, item[:value], options)}
-        #{item[:label]}
-          </label>
+        <label class="radio-button">
+          #{radio_button(method, item[:value], input_html)}
+          #{item[:label]}
+        </label>
       HTML
     end
     <<~HTML.html_safe

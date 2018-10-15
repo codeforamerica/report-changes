@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_173630) do
+ActiveRecord::Schema.define(version: 2018_10_15_210904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,18 +88,26 @@ ActiveRecord::Schema.define(version: 2018_10_15_173630) do
     t.text "feedback_comments"
     t.integer "feedback_rating", default: 0
     t.datetime "first_day"
+    t.datetime "first_paycheck"
+    t.string "hourly_wage"
     t.integer "is_self_employed", default: 0
     t.datetime "last_day"
     t.datetime "last_paycheck"
     t.decimal "last_paycheck_amount", precision: 8, scale: 2
+    t.string "lower_hours_a_week_amount"
     t.string "manager_additional_information"
     t.string "manager_name"
     t.string "manager_phone_number"
+    t.string "new_job_notes"
+    t.string "paid_how_often"
     t.integer "paid_yet", default: 0
     t.string "phone_number"
+    t.integer "same_hours", default: 0
+    t.string "same_hours_a_week_amount"
     t.string "signature"
     t.datetime "submitted_at"
     t.datetime "updated_at", null: false
+    t.string "upper_hours_a_week_amount"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|

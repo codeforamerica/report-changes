@@ -26,10 +26,6 @@
   margin-right: auto;
 }
 
-.form-group:last-of-type {
-  margin-bottom: 3em;
-}
-
 .form-card--transition .form-card__header .form-card__title{
   max-width: 57rem;
   margin-bottom: .5em;
@@ -44,4 +40,13 @@
   .slab.is-tablet-hidden--inline {
     display: block !important;
   }
+}
+
+// Fixes CSS when .form-group fieldsets included with divs (accessibility)
+.form-group:last-of-type {
+  margin-bottom: 3em;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
 }

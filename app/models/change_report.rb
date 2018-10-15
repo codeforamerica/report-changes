@@ -19,6 +19,8 @@ class ChangeReport < ActiveRecord::Base
        _prefix: :is_self_employed
   enum paid_yet: { unfilled: 0, yes: 1, no: 2 },
        _prefix: :paid_yet
+  enum same_hours: { unfilled: 0, yes: 1, no: 2 },
+       _prefix: :same_hours
 
   scope :signed, -> { where.not(signature: nil) }
 
