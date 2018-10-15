@@ -116,7 +116,7 @@ RSpec.describe CfaFormBuilder do
         :selected_county_location,
         label_text: "Do you live in Arapahoe County?",
         collection: [
-          { value: :arapahoe, label: "Yes", options: { "data-follow-up": "#yes-follow-up" } },
+          { value: :arapahoe, label: "Yes" },
           { value: :not_arapahoe, label: "No" },
           { value: :not_sure, label: "I'm not sure" },
         ],
@@ -131,12 +131,67 @@ RSpec.describe CfaFormBuilder do
           </legend>
           <p class="text--help">This is help text.</p>
           <radiogroup class="input-group--block" aria-describedby="form_selected_county_location__errors">
-            <label class="radio-button"><div class="field_with_errors"><input data-follow-up="#yes-follow-up" type="radio" value="arapahoe" name="form[selected_county_location]" id="form_selected_county_location_arapahoe"/></div> Yes </label>
+            <label class="radio-button"><div class="field_with_errors"><input type="radio" value="arapahoe" name="form[selected_county_location]" id="form_selected_county_location_arapahoe"/></div> Yes </label>
             <label class="radio-button"><div class="field_with_errors"><input type="radio" value="not_arapahoe" name="form[selected_county_location]" id="form_selected_county_location_not_arapahoe"/></div> No </label>
             <label class="radio-button"><div class="field_with_errors"><input type="radio" value="not_sure" name="form[selected_county_location]" id="form_selected_county_location_not_sure"/></div> I'm not sure </label>
           </radiogroup>
           <span class="text--error" id="form_selected_county_location__errors"><i class="icon-warning"></i> can't be blank </span>
         </fieldset>
+      HTML
+    end
+  end
+
+  describe "#cfa_radio_set_with_follow_up" do
+    it "renders an accessible set of radio inputs" do
+      class SampleForm < Form
+        set_attributes_for :navigator, :hourly, :wage, :salary
+        validates_presence_of :hourly
+      end
+
+      form = SampleForm.new(nil)
+      form.validate
+      form_builder = CfaFormBuilder.new("form", form, template, {})
+      output = form_builder.cfa_radio_set_with_follow_up(
+        :hourly,
+          label_text: "Do you work hourly?",
+          collection: [
+            { value: :yes, label: "Yes" },
+            { value: :no, label: "No" },
+          ],
+          first_follow_up: -> { form_builder.cfa_input_field(:wage, "What is your hourly wage?") },
+          second_follow_up: -> { form_builder.cfa_input_field(:salary, "What is your salary?") },
+        )
+      expect(output).to be_html_safe
+
+      expect(output).to match_html <<-HTML
+        <div class="question-with-follow-up">
+          <div class="question-with-follow-up__question">
+            <fieldset class="form-group form-group--error">
+              <legend class="form-question "> Do you work hourly? </legend>
+              <radiogroup class="input-group--block" aria-describedby="form_hourly__errors">
+                <label class="radio-button"><div class="field_with_errors"><input data-follow-up="#hourly-first-follow-up" type="radio" value="yes" name="form[hourly]" id="form_hourly_yes" /></div> Yes </label>
+                <label class="radio-button"><div class="field_with_errors"><input data-follow-up="#hourly-second-follow-up" type="radio" value="no" name="form[hourly]" id="form_hourly_no" /></div> No </label>
+              </radiogroup>
+              <span class="text--error" id="form_hourly__errors"><i class="icon-warning"></i> can't be blank </span>
+            </fieldset>
+          </div>
+          <div class="question-with-follow-up__follow-up" id="hourly-first-follow-up">
+            <div class="form-group">
+              <label for="form_wage">
+                <p class="form-question">What is your hourly wage?</p>
+              </label>
+              <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="text-input" aria-describedby="form_wage__errors" id="form_wage" name="form[wage]" />
+            </div>
+          </div>
+          <div class="question-with-follow-up__follow-up" id="hourly-second-follow-up">
+            <div class="form-group">
+              <label for="form_salary">
+                <p class="form-question">What is your salary?</p>
+              </label>
+              <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="text-input" aria-describedby="form_salary__errors" id="form_salary" name="form[salary]" />
+            </div>
+          </div>
+        </div>
       HTML
     end
   end
@@ -190,6 +245,48 @@ RSpec.describe CfaFormBuilder do
           </div>
           <span class="text--error" id="form_name__errors"><i class="icon-warning"></i> can't be blank </div>
         </div>
+      HTML
+    end
+  end
+
+  describe "#cfa_range_field" do
+    it "renders two text inputs for a range" do
+      class SampleForm < Form
+        set_attributes_for :change_report,
+          :lower_hours_a_week_amount,
+          :upper_hours_a_week_amount
+      end
+
+      form = SampleForm.new(nil)
+      form.lower_hours_a_week_amount = "ten"
+      form.upper_hours_a_week_amount = "fourty"
+      form_builder = CfaFormBuilder.new("form", form, template, {})
+      output = form_builder.cfa_range_field(
+        :lower_hours_a_week_amount,
+        :upper_hours_a_week_amount,
+        "How many hours a week do you work?",
+      )
+      expect(output).to be_html_safe
+
+      expect(output).to match_html <<~HTML
+        <fieldset class="form-group">
+          <legend class="form-question "> How many hours a week do you work? </legend>
+          <div class="input-group--inline">
+            <div class="form-group">
+              <label for="form_lower_hours_a_week_amount">
+                <p class="form-question"></p>
+              </label>
+              <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="form-width--short text-input" id="form_lower_hours_a_week_amount" value="ten" name="form[lower_hours_a_week_amount]" />
+            </div>
+            <span class="range-text">to</span>
+            <div class="form-group">
+              <label for="form_upper_hours_a_week_amount">
+                <p class="form-question"></p>
+              </label>
+              <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="form-width--short text-input" id="form_upper_hours_a_week_amount" value="fourty" name="form[upper_hours_a_week_amount]" />
+            </div>
+          </div>
+        </fieldset>
       HTML
     end
   end

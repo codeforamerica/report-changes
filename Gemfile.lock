@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/codeforamerica/cfa-styleguide-gem
-  revision: e952654c014b0e09270e4c17d14991ef1d5c1cb8
+  revision: b55da77010737c203f4d05c90ac64f7adc7d54c4
   specs:
-    cfa-styleguide (0.3.1)
+    cfa-styleguide (0.4.3)
       autoprefixer-rails
       bourbon
       jquery-rails
@@ -87,7 +87,7 @@ GEM
     ast (2.4.0)
     attr_encrypted (3.1.0)
       encryptor (~> 3.0.0)
-    autoprefixer-rails (9.1.4)
+    autoprefixer-rails (9.2.0)
       execjs
     aws-eventstream (1.0.1)
     aws-partitions (1.105.0)
@@ -178,7 +178,7 @@ GEM
       sprockets (>= 2.0.0)
       tilt (>= 1.2)
     hashery (2.1.2)
-    i18n (1.1.0)
+    i18n (1.1.1)
       concurrent-ruby (~> 1.0)
     io-like (0.3.0)
     jaro_winkler (1.5.1)
