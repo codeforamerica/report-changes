@@ -170,6 +170,12 @@
     </div>
   </div>
 
+  <div class="row">
+    <p>
+      Questions or feedback on this PDF? Email us at <%= ENV["SENDING_EMAIL_ADDRESS"] %>.
+    </p>
+  </div>
+
   <% change_report.image_letters.each do |letter| %>
     <div class="alwaysbreak">
       <%= image_tag(wicked_blob_path(letter), alt: '_', width: "100%") %>
