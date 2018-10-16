@@ -69,7 +69,7 @@ RSpec.feature "Reporting a change", js: true do
     expect(page).to have_text "image.jpg"
     click_on "Continue"
 
-    expect(page).to have_text "May we send you text messages"
+    expect(page).to have_text "May we contact you via text message"
     expect(page).to have_text "We'll send them to (555) 222-3333"
     choose "Yes"
 
