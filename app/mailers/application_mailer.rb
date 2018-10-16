@@ -5,7 +5,7 @@ class ApplicationMailer < ActionMailer::Base
     attachments[attachment_name(client_name)] = pdf
 
     mail(
-      from: %("ReportChangesColorado" <hello@#{ENV['HOSTNAME_FOR_URLS']}>),
+      from: %("ReportChangesColorado" <#{ENV['SENDING_EMAIL_ADDRESS']}>),
       to: CredentialsHelper.county_email_address,
       subject: "A new change report from #{client_name} was submitted!",
     )

@@ -55,6 +55,7 @@ If you do not have this binary, [use this guide to get set up on MacOS].
 ### Conventions
 
 * **Secrets** - We store all secrets in credentials.yml.enc. Locally you will need a `config/master.key` file with the master key in it (stored in LastPass). To edit run `EDITOR=vi bin/rails credentials:edit`
+* **Environment config** - We store non-sensitive environment configuration in environment variables. In development, environment variables are loaded from `.env`. When adding an environment, be sure to update the `.env` file and `app.json` (used by Heroku for review apps).
 
 ### Form Navigation
 

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe ApplicationMailer do
   describe ".office_change_report_submission" do
     it "sets the correct headers" do
-      with_modified_env HOSTNAME_FOR_URLS: "example.com" do
+      with_modified_env SENDING_EMAIL_ADDRESS: "hello@example.com" do
         email = ApplicationMailer.office_change_report_submission(
           pdf: "my pdf",
           client_name: "Joe MacMillan",
