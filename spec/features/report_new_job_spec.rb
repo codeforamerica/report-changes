@@ -10,8 +10,6 @@ RSpec.feature "Reporting a change" do
 
     scenario "new job" do
       visit "/"
-
-      expect(page).to have_text "Report job changes"
       click_on "Start my report", match: :first
 
       expect(page).to have_text "Welcome! Here’s how reporting a change works"

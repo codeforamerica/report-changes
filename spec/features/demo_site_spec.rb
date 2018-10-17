@@ -9,7 +9,6 @@ RSpec.feature "Demo site" do
 
   scenario "applying" do
     visit "/"
-    expect(page).to have_text "Report job changes"
     expect(page).to have_text "This site is for example purposes only."
     click_on "Start my report", match: :first
 
