@@ -12,9 +12,8 @@ RSpec.feature "Reporting a change", js: true do
 
   scenario "job termination" do
     visit "/"
-    expect(page).to have_text "Report job changes"
-
     click_on "Start my report", match: :first
+
     expect(page).to have_text "Welcome! Here’s how reporting a change works"
 
     click_on "Start the form"
@@ -101,8 +100,6 @@ RSpec.feature "Reporting a change", js: true do
 
     scenario "job termination" do
       visit "/"
-
-      expect(page).to have_text "Report job changes"
       click_on "Start my report", match: :first
 
       expect(page).to have_text "Welcome! Here’s how reporting a change works"
