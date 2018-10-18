@@ -250,22 +250,26 @@ RSpec.describe CfaFormBuilder do
   end
 
   describe "#cfa_range_field" do
-    it "renders two text inputs for a range" do
-      class SampleForm < Form
-        set_attributes_for :change_report,
-          :lower_hours_a_week_amount,
-          :upper_hours_a_week_amount
-      end
+    class SampleForm < Form
+      set_attributes_for :change_report,
+        :lower_hours_a_week_amount,
+        :upper_hours_a_week_amount
 
+      validates_presence_of :lower_hours_a_week_amount, :upper_hours_a_week_amount, message: "Please enter a number."
+    end
+
+    it "renders two text inputs for a range" do
       form = SampleForm.new(nil)
       form.lower_hours_a_week_amount = "ten"
       form.upper_hours_a_week_amount = "fourty"
+
       form_builder = CfaFormBuilder.new("form", form, template, {})
       output = form_builder.cfa_range_field(
         :lower_hours_a_week_amount,
         :upper_hours_a_week_amount,
         "How many hours a week do you work?",
       )
+
       expect(output).to be_html_safe
 
       expect(output).to match_html <<~HTML
@@ -288,6 +292,49 @@ RSpec.describe CfaFormBuilder do
           </div>
         </fieldset>
       HTML
+    end
+
+    context "with a validation error" do
+      it "renders any individual errors as a shared error" do
+        form = SampleForm.new(nil)
+        form.lower_hours_a_week_amount = "ten"
+        form.upper_hours_a_week_amount = nil
+        form.validate
+
+        form_builder = CfaFormBuilder.new("form", form, template, {})
+        output = form_builder.cfa_range_field(
+          :lower_hours_a_week_amount,
+          :upper_hours_a_week_amount,
+          "How many hours a week do you work?",
+        )
+        expect(output).to be_html_safe
+
+        expect(output).to match_html <<~HTML
+          <fieldset class="form-group form-group--error">
+            <legend class="form-question "> How many hours a week do you work? </legend>
+            <div class="input-group--inline">
+              <div class="form-group">
+                <label for="form_lower_hours_a_week_amount">
+                  <p class="form-question"></p>
+                </label>
+                <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="form-width--short text-input" aria-describedby="form_lower_hours_a_week_amount_upper_hours_a_week_amount__errors" id="form_lower_hours_a_week_amount" value="ten" name="form[lower_hours_a_week_amount]" />
+              </div>
+              <span class="range-text">to</span>
+              <div class="form-group">
+                <div class="field_with_errors">
+                  <label for="form_upper_hours_a_week_amount">
+                    <p class="form-question"></p>
+                  </label>
+                </div>
+                <div class="field_with_errors">
+                  <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="form-width--short text-input" aria-describedby="form_lower_hours_a_week_amount_upper_hours_a_week_amount__errors" id="form_upper_hours_a_week_amount" name="form[upper_hours_a_week_amount]" />
+                </div>
+              </div>
+            </div>
+            <span id="form_lower_hours_a_week_amount_upper_hours_a_week_amount__errors" class="text--error"><i class="icon-warning"></i> Please enter a number. </span>
+          </fieldset>
+        HTML
+      end
     end
   end
 
