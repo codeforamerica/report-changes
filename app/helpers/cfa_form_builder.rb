@@ -32,6 +32,7 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     options: {},
     classes: [],
     prefix: nil,
+    postfix: nil,
     autofocus: nil,
     optional: false,
     notice: nil,
@@ -55,6 +56,7 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
       text_field_html,
       help_text: help_text,
       prefix: prefix,
+      postfix: postfix,
       optional: optional,
       options: options,
       notice: notice,
@@ -333,12 +335,14 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
+  # rubocop:disable Metrics/PerceivedComplexity
   def label_and_field(
     method,
     label_text,
     field,
     help_text: nil,
     prefix: nil,
+    postfix: nil,
     optional: false,
     options: {},
     notice: nil,
@@ -359,20 +363,29 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     )
     formatted_label += notice_html(notice).html_safe if notice
 
-    if prefix
+    prefix_html = "<div class=\"text-input-group__prefix\">#{prefix}</div>" if prefix
+    postfix_html = "<div class=\"text-input-group__postfix\">#{postfix}</div>" if postfix
+
+    if prefix || postfix
       content_parts = [
-        "<div class=\"text-input-group__prefix\">#{prefix}</div>",
+        prefix_html,
         field,
+        postfix_html,
       ]
 
       <<-HTML
-        #{label(method, label_contents(formatted_label, help_text), (for_options || options))}
-        <div class="text-input-group-container"><div class="#{(['text-input-group'] + wrapper_classes).join(' ')}">#{content_parts.join}</div></div>
+        #{formatted_label}
+        <div class="text-input-group-container">
+          <div class="#{(['text-input-group'] + wrapper_classes).join(' ')}">
+            #{content_parts.join}
+          </div>
+        </div>
       HTML
     else
       formatted_label + field
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
 
   def errors_for(object, method)
     errors = object.errors[method]
