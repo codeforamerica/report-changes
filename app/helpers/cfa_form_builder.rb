@@ -35,13 +35,14 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     autofocus: nil,
     optional: false,
     notice: nil,
-    show_error: true
+    show_error: true,
+    error_field_id: nil
   )
     text_field_options = standard_options.merge(
       autofocus: autofocus,
       type: type,
       class: (classes + ["text-input"]).join(" "),
-    ).merge(options).merge(error_attributes(method: method))
+    ).merge(options).merge(error_attributes(method: error_field_id || method))
 
     text_field_options[:id] ||= sanitized_id(method)
     options[:input_id] ||= sanitized_id(method)
@@ -141,9 +142,10 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     e_messages = object.errors.messages
     lower_error = e_messages[lower_method.to_sym]
     upper_error = e_messages[upper_method.to_sym]
+    range_error_methods = [lower_method, upper_method].join("_")
     range_errors_present = lower_error.present? || upper_error.present?
     range_error_html = <<~HTML.html_safe
-      <span class="text--error">
+      <span id="#{error_label(range_error_methods)}" class="text--error">
         <i class="icon-warning"></i>
         #{[lower_error, upper_error].uniq.join}
       </span>
@@ -153,9 +155,9 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
       <fieldset class="form-group#{' form-group--error' if range_errors_present}">
         #{fieldset_label_contents(label_text: label_text, help_text: nil)}
         <div class="input-group--inline">
-          #{cfa_input_field(lower_method, '', classes: ['form-width--short'], show_error: false)}
+          #{cfa_input_field(lower_method, '', classes: ['form-width--short'], show_error: false, error_field_id: range_error_methods)}
           <span class="range-text">to</span>
-          #{cfa_input_field(upper_method, '', classes: ['form-width--short'], show_error: false)}
+          #{cfa_input_field(upper_method, '', classes: ['form-width--short'], show_error: false, error_field_id: range_error_methods)}
         </div>
         #{range_error_html if range_errors_present}
       </fieldset>
