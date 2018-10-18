@@ -69,7 +69,7 @@ RSpec.feature "Reporting a change", js: true do
     click_on "Continue"
 
     expect(page).to have_text "May we contact you via text message"
-    expect(page).to have_text "We'll send them to (555) 222-3333"
+    expect(page).to have_text "We'll send text messages to (555) 222-3333"
     choose "Yes"
 
     click_on "Continue"
