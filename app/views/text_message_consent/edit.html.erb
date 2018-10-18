@@ -1,7 +1,7 @@
-<% content_for :form_card_title, "May we contact you via text message to learn about your experience using this tool?" %>
+<% content_for :form_card_title, "May we contact you via text message to learn about your experience using this tool? We'll send text messages to #{formatted_phone_number(current_change_report.phone_number)}." %>
 
 <% content_for :form_card_body do %>
-    <p>We'll send text messages to <%= formatted_phone_number(current_change_report.phone_number) %>.</p>
+    <p></p>
     <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
       <%= f.cfa_radio_set :consent_to_sms,
         help_text: "All official notices about your case will continue to be sent via mail or e-notice.",
