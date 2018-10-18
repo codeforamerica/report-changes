@@ -199,19 +199,25 @@ RSpec.describe CfaFormBuilder do
   describe "#cfa_input_field" do
     it "renders a label that contains a p tag" do
       class SampleForm < Form
-        set_attributes_for :navigator, :name
+        set_attributes_for :navigator, :money
       end
 
       form = SampleForm.new(nil)
       form_builder = CfaFormBuilder.new("form", form, template, {})
-      output = form_builder.cfa_input_field(:name, "How is name?")
+      output = form_builder.cfa_input_field(:money, "How much do you make?", prefix: "$", postfix: "/hr")
       expect(output).to be_html_safe
       expect(output).to match_html <<-HTML
         <div class="form-group">
-          <label for="form_name">
-            <p class="form-question">How is name?</p>
+          <label for="form_money">
+            <p class="form-question">How much do you make?</p>
           </label>
-          <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="text-input" id="form_name" name="form[name]" />
+          <div class="text-input-group-container">
+            <div class="text-input-group">
+              <div class="text-input-group__prefix">$</div>
+              <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="text-input" id="form_money" name="form[money]" />
+              <div class="text-input-group__postfix">/hr</div>
+             </div>
+          </div>
         </div>
       HTML
     end
@@ -255,7 +261,7 @@ RSpec.describe CfaFormBuilder do
         :lower_hours_a_week_amount,
         :upper_hours_a_week_amount
 
-      validates_presence_of :lower_hours_a_week_amount, :upper_hours_a_week_amount, message: "Please enter a number."
+      validates_presence_of :lower_hours_a_week_amount, :upper_hours_a_week_amount, message: "Please enter a range."
     end
 
     it "renders two text inputs for a range" do
@@ -331,7 +337,7 @@ RSpec.describe CfaFormBuilder do
                 </div>
               </div>
             </div>
-            <span id="form_lower_hours_a_week_amount_upper_hours_a_week_amount__errors" class="text--error"><i class="icon-warning"></i> Please enter a number. </span>
+            <span id="form_lower_hours_a_week_amount_upper_hours_a_week_amount__errors" class="text--error"><i class="icon-warning"></i> Please enter a range. </span>
           </fieldset>
         HTML
       end

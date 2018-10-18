@@ -34,7 +34,7 @@ class HowMuchWillYouMakeForm < Form
     when "yes"
       validates_presence_of :same_hours_a_week_amount, message: "Please add a number."
     when "no"
-      validates_presence_of :lower_hours_a_week_amount, :upper_hours_a_week_amount, message: "Please add a number."
+      validates_presence_of :lower_hours_a_week_amount, :upper_hours_a_week_amount, message: "Please add a range."
     end
   end
 
