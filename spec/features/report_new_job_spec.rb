@@ -59,6 +59,10 @@ RSpec.feature "Reporting a change" do
       fill_in "Is there anything else we should know about your hours or wages at this job?", with: "Not really"
       click_on "Continue"
 
+      expect(page).to have_text "Do you have proof of this change?"
+      expect(page).to have_text "Paystubs showing your pre-tax earnings"
+      click_on "Continue"
+
       expect(page).to have_text "May we contact you via text message"
       choose "Yes"
 

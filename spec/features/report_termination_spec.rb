@@ -54,6 +54,7 @@ RSpec.feature "Reporting a change", js: true do
     click_on "Continue"
 
     expect(page).to have_text "Do you have proof of this change?"
+    expect(page).to have_text "A letter from your old employer"
 
     click_on "Continue"
 
