@@ -335,7 +335,6 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  # rubocop:disable Metrics/PerceivedComplexity
   def label_and_field(
     method,
     label_text,
@@ -363,6 +362,10 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     )
     formatted_label += notice_html(notice).html_safe if notice
 
+    formatted_label + formatted_field(prefix, field, postfix, wrapper_classes).html_safe
+  end
+
+  def formatted_field(prefix, field, postfix, wrapper_classes)
     prefix_html = "<div class=\"text-input-group__prefix\">#{prefix}</div>" if prefix
     postfix_html = "<div class=\"text-input-group__postfix\">#{postfix}</div>" if postfix
 
@@ -374,7 +377,6 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
       ]
 
       <<-HTML
-        #{formatted_label}
         <div class="text-input-group-container">
           <div class="#{(['text-input-group'] + wrapper_classes).join(' ')}">
             #{content_parts.join}
@@ -382,10 +384,9 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
         </div>
       HTML
     else
-      formatted_label + field
+      field
     end
   end
-  # rubocop:enable Metrics/PerceivedComplexity
 
   def errors_for(object, method)
     errors = object.errors[method]
