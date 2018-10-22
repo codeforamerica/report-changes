@@ -63,6 +63,10 @@ RSpec.feature "Reporting a change" do
       expect(page).to have_text "Paystubs showing your pre-tax earnings"
       click_on "Continue"
 
+      expect(page).to have_text "What do you have?"
+      check "I have an offer letter"
+      click_on "Continue"
+
       expect(page).to have_text "May we contact you via text message"
       choose "Yes"
 

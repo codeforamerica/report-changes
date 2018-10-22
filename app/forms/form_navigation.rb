@@ -15,6 +15,7 @@ class FormNavigation
     HowMuchWillYouMakeController,
     ProofInfoController,
     DoYouHaveALetterController,
+    WhatKindOfProofController,
     AddLetterController,
     TextMessageConsentController,
     SignSubmitController,

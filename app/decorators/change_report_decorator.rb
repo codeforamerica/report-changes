@@ -65,7 +65,7 @@ class ChangeReportDecorator < SimpleDelegator
   end
 
   def termination_verification
-    navigator.has_letter_yes? ? "See attached" : "Client does not have this"
+    navigator.has_termination_letter_yes? ? "See attached" : "Client does not have this"
   end
 
   def last_paycheck_amount
