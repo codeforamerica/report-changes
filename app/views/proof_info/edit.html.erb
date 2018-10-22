@@ -4,29 +4,41 @@
   <p>
     The county needs to verify your income. The best ways to prove this are:
   </p>
-  <ul class="list--bulleted">
-    <li>A paycheck labeled “final”</li>
-    <li>A letter from your old employer</li>
-  </ul>
 
-  <div class="reveal">
-    <p><a href="#" class="reveal__link">What type of letter?</a></p>
-    <div class="reveal__content text--left">
-      <div class="notice">
-        <p>It would be helpful for the letter to:</p>
-        <ul class="list--bulleted">
-          <li>Say you don’t work there any more</li>
-          <li>Say what your last day of work was</li>
-          <li>Say the day and amount of your last pay check</li>
-          <li>Be on letterhead</li>
-        </ul>
+  <% if current_change_report.change_type_job_termination? %>
+    <ul class="list--bulleted">
+      <li>A paycheck labeled “final”</li>
+      <li>A letter from your old employer</li>
+    </ul>
+
+    <div class="reveal">
+      <p><a href="#" class="reveal__link">What type of letter?</a></p>
+      <div class="reveal__content text--left">
+        <div class="notice">
+          <p>It would be helpful for the letter to:</p>
+          <ul class="list--bulleted">
+            <li>Say you don’t work there any more</li>
+            <li>Say what your last day of work was</li>
+            <li>Say the day and amount of your last pay check</li>
+            <li>Be on letterhead</li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
 
-  <p>
-    If you don’t have this, we’ll work with you to find other ways to prove this change.
-  </p>
+    <p>
+      If you don’t have this, we’ll work with you to find other ways to prove this change.
+    </p>
+  <% elsif current_change_report.change_type_new_job? %>
+    <ul class="list--bulleted">
+      <li>Paystubs showing your <strong>pre-tax</strong> earnings</li>
+      <li>An offer letter saying how many hours you will work and how much you will earn</li>
+    </ul>
+
+    <p>
+      If you don’t have either of these, we’ll work with you to find other ways to prove this change.
+    </p>
+  <% end %>
 <% end %>
 
 <% content_for :progress_indicator_percentage, "50" %>
