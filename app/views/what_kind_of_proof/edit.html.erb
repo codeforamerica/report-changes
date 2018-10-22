@@ -1,0 +1,13 @@
+<% content_for :form_card_title, "What do you have?" %>
+
+<% content_for :form_card_body do %>
+    <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+      <%= f.cfa_checkbox_set_with_none [
+        { method: :has_offer_letter, label: "I have an offer letter" },
+        { method: :has_paystub, label: "I have paystubs" }
+      ],
+      enum: true %>
+    <% end %>
+<% end %>
+
+<% content_for :progress_indicator_percentage, "60" %>

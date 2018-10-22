@@ -42,7 +42,7 @@ RSpec.describe ChangeReport, type: :model do
           selected_county_location: "unfilled",
           county_from_address: nil,
           age: 30,
-          has_letter: "unfilled",
+          has_termination_letter: "unfilled",
           letter_count: 1,
           consent_to_sms: "unfilled",
           feedback_rating: "unfilled",

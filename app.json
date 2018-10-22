@@ -41,6 +41,10 @@
     },
     "SENDING_EMAIL_ADDRESS": {
       "required": true
+    },
+    "NEW_JOB_FLOW_ENABLED": {
+      "required": false,
+      "value": true
     }
   },
   "formation": {

@@ -41,7 +41,7 @@ class ChangeReport < ActiveRecord::Base
       selected_county_location: navigator.selected_county_location,
       county_from_address: navigator.county_from_address,
       age: member.try(:age),
-      has_letter: navigator.has_letter,
+      has_termination_letter: navigator.has_termination_letter,
       letter_count: letters.count,
       consent_to_sms: consent_to_sms,
       feedback_rating: feedback_rating,

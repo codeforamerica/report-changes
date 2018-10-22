@@ -3,7 +3,9 @@ class ChangeReportNavigator < ActiveRecord::Base
 
   enum selected_county_location: { unfilled: 0, arapahoe: 1, not_arapahoe: 2, not_sure: 3 },
        _prefix: :selected_county_location
-  enum has_letter: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_letter
+  enum has_termination_letter: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_termination_letter
+  enum has_offer_letter: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_offer_letter
+  enum has_paystub: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_paystub
 
   def supported_county?
     selected_county_location_arapahoe? || county_from_address == "Arapahoe County"
