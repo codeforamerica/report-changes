@@ -1,3 +1,1 @@
-class TextMessageConsentController < FormsController
-
-end
+class TextMessageConsentController < FormsController; end
