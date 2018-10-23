@@ -3,7 +3,7 @@ class FormsController < ApplicationController
 
   before_action :ensure_change_report_present, only: %i[edit update]
 
-  helper_method :current_change_report
+  helper_method :current_change_report, :current_percentage
 
   def edit
     @form = form_class.from_change_report(current_change_report)
@@ -39,6 +39,10 @@ class FormsController < ApplicationController
 
   def current_change_report
     ChangeReport.find_by(id: session[:current_change_report_id])
+  end
+
+  def current_percentage
+    (100 / form_navigation.form_controllers.length) * form_navigation.form_controllers.index(self.class)
   end
 
   private
