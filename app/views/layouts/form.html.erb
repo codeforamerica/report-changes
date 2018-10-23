@@ -56,7 +56,7 @@
           </main>
 
           <% if content_for? :progress_indicator_percentage %>
-            <%= render "shared/progress_indicator", progress_indicator_percentage: content_for(:progress_indicator_percentage) %>
+            <%= render "shared/progress_indicator", progress_indicator_percentage: current_percentage %>
           <% end %>
       <% end %>
     </div>
