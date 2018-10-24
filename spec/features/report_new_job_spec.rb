@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Reporting a change" do
+RSpec.feature "Reporting a change", js: true do
   context "when new job flow is enabled" do
     around do |example|
       with_modified_env NEW_JOB_FLOW_ENABLED: "true" do
@@ -65,6 +65,13 @@ RSpec.feature "Reporting a change" do
 
       expect(page).to have_text "What do you have?"
       check "I have an offer letter"
+      check "I have paystubs"
+      click_on "Continue"
+
+      expect(page).to have_text "Add your offer letter and paystubs."
+
+      page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
+      expect(page).to have_text "image.jpg"
       click_on "Continue"
 
       expect(page).to have_text "May we contact you via text message"

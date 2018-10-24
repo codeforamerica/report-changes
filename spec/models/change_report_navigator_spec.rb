@@ -35,4 +35,37 @@ RSpec.describe ChangeReportNavigator do
       end
     end
   end
+
+  describe "#documents_to_upload" do
+    let(:change_report) { create :change_report }
+
+    context "when paystubs selected" do
+      it "returns :paystub" do
+        change_report.create_navigator has_termination_letter: "no", has_offer_letter: "no", has_paystub: "yes"
+
+        expect(change_report.navigator.documents_to_upload).to eq :paystub
+      end
+    end
+    context "when offer letter and paystubs selected" do
+      it "returns :offer_letter_and_paystub" do
+        change_report.create_navigator has_termination_letter: "no", has_offer_letter: "yes", has_paystub: "yes"
+
+        expect(change_report.navigator.documents_to_upload).to eq :offer_letter_and_paystub
+      end
+    end
+    context "when offer letter selected" do
+      it "returns :offer_letter" do
+        change_report.create_navigator has_termination_letter: "no", has_offer_letter: "yes", has_paystub: "no"
+
+        expect(change_report.navigator.documents_to_upload).to eq :offer_letter
+      end
+    end
+    context "when termination letter selected" do
+      it "returns :termination_letter" do
+        change_report.create_navigator has_termination_letter: "yes", has_offer_letter: "no", has_paystub: "no"
+
+        expect(change_report.navigator.documents_to_upload).to eq :termination_letter
+      end
+    end
+  end
 end

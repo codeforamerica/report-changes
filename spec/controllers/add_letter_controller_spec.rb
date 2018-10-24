@@ -44,33 +44,67 @@ RSpec.describe AddLetterController do
   end
 
   describe "show?" do
-    context "when client has their letter and lost a job" do
-      it "returns true" do
-        navigator = build(:change_report_navigator, has_termination_letter: "yes")
-        change_report = create(:change_report, navigator: navigator, change_type: :job_termination)
+    context "lost a job" do
+      context "when client has their letter" do
+        it "returns true" do
+          change_report = create(:change_report, navigator:
+            build(:change_report_navigator, has_termination_letter: "yes"))
 
-        show_form = AddLetterController.show?(change_report)
-        expect(show_form).to eq(true)
+          show_form = AddLetterController.show?(change_report)
+          expect(show_form).to eq(true)
+        end
+      end
+
+      context "when client does not have letter" do
+        it "returns false" do
+          change_report = create(:change_report, navigator:
+            build(:change_report_navigator, has_termination_letter: "no"))
+
+          show_form = AddLetterController.show?(change_report)
+          expect(show_form).to eq(false)
+        end
       end
     end
 
-    context "when client does not have letter and lost a job" do
-      it "returns false" do
-        navigator = build(:change_report_navigator, has_termination_letter: "no")
-        change_report = create(:change_report, navigator: navigator, change_type: :job_termination)
+    context "new job" do
+      context "when client has an offer letter" do
+        it "returns true" do
+          change_report = create(:change_report, navigator:
+            build(:change_report_navigator, has_offer_letter: "yes"))
 
-        show_form = AddLetterController.show?(change_report)
-        expect(show_form).to eq(false)
+          show_form = AddLetterController.show?(change_report)
+          expect(show_form).to eq(true)
+        end
       end
-    end
 
-    context "when client has a letter but did not lose a job" do
-      it "returns false" do
-        navigator = build(:change_report_navigator, has_termination_letter: "yes")
-        change_report = create(:change_report, navigator: navigator, change_type: :new_job)
+      context "when client has an offer letter and a paystub" do
+        it "returns true" do
+          change_report = create(:change_report, navigator:
+            build(:change_report_navigator, has_offer_letter: "yes", has_paystub: "yes"))
 
-        show_form = AddLetterController.show?(change_report)
-        expect(show_form).to eq(false)
+          show_form = AddLetterController.show?(change_report)
+          expect(show_form).to eq(true)
+        end
+      end
+
+      context "when client has a paystub" do
+        it "returns true" do
+          change_report = create(:change_report, navigator:
+            build(:change_report_navigator, has_paystub: "yes"))
+
+          show_form = AddLetterController.show?(change_report)
+          expect(show_form).to eq(true)
+        end
+      end
+
+      context "when client has no proof" do
+        it "returns false" do
+          change_report = create(:change_report, navigator:
+            build(:change_report_navigator, has_offer_letter: "no", has_paystub: "no"))
+
+          show_form = AddLetterController.show?(change_report)
+          expect(show_form).to eq(false)
+        end
       end
     end
   end
