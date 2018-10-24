@@ -42,7 +42,10 @@ class FormsController < ApplicationController
   end
 
   def current_percentage
-    (100 / form_navigation.form_controllers.length) * form_navigation.form_controllers.index(self.class)
+    index_of_screens = form_navigation.form_controllers.index(self.class)
+    if index_of_screens
+      (100 / form_navigation.form_controllers.length) * index_of_screens
+    end
   end
 
   private
