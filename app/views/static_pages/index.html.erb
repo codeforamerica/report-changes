@@ -7,16 +7,11 @@
         Leave a job? Report the change to your Food Assistance (Food Stamps) case
       </h1>
 
-      <% if GateKeeper.feature_enabled?("PRE_LAUNCH") %>
-        <button class="button button--large button--cta" disabled>Start my report <i class="button__icon icon-arrow_forward"></i></button>
-        <p>Coming soon — check back!</p>
-      <% else %>
-        <%= link_to screen_path(FormNavigation.first) do %>
-          <button class="button button--large button--cta">Start my report <i class="button__icon icon-arrow_forward"></i></button>
-        <% end %>
-        <p>It only takes 10 minutes</p>
+      <%= link_to screen_path(FormNavigation.first) do %>
+        <button class="button button--large button--cta">Start my report <i class="button__icon icon-arrow_forward"></i></button>
       <% end %>
 
+      <p>It only takes 10 minutes</p>
     </div>
   </section>
 
@@ -27,9 +22,7 @@
           If you stopped working at a job, you may be eligible for more food assistance benefits. This includes quitting, being laid off, fired, or leaving for any other reason.
         </p>
         <p class="h3">
-          <% unless GateKeeper.feature_enabled?("PRE_LAUNCH") %>
-            <%= link_to 'Start your report', screen_path(FormNavigation.first) %> now.
-          <% end %>
+          <%= link_to 'Start your report', screen_path(FormNavigation.first) %> now.
           We’ll guide you through the process with simple step-by-step directions.
         </p>
       </div>
