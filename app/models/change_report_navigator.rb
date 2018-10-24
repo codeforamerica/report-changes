@@ -10,4 +10,12 @@ class ChangeReportNavigator < ActiveRecord::Base
   def supported_county?
     selected_county_location_arapahoe? || county_from_address == "Arapahoe County"
   end
+
+  def documents_to_upload
+    return :termination_letter if has_termination_letter_yes?
+    return :offer_letter_and_paystub if has_offer_letter_yes? && has_paystub_yes?
+    return :offer_letter if has_offer_letter_yes?
+
+    :paystub if has_paystub_yes?
+  end
 end
