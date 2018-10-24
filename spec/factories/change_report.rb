@@ -26,6 +26,10 @@ FactoryBot.define do
       end
     end
 
+    trait :signed do
+      signature { "BoJack Horseman" }
+    end
+
     factory :change_report_with_letter, traits: %i[with_navigator with_member with_letter]
   end
 end
