@@ -20,6 +20,14 @@ FactoryBot.define do
       end
     end
 
+    trait :job_termination do
+      change_type { "job_termination" }
+    end
+
+    trait :new_job do
+      change_type { "new_job" }
+    end
+
     trait :with_letter do
       letters do
         [fixture_file_upload(Rails.root.join("spec", "fixtures", "image.jpg"), "image/jpg")]
