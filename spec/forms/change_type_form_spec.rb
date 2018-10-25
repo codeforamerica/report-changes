@@ -42,7 +42,7 @@ RSpec.describe ChangeTypeForm do
 
   describe ".from_change_report" do
     it "assigns values from change report" do
-      change_report = create(:change_report, change_type: "new_job")
+      change_report = create(:change_report, :new_job)
 
       form = ChangeTypeForm.from_change_report(change_report)
 
