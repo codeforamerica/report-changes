@@ -44,7 +44,7 @@
     },
     "NEW_JOB_FLOW_ENABLED": {
       "required": false,
-      "value": true
+      "value": "true"
     }
   },
   "formation": {
