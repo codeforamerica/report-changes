@@ -9,7 +9,7 @@ working_dir_defaults: &working_dir_defaults
 defaults: &defaults
   <<: *working_dir_defaults
   docker:
-    - image: chartsockcfa/michigan-benefits-ci:with-node
+    - image: circleci/ruby:2.5.3-node-browsers
 
 version: 2
 jobs:
@@ -43,7 +43,7 @@ jobs:
   run_tests:
     <<: *working_dir_defaults
     docker:
-      - image: chartsockcfa/michigan-benefits-ci:with-node
+      - image: circleci/ruby:2.5.3-node-browsers
         environment:
           PGHOST: 127.0.0.1
           PGUSER: root
