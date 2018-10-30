@@ -1,10 +1,15 @@
 require "rails_helper"
 
 RSpec.feature "Reporting a change", js: true do
+  include ActiveJob::TestHelper
+
   context "when new job flow is enabled" do
     around do |example|
-      with_modified_env NEW_JOB_FLOW_ENABLED: "true" do
-        example.run
+      ActionMailer::Base.deliveries.clear
+      perform_enqueued_jobs do
+        with_modified_env NEW_JOB_FLOW_ENABLED: "true" do
+          example.run
+        end
       end
     end
 
@@ -89,6 +94,11 @@ RSpec.feature "Reporting a change", js: true do
       click_on "Submit"
 
       expect(page).to have_content("Thanks for your feedback")
+
+      emails = ActionMailer::Base.deliveries
+
+      expect(emails.count).to eq 1
+      expect(emails.last.attachments.count).to eq 1
     end
   end
 end

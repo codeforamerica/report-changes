@@ -3,7 +3,7 @@ class ChangeReportPdfBuilder
 
   def initialize(change_report)
     rendered_string = ApplicationController.render(
-      template: "admin/change_reports/show",
+      template: "admin/change_reports/#{change_report.change_type}",
       locals: { change_report: ChangeReportDecorator.new(change_report) },
     )
     @pdf_from_html = WickedPdf.new.pdf_from_string(rendered_string)

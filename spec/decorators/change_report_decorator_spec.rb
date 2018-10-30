@@ -143,7 +143,7 @@ RSpec.describe ChangeReportDecorator do
       end
     end
 
-    context "when there is not a last_day" do
+    context "when there is not a last_paycheck" do
       it "returns nil" do
         change_report = create :change_report, last_paycheck: nil
         decorator = ChangeReportDecorator.new(change_report)
@@ -248,6 +248,109 @@ RSpec.describe ChangeReportDecorator do
         change_report = create :change_report, last_paycheck_amount: 1127.14
         decorator = ChangeReportDecorator.new(change_report)
         expect(decorator.last_paycheck_amount).to eq "$1,127.14"
+      end
+    end
+  end
+
+  describe "#first_day" do
+    context "when there is a first_day" do
+      it "formats it" do
+        first_day = DateTime.new(2018, 2, 3, 19, 5, 6)
+        change_report = create :change_report, first_day: first_day
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.first_day).to eq "02/03/18"
+      end
+    end
+
+    context "when there is not a first_day" do
+      it "returns nil" do
+        change_report = create :change_report, first_day: nil
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.first_day).to be_nil
+      end
+    end
+  end
+
+  describe "#first_paycheck" do
+    context "when there is a first_paycheck" do
+      it "formats it" do
+        first_paycheck = DateTime.new(2018, 2, 3, 19, 5, 6)
+        change_report = create :change_report, first_paycheck: first_paycheck
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.first_paycheck).to eq "02/03/18"
+      end
+    end
+
+    context "when there is not a first_paycheck" do
+      it "returns nil" do
+        change_report = create :change_report, first_paycheck: nil
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.first_paycheck).to be_nil
+      end
+    end
+  end
+
+  describe "#hourly_wage" do
+    context "when there is an hourly_wage" do
+      it "formats it" do
+        change_report = create :change_report, hourly_wage: "50"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.hourly_wage).to eq "$50 /hr"
+      end
+    end
+
+    context "when there is not an hourly_wage" do
+      it "returns nil" do
+        change_report = create :change_report, hourly_wage: nil
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.hourly_wage).to be_nil
+      end
+    end
+  end
+
+  describe "#hours_a_week" do
+    context "when the hours are the same" do
+      it "returns the value" do
+        change_report = create :change_report, same_hours: "yes",
+                                               same_hours_a_week_amount: "20"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.hours_a_week).to eq "20"
+      end
+    end
+
+    context "when the hours are in a range" do
+      it "returns the range" do
+        change_report = create :change_report, same_hours: "no",
+                                               lower_hours_a_week_amount: "5",
+                                               upper_hours_a_week_amount: "15"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.hours_a_week).to eq "5-15"
+      end
+    end
+
+    context "when there are no hours" do
+      it "returns nil" do
+        change_report = create :change_report, same_hours: "unfilled"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.hours_a_week).to be_nil
+      end
+    end
+  end
+
+  describe "#uploaded_new_job_verification" do
+    context "when the client uploaded documents" do
+      it "returns 'Yes'" do
+        change_report = create :change_report, :with_letter
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.uploaded_new_job_verification).to eq "Yes"
+      end
+    end
+
+    context "when the client did not upload documents" do
+      it "returns 'Neither'" do
+        change_report = create :change_report
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.uploaded_new_job_verification).to eq "Neither"
       end
     end
   end
