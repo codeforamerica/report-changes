@@ -76,6 +76,30 @@ class ChangeReportDecorator < SimpleDelegator
     end
   end
 
+  def first_day
+    super&.strftime("%D")
+  end
+
+  def first_paycheck
+    super&.strftime("%D")
+  end
+
+  def hourly_wage
+    "$#{super} /hr" if super.present?
+  end
+
+  def hours_a_week
+    if same_hours_yes?
+      same_hours_a_week_amount
+    elsif same_hours_no?
+      "#{lower_hours_a_week_amount}-#{upper_hours_a_week_amount}"
+    end
+  end
+
+  def uploaded_new_job_verification
+    letters.attached? ? "Yes" : "Neither"
+  end
+
   private
 
   def format_phone_number(phone_number)
