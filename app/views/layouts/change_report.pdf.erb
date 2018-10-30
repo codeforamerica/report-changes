@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <%= wicked_pdf_stylesheet_link_tag 'pdf' %>
+</head>
+<body>
+<div class="pdf">
+  <h1>Change Request Form</h1>
+
+  <%= yield %>
+
+  <div class="row">
+    <p>
+      Questions or feedback on this PDF? Email us at <%= ENV["SENDING_EMAIL_ADDRESS"] %>.
+    </p>
+  </div>
+
+  <% @change_report.image_letters.each do |letter| %>
+    <div class="alwaysbreak">
+      <%= image_tag(wicked_blob_path(letter), alt: '_', width: "100%") %>
+    </div>
+  <% end %>
+</div>
+</body>
+</html>

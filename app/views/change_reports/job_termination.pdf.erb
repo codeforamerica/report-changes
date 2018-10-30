@@ -1,0 +1,70 @@
+<%= render partial: 'change_reports/member_info' %>
+
+<div class="row">
+  <div class="column one-of-two">
+    <p class="label">
+      Change type
+    </p>
+    <span class="value">
+      Income change: job termination
+    </span>
+  </div>
+
+  <div class="column one-of-two">
+    <p class="label">
+      Employer name
+    </p>
+    <span class="value">
+      <%= @change_report.company_name %>
+    </span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="column one-of-four">
+    <p class="label">
+      Last day of work
+    </p>
+    <span class="value">
+      <%= @change_report.last_day %>
+    </span>
+  </div>
+
+  <div class="column one-of-four">
+    <p class="label">
+      Last paycheck
+    </p>
+    <span class="value">
+      <%= @change_report.last_paycheck %>
+    </span>
+  </div>
+
+  <div class="column one-of-two">
+    <p class="label">
+      Final paystub amount
+    </p>
+    <span class="value">
+      <%= @change_report.last_paycheck_amount %>
+    </span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<p class="label">
+  Verifications
+</p>
+
+<div class="row">
+  <div class="column one-of-two">
+    <p class="label">
+      Included document?
+    </p>
+
+    <span class="value">
+      <%= @change_report.termination_verification %>
+    </span>
+  </div>
+</div>
+
+<%= render partial: 'change_reports/job_contact_info' %>
