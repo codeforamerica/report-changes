@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="column one-of-two">
+    <p class="label">
+      Date Submitted
+    </p>
+    <span class="value">
+        <%= @change_report.submitted_at %>
+      </span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="row">
+  <div class="column one-of-two">
+    <p class="label">
+      Full name
+    </p>
+    <span class="value">
+        <%= @change_report.client_name %>
+      </span>
+  </div>
+
+  <div class="column one-of-two">
+    <p class="label">
+      Phone Number
+    </p>
+    <span class="value">
+        <%= @change_report.client_phone_number %>
+      </span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="column one-of-two">
+    <p class="label">
+      Social Security Number
+    </p>
+    <span class="value">
+        <%= @change_report.ssn %>
+      </span>
+  </div>
+
+  <div class="column one-of-four">
+    <p class="label">
+      Case Number
+    </p>
+    <span class="value">
+        <%= @change_report.case_number %>
+      </span>
+  </div>
+
+  <div class="column one-of-four">
+    <p class="label">
+      Date of Birth
+    </p>
+    <span class="value">
+        <%= @change_report.birthday %>
+      </span>
+  </div>
+</div>
+
+<div class="divider"></div>
