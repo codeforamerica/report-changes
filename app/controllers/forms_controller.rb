@@ -76,7 +76,7 @@ class FormsController < ApplicationController
     MixpanelService.instance.run(
       unique_id: current_change_report.id,
       event_name: @form.class.analytics_event_name,
-      data: current_change_report.mixpanel_data,
+      data: AnalyticsData.new(current_change_report).to_h,
     )
   end
 
@@ -87,7 +87,7 @@ class FormsController < ApplicationController
     }
 
     if current_change_report.present?
-      data.merge!(current_change_report.try(:mixpanel_data))
+      data.merge!(AnalyticsData.new(current_change_report).to_h)
     end
 
     MixpanelService.instance.run(
