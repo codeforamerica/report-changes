@@ -27,31 +27,6 @@ RSpec.describe ChangeReport, type: :model do
     end
   end
 
-  describe "#mixpanel_data" do
-    let(:change_report) do
-      create :change_report,
-             :with_navigator,
-             :with_letter,
-             source: "awesome-cbo",
-             member: create(:household_member, birthday: (30.years.ago - 1.day))
-    end
-
-    it "returns a non-PII representation of change report data" do
-      expect(change_report.mixpanel_data).to eq(
-        {
-          selected_county_location: "unfilled",
-          county_from_address: nil,
-          age: 30,
-          has_termination_letter: "unfilled",
-          letter_count: 1,
-          consent_to_sms: "unfilled",
-          feedback_rating: "unfilled",
-          source: "awesome-cbo",
-        },
-      )
-    end
-  end
-
   describe "#pdf_letters" do
     it "returns all letters that are content_type application/pdf" do
       change_report = create :change_report

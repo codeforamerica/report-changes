@@ -24,10 +24,12 @@ RSpec.shared_examples_for "form controller successful update" do |valid_params|
           expect(response).to redirect_to(subject.next_path)
         end
 
-        let(:mock_mixpanel_service) { spy(MixpanelService) }
-
         it "calls the mixpanel service" do
+          mock_mixpanel_service = spy(MixpanelService)
+          fake_analytics_data = { foo: "bar" }
+
           allow(MixpanelService).to receive(:instance).and_return(mock_mixpanel_service)
+          allow(AnalyticsData).to receive(:new).with(current_change_report) { fake_analytics_data }
 
           put :update, params: { form: valid_params }
 
@@ -35,7 +37,7 @@ RSpec.shared_examples_for "form controller successful update" do |valid_params|
           expect(mock_mixpanel_service).to have_received(:run).with(
             unique_id: current_change_report.id,
             event_name: controller.form_class.analytics_event_name,
-            data: current_change_report.mixpanel_data,
+            data: fake_analytics_data,
           )
         end
       end
