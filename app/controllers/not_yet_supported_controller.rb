@@ -6,4 +6,8 @@ class NotYetSupportedController < FormsController
   def form_class
     NullForm
   end
+
+  def layout
+    "off_ramp"
+  end
 end

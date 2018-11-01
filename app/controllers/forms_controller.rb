@@ -1,12 +1,13 @@
 class FormsController < ApplicationController
-  layout "form"
-
   before_action :ensure_change_report_present, only: %i[edit update]
 
   helper_method :current_change_report, :current_percentage
 
+  def index; end
+
   def edit
     @form = form_class.from_change_report(current_change_report)
+    render layout: layout
   end
 
   def update
@@ -18,7 +19,7 @@ class FormsController < ApplicationController
       redirect_to(next_path)
     else
       send_mixpanel_validation_errors
-      render :edit
+      render :edit, layout: layout
     end
   end
 
@@ -58,6 +59,10 @@ class FormsController < ApplicationController
 
   def form_params
     params.fetch(:form, {}).permit(*form_class.attribute_names)
+  end
+
+  def layout
+    "form"
   end
 
   # Don't override in subclasses

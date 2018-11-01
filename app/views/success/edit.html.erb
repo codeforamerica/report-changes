@@ -1,16 +1,12 @@
-<% content_for :form_card_header do %>
-  <div class="center">
-    <div class="emoji emoji--big emoji--party-popper with-padding-small"></div>
-    <h1 class="form-card__title">You have successfully submitted your change report</h1>
-  </div>
-<% end %>
-
+<% content_for :success, true %>
+<% content_for :emoji, "emoji--party-popper" %>
+<% content_for :form_card_title, "You have successfully submitted your change report" %>
 <% content_for :form_card_body do %>
-    <p>
-      What’s next? We’ll use your answers on this form to see if your household benefits change. If they do, you’ll be notified.
-    </p>
-  </div>
-  <hr>
+
+  <p>What’s next? We’ll use your answers on this form to see if your household benefits change. If they do, you’ll be notified.</p>
+
+  <hr />
+
   <% if @form.change_report.has_feedback? %>
     <div class="center">
       <div class="emoji emoji--big emoji--blush"></div>
@@ -30,15 +26,11 @@
               ],
               layouts: ["inline", "image"] %>
 
-            <%= f.cfa_textarea :feedback_comments, '<strong>Do you have any feedback for us?</strong>', options: {rows: '2'} %>
-            <button class="button button--full-mobile" type="submit">Submit</button>
-          <% end %>
+          <%= f.cfa_textarea :feedback_comments, '<strong>Do you have any feedback for us?</strong>', options: {rows: '2'} %>
+          <button class="button button--full-mobile" type="submit">Submit</button>
+        <% end %>
         </form>
       </div>
     </div>
   <% end %>
 <% end %>
-
-<% content_for :dark_background, true %>
-<% content_for :skip_footer, true %>
-<% content_for :hide_percentage, true %>

@@ -12,15 +12,12 @@
     <%= javascript_include_tag 'application' %>
   </head>
 
-  <body class="template--<%= content_for(:template_name) if content_for?(:template_name) %>">
-    <div class="page-wrapper <%= content_for?(:dark_background) ? 'dark-background' : '' %>">
-      <% if GateKeeper.demo_environment? %>
-        <div class="demo-banner">
-          This site is for example purposes only. If you need to submit a change report, visit <a class="link--subtle" href="https://reportchangescolorado.org">ReportChangesColorado.org</a>.
-        </div>
-      <% end %>
-      <%= content_for?(:content) ? content_for(:content) : yield %>
+  <body <%= "class=template--homepage" if content_for? :homepage %>>
+    <div class="page-wrapper <%= "dark-background" if content_for? :success %>">
+      <%= render 'shared/demo_banner' if GateKeeper.demo_environment? %>
+      <%= render 'shared/header' unless content_for? :homepage %>
+      <%= content_for :content %>
+      <%= render 'shared/footer' %>
     </div>
-    <%= render 'shared/footer' %>
   </body>
 </html>

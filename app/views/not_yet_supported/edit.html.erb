@@ -1,20 +1,11 @@
-<% content_for :form_card do %>
-  <main id="main" class="form-card">
-    <header class="text--centered">
-      <h1 class="form-card__title">Sorry, you'll need to report your change a different way.</h1>
+<% content_for :form_card_title, "Sorry, you'll need to report your change a different way." %>
+<% content_for :form_card_help, "You can submit your change through Colorado PEAK. You can also call or visit your county Department of Human Services office." %>
 
-      <p class="text--help">
-        You can submit your change through Colorado PEAK. You can also call or visit your county Department of Human Services office.
-      </p>
-    </header>
-
-    <div class="text--centered">
-      <div class="nudge--med with-padding-small">
-        <%= link_to "Go to PEAK", "https://coloradopeak.secure.force.com/", class: 'button button--full-mobile button--primary' %>
-      </div>
-      <div>
-        <%= link_to "Find my county office", "https://www.colorado.gov/pacific/cdhs/contact-your-county", class: 'button button--full-mobile button--primary' %>
-      </div>
-    </div>
-  </main>
+<% content_for :form_card_body do %>
+  <div class="nudge--med with-padding-small">
+    <%= link_to "Go to PEAK", "https://coloradopeak.secure.force.com/", class: 'button button--full-mobile button--primary' %>
+  </div>
+  <div>
+    <%= link_to "Find my county office", "https://www.colorado.gov/pacific/cdhs/contact-your-county", class: 'button button--full-mobile button--primary' %>
+  </div>
 <% end %>

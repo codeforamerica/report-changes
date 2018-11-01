@@ -1,16 +1,7 @@
-<% content_for :form_card do %>
-  <main id="main" class="form-card form-card--transition">
-    <header class="form-card__header">
-      <div class="emoji emoji--big emoji--warning with-padding-med"></div>
-      <h1 class="form-card__title">
-        Thanks for visiting the ReportChangesColorado example tool!
-      </h1>
-      <div class="form-card__subtitle">This site is for example purposes only. If you need to submit a change report, visit ReportChangesColorado.org.</div>
-    </header>
-
-    <footer class="form-card__footer">
-      <%= link_to "Report on ReportChangesColorado.org", "https://www.reportchangescolorado.org", class: "button button--primary" %>
-      <%= link_to "Continue demo tool", next_path, class: "button" %>
-    </footer>
-  </main>
+<% content_for :emoji, "emoji--warning" %>
+<% content_for :form_card_title, "Thanks for visiting the ReportChangesColorado example tool!" %>
+<% content_for :form_card_subtitle, "This site is for example purposes only. If you need to submit a change report, visit ReportChangesColorado.org." %>
+<% content_for :form_card_body do %>
+  <%= link_to "Report on ReportChangesColorado.org", "https://www.reportchangescolorado.org", class: "button button--primary" %>
+  <%= link_to "Continue demo tool", next_path, class: "button" %>
 <% end %>
