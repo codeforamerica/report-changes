@@ -1,0 +1,35 @@
+<% content_for :content do %>
+  <div class="slab">
+    <% if content_for? :emoji %>
+      <main id="main" class="form-card form-card--transition">
+        <header class="form-card__header">
+          <div class="emoji emoji--big <%= content_for :emoji %> with-padding-med"></div>
+    <% else %>
+      <main id="main" class="form-card">
+        <header class="text--centered">
+    <% end %>
+      <h1 class="form-card__title">
+        <%= yield :form_card_title %>
+      </h1>
+
+      <% if content_for? :form_card_subtitle %>
+        <div class="form-card__subtitle">
+          <%= yield :form_card_subtitle %>
+        </div>
+      <% end %>
+
+      <% if content_for? :form_card_help %>
+        <p class="text--help">
+          <%= yield :form_card_help %>
+        </p>
+      <% end %>
+      </header>
+
+      <div class="form-card__content text--centered">
+        <%= yield :form_card_body %>
+      </div>
+    </main>
+  </div>
+<% end %>
+
+<%= render template: 'layouts/application' %>

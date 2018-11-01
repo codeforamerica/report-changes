@@ -1,13 +1,2 @@
-<% content_for :form_card do %>
-  <main id="main" class="form-card">
-    <header class="text--centered with-padding-large nudge--large">
-      <div class="emoji emoji--big emoji--white-heavy-check-mark"></div>
-      <h1 class="form-card__title">Great, it looks like you live in Arapahoe County.</h1>
-    </header>
-
-    <div class="form-card__footer">
-      <%= render "shared/next_step_link" %>
-    </div>
-  </main>
-  <%= render "shared/progress_indicator", progress_indicator_percentage: '27' %>
-<% end %>
+<% content_for :emoji, "emoji--white-heavy-check-mark" %>
+<% content_for :form_card_title, "Great, it looks like you live in Arapahoe County." %>

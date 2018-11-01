@@ -1,59 +1,60 @@
-<% content_for(:template_name) { "homepage" }  %>
+<% content_for :homepage, true %>
 
-<section class="slab--hero-<%= rand(1..3) %> slab slab--hero">
-  <div class="hero--cta-options text--centered">
-    <h1>
-      Leave a job? Report the change to your Food Assistance (Food Stamps) case
-    </h1>
+<% content_for :content do %>
+  <section class="slab--hero-<%= rand(1..3) %> slab slab--hero">
+    <div class="hero--cta-options text--centered">
+      <h1>
+        Leave a job? Report the change to your Food Assistance (Food Stamps) case
+      </h1>
 
-    <% if GateKeeper.feature_enabled?("PRE_LAUNCH") %>
-      <button class="button button--large button--cta" disabled>Start my report <i class="button__icon icon-arrow_forward"></i></button>
-      <p>Coming soon — check back!</p>
-    <% else %>
-      <%= link_to screen_path(FormNavigation.first) do %>
-        <button class="button button--large button--cta">Start my report <i class="button__icon icon-arrow_forward"></i></button>
-      <% end %>
-      <p>It only takes 10 minutes</p>
-    <% end %>
-
-  </div>
-</section>
-
-
-<section class="slab slab--white">
-  <div class="grid">
-    <div class="grid__item text--small width-seven-twelfths">
-      <p class="h3">
-        If you stopped working at a job, you may be eligible for more food assistance benefits. This includes quitting, being laid off, fired, or leaving for any other reason.
-      </p>
-      <p class="h3">
-        <% unless GateKeeper.feature_enabled?("PRE_LAUNCH") %>
-          <%= link_to 'Start your report', screen_path(FormNavigation.first) %> now.
+      <% if GateKeeper.feature_enabled?("PRE_LAUNCH") %>
+        <button class="button button--large button--cta" disabled>Start my report <i class="button__icon icon-arrow_forward"></i></button>
+        <p>Coming soon — check back!</p>
+      <% else %>
+        <%= link_to screen_path(FormNavigation.first) do %>
+          <button class="button button--large button--cta">Start my report <i class="button__icon icon-arrow_forward"></i></button>
         <% end %>
-        We’ll guide you through the process with simple step-by-step directions.
-      </p>
-    </div>
-    <div class="grid__item width-one-fourth shift-one-sixth trust-badge">
-      <%= image_tag("arapahoe.jpg", alt: "Arapahoe County seal") %>
-      <p class="text--small">In partnership with the Colorado Department of Human Services and Arapahoe County.</p>
-    </div>
-  </div>
-</section>
+        <p>It only takes 10 minutes</p>
+      <% end %>
 
-<section class="slab slab--white is-desktop-hidden--inline">
-  <%= render "shared/how_it_works" %>
-</section>
+    </div>
+  </section>
 
-<section class="slab slab--off-white is-tablet-hidden--inline">
-  <div class="grid">
-    <div class="grid__item text--small width-one-third center">
-      <%= render "shared/how_it_works_step1" %>
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item text--small width-seven-twelfths">
+        <p class="h3">
+          If you stopped working at a job, you may be eligible for more food assistance benefits. This includes quitting, being laid off, fired, or leaving for any other reason.
+        </p>
+        <p class="h3">
+          <% unless GateKeeper.feature_enabled?("PRE_LAUNCH") %>
+            <%= link_to 'Start your report', screen_path(FormNavigation.first) %> now.
+          <% end %>
+          We’ll guide you through the process with simple step-by-step directions.
+        </p>
+      </div>
+      <div class="grid__item width-one-fourth shift-one-sixth trust-badge">
+        <%= image_tag("arapahoe.jpg", alt: "Arapahoe County seal") %>
+        <p class="text--small">In partnership with the Colorado Department of Human Services and Arapahoe County.</p>
+      </div>
     </div>
-    <div class="grid__item text--small width-one-third center">
-      <%= render "shared/how_it_works_step2" %>
+  </section>
+
+  <section class="slab slab--white is-desktop-hidden--inline">
+    <%= render "shared/how_it_works" %>
+  </section>
+
+  <section class="slab slab--off-white is-tablet-hidden--inline">
+    <div class="grid">
+      <div class="grid__item text--small width-one-third center">
+        <%= render "shared/how_it_works_step1" %>
+      </div>
+      <div class="grid__item text--small width-one-third center">
+        <%= render "shared/how_it_works_step2" %>
+      </div>
+      <div class="grid__item text--small width-one-third center">
+        <%= render "shared/how_it_works_step3" %>
+      </div>
     </div>
-    <div class="grid__item text--small width-one-third center">
-      <%= render "shared/how_it_works_step3" %>
-    </div>
-  </div>
-</section>
+  </section>
+<% end %>

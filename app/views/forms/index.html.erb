@@ -1,18 +1,23 @@
-<% content_for :form_card_title, 'Form Section Navigation' %>
+<% content_for :content do %>
+  <div class="slab">
+    <main id="main" class="form-card">
+      <header class="form-card__header">
+        <h1 class="form-card__title">
+          All of the screens! <div class="emoji emoji--small emoji--party-popper"></div>
+        </h1>
+      </header>
 
-<% content_for :form_card_body do %>
-    <div class="slab">
-      <% FormNavigation.form_controllers.each do |form| %>
-        <div>
-          <%= link_to form.to_param.titleize,
-                      screen_path(form.to_param),
-                      class: 'button button--small button--full-mobile' %>
+      <div class="form-card__content">
+        <div class="slab">
+          <% FormNavigation.form_controllers.each do |form| %>
+            <div>
+              <%= link_to form.to_param.titleize,
+                screen_path(form.to_param),
+                class: 'button button--small button--full-mobile' %>
+            </div>
+          <% end %>
         </div>
-      <% end %>
-    </div>
+      </div>
+    </main>
+  </div>
 <% end %>
-
-<% content_for :form_card_footer do %>
-    <p>Please select the page you'd like to view 😌</p>
-<% end %>
-<% content_for :hide_percentage, true %>
