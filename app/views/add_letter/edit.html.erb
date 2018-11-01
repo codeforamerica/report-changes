@@ -30,7 +30,7 @@
                 <div class="doc-preview__thumb emoji emoji--page-facing-up"></div>
               <% else %>
                 <div class="doc-preview__thumb">
-                  <%= image_tag url_for(letter), size: "100x100" %>
+                  <%= image_tag url_for(letter), size: "100x100", alt: "Preview of uploaded document #{letter.filename}" %>
                 </div>
               <% end %>
             </div>
@@ -41,8 +41,8 @@
     <div class="text--centered">
       <div class="verification-upload-icon" <% if @form.letters.present? %>style="display: none;"<% end %>></div>
       <div>
-        <button class="button button--cta is-tablet-hidden--inline" id="file-upload">Pick a file from this computer</button>
-        <button class="button button--cta is-desktop-hidden--inline" id="file-upload">Take a picture</button>
+        <button class="button button--cta is-tablet-hidden--inline upload-file-button">Pick a file from this computer</button>
+        <button class="button button--cta is-desktop-hidden--inline upload-file-button">Take a picture</button>
       </div>
     </div>
 <% end %>

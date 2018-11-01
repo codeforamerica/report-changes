@@ -12,6 +12,8 @@
   </p>
   <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
   <%= f.cfa_radio_set :is_self_employed,
+    label_text: "Are you self-employed?",
+    legend_class: "sr-only",
     collection: [
       { value: :yes, label: "I am self-employed" },
       { value: :no, label: "I am not self-employed" },

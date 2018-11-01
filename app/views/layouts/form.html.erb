@@ -11,9 +11,9 @@
     </header>
 
     <div class="slab">
-      <% if content_for? :form_card %>
+        <% if content_for? :form_card %>
           <%= yield :form_card %>
-      <% else %>
+        <% else %>
           <main id="main" class="form-card">
             <%= form_tag @step, as: :step, url: current_path, method: :put %>
             <header class="form-card__header">

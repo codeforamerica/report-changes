@@ -9,6 +9,7 @@ require "rspec/rails"
 require "capybara/rails"
 require "capybara/rspec"
 require "selenium/webdriver"
+require "axe/rspec"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
@@ -16,6 +17,7 @@ ActiveRecord::Migration.maintain_test_schema!
 
 Capybara.javascript_driver = :selenium_chrome_headless
 Capybara.server = :puma, { Silent: true }
+Capybara.default_max_wait_time = 0.2
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = true
@@ -25,9 +27,22 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
+  config.before :all, :a11y do
+    unless ENV["SKIP_ACCESSIBILITY_SPECS"] == "true"
+      Capybara.current_driver = :selenium_chrome_headless
+    end
+  end
+
+  config.after :all, :a11y do
+    unless ENV["SKIP_ACCESSIBILITY_SPECS"] == "true"
+      Capybara.use_default_driver
+    end
+  end
+
   config.include GenericSpecHelper
-  config.include Warden::Test::Helpers, type: :feature
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include FeatureHelper, type: :feature
+  config.include Warden::Test::Helpers, type: :feature
 end
 
 FactoryBot::SyntaxRunner.class_eval do
