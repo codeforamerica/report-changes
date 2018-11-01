@@ -9,13 +9,15 @@ var directUpload = (function () {
                 });
             };
 
+
             $('input[type=file]').each(function (index, fileInput) {
                 const url = fileInput.dataset.directUploadUrl;
 
-                var uploadBtn = document.getElementById('file-upload');
-                uploadBtn.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    fileInput.click();
+                $('.upload-file-button').each(function (index, uploadFileButton) {
+                    uploadFileButton.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        fileInput.click();
+                    });
                 });
 
                 fileInput.addEventListener('change', function (e) {

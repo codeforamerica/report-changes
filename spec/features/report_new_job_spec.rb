@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Reporting a change", js: true do
+RSpec.feature "Reporting a change", :a11y, :js do
   include ActiveJob::TestHelper
 
   context "when new job flow is enabled" do
@@ -15,22 +15,22 @@ RSpec.feature "Reporting a change", js: true do
 
     scenario "new job" do
       visit "/"
-      click_on "Start my report", match: :first
+      proceed_with "Start my report", match: :first
 
       expect(page).to have_text "Welcome! Here’s how reporting a change works"
-      click_on "Start the form"
+      proceed_with "Start the form"
 
       expect(page).to have_text "do you live in Arapahoe County?"
       choose "Yes"
-      click_on "Continue"
+      proceed_with "Continue"
 
       expect(page).to have_text "What changed?"
       choose "I started a new job"
-      click_on "Continue"
+      proceed_with "Continue"
 
       expect(page).to have_text "Are you self-employed?"
       choose "I am not self-employed"
-      click_on "Continue"
+      proceed_with "Continue"
 
       expect(page).to have_text "Tell us about yourself."
 
@@ -39,7 +39,7 @@ RSpec.feature "Reporting a change", js: true do
       select "January", from: "form[birthday_month]"
       select "1", from: "form[birthday_day]"
       select 20.years.ago.year.to_s, from: "form[birthday_year]"
-      click_on "Continue"
+      proceed_with "Continue"
 
       expect(page).to have_text "Tell us about the new job."
 
@@ -50,7 +50,7 @@ RSpec.feature "Reporting a change", js: true do
       select "2", from: "form[first_day_day]"
       select "2018", from: "form[first_day_year]"
       choose "Yes"
-      click_on "Continue"
+      proceed_with "Continue"
 
       expect(page).to have_text "Tell us about how much you will make at this job."
 
@@ -62,36 +62,35 @@ RSpec.feature "Reporting a change", js: true do
       select "21", from: "form[first_paycheck_day]"
       select "2018", from: "form[first_paycheck_year]"
       fill_in "Is there anything else we should know about your hours or wages at this job?", with: "Not really"
-      click_on "Continue"
+      proceed_with "Continue"
 
       expect(page).to have_text "Do you have proof of this change?"
       expect(page).to have_text "Paystubs showing your pre-tax earnings"
-      click_on "Continue"
+      proceed_with "Continue"
 
       expect(page).to have_text "What do you have?"
       check "I have an offer letter"
       check "I have paystubs"
-      click_on "Continue"
+      proceed_with "Continue"
 
       expect(page).to have_text "Add your offer letter and paystubs."
 
       page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
       expect(page).to have_text "image.jpg"
-      click_on "Continue"
+      proceed_with "Continue"
 
       expect(page).to have_text "May we contact you via text message"
       choose "Yes"
-
-      click_on "Continue"
+      proceed_with "Continue"
 
       expect(page).to have_text "Sign your change report"
       fill_in "Type your full legal name", with: "Person McPeoples"
-      click_on "Sign and submit"
+      proceed_with "Sign and submit"
 
       expect(page).to have_text "You have successfully submitted your change report"
       choose "Good", allow_label_click: true
       fill_in "Do you have any feedback for us?", with: "My feedback"
-      click_on "Submit"
+      proceed_with "Submit"
 
       expect(page).to have_content("Thanks for your feedback")
 
