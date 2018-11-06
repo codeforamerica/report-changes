@@ -17,7 +17,7 @@
       <%= render 'shared/demo_banner' if GateKeeper.demo_environment? %>
       <%= render 'shared/header' unless content_for? :homepage %>
       <%= content_for :content %>
-      <%= render 'shared/footer' %>
     </div>
+    <%= render 'shared/footer' %>
   </body>
 </html>
