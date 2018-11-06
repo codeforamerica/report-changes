@@ -15,8 +15,8 @@ RSpec.feature "Demo site" do
     expect(page).to have_text "Welcome! Here’s how reporting a change works"
     click_on "Start the form"
 
-    expect(page).to have_text "Thanks for visiting the ReportChangesColorado example application!"
-    click_on "Continue demo application"
+    expect(page).to have_text "Thanks for visiting the ReportChangesColorado example tool!"
+    click_on "Continue demo"
 
     expect(page).to have_text "do you live in Arapahoe County?"
   end

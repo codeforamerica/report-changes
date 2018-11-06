@@ -1,7 +1,7 @@
 <div class="feedback-survey__form">
   <%= fields_for(:form, feedback_form, builder: CfaFormBuilder) do |f| %>
       <%= f.cfa_radio_set :feedback_rating,
-        label_text: "<h3>How was your experience with this application?</h3>",
+        label_text: "<h3>How was your experience with this tool?</h3>",
         collection: [
           { value: "negative", label: '<span class="radio-button__image emoji emoji--med emoji--frowning-face">Bad</span>' },
           { value: "neutral", label: '<span class="radio-button__image emoji emoji--med emoji--neutral-face">Ok</span>' },
