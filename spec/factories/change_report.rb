@@ -28,6 +28,10 @@ FactoryBot.define do
       change_type { "new_job" }
     end
 
+    trait :change_in_hours do
+      change_type { "change_in_hours" }
+    end
+
     trait :with_letter do
       letters do
         [fixture_file_upload(Rails.root.join("spec", "fixtures", "image.jpg"), "image/jpg")]

@@ -12,6 +12,7 @@ class FormNavigation
     TellUsAboutYourselfController,
     TellUsAboutTheLostJobController,
     TellUsAboutTheNewJobController,
+    TellUsAboutChangeInHoursJobController,
     HowMuchWillYouMakeController,
     ProofInfoController,
     DoYouHaveALetterController,
