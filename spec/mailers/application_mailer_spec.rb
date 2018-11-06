@@ -27,7 +27,7 @@ RSpec.describe ApplicationMailer do
       expect(email.to).to eq(["county@example.com"])
     end
 
-    it "attaches the application PDF with correct name" do
+    it "attaches the change report PDF with correct name" do
       time = Time.utc(1999, 1, 1, 10, 5, 0)
       Timecop.freeze(time) do
         email = ApplicationMailer.office_change_report_submission(
