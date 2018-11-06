@@ -17,7 +17,7 @@
 
     <%= f.cfa_input_field :paid_how_often, "How often do you get paid?", help_text: "For example: every other Friday, or the 15th and the 30th of each month." %>
     <%= f.cfa_date_select :first_paycheck,
-      "When did you get your first paycheck from this job?",
+      "When #{current_change_report.paid_yet_yes? ? "did" : "will"} you get your first paycheck from this job?",
       help_text: "Estimate if you're not sure.",
       options: { start_year: Time.now.year, end_year: Time.now.year - 3 } %>
     <%= f.cfa_input_field :new_job_notes, "Is there anything else we should know about your hours or wages at this job?", help_text: "If your offer letter or paystubs show a different number of hours than you entered above, please explain.",
