@@ -365,7 +365,7 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
 
   def optional_text(optional)
     if optional
-      "<em class='form-card__optional'> Optional</em>"
+      "<em class='card__optional'> Optional</em>"
     else
       ""
     end

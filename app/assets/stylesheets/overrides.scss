@@ -20,13 +20,11 @@
   }
 }
 
-.form-card {
+.card {
   max-width: 72rem;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-.form-card--transition .form-card__header .form-card__title{
+.card--transition .card__header .card__title{
   max-width: 57rem;
   margin-bottom: .5em;
 }
@@ -42,12 +40,12 @@
   }
 }
 
-// Fixes CSS when .form-group fieldsets included with divs (accessibility)
-.form-group:last-of-type {
+// Fixes CSS when .group fieldsets included with divs (accessibility)
+.group:last-of-type {
   margin-bottom: 3em;
 }
 
-.form-group:last-child {
+.group:last-child {
   margin-bottom: 0;
 }
 

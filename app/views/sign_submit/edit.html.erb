@@ -1,6 +1,6 @@
-<% content_for :form_card_title, "Sign your change report" %>
+<% content_for :card_title, "Sign your change report" %>
 
-<% content_for :form_card_body do %>
+<% content_for :card_body do %>
     <p>By entering your name you agree that you want to submit a change report, and that you have been honest on this report.</p>
 
     <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
@@ -8,4 +8,4 @@
     <% end %>
 <% end %>
 
-<% content_for :form_card_footer_button_label, "Sign and submit" %>
+<% content_for :card_footer_button_label, "Sign and submit" %>

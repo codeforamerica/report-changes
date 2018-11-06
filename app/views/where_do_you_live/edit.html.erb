@@ -1,7 +1,7 @@
-<% content_for :form_card_title, "Where do you live?" %>
-<% content_for :form_card_help, "No P.O. boxes, please. This information is just to find which county your home is in." %>
+<% content_for :card_title, "Where do you live?" %>
+<% content_for :card_help, "No P.O. boxes, please. This information is just to find which county your home is in." %>
 
-<% content_for :form_card_body do %>
+<% content_for :card_body do %>
   <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
     <%= f.cfa_input_field :street_address, "Street address" %>
     <%= f.cfa_input_field :city, "City", classes: ["form-width--long"] %>

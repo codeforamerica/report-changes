@@ -1,6 +1,6 @@
-<% content_for :form_card_title, "Tell us about how much you will make at this job." %>
+<% content_for :card_title, "Tell us about how much you will make at this job." %>
 
-<% content_for :form_card_body do %>
+<% content_for :card_body do %>
   <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
     <%= f.cfa_input_field :hourly_wage, "What is your hourly wage?", prefix: "$", postfix: "/hr", classes: ["form-width--phone"] %>
     <%= f.cfa_radio_set_with_follow_up :same_hours,

@@ -1,6 +1,6 @@
-<% content_for :form_card_title, "What do you have?" %>
+<% content_for :card_title, "What do you have?" %>
 
-<% content_for :form_card_body do %>
+<% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
       <%= f.cfa_checkbox_set_with_none [
         { method: :has_offer_letter, label: "I have an offer letter" },

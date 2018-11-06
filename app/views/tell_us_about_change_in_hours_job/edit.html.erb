@@ -1,6 +1,6 @@
-<% content_for :form_card_title, "Tell us about this job." %>
+<% content_for :card_title, "Tell us about this job." %>
 
-<% content_for :form_card_body do %>
+<% content_for :card_body do %>
   <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
     <%= f.cfa_input_field :company_name, "What is the name of the company?" %>
     <%= f.cfa_input_field :manager_name,

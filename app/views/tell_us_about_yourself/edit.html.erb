@@ -1,7 +1,7 @@
-<% content_for :form_card_title, "Tell us about yourself." %>
-<% content_for :form_card_help, "Or if you’re reporting a change for a household member, answer these questions about them." %>
+<% content_for :card_title, "Tell us about yourself." %>
+<% content_for :card_help, "Or if you’re reporting a change for a household member, answer these questions about them." %>
 
-<% content_for :form_card_body do %>
+<% content_for :card_body do %>
   <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
     <%= f.cfa_input_field :name, "What is your name?" %>
     <%= f.cfa_date_select :birthday, "What is your date of birth?", { options: { start_year: Time.now.year, end_year: 1900 } } %>

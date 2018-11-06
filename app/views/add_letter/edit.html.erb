@@ -1,16 +1,16 @@
 <% if current_change_report.navigator.documents_to_upload == :termination_letter %>
-  <% content_for :form_card_title, "Add your letter or final paycheck." %>
+  <% content_for :card_title, "Add your letter or final paycheck." %>
 <% elsif current_change_report.navigator.documents_to_upload == :offer_letter %>
-  <% content_for :form_card_title, "Add your offer letter." %>
+  <% content_for :card_title, "Add your offer letter." %>
 <% elsif current_change_report.navigator.documents_to_upload == :paystub %>
-  <% content_for :form_card_title, "Add your paystubs." %>
-  <% content_for :form_card_help, "It’s helpful to include 2 to 3 paystubs if you have them." %>
+  <% content_for :card_title, "Add your paystubs." %>
+  <% content_for :card_help, "It’s helpful to include 2 to 3 paystubs if you have them." %>
 <% elsif current_change_report.navigator.documents_to_upload == :offer_letter_and_paystub %>
-  <% content_for :form_card_title, "Add your offer letter and paystubs." %>
-  <% content_for :form_card_help, "It’s helpful to include 2 to 3 paystubs if you have them." %>
+  <% content_for :card_title, "Add your offer letter and paystubs." %>
+  <% content_for :card_help, "It’s helpful to include 2 to 3 paystubs if you have them." %>
 <% end %>
 
-<% content_for :form_card_body do %>
+<% content_for :card_body do %>
     <%= fields_for(:form, @form) do |f| %>
         <%= f.file_field :letters, multiple: true, direct_upload: true, style: "display: none;", accept: "image/png, image/jpeg, image/gif, application/pdf" %>
     <% end %>
