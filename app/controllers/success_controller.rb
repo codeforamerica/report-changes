@@ -4,6 +4,6 @@ class SuccessController < FormsController
   end
 
   def layout
-    "success"
+    "off_ramp"
   end
 end
