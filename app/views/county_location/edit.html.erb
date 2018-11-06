@@ -1,8 +1,8 @@
-<% content_for :form_card_title, "First thing, do you live in Arapahoe County?" %>
+<% content_for :card_title, "First thing, do you live in Arapahoe County?" %>
 
-<% content_for :form_card_help, "If you’re homeless or have an unstable address, pick “yes” if you want your case to be handled by Arapahoe County." %>
+<% content_for :card_help, "If you’re homeless or have an unstable address, pick “yes” if you want your case to be handled by Arapahoe County." %>
 
-<% content_for :form_card_body do %>
+<% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
         <%= f.cfa_radio_set :selected_county_location,
                             label_text: "Do you live in Arapahoe County?",

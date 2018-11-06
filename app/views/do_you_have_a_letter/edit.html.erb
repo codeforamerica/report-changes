@@ -1,6 +1,6 @@
-<% content_for :form_card_title, "Do you have a letter or final paycheck?" %>
+<% content_for :card_title, "Do you have a letter or final paycheck?" %>
 
-<% content_for :form_card_body do %>
+<% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
         <%= f.cfa_radio_set :has_termination_letter,
                             label_text: "Do you have a letter or final paycheck?",

@@ -1,0 +1,174 @@
+// .base-card should replace .card in _layouts.scss
+// replace all `@extend .card` with `@extend .base-card`
+.base-card {
+  box-shadow: 0px 3px 8px rgba(0,0,0,.15);
+  border-radius: $border-radius;
+  padding: 1.5em $site-margins/2;
+  background-color: #FFFFFF;
+  margin-bottom: 2em;
+  > *:last-child {
+    margin-bottom: 0;
+  }
+
+  @include media($tablet-up) {
+    padding: 1.5em 2em;
+  }
+}
+
+.card {
+  @extend .base-card;
+  border-top: 8px solid $color-tan;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card--compact {
+  .card__header {
+    margin-top: .5em;
+    padding-bottom: 2em;
+  }
+  .group {
+    margin-bottom: 3em;
+  }
+}
+
+.card__header {
+    @include full-bleed();
+    border-bottom: 2px solid $color-light-grey;
+    margin-bottom: 2em;
+    padding-bottom: 1.5em;
+
+    @include media($tablet-up) {
+      margin-top: 1em;
+      
+      padding-bottom: 2.5em;
+    }
+
+}
+
+.card__header--with-icon {
+  position: relative;
+  @include media($tablet-up) {
+    padding-right: 6em;
+  }
+}
+
+.card__icon {
+  float: right;
+  margin-left: .5em;
+
+  @include media($tablet-up) {
+    position: absolute;
+    right: $site-margins;
+    margin-left: 0;
+    float: none;
+  }
+  
+}
+
+.card__title {
+    font-size: $font-size-h3;
+    line-height: $line-height-normal;
+    margin-top: 0;
+    margin-bottom: 0;
+    + .text--help, + .text--small {
+      margin-top: .5em;
+      margin-bottom: 0;
+    }
+}
+
+.card__content {
+    > *:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.card__footer {
+    @include full-bleed();
+
+    border-top: 2px solid $color-light-grey;
+    margin-top: 2em;
+    padding-top: 1.5em;
+
+    *:last-child {
+      margin-bottom: 0;
+    }
+}
+
+.card--transition {
+  text-align: center;
+  padding-top: 2em;
+  padding-bottom: 2em;
+
+  .text-input-group-container {
+    display: inline-block;
+  }
+
+  .text-input {
+    margin: 0 auto;
+  }
+
+  @include media($tablet-up) {
+    padding-top: 3em;
+    padding-bottom: 3em;
+  }
+
+  .card__header {
+    margin-bottom: 1.5em;
+    margin-top: 0;
+    border-bottom: 0;
+    padding-bottom: 0;
+    @include media($tablet-up) {
+      margin-bottom: 2.5em;
+    }
+  }
+
+  .card__header--confirmation {
+    background: linear-gradient(to right, rgba($color-magenta, .015) 0%, rgba($color-teal, .04) 65%);
+    margin-top: -3em;
+    padding-top: 3em;
+    padding-bottom: 3em;
+    border-bottom: 1px solid $color-tan;
+  }
+
+  .card__footer {
+    border-top: 0;
+    padding-top: 0;
+    margin-top: 3em;
+  }
+
+  .card__title {
+    font-size: $font-size-h2;
+  }
+
+  .card__content {
+    .list--bulleted, .media-box {
+      max-width: 25em;
+      text-align: left;
+      margin: 0 auto;
+    }
+  }
+
+  .card__header, .card__content, .card__footer {
+    .card__title, p {
+      max-width: 55rem;
+      margin: {
+        left: auto;
+        right: auto;
+      }
+    }
+  }
+}
+
+.card--dsnap {
+  border-top: 8px solid $color-tan;
+  padding-top: 2em;
+}
+
+.feedback-survey {
+  .question-with-follow-up {
+    margin-bottom: 1em;
+  }
+}
+
