@@ -71,15 +71,13 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     postfix: nil,
     autofocus: nil,
     optional: false,
-    notice: nil,
-    show_error: true,
-    error_field_id: nil
+    notice: nil
   )
     text_field_options = standard_options.merge(
       autofocus: autofocus,
       type: type,
       class: (classes + ["text-input"]).join(" "),
-    ).merge(options).merge(error_attributes(method: error_field_id || method))
+    ).merge(options).merge(error_attributes(method: method))
 
     text_field_options[:id] ||= sanitized_id(method)
     options[:input_id] ||= sanitized_id(method)
@@ -100,9 +98,9 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     )
 
     html_output = <<~HTML
-      <div class="form-group#{error_state(object, method) if show_error}">
+      <div class="form-group#{error_state(object, method)}">
       #{label_and_field_html}
-      #{errors_for(object, method) if show_error}
+      #{errors_for(object, method)}
       </div>
     HTML
     html_output.html_safe
@@ -176,7 +174,7 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     HTML
   end
 
-  def cfa_range_field(lower_method, upper_method, label_text)
+  def cfa_range_field(lower_method, upper_method, label_text, help_text: nil)
     e_messages = object.errors.messages
     lower_error = e_messages[lower_method.to_sym]
     upper_error = e_messages[upper_method.to_sym]
@@ -189,13 +187,21 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
       </span>
     HTML
 
+    text_field_options = standard_options.merge(
+      class: "text-input form-width--short",
+    ).merge(error_attributes(method: range_error_methods))
+
     <<~HTML.html_safe
       <fieldset class="form-group#{' form-group--error' if range_errors_present}">
-        #{fieldset_label_contents(label_text: label_text, help_text: nil)}
+        #{fieldset_label_contents(label_text: label_text, help_text: help_text)}
         <div class="input-group--inline">
-          #{cfa_input_field(lower_method, '', classes: ['form-width--short'], show_error: false, error_field_id: range_error_methods)}
+          <div class="form-group">
+            #{label_and_field(lower_method, 'Lower amount', text_field(lower_method, text_field_options), options: { class: 'sr-only' })}
+          </div>
           <span class="range-text">to</span>
-          #{cfa_input_field(upper_method, '', classes: ['form-width--short'], show_error: false, error_field_id: range_error_methods)}
+          <div class="form-group">
+            #{label_and_field(upper_method, 'Upper amount', text_field(upper_method, text_field_options), options: { class: 'sr-only' })}
+          </div>
         </div>
         #{range_error_html if range_errors_present}
       </fieldset>

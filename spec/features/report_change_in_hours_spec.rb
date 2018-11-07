@@ -44,6 +44,17 @@ RSpec.feature "Reporting a change", :a11y, :js do
       fill_in "What is their phone number?", with: "999-888-7777"
       proceed_with "Continue"
 
+      expect(page).to have_text "Tell us about your change in hours."
+
+      fill_in "Lower amount", with: "25" # How many hours a week will you work?
+      select "February", from: "form[change_date_month]"
+      select "21", from: "form[change_date_day]"
+      select "2018", from: "form[change_date_year]"
+      fill_in "What is your hourly wage?", with: "15"
+      fill_in "How often do you get paid?", with: "Every two weeks"
+      fill_in "Is there anything else we should know about your hours or wages at this job?", with: "Not really"
+      proceed_with "Continue"
+
       expect(page).to have_text "Do you have proof of this change?"
       # expect(page).to have_text "A letter from your job"
       proceed_with "Continue"
