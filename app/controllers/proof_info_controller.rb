@@ -1,9 +1,7 @@
 class ProofInfoController < FormsController
+  layout "sign_post"
+
   def form_class
     NullForm
-  end
-
-  def layout
-    "sign_post"
   end
 end

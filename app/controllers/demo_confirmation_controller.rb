@@ -1,4 +1,6 @@
 class DemoConfirmationController < FormsController
+  layout "off_ramp"
+
   def self.show_rule_sets(change_report)
     super << GateKeeper.demo_environment?
   end
@@ -7,9 +9,5 @@ class DemoConfirmationController < FormsController
 
   def form_class
     NullForm
-  end
-
-  def layout
-    "off_ramp"
   end
 end
