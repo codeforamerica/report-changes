@@ -16,7 +16,7 @@
     <div class="page-wrapper <%= "dark-background" if content_for? :success %>">
       <%= render 'shared/demo_banner' if GateKeeper.demo_environment? %>
       <%= render 'shared/header' unless content_for? :homepage %>
-      <%= content_for :content %>
+      <%= content_for(:content) ? content_for(:content) : yield %>
     </div>
     <%= render 'shared/footer' %>
   </body>
