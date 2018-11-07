@@ -1,7 +1,7 @@
 <% content_for :content do %>
   <div class="slab">
     <main id="main" class="card">
-      <%= form_tag @step, as: :step, url: current_path, method: :put %>
+      <%= form_with url: current_path, method: :put, local: true %>
         <header class="card__header">
           <h1 class="card__title">
             <%= yield :card_title %>
