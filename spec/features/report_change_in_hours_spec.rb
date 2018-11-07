@@ -59,9 +59,10 @@ RSpec.feature "Reporting a change", :a11y, :js do
       expect(page).to have_text "A letter from your job"
       proceed_with "Continue"
 
-      # expect(page).to have_text "What do you have?"
-      # check "I have paystubs"
-      # proceed_with "Continue"
+      expect(page).to have_text "What do you have?"
+      expect(page).to have_text "I have a letter"
+      check "I have a letter"
+      proceed_with "Continue"
       #
       # expect(page).to have_text "Add your paystubs."
       #

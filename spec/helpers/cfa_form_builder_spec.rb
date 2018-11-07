@@ -161,6 +161,37 @@ RSpec.describe CfaFormBuilder do
         HTML
       end
     end
+
+    context "when none_text is given a custom string" do
+      it "sets uses the string for the none input label" do
+        class SampleForm < Form
+          set_attributes_for(:member, :first, :second)
+        end
+
+        sample = SampleForm.new(nil, first: "1", second: "0")
+        form = CfaFormBuilder.new("sample", sample, template, {})
+        output = form.cfa_checkbox_set_with_none(
+          [
+            { method: :first, label: "First value" },
+            { method: :second, label: "Second value" },
+          ],
+          label_text: "What values does this member have?",
+          none_text: "I don't have either of these",
+        )
+
+        expect(output).to be_html_safe
+
+        expect(output).to match_html <<-HTML
+        <fieldset class="input-group">
+          <legend class="sr-only"> What values does this member have? </legend>
+          <label class="checkbox"><input name="sample[first]" type="hidden" value="0" /><input type="checkbox" value="1" checked="checked" name="sample[first]" id="sample_first" /> First value </label>
+          <label class="checkbox"><input name="sample[second]" type="hidden" value="0" /><input type="checkbox" value="1" name="sample[second]" id="sample_second" /> Second value </label>
+          <hr class="form-divider" />
+          <label class="checkbox"><input type="checkbox" name="" class="" id="none__checkbox" /> I don't have either of these </label>
+        </fieldset>
+        HTML
+      end
+    end
   end
 
   describe "#cfa_radio_set" do

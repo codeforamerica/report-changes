@@ -5,6 +5,7 @@ class ChangeReportNavigator < ActiveRecord::Base
        _prefix: :selected_county_location
   enum has_termination_letter: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_termination_letter
   enum has_offer_letter: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_offer_letter
+  enum has_change_in_hours_letter: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_change_in_hours_letter
   enum has_paystub: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_paystub
 
   def supported_county?
