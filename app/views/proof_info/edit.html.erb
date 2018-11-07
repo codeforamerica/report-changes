@@ -38,5 +38,14 @@
     <p>
       If you don’t have either of these, we’ll work with you to find other ways to prove this change.
     </p>
+  <% elsif current_change_report.change_type_change_in_hours? %>
+    <ul class="list--bulleted">
+      <li>Paystubs showing your <strong>pre-tax</strong> earnings</li>
+      <li>A letter from your job saying how many hours you will work and how much you will earn</li>
+    </ul>
+
+    <p>
+      If you don’t have either of these, we’ll work with you to find other ways to prove this change.
+    </p>
   <% end %>
 <% end %>
