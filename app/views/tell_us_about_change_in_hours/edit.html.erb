@@ -1,6 +1,6 @@
-<% content_for :form_card_title, "Tell us about your change in hours." %>
+<% content_for :card_title, "Tell us about your change in hours." %>
 
-<% content_for :form_card_body do %>
+<% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
       <%= f.cfa_range_field(:lower_hours_a_week_amount, :upper_hours_a_week_amount, "How many hours a week will you work?",
                             help_text: "If it varies, give the average range.") %>
