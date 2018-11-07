@@ -344,17 +344,17 @@ RSpec.describe CfaFormBuilder do
           <legend class="form-question "> How many hours a week do you work? </legend>
           <div class="input-group--inline">
             <div class="form-group">
-              <label for="form_lower_hours_a_week_amount">
-                <p class="form-question"></p>
+              <label class="sr-only" for="form_lower_hours_a_week_amount">
+                <p class="form-question">Lower amount</p>
               </label>
-              <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="form-width--short text-input" id="form_lower_hours_a_week_amount" value="ten" name="form[lower_hours_a_week_amount]" />
+              <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="text-input form-width--short" type="text" value="ten" name="form[lower_hours_a_week_amount]" id="form_lower_hours_a_week_amount" />
             </div>
             <span class="range-text">to</span>
             <div class="form-group">
-              <label for="form_upper_hours_a_week_amount">
-                <p class="form-question"></p>
+              <label class="sr-only" for="form_upper_hours_a_week_amount">
+                <p class="form-question">Upper amount</p>
               </label>
-              <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="form-width--short text-input" id="form_upper_hours_a_week_amount" value="fourty" name="form[upper_hours_a_week_amount]" />
+              <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="text-input form-width--short" type="text" value="fourty" name="form[upper_hours_a_week_amount]" id="form_upper_hours_a_week_amount" />
             </div>
           </div>
         </fieldset>
@@ -381,20 +381,20 @@ RSpec.describe CfaFormBuilder do
             <legend class="form-question "> How many hours a week do you work? </legend>
             <div class="input-group--inline">
               <div class="form-group">
-                <label for="form_lower_hours_a_week_amount">
-                  <p class="form-question"></p>
+                <label class="sr-only" for="form_lower_hours_a_week_amount">
+                  <p class="form-question">Lower amount</p>
                 </label>
-                <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="form-width--short text-input" aria-describedby="form_lower_hours_a_week_amount_upper_hours_a_week_amount__errors" id="form_lower_hours_a_week_amount" value="ten" name="form[lower_hours_a_week_amount]" />
+                <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="text-input form-width--short" aria-describedby="form_lower_hours_a_week_amount_upper_hours_a_week_amount__errors" type="text" value="ten" name="form[lower_hours_a_week_amount]" id="form_lower_hours_a_week_amount" />
               </div>
               <span class="range-text">to</span>
               <div class="form-group">
                 <div class="field_with_errors">
-                  <label for="form_upper_hours_a_week_amount">
-                    <p class="form-question"></p>
+                  <label class="sr-only" for="form_upper_hours_a_week_amount">
+                    <p class="form-question">Upper amount</p>
                   </label>
                 </div>
                 <div class="field_with_errors">
-                  <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="form-width--short text-input" aria-describedby="form_lower_hours_a_week_amount_upper_hours_a_week_amount__errors" id="form_upper_hours_a_week_amount" name="form[upper_hours_a_week_amount]" />
+                  <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="text-input form-width--short" aria-describedby="form_lower_hours_a_week_amount_upper_hours_a_week_amount__errors" type="text" name="form[upper_hours_a_week_amount]" id="form_upper_hours_a_week_amount" />
                 </div>
               </div>
             </div>

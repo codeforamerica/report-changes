@@ -14,6 +14,7 @@ class FormNavigation
     TellUsAboutTheNewJobController,
     TellUsAboutChangeInHoursJobController,
     HowMuchWillYouMakeController,
+    TellUsAboutChangeInHoursController,
     ProofInfoController,
     DoYouHaveALetterController,
     WhatKindOfProofController,
