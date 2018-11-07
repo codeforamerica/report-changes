@@ -28,6 +28,7 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     collection,
     label_text: nil,
     enum: false,
+    none_text: "None of the above",
     options: {}
   )
 
@@ -54,7 +55,7 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
         <hr class="form-divider" />
         <label class="checkbox">
           <input type="checkbox" name="" class="" id="none__checkbox">
-          None of the above
+          #{none_text}
         </label>
       </fieldset>
     HTML
