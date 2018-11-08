@@ -1,19 +1,18 @@
-<% content_for :card_title, "Tell us about yourself." %>
-<% content_for :card_help, "Or if you’re reporting a change for a household member, answer these questions about them." %>
+<% content_for :card_title, t(".title", **self_or_member) %>
 
 <% content_for :card_body do %>
   <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
-    <%= f.cfa_input_field :name, "What is your name?" %>
-    <%= f.cfa_date_select :birthday, "What is your date of birth?", { options: { start_year: Time.now.year, end_year: 1900 } } %>
+    <%= f.cfa_input_field :name, t(".name", **self_or_member) %>
+    <%= f.cfa_date_select :birthday, t(".birthday", **self_or_member), { options: { start_year: Time.now.year, end_year: 1900 } } %>
     <%= f.cfa_input_field :case_number,
-                          "What is your case number?",
-                          help_text: "You can find this on letters that the county has sent you.",
+                          t(".case_number", **self_or_member),
+                          help_text: t(".case_number_help", **self_or_member),
                           optional: true %>
     <%= f.cfa_input_field :ssn,
-                          "What is your social security number?",
+                          t(".ssn", **self_or_member),
                           classes: ["form-width--ssn"],
                           optional: true,
-                          notice: "If you don't have an SSN or don't want to give one now it's okay to skip this. But if you add it now, the report may be processed faster." %>
-    <%= f.cfa_input_field :phone_number, "What is your phone number?", classes: ["form-width--phone"] %>
+                          notice: t(".ssn_help", **self_or_member) %>
+    <%= f.cfa_input_field :phone_number, t(".phone_number", **self_or_member), classes: ["form-width--phone"] %>
   <% end %>
 <% end %>

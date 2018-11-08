@@ -30,4 +30,77 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  change_type:
+    edit:
+      job_termination:
+        zero: My job ended or I stopped working
+        one: Their job ended or they stopped working
+      new_job:
+        zero: I started a new job
+        one: They started a new job
+      change_in_hours:
+        zero: My hours changed
+        one: Their hours changed
+  tell_us_about_yourself:
+    edit:
+      title:
+        zero: Tell us about yourself.
+        one: "Tell us about %{name}."
+      name:
+        zero: What is your name?
+        one: What is their name?
+      birthday:
+        zero: What is your date of birth?
+        one: What is their date of birth?
+      case_number:
+        zero: What is your case number?
+        one: What is their case number?
+      case_number_help:
+        zero: You can find this on letters that the county has sent you.
+        one: This is printed on letters from the county.
+      ssn:
+        zero: What is your social security number?
+        one: What is their social security number?
+      ssn_help:
+        zero: If you don't have an SSN or don't want to give one now it's okay to skip this. But if you add it now, the report may be processed faster.
+        one: "If %{name} doesn't have an SSN or doesn't want to give one now it's okay to skip this. But if you add it now, the report may be processed faster."
+      phone_number:
+        zero: What is your phone number?
+        one: What is their phone number?
+  tell_us_about_the_lost_job:
+    edit:
+      title:
+        zero: Tell us about the job that ended.
+        one: Tell us about %{name}'s job that ended.
+      manager_name:
+        zero: What is the name of someone from the company who can verify your employment?
+        one: "What is the name of someone from the company who can verify %{name}'s employment?"
+      manager_name_help:
+        zero: This might be your manager, or someone from HR. The county may call them.
+        one: "This might be their manager, or someone from HR. The county may call this person."
+      manager_phone_number:
+        zero: What is their phone number?
+        one: What is this person's phone number?
+      manager_additional_information:
+        zero: Is there anything the caseworker should know before they talk to your old employer?
+        one: "Is there anything the caseworker should know before they talk to %{name}'s old employer?"
+      last_paycheck:
+        zero: What was the date of your final paycheck?
+        one: What was the date of their final paycheck?
+      last_paycheck_amount:
+        zero: What was the amount of your final paystub, pre-tax?
+        one: What was the amount of their final paystub, pre-tax?
+  proof_info:
+    edit:
+      verify_income:
+        zero: The county needs to verify your income.
+        one: "The county needs to verify %{name}'s income."
+      dont_work_there:
+        zero: Say you don’t work there any more
+        one: "Say %{name} doesn't work there any more"
+      last_day_work:
+        zero: Say what your last day of work was
+        one: Say what their last day of work was
+      amount_last_paycheck:
+        zero: Say the day and amount of your last pay check
+        one: Say the day and amount of their last pay check

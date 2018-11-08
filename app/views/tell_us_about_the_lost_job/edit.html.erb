@@ -1,26 +1,25 @@
-
-<% content_for :card_title, "Tell us about the job that ended." %>
+<% content_for :card_title, t(".title", **self_or_member) %>
 
 <% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
         <%= f.cfa_input_field :company_name, "What is the name of the company?" %>
         <%= f.cfa_input_field :manager_name,
-                              "What is the name of someone from the company who can verify your employment?",
-                              help_text: "This might be your manager, or someone from HR. The county may call them." %>
-        <%= f.cfa_input_field :manager_phone_number, "What is their phone number?", classes: ["form-width--phone"] %>
+                              t(".manager_name", **self_or_member),
+                              help_text: t(".manager_name_help", **self_or_member) %>
+        <%= f.cfa_input_field :manager_phone_number, t(".manager_phone_number", **self_or_member), classes: ["form-width--phone"] %>
         <%= f.cfa_textarea :manager_additional_information,
-                           "Is there anything the caseworker should know before they talk to your old employer?",
+                           t(".manager_additional_information", **self_or_member),
                            optional: true %>
         <%= f.cfa_date_select :last_day,
                               "What was your last day at work?",
                               help_text: "Estimate if you're not sure.",
                               options: { start_year: Time.now.year, end_year: Time.now.year - 3 } %>
         <%= f.cfa_date_select :last_paycheck,
-                              "What was the date of your final paycheck?",
+                              t(".last_paycheck", **self_or_member),
                               help_text: "Estimate if you're not sure.",
                               options: { start_year: Time.now.year, end_year: Time.now.year - 3 } %>
         <%= f.cfa_input_field :last_paycheck_amount,
-                              "What was the amount of your final paystub, pre-tax?",
+                              t(".last_paycheck_amount", **self_or_member),
                               classes: ["form-width--phone"],
                               prefix: "$",
                               optional: true %>
