@@ -1,5 +1,92 @@
 <%= render partial: 'change_reports/member_info' %>
 
-<!--TODO-->
+<div class="row">
+  <div class="column one-of-two">
+    <p class="label">
+      Change type
+    </p>
+    <span class="value">
+      Income change: change in hours
+    </span>
+  </div>
+
+  <div class="column one-of-two">
+    <p class="label">
+      Employer name
+    </p>
+    <span class="value">
+      <%= @change_report.company_name %>
+    </span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="column one-of-four">
+    <p class="label">
+      Date of change
+    </p>
+    <span class="value">
+      <%= @change_report.change_date %>
+    </span>
+  </div>
+
+  <div class="column one-of-four">
+    <p class="label">
+      Wage
+    </p>
+    <span class="value">
+      <%= @change_report.hourly_wage %>
+    </span>
+  </div>
+
+  <div class="column one-of-two">
+    <p class="label">
+      Pay frequency
+    </p>
+    <span class="value">
+      <%= @change_report.paid_how_often %>
+    </span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="column one-of-four">
+    <p class="label">
+      New hours per week (range)
+    </p>
+    <span class="value">
+      <%= @change_report.change_in_hours_hours_a_week %>
+    </span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="column one-of-one">
+    <p class="label">
+      Additional info about hours and wages
+    </p>
+    <span class="value">
+      <%= @change_report.change_in_hours_notes %>
+    </span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<p class="label">
+  Verifications
+</p>
+
+<div class="row">
+  <div class="column one-of-two">
+    <p class="label">
+      Offer letter or pay stubs?
+    </p>
+
+    <span class="value">
+      <%= @change_report.uploaded_new_job_verification %>
+    </span>
+  </div>
+</div>
 
 <%= render partial: 'change_reports/job_contact_info' %>

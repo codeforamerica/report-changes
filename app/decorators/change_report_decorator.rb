@@ -80,6 +80,10 @@ class ChangeReportDecorator < SimpleDelegator
     super&.strftime("%D")
   end
 
+  def change_date
+    super&.strftime("%D")
+  end
+
   def first_paycheck
     super&.strftime("%D")
   end
@@ -93,6 +97,14 @@ class ChangeReportDecorator < SimpleDelegator
       same_hours_a_week_amount
     elsif same_hours_no?
       "#{lower_hours_a_week_amount}-#{upper_hours_a_week_amount}"
+    end
+  end
+
+  def change_in_hours_hours_a_week
+    if upper_hours_a_week_amount.present?
+      "#{lower_hours_a_week_amount}-#{upper_hours_a_week_amount}"
+    else
+      lower_hours_a_week_amount
     end
   end
 

@@ -337,6 +337,24 @@ RSpec.describe ChangeReportDecorator do
     end
   end
 
+  describe "#change_in_hours_hours_a_week" do
+    context "when only the lower hours are present" do
+      it "returns the value" do
+        change_report = create :change_report, lower_hours_a_week_amount: "5"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.change_in_hours_hours_a_week).to eq "5"
+      end
+    end
+
+    context "when both the lower and upper hours are present" do
+      it "returns the range" do
+        change_report = create :change_report, lower_hours_a_week_amount: "5", upper_hours_a_week_amount: "15"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.change_in_hours_hours_a_week).to eq "5-15"
+      end
+    end
+  end
+
   describe "#uploaded_new_job_verification" do
     context "when the client uploaded documents" do
       it "returns 'Yes'" do
@@ -351,6 +369,25 @@ RSpec.describe ChangeReportDecorator do
         change_report = create :change_report
         decorator = ChangeReportDecorator.new(change_report)
         expect(decorator.uploaded_new_job_verification).to eq "Neither"
+      end
+    end
+  end
+
+  describe "#change_date" do
+    context "when there is a change_date" do
+      it "formats it" do
+        change_date = DateTime.new(2018, 2, 3, 19, 5, 6)
+        change_report = create :change_report, change_date: change_date
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.change_date).to eq "02/03/18"
+      end
+    end
+
+    context "when there is not a change_date" do
+      it "returns nil" do
+        change_report = create :change_report, change_date: nil
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.change_date).to be_nil
       end
     end
   end
