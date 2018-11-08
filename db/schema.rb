@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 2018_11_07_224059) do
     t.string "same_hours_a_week_amount"
     t.string "signature"
     t.datetime "submitted_at"
+    t.integer "submitting_for", default: 0
     t.datetime "updated_at", null: false
     t.string "upper_hours_a_week_amount"
   end

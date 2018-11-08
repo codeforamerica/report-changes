@@ -24,6 +24,10 @@ RSpec.feature "Reporting a change", :a11y, :js do
       choose "Yes"
       proceed_with "Continue"
 
+      expect(page).to have_text "Who had this change?"
+      choose "Myself"
+      proceed_with "Continue"
+
       expect(page).to have_text "What changed?"
       choose "I started a new job"
       proceed_with "Continue"
