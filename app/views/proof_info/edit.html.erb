@@ -2,7 +2,7 @@
 
 <% content_for :card_body do %>
   <p>
-    <%= t(".verify_income", **self_or_member) %> The best ways to prove this are:
+    <%= t(self_or_other_member_translation_key(".verify_income"), name: current_change_report.member.first_name) %> The best ways to prove this are:
   </p>
 
   <% if current_change_report.change_type_job_termination? %>
@@ -17,9 +17,9 @@
         <div class="notice">
           <p>It would be helpful for the letter to:</p>
           <ul class="list--bulleted">
-            <li><%= t(".dont_work_there", **self_or_member) %></li>
-            <li><%= t(".last_day_work", **self_or_member) %></li>
-            <li><%= t(".amount_last_paycheck", **self_or_member) %></li>
+            <li><%= t(self_or_other_member_translation_key(".dont_work_there"), name: current_change_report.member.first_name) %></li>
+            <li><%= t(self_or_other_member_translation_key(".last_day_work")) %></li>
+            <li><%= t(self_or_other_member_translation_key(".amount_last_paycheck")) %></li>
             <li>Be on letterhead</li>
           </ul>
         </div>

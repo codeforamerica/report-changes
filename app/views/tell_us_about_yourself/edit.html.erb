@@ -1,17 +1,17 @@
-<% content_for :card_title, t(".title", **self_or_member) %>
+<% content_for :card_title, t(self_or_other_member_translation_key(".title"), name: current_change_report.member.first_name) %>
 
 <% content_for :card_body do %>
   <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
-    <%= f.cfa_date_select :birthday, t(".birthday", **self_or_member), { options: { start_year: Time.now.year, end_year: 1900 } } %>
+    <%= f.cfa_date_select :birthday, t(self_or_other_member_translation_key(".birthday")), { options: { start_year: Time.now.year, end_year: 1900 } } %>
     <%= f.cfa_input_field :case_number,
-                          t(".case_number", **self_or_member),
-                          help_text: t(".case_number_help", **self_or_member),
+                          t(self_or_other_member_translation_key(".case_number")),
+                          help_text: t(self_or_other_member_translation_key(".case_number_help")),
                           optional: true %>
     <%= f.cfa_input_field :ssn,
-                          t(".ssn", **self_or_member),
+                          t(self_or_other_member_translation_key(".ssn")),
                           classes: ["form-width--ssn"],
                           optional: true,
-                          notice: t(".ssn_help", **self_or_member) %>
-    <%= f.cfa_input_field :phone_number, t(".phone_number", **self_or_member), classes: ["form-width--phone"] %>
+                          notice: t(self_or_other_member_translation_key(".ssn_help"), name: current_change_report.member.first_name) %>
+    <%= f.cfa_input_field :phone_number, t(self_or_other_member_translation_key(".phone_number")), classes: ["form-width--phone"] %>
   <% end %>
 <% end %>

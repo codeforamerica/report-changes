@@ -1,25 +1,25 @@
-<% content_for :card_title, t(".title", **self_or_member) %>
+<% content_for :card_title, t(self_or_other_member_translation_key(".title"), name: current_change_report.member.first_name) %>
 
 <% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
         <%= f.cfa_input_field :company_name, "What is the name of the company?" %>
         <%= f.cfa_input_field :manager_name,
-                              t(".manager_name", **self_or_member),
-                              help_text: t(".manager_name_help", **self_or_member) %>
-        <%= f.cfa_input_field :manager_phone_number, t(".manager_phone_number", **self_or_member), classes: ["form-width--phone"] %>
+                              t(self_or_other_member_translation_key(".manager_name"), name: current_change_report.member.first_name),
+                              help_text: t(self_or_other_member_translation_key(".manager_name_help")) %>
+        <%= f.cfa_input_field :manager_phone_number, t(self_or_other_member_translation_key(".manager_phone_number")), classes: ["form-width--phone"] %>
         <%= f.cfa_textarea :manager_additional_information,
-                           t(".manager_additional_information", **self_or_member),
+                           t(self_or_other_member_translation_key(".manager_additional_information"), name: current_change_report.member.first_name),
                            optional: true %>
         <%= f.cfa_date_select :last_day,
-                              "What was your last day at work?",
+                              t(self_or_other_member_translation_key(".last_day")),
                               help_text: "Estimate if you're not sure.",
                               options: { start_year: Time.now.year, end_year: Time.now.year - 3 } %>
         <%= f.cfa_date_select :last_paycheck,
-                              t(".last_paycheck", **self_or_member),
+                              t(self_or_other_member_translation_key(".last_paycheck")),
                               help_text: "Estimate if you're not sure.",
                               options: { start_year: Time.now.year, end_year: Time.now.year - 3 } %>
         <%= f.cfa_input_field :last_paycheck_amount,
-                              t(".last_paycheck_amount", **self_or_member),
+                              t(self_or_other_member_translation_key(".last_paycheck_amount")),
                               classes: ["form-width--phone"],
                               prefix: "$",
                               optional: true %>
