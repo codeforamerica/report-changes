@@ -82,7 +82,8 @@ RSpec.describe ClientNameForm do
   describe ".from_change_report" do
     context "when member exists" do
       it "assigns values from change report and other objects" do
-        change_report = create(:change_report, member: build(:household_member, first_name: "Annie", last_name: "McDog"))
+        change_report = create(:change_report,
+                               member: build(:household_member, first_name: "Annie", last_name: "McDog"))
 
         form = ClientNameForm.from_change_report(change_report)
 
