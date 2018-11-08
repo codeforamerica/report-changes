@@ -118,3 +118,11 @@ en:
       amount_last_paycheck:
         zero: Say the day and amount of your last pay check
         one: Say the day and amount of their last pay check
+  success:
+    edit:
+      title:
+        zero: You have successfully submitted your change report.
+        one: You have successfully submitted this change report.
+      client_notified:
+        zero: If they do, you’ll be notified.
+        one: "If they do, %{name} will be notified."
