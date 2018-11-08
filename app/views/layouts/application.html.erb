@@ -2,8 +2,11 @@
 <html lang="en">
   <head>
     <%= render "analytics/ganalytics" %>
-
-    <title>ReportChangesColorado.org</title>
+    <% if content_for? :card_title %>
+      <title><%= content_for :card_title %> | ReportChangesColorado.org</title>
+    <% else %>
+      <title>ReportChangesColorado.org</title>
+    <% end %>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>

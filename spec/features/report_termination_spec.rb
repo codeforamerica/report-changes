@@ -13,9 +13,11 @@ feature "Reporting a change", :a11y, :js do
   scenario "job termination" do
     visit "/"
     expect(page).to have_text "Report the change"
+    expect(page).to have_title "ReportChangesColorado.org"
     proceed_with "Start my report", match: :first
 
     expect(page).to have_text "Welcome! Here’s how reporting a change works"
+    expect(page).to have_title "Welcome! Here’s how reporting a change works: | ReportChangesColorado.org"
     proceed_with "Start the form"
 
     expect(page).to have_text "do you live in Arapahoe County?"
