@@ -25,21 +25,24 @@ RSpec.feature "Reporting a change", :a11y, :js do
       proceed_with "Continue"
 
       expect(page).to have_text "Who had this change?"
-      choose "Myself"
+      choose "Someone in my household"
       proceed_with "Continue"
+
+      expect(page).to have_text "Who are you reporting this change for?"
+      fill_in "What is their first name?", with: "Jane"
+      fill_in "What is their last name?", with: "Doe"
+      click_on "Continue"
 
       expect(page).to have_text "What changed?"
-      choose "I started a new job"
+      choose "Their job ended or they stopped working"
       proceed_with "Continue"
 
-      expect(page).to have_text "Are you self-employed?"
-      choose "I am not self-employed"
+      expect(page).to have_text "Is Jane self-employed?"
+      choose "They are not self-employed"
       proceed_with "Continue"
 
-      expect(page).to have_text "Tell us about yourself."
-
-      fill_in "What is your name?", with: "Jane Doe"
-      fill_in "What is your phone number?", with: "555-222-3333"
+      expect(page).to have_text "Tell us about Jane."
+      fill_in "What is their phone number?", with: "555-222-3333"
       select "January", from: "form[birthday_month]"
       select "1", from: "form[birthday_day]"
       select 20.years.ago.year.to_s, from: "form[birthday_year]"
@@ -48,12 +51,12 @@ RSpec.feature "Reporting a change", :a11y, :js do
       expect(page).to have_text "Tell us about the new job."
 
       fill_in "What is the name of the company?", with: "Abc Corp"
-      fill_in "What is the name of your supervisor or manager?", with: "My boss"
+      fill_in "What is the name of their supervisor or manager?", with: "My boss"
       fill_in "What is their phone number?", with: "999-888-7777"
       select "February", from: "form[first_day_month]"
       select "2", from: "form[first_day_day]"
       select "2018", from: "form[first_day_year]"
-      choose "Yes" # Have you been paid yet?
+      choose "Yes" # Have they been paid yet?
       proceed_with "Continue"
 
       expect(page).to have_text "Tell us about how much you will make at this job."

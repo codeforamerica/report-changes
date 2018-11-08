@@ -55,6 +55,20 @@ en:
       change_in_hours:
         zero: My hours changed
         one: Their hours changed
+  self_employed:
+    edit:
+      title:
+        zero: Are you self-employed?
+        one: "Is %{name} self-employed?"
+      "1099":
+        zero: If you file a 1099 form
+        one: If they file a 1099 form
+      is_self_employed_yes:
+        zero: I am self-employed
+        one: They are self-employed
+      is_self_employed_no:
+        zero: I am not self-employed
+        one: They are not self-employed
   tell_us_about_yourself:
     edit:
       title:
@@ -91,7 +105,7 @@ en:
         one: "What is the name of someone from the company who can verify %{name}'s employment?"
       manager_name_help:
         zero: This might be your manager, or someone from HR. The county may call them.
-        one: "This might be their manager, or someone from HR. The county may call this person."
+        one: This might be their manager, or someone from HR. The county may call this person.
       manager_phone_number:
         zero: What is their phone number?
         one: What is this person's phone number?
@@ -104,6 +118,49 @@ en:
       last_paycheck_amount:
         zero: What was the amount of your final paystub, pre-tax?
         one: What was the amount of their final paystub, pre-tax?
+  tell_us_about_the_new_job:
+    edit:
+      manager_name:
+        zero: What is the name of your supervisor or manager?
+        one: "What is the name of %{name}'s supervisor or manager?"
+      manager_name_help:
+        zero: This might be your manager, or someone from HR. The county may call them.
+        one: This might be their manager, or someone from HR. The county may call this person.
+      manager_phone_number:
+        zero: What is their phone number?
+        one: What is this person's phone number?
+      first_day:
+        zero: What was your first day at work?
+        one: What was their first day at work?
+      paid_yet:
+        zero: Have you been paid yet?
+        one: Have they been paid yet?
+  how_much_will_you_make:
+    edit:
+      title:
+        zero: Tell us about how much you will make at this job.
+        one: "Tell us about how much %{name} will make at this job."
+      hourly_wage:
+        zero: What is your hourly wage?
+        one: What is their hourly wage?
+      same_hours:
+        zero: In the next few months, do you expect to work the same number of hours every week?
+        one: In the next few months, do they expect to work the same number of hours every week?
+      hours_a_week_amount:
+        zero: How many hours a week will you work?
+        one: How many hours a week will they work?
+      paid_how_often:
+        zero: How often do you get paid?
+        one: How often do they get paid?
+      first_paycheck:
+        zero:
+        one:
+      new_job_notes:
+        zero: Is there anything else we should know about your hours or wages at this job?
+        one: "Is there anything else we should know about %{name}'s hours or wages at this job?"
+      new_job_notes_help:
+        zero: If your offer letter or paystubs show a different number of hours than you entered above, please explain.
+        one: "If %{name}'s offer letter or paystubs show a different number of hours than you entered above, please explain."
   proof_info:
     edit:
       verify_income:

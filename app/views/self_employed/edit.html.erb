@@ -1,20 +1,20 @@
-<% content_for :card_title, "Are you self-employed?" %>
+<% content_for :card_title, t(".title", **self_or_member) %>
 
 <% content_for :card_body do %>
   <p class="center">Examples of self-employment:</p>
   <p class="center">
-    <span class="example">If you file a 1099 form</span>
+    <span class="example"><%= t(".1099", **self_or_member) %></span>
     <span class="example">Business owners</span>
     <span class="example">Uber/Lyft drivers</span>
     <span class="example">Day care providers</span>
   </p>
   <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
   <%= f.cfa_radio_set :is_self_employed,
-    label_text: "Are you self-employed?",
+    label_text: t(".title", **self_or_member),
     legend_class: "sr-only",
     collection: [
-      { value: :yes, label: "I am self-employed" },
-      { value: :no, label: "I am not self-employed" },
+      { value: :yes, label: t(".is_self_employed_yes", **self_or_member) },
+      { value: :no, label: t(".is_self_employed_no", **self_or_member) },
     ] %>
   <% end %>
 <% end %>
