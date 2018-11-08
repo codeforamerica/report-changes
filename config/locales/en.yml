@@ -138,6 +138,14 @@ en:
       paid_yet:
         self: Have you been paid yet?
         other_member: Have they been paid yet?
+  tell_us_about_change_in_hours_job:
+    edit:
+      manager_name:
+        self: What is the name of someone from the company who can verify your change in hours?
+        other_member: "What is the name of someone from the company who can verify %{name}'s change in hours?"
+      manager_name_help:
+        self: This might be your manager, or someone from HR. The county may call them.
+        other_member: This might be their manager, or someone from HR. The county may call this person.
   how_much_will_you_make:
     edit:
       title:
@@ -168,6 +176,23 @@ en:
       new_job_notes_help:
         self: If your offer letter or paystubs show a different number of hours than you entered above, please explain.
         other_member: "If %{name}'s offer letter or paystubs show a different number of hours than you entered above, please explain."
+  tell_us_about_change_in_hours:
+    edit:
+      title:
+        self: Tell us about your change in hours.
+        other_member: "Tell us about %{name}'s change in hours."
+      hourly_range:
+        self: How many hours a week will you work?
+        other_member: How many hours a week will they work?
+      hourly_wage:
+        self: What is your hourly wage?
+        other_member: What is their hourly wage?
+      paid_how_often:
+        self: How often do you get paid?
+        other_member: How often do they get paid?
+      change_in_hours_notes:
+        self: Is there anything else we should know about your hours or wages at this job?
+        other_member: "Is there anything else we should know about %{name}'s hours or wages at this job?"
   proof_info:
     edit:
       verify_income:
@@ -182,6 +207,15 @@ en:
       amount_last_paycheck:
         self: Say the day and amount of your last pay check
         other_member: Say the day and amount of their last pay check
+      paystubs:
+        self: Paystubs showing your <strong>pre-tax</strong> earnings
+        other_member: Paystubs showing their <strong>pre-tax</strong> earnings
+      offer_letter:
+        self: An offer letter saying how many hours you will work and how much you will earn
+        other_member: An offer letter saying how many hours they will work and how much they will earn
+      change_in_hours_letter:
+        self: A letter from your job saying how many hours you will work and how much you will earn
+        other_member: A letter from their job saying how many hours they will work and how much they will earn
   success:
     edit:
       title:

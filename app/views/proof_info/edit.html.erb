@@ -31,8 +31,8 @@
     </p>
   <% elsif current_change_report.change_type_new_job? %>
     <ul class="list--bulleted">
-      <li>Paystubs showing your <strong>pre-tax</strong> earnings</li>
-      <li>An offer letter saying how many hours you will work and how much you will earn</li>
+      <li><%= t(self_or_other_member_translation_key(".paystubs")).html_safe %></li>
+      <li><%= t(self_or_other_member_translation_key(".offer_letter")) %></li>
     </ul>
 
     <p>
@@ -40,8 +40,8 @@
     </p>
   <% elsif current_change_report.change_type_change_in_hours? %>
     <ul class="list--bulleted">
-      <li>Paystubs showing your <strong>pre-tax</strong> earnings</li>
-      <li>A letter from your job saying how many hours you will work and how much you will earn</li>
+      <li><%= t(self_or_other_member_translation_key(".paystubs")).html_safe %></li>
+      <li><%= t(self_or_other_member_translation_key(".change_in_hours_letter")) %></li>
     </ul>
 
     <p>
