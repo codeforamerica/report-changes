@@ -63,12 +63,12 @@ RSpec.feature "Reporting a change", :a11y, :js do
       expect(page).to have_text "I have a letter"
       check "I have a letter"
       proceed_with "Continue"
-      #
-      # expect(page).to have_text "Add your paystubs."
-      #
-      # page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
-      # expect(page).to have_text "image.jpg"
-      # proceed_with "Continue"
+
+      expect(page).to have_text "Add your letter."
+
+      page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
+      expect(page).to have_text "image.jpg"
+      proceed_with "Continue"
 
       expect(page).to have_text "May we contact you via text message"
       choose "Yes"

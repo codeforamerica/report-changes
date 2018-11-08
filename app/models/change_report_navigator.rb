@@ -16,6 +16,8 @@ class ChangeReportNavigator < ActiveRecord::Base
     return :termination_letter if has_termination_letter_yes?
     return :offer_letter_and_paystub if has_offer_letter_yes? && has_paystub_yes?
     return :offer_letter if has_offer_letter_yes?
+    return :change_in_hours_letter_and_paystub if has_change_in_hours_letter_yes? && has_paystub_yes?
+    return :change_in_hours_letter if has_change_in_hours_letter_yes?
 
     :paystub if has_paystub_yes?
   end

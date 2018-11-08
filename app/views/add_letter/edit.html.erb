@@ -8,6 +8,11 @@
 <% elsif current_change_report.navigator.documents_to_upload == :offer_letter_and_paystub %>
   <% content_for :card_title, "Add your offer letter and paystubs." %>
   <% content_for :card_help, "It’s helpful to include 2 to 3 paystubs if you have them." %>
+<% elsif current_change_report.navigator.documents_to_upload == :change_in_hours_letter %>
+  <% content_for :card_title, "Add your letter." %>
+<% elsif current_change_report.navigator.documents_to_upload == :change_in_hours_letter_and_paystub %>
+  <% content_for :card_title, "Add your letter and paystubs." %>
+  <% content_for :card_help, "It’s helpful to include 2 to 3 paystubs if you have them." %>
 <% end %>
 
 <% content_for :card_body do %>
