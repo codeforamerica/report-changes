@@ -41,30 +41,44 @@ RSpec.describe ChangeReportNavigator do
 
     context "when paystubs selected" do
       it "returns :paystub" do
-        change_report.create_navigator has_termination_letter: "no", has_offer_letter: "no", has_paystub: "yes"
+        change_report.create_navigator has_paystub: "yes"
 
         expect(change_report.navigator.documents_to_upload).to eq :paystub
       end
     end
     context "when offer letter and paystubs selected" do
       it "returns :offer_letter_and_paystub" do
-        change_report.create_navigator has_termination_letter: "no", has_offer_letter: "yes", has_paystub: "yes"
+        change_report.create_navigator has_offer_letter: "yes", has_paystub: "yes"
 
         expect(change_report.navigator.documents_to_upload).to eq :offer_letter_and_paystub
       end
     end
     context "when offer letter selected" do
       it "returns :offer_letter" do
-        change_report.create_navigator has_termination_letter: "no", has_offer_letter: "yes", has_paystub: "no"
+        change_report.create_navigator has_offer_letter: "yes"
 
         expect(change_report.navigator.documents_to_upload).to eq :offer_letter
       end
     end
     context "when termination letter selected" do
       it "returns :termination_letter" do
-        change_report.create_navigator has_termination_letter: "yes", has_offer_letter: "no", has_paystub: "no"
+        change_report.create_navigator has_termination_letter: "yes"
 
         expect(change_report.navigator.documents_to_upload).to eq :termination_letter
+      end
+    end
+    context "when change in hours letter selected" do
+      it "returns :change_in_hours_letter" do
+        change_report.create_navigator has_change_in_hours_letter: "yes"
+
+        expect(change_report.navigator.documents_to_upload).to eq :change_in_hours_letter
+      end
+    end
+    context "when change in hours letter and paystubs selected" do
+      it "returns :change_in_hours_letter_and_paystub" do
+        change_report.create_navigator has_paystub: "yes", has_change_in_hours_letter: "yes"
+
+        expect(change_report.navigator.documents_to_upload).to eq :change_in_hours_letter_and_paystub
       end
     end
   end
