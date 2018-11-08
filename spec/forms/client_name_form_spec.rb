@@ -80,13 +80,24 @@ RSpec.describe ClientNameForm do
   end
 
   describe ".from_change_report" do
-    it "assigns values from change report and other objects" do
-      change_report = create(:change_report, member: build(:household_member, first_name: "Annie", last_name: "McDog"))
+    context "when member exists" do
+      it "assigns values from change report and other objects" do
+        change_report = create(:change_report, member: build(:household_member, first_name: "Annie", last_name: "McDog"))
 
-      form = ClientNameForm.from_change_report(change_report)
+        form = ClientNameForm.from_change_report(change_report)
 
-      expect(form.first_name).to eq("Annie")
-      expect(form.last_name).to eq("McDog")
+        expect(form.first_name).to eq("Annie")
+        expect(form.last_name).to eq("McDog")
+      end
+    end
+
+    context "when member does not exist" do
+      it "assigns an empty hash" do
+        form = ClientNameForm.from_change_report(create(:change_report))
+
+        expect(form.first_name).to be_nil
+        expect(form.last_name).to be_nil
+      end
     end
   end
 end

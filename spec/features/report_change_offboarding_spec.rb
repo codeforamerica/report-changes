@@ -31,6 +31,15 @@ RSpec.feature "Report change" do
       choose "Yes"
       click_on "Continue"
 
+      expect(page).to have_text "Who had this change?"
+      choose "Myself"
+      click_on "Continue"
+
+      expect(page).to have_text "What is your name?"
+      fill_in "What is your first name?", with: "Person"
+      fill_in "What is your last name?", with: "McPeoples"
+      click_on "Continue"
+
       expect(page).to have_text "What changed?"
       choose "I started a new job"
       click_on "Continue"

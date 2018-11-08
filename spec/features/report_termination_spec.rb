@@ -13,27 +13,34 @@ feature "Reporting a change", :a11y, :js do
   scenario "job termination" do
     visit "/"
     expect(page).to have_text "Report the change"
-
     proceed_with "Start my report", match: :first
+
     expect(page).to have_text "Welcome! Here’s how reporting a change works"
-
     proceed_with "Start the form"
-    expect(page).to have_text "do you live in Arapahoe County?"
 
+    expect(page).to have_text "do you live in Arapahoe County?"
     choose "I'm not sure"
     proceed_with "Continue"
 
     expect(page).to have_text "Where do you live?"
-
     fill_in "Street address", with: "1355 South Laredo Court"
     fill_in "City", with: "Aurora"
     fill_in "Zip code", with: "80017"
     proceed_with "Continue"
+
     expect(page).to have_text "Great, it looks like you live in Arapahoe County."
     proceed_with "Continue"
-    expect(page).to have_text "Tell us about yourself."
 
-    fill_in "What is your name?", with: "Person McPeoples"
+    expect(page).to have_text "Who had this change?"
+    choose "Myself"
+    click_on "Continue"
+
+    expect(page).to have_text "What is your name?"
+    fill_in "What is your first name?", with: "Jane"
+    fill_in "What is your last name?", with: "Doe"
+    click_on "Continue"
+
+    expect(page).to have_text "Tell us about yourself."
     fill_in "What is your phone number?", with: "555-222-3333"
     select "January", from: "form[birthday_month]"
     select "1", from: "form[birthday_day]"
@@ -64,7 +71,7 @@ feature "Reporting a change", :a11y, :js do
     choose "Yes"
     proceed_with "Continue"
 
-    expect(page).to have_text "Add your letter or final paycheck."
+    expect(page).to have_text "Add the letter or final paycheck."
 
     page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
     expect(page).to have_text "image.jpg"
@@ -77,7 +84,7 @@ feature "Reporting a change", :a11y, :js do
     proceed_with "Continue"
 
     expect(page).to have_text "Sign your change report"
-    fill_in "Type your full legal name", with: "Person McPeoples"
+    fill_in "Type your full legal name", with: "Jane Doe"
     proceed_with "Sign and submit"
 
     expect(page).to have_text "You have successfully submitted your change report"
@@ -112,13 +119,22 @@ feature "Reporting a change", :a11y, :js do
       proceed_with "Continue"
 
       expect(page).to have_text "Where do you live?"
-
       fill_in "Street address", with: "1355 South Laredo Court"
       fill_in "City", with: "Aurora"
       fill_in "Zip code", with: "80017"
       proceed_with "Continue"
+
       expect(page).to have_text "Great, it looks like you live in Arapahoe County."
       proceed_with "Continue"
+
+      expect(page).to have_text "Who had this change?"
+      choose "Myself"
+      click_on "Continue"
+
+      expect(page).to have_text "What is your name?"
+      fill_in "What is your first name?", with: "Jane"
+      fill_in "What is your last name?", with: "Doe"
+      click_on "Continue"
 
       expect(page).to have_text "What changed?"
       choose "My job ended or I stopped working"
@@ -126,7 +142,6 @@ feature "Reporting a change", :a11y, :js do
 
       expect(page).to have_text "Tell us about yourself."
 
-      fill_in "What is your name?", with: "Jane Doe"
       fill_in "What is your phone number?", with: "555-222-3333"
       select "January", from: "form[birthday_month]"
       select "1", from: "form[birthday_day]"

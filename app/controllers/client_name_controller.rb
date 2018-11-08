@@ -1,2 +1,1 @@
-class ClientNameController < FormsController
-end
+class ClientNameController < FormsController; end

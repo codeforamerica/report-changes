@@ -2,17 +2,18 @@ require "rails_helper"
 
 RSpec.describe HouseholdMember, type: :model do
   describe "#age" do
-    it "returns the age of the person" do
-      member = create(:household_member, birthday: 100.years.ago - 6.months)
-      expect(member.age).to eq 100
+    context "when birthday is present" do
+      it "returns the age of the person" do
+        member = create(:household_member, birthday: 100.years.ago - 6.months)
+        expect(member.age).to eq 100
+      end
     end
-  end
 
-  describe "#name" do
-    it "returns first and last name of the person" do
-      member = create(:household_member, first_name: "princess", last_name: "caroline")
-
-      expect(member.full_name).to eq("princess caroline")
+    context "when birthday is not present" do
+      it "returns nil" do
+        member = create(:household_member)
+        expect(member.age).to be_nil
+      end
     end
   end
 end

@@ -13,6 +13,10 @@ class ClientNameForm < Form
   end
 
   def self.existing_attributes(change_report)
-    HashWithIndifferentAccess.new(change_report.member.attributes)
+    if change_report.member.present?
+      HashWithIndifferentAccess.new(change_report.member.attributes)
+    else
+      {}
+    end
   end
 end

@@ -55,7 +55,7 @@ class FormsController < ApplicationController
   def self_or_member
     {
       count: current_change_report.submitting_for_other_household_member? ? 1 : 0,
-      name: current_change_report.member.first_name,
+      name: current_change_report.member&.first_name,
     }
   end
 

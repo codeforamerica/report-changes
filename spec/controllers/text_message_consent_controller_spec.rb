@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe TextMessageConsentController do
   it_behaves_like "form controller base behavior"
   it_behaves_like "form controller successful update", { consent_to_sms: "yes" }
-  it_behaves_like "form controller always shows"
 
   describe "show?" do
     context "when client is submitting on behalf of someone" do

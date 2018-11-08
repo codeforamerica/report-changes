@@ -49,7 +49,7 @@ class ChangeReportDecorator < SimpleDelegator
   end
 
   def client_name
-    member&.name
+    [member&.first_name, member&.last_name].compact.join(" ") if member
   end
 
   def client_phone_number

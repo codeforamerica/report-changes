@@ -13,12 +13,14 @@ FactoryBot.define do
     trait :with_member do
       transient do
         first_name { "Quincy" }
+        last_name { "Jones" }
       end
 
       after(:create) do |change_report, evaluator|
         create(:household_member,
                birthday: 25.years.ago - 1.day,
                first_name: evaluator.first_name,
+               last_name: evaluator.last_name,
                change_report: change_report)
       end
     end
