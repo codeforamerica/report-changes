@@ -30,7 +30,8 @@ RSpec.feature "Admin viewing dashboard" do
         change_report = build(:change_report, :job_termination, :with_letter,
                               navigator: build(:change_report_navigator, has_termination_letter: "yes"))
         create(:household_member,
-               name: "Todd Chavez",
+               first_name: "Todd",
+               last_name: "Chavez",
                change_report: change_report)
         change_report.letters.attach(
           io: File.open(Rails.root.join("spec", "fixtures", "document.pdf")),

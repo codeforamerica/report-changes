@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe ChangeReportPdfBuilder do
   context "job termination" do
     it "creates a pdf from a Change Report" do
-      change_report = create(:change_report_with_letter, :job_termination, name: "Person McPeoples")
+      change_report = create(:change_report_with_letter, :job_termination, first_name: "Person", last_name: "McPeoples")
 
       raw_pdf = ChangeReportPdfBuilder.new(change_report).run
       temp_file = write_raw_pdf_to_temp_file(source: raw_pdf)
@@ -16,7 +16,7 @@ RSpec.describe ChangeReportPdfBuilder do
 
   context "new job" do
     it "creates a pdf from a Change Report" do
-      change_report = create(:change_report_with_letter, :new_job, name: "Person McPeoples")
+      change_report = create(:change_report_with_letter, :new_job, first_name: "Person", last_name: "McPeoples")
 
       raw_pdf = ChangeReportPdfBuilder.new(change_report).run
       temp_file = write_raw_pdf_to_temp_file(source: raw_pdf)

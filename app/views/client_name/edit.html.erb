@@ -1,0 +1,8 @@
+<% content_for :card_title, t(".title", **self_or_member) %>
+
+<% content_for :card_body do %>
+    <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+      <%= f.cfa_input_field :first_name, t(".first_name", **self_or_member), help_text: t(".name_help", **self_or_member) %>
+      <%= f.cfa_input_field :last_name, t(".last_name", **self_or_member), help_text: t(".name_help", **self_or_member) %>
+    <% end %>
+<% end %>

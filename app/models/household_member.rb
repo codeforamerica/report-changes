@@ -11,4 +11,8 @@ class HouseholdMember < ActiveRecord::Base
     time_delta = Time.zone.now - birthday.to_datetime
     (time_delta / 1.years).to_int
   end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

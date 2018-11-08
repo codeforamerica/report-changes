@@ -32,13 +32,4 @@ class ChangeReport < ActiveRecord::Base
   def image_letters
     letters.select(&:image?)
   end
-
-  # TODO
-  def submitter_name
-    if submitting_for_other_household_member?
-      "Christa"
-    else
-      member&.name
-    end
-  end
 end

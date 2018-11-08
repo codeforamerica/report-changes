@@ -30,6 +30,20 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  client_name:
+    edit:
+      title:
+        zero: What is your name?
+        one: Who are you reporting this change for?
+      name_help:
+        zero: As it appears on your ID.
+        one: As it appears on their ID.
+      first_name:
+        zero: What is your first name?
+        one: What is their first name?
+      last_name:
+        zero: What is your last name?
+        one: What is their last name?
   change_type:
     edit:
       job_termination:

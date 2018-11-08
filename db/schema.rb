@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_07_224059) do
+ActiveRecord::Schema.define(version: 2018_11_08_000715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,7 +137,9 @@ ActiveRecord::Schema.define(version: 2018_11_07_224059) do
     t.datetime "created_at", null: false
     t.string "encrypted_ssn"
     t.string "encrypted_ssn_iv"
-    t.string "name"
+    t.string "first_name"
+    t.string "full_name_old"
+    t.string "last_name"
     t.datetime "updated_at", null: false
     t.index ["change_report_id"], name: "index_household_members_on_change_report_id"
   end

@@ -6,7 +6,7 @@ RSpec.describe WhoHadChangeForm do
       it "is valid" do
         form = WhoHadChangeForm.new(
           nil,
-          submitting_for: "self"
+          submitting_for: "self",
         )
 
         expect(form).to be_valid
@@ -17,7 +17,7 @@ RSpec.describe WhoHadChangeForm do
       it "is invalid" do
         form = WhoHadChangeForm.new(
           nil,
-          submitting_for: nil
+          submitting_for: nil,
         )
 
         expect(form).not_to be_valid

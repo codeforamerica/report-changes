@@ -7,6 +7,7 @@ class FormNavigation
     SupportedCountyController,
     NotYetSupportedController,
     WhoHadChangeController,
+    ClientNameController,
     ChangeTypeController,
     SelfEmployedController,
     NotYetSupportedController,

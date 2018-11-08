@@ -2,7 +2,6 @@
 
 <% content_for :card_body do %>
   <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
-    <%= f.cfa_input_field :name, t(".name", **self_or_member) %>
     <%= f.cfa_date_select :birthday, t(".birthday", **self_or_member), { options: { start_year: Time.now.year, end_year: 1900 } } %>
     <%= f.cfa_input_field :case_number,
                           t(".case_number", **self_or_member),

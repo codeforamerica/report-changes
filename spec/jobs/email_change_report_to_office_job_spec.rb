@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe EmailChangeReportToOfficeJob do
   describe "#perform" do
     it "should enqueue an email to be sent" do
-      change_report = create(:change_report, :with_member, name: "Princess Caroline")
+      change_report = create(:change_report, :with_member, first_name: "Princess", last_name: "Caroline")
 
       fake_pdf = double("pdf")
       fake_builder = instance_double(ChangeReportPdfBuilder)
