@@ -41,11 +41,11 @@
 }
 
 // Fixes CSS when .group fieldsets included with divs (accessibility)
-.group:last-of-type {
+.form-group:last-of-type {
   margin-bottom: 3em;
 }
 
-.group:last-child {
+.form-group:last-child {
   margin-bottom: 0;
 }
 
