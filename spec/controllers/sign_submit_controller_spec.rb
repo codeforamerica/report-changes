@@ -23,6 +23,27 @@ RSpec.describe SignSubmitController do
 
   describe "#update" do
     context "on success" do
+      context "when RAILS_ENV is demo" do
+        before do
+          allow(Rails).to receive(:env) { "demo".inquiry }
+        end
+
+        after do
+          allow(Rails).to receive(:env).and_call_original
+        end
+
+        it "does not enqueue a pdf mailer job" do
+          current_change_report = create(:change_report, :with_navigator)
+          session[:current_change_report_id] = current_change_report.id
+
+          allow(EmailChangeReportToOfficeJob).to receive(:perform_later)
+
+          put :update, params: { form: valid_params }
+
+          expect(EmailChangeReportToOfficeJob).to_not have_received(:perform_later)
+        end
+      end
+
       it "enqueues a pdf mailer job" do
         current_change_report = create(:change_report, :with_navigator)
         session[:current_change_report_id] = current_change_report.id
