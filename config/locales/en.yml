@@ -166,7 +166,7 @@ en:
       first_paycheck:
         paid_yet_yes:
           self: When did you get your first paycheck from this job?
-          other_member: When did they get your first paycheck from this job?
+          other_member: When did they get their first paycheck from this job?
         paid_yet_no:
           self: When will you get your first paycheck from this job?
           other_member: When will they get your first paycheck from this job?

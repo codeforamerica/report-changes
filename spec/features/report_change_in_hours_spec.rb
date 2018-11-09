@@ -24,13 +24,21 @@ RSpec.feature "Reporting a change", :a11y, :js do
       choose "Yes"
       proceed_with "Continue"
 
+      expect(page).to have_text "Who had this change?"
+      choose "Myself"
+      proceed_with "Continue"
+
+      expect(page).to have_text "What is your name?"
+      fill_in "What is your first name?", with: "Jane"
+      fill_in "What is your last name?", with: "Doe"
+      proceed_with "Continue"
+
       expect(page).to have_text "What changed?"
       choose "My hours changed"
       proceed_with "Continue"
 
       expect(page).to have_text "Tell us about yourself."
 
-      fill_in "What is your name?", with: "Jane Doe"
       fill_in "What is your phone number?", with: "555-222-3333"
       select "January", from: "form[birthday_month]"
       select "1", from: "form[birthday_day]"
@@ -64,7 +72,7 @@ RSpec.feature "Reporting a change", :a11y, :js do
       check "I have a letter"
       proceed_with "Continue"
 
-      expect(page).to have_text "Add your letter."
+      expect(page).to have_text "Add the letter."
 
       page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
       expect(page).to have_text "image.jpg"
