@@ -1,6 +1,7 @@
 {
   "name": "colorado-benefits",
   "scripts": {
+    "postdeploy": "bundle exec rake db:seed"
   },
   "env": {
     "BUCKETEER_AWS_ACCESS_KEY_ID": {
