@@ -8,7 +8,7 @@ RSpec.feature "Report change" do
     choose "No"
     click_on "Continue"
 
-    expect(page).to have_content "Sorry, you'll need to report your change a different way."
+    expect(page).to have_content "Sorry, you'll need to report this change a different way."
     expect(page).to have_content("Go to PEAK")
     expect(page).to have_content("Find my county office")
   end
@@ -29,6 +29,15 @@ RSpec.feature "Report change" do
 
       expect(page).to have_text "do you live in Arapahoe County?"
       choose "Yes"
+      click_on "Continue"
+
+      expect(page).to have_text "Who had this change?"
+      choose "Myself"
+      click_on "Continue"
+
+      expect(page).to have_text "What is your name?"
+      fill_in "What is your first name?", with: "Person"
+      fill_in "What is your last name?", with: "McPeoples"
       click_on "Continue"
 
       expect(page).to have_text "What changed?"

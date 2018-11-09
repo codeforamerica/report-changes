@@ -1,20 +1,20 @@
-<% content_for :card_title, "Are you self-employed?" %>
+<% content_for :card_title, t(self_or_other_member_translation_key(".title"), name: current_change_report.member.first_name) %>
 
 <% content_for :card_body do %>
   <p class="center">Examples of self-employment:</p>
   <p class="center">
-    <span class="example">If you file a 1099 form</span>
+    <span class="example"><%= t(self_or_other_member_translation_key(".1099")) %></span>
     <span class="example">Business owners</span>
     <span class="example">Uber/Lyft drivers</span>
     <span class="example">Day care providers</span>
   </p>
   <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
   <%= f.cfa_radio_set :is_self_employed,
-    label_text: "Are you self-employed?",
+    label_text: t(self_or_other_member_translation_key(".title")),
     legend_class: "sr-only",
     collection: [
-      { value: :yes, label: "I am self-employed" },
-      { value: :no, label: "I am not self-employed" },
+      { value: :yes, label: t(self_or_other_member_translation_key(".is_self_employed_yes")) },
+      { value: :no, label: t(self_or_other_member_translation_key(".is_self_employed_no")) },
     ] %>
   <% end %>
 <% end %>

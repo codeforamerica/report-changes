@@ -24,7 +24,7 @@ module Admin
           super
         end
         format.pdf do
-          pdf = ChangeReportPdfBuilder.new(ChangeReport.find(params[:id])).run
+          pdf = ChangeReportPdfBuilder.new(ChangeReportDecorator.new(ChangeReport.find(params[:id]))).run
           send_data pdf, type: "application/pdf", disposition: "inline"
         end
       end

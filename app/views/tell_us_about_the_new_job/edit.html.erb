@@ -4,17 +4,15 @@
   <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
     <%= f.cfa_input_field :company_name, "What is the name of the company?" %>
     <%= f.cfa_input_field :manager_name,
-                          "What is the name of your supervisor or manager?",
-                          help_text: "Someone from the county may contact them to verify details about your job.
-
-" %>
-    <%= f.cfa_input_field :manager_phone_number, "What is their phone number?", classes: ["form-width--phone"] %>
+                          t(self_or_other_member_translation_key(".manager_name"), name: current_change_report.member.first_name),
+                          help_text: t(self_or_other_member_translation_key(".manager_name_help")) %>
+    <%= f.cfa_input_field :manager_phone_number, t(self_or_other_member_translation_key(".manager_phone_number")), classes: ["form-width--phone"] %>
     <%= f.cfa_date_select :first_day,
-                          "What was your first day at work?",
+                          t(self_or_other_member_translation_key(".first_day")),
                           help_text: "Estimate if you're not sure.",
                           options: { start_year: Time.now.year, end_year: Time.now.year - 3 } %>
     <%= f.cfa_radio_set :paid_yet,
-                        label_text: "Have you been paid yet?",
+                        label_text: t(self_or_other_member_translation_key(".paid_yet")),
                         collection: [
                             { value: :yes, label: "Yes" },
                             { value: :no, label: "No" },

@@ -30,4 +30,197 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  client_name:
+    edit:
+      title:
+        self: What is your name?
+        other_member: Who are you reporting this change for?
+      name_help:
+        self: As it appears on your ID.
+        other_member: As it appears on their ID.
+      first_name:
+        self: What is your first name?
+        other_member: What is their first name?
+      last_name:
+        self: What is your last name?
+        other_member: What is their last name?
+  change_type:
+    edit:
+      job_termination:
+        self: My job ended or I stopped working
+        other_member: Their job ended or they stopped working
+      new_job:
+        self: I started a new job
+        other_member: They started a new job
+      change_in_hours:
+        self: My hours changed
+        other_member: Their hours changed
+  self_employed:
+    edit:
+      title:
+        self: Are you self-employed?
+        other_member: "Is %{name} self-employed?"
+      "1099":
+        self: If you file a 1099 form
+        other_member: If they file a 1099 form
+      is_self_employed_yes:
+        self: I am self-employed
+        other_member: They are self-employed
+      is_self_employed_no:
+        self: I am not self-employed
+        other_member: They are not self-employed
+  tell_us_about_yourself:
+    edit:
+      title:
+        self: Tell us about yourself.
+        other_member: "Tell us about %{name}."
+      name:
+        self: What is your name?
+        other_member: What is their name?
+      birthday:
+        self: What is your date of birth?
+        other_member: What is their date of birth?
+      case_number:
+        self: What is your case number?
+        other_member: What is their case number?
+      case_number_help:
+        self: You can find this on letters that the county has sent you.
+        other_member: This is printed on letters from the county.
+      ssn:
+        self: What is your social security number?
+        other_member: What is their social security number?
+      ssn_help:
+        self: If you don't have an SSN or don't want to give one now it's okay to skip this. But if you add it now, the report may be processed faster.
+        other_member: "If %{name} doesn't have an SSN or doesn't want to give one now it's okay to skip this. But if you add it now, the report may be processed faster."
+      phone_number:
+        self: What is your phone number?
+        other_member: What is their phone number?
+  tell_us_about_the_lost_job:
+    edit:
+      title:
+        self: Tell us about the job that ended.
+        other_member: "Tell us about %{name}'s job that ended."
+      manager_name:
+        self: What is the name of someone from the company who can verify your employment?
+        other_member: "What is the name of someone from the company who can verify %{name}'s employment?"
+      manager_name_help:
+        self: This might be your manager, or someone from HR. The county may call them.
+        other_member: This might be their manager, or someone from HR. The county may call this person.
+      manager_phone_number:
+        self: What is their phone number?
+        other_member: What is this person's phone number?
+      manager_additional_information:
+        self: Is there anything the caseworker should know before they talk to your old employer?
+        other_member: "Is there anything the caseworker should know before they talk to %{name}'s old employer?"
+      last_paycheck:
+        self: What was the date of your final paycheck?
+        other_member: What was the date of their final paycheck?
+      last_paycheck_amount:
+        self: What was the amount of your final paystub, pre-tax?
+        other_member: What was the amount of their final paystub, pre-tax?
+      last_day:
+        self: What was your last day at work?
+        other_member: What was their last day at work?
+  tell_us_about_the_new_job:
+    edit:
+      manager_name:
+        self: What is the name of your supervisor or manager?
+        other_member: "What is the name of %{name}'s supervisor or manager?"
+      manager_name_help:
+        self: This might be your manager, or someone from HR. The county may call them.
+        other_member: This might be their manager, or someone from HR. The county may call this person.
+      manager_phone_number:
+        self: What is their phone number?
+        other_member: What is this person's phone number?
+      first_day:
+        self: What was your first day at work?
+        other_member: What was their first day at work?
+      paid_yet:
+        self: Have you been paid yet?
+        other_member: Have they been paid yet?
+  tell_us_about_change_in_hours_job:
+    edit:
+      manager_name:
+        self: What is the name of someone from the company who can verify your change in hours?
+        other_member: "What is the name of someone from the company who can verify %{name}'s change in hours?"
+      manager_name_help:
+        self: This might be your manager, or someone from HR. The county may call them.
+        other_member: This might be their manager, or someone from HR. The county may call this person.
+  how_much_will_you_make:
+    edit:
+      title:
+        self: Tell us about how much you will make at this job.
+        other_member: "Tell us about how much %{name} will make at this job."
+      hourly_wage:
+        self: What is your hourly wage?
+        other_member: What is their hourly wage?
+      same_hours:
+        self: In the next few months, do you expect to work the same number of hours every week?
+        other_member: In the next few months, do they expect to work the same number of hours every week?
+      hours_a_week_amount:
+        self: How many hours a week will you work?
+        other_member: How many hours a week will they work?
+      paid_how_often:
+        self: How often do you get paid?
+        other_member: How often do they get paid?
+      first_paycheck:
+        paid_yet_yes:
+          self: When did you get your first paycheck from this job?
+          other_member: When did they get their first paycheck from this job?
+        paid_yet_no:
+          self: When will you get your first paycheck from this job?
+          other_member: When will they get your first paycheck from this job?
+      new_job_notes:
+        self: Is there anything else we should know about your hours or wages at this job?
+        other_member: "Is there anything else we should know about %{name}'s hours or wages at this job?"
+      new_job_notes_help:
+        self: If your offer letter or paystubs show a different number of hours than you entered above, please explain.
+        other_member: "If %{name}'s offer letter or paystubs show a different number of hours than you entered above, please explain."
+  tell_us_about_change_in_hours:
+    edit:
+      title:
+        self: Tell us about your change in hours.
+        other_member: "Tell us about %{name}'s change in hours."
+      hourly_range:
+        self: How many hours a week will you work?
+        other_member: How many hours a week will they work?
+      hourly_wage:
+        self: What is your hourly wage?
+        other_member: What is their hourly wage?
+      paid_how_often:
+        self: How often do you get paid?
+        other_member: How often do they get paid?
+      change_in_hours_notes:
+        self: Is there anything else we should know about your hours or wages at this job?
+        other_member: "Is there anything else we should know about %{name}'s hours or wages at this job?"
+  proof_info:
+    edit:
+      verify_income:
+        self: The county needs to verify your income.
+        other_member: "The county needs to verify %{name}'s income."
+      dont_work_there:
+        self: Say you don’t work there any more
+        other_member: "Say %{name} doesn't work there any more"
+      last_day_work:
+        self: Say what your last day of work was
+        other_member: Say what their last day of work was
+      amount_last_paycheck:
+        self: Say the day and amount of your last pay check
+        other_member: Say the day and amount of their last pay check
+      paystubs:
+        self: Paystubs showing your <strong>pre-tax</strong> earnings
+        other_member: Paystubs showing their <strong>pre-tax</strong> earnings
+      offer_letter:
+        self: An offer letter saying how many hours you will work and how much you will earn
+        other_member: An offer letter saying how many hours they will work and how much they will earn
+      change_in_hours_letter:
+        self: A letter from your job saying how many hours you will work and how much you will earn
+        other_member: A letter from their job saying how many hours they will work and how much they will earn
+  success:
+    edit:
+      title:
+        self: You have successfully submitted your change report.
+        other_member: You have successfully submitted this change report.
+      client_notified:
+        self: If they do, you’ll be notified.
+        other_member: "If they do, %{name} will be notified."

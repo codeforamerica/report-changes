@@ -8,7 +8,9 @@ class HouseholdMember < ActiveRecord::Base
   )
 
   def age
-    time_delta = Time.zone.now - birthday.to_datetime
-    (time_delta / 1.years).to_int
+    if birthday
+      time_delta = Time.zone.now - birthday.to_datetime
+      (time_delta / 1.years).to_int
+    end
   end
 end

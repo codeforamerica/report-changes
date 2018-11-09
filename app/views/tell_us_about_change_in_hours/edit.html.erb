@@ -1,16 +1,23 @@
-<% content_for :card_title, "Tell us about your change in hours." %>
+<% content_for :card_title, t(self_or_other_member_translation_key(".title"), name: current_change_report.member.first_name) %>
 
 <% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
-      <%= f.cfa_range_field(:lower_hours_a_week_amount, :upper_hours_a_week_amount, "How many hours a week will you work?",
+      <%= f.cfa_range_field(:lower_hours_a_week_amount,
+                            :upper_hours_a_week_amount,
+                            t(self_or_other_member_translation_key(".hourly_range")),
                             help_text: "If it varies, give the average range.") %>
       <%= f.cfa_date_select(:change_date, "When did this change happen?", help_text: "Estimate if you're not sure.",
                             options: { start_year: Time.now.year, end_year: Time.now.year - 3 }) %>
-      <%= f.cfa_input_field :hourly_wage, "What is your hourly wage?", prefix: "$", postfix: "/hr",
+      <%= f.cfa_input_field :hourly_wage,
+                            t(self_or_other_member_translation_key(".hourly_wage")),
+                            prefix: "$",
+                            postfix: "/hr",
                             classes: ["form-width--phone"] %>
-      <%= f.cfa_input_field :paid_how_often, "How often do you get paid?",
+      <%= f.cfa_input_field :paid_how_often,
+                            t(self_or_other_member_translation_key(".paid_how_often")),
                             help_text: "For example: every other Friday, or the 15th and the 30th of each month." %>
-      <%= f.cfa_input_field :change_in_hours_notes, "Is there anything else we should know about your hours or wages at this job?",
+      <%= f.cfa_input_field :change_in_hours_notes,
+                            t(self_or_other_member_translation_key(".change_in_hours_notes"), name: current_change_report.member.first_name),
                             optional: true %>
     <% end %>
 <% end %>

@@ -5,7 +5,7 @@ class ChangeReportPdfBuilder
     rendered_string = ApplicationController.render(
       layout: "change_report",
       template: "change_reports/#{change_report.change_type}",
-      assigns: { change_report: ChangeReportDecorator.new(change_report) },
+      assigns: { change_report: change_report },
     )
     @pdf_from_html = WickedPdf.new.pdf_from_string(rendered_string)
 

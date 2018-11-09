@@ -1,0 +1,1 @@
+class ClientNameController < FormsController; end

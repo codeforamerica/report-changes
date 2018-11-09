@@ -1,0 +1,1 @@
+class WhoHadChangeController < FormsController; end

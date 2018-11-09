@@ -1,7 +1,7 @@
 class FormsController < ApplicationController
   before_action :ensure_change_report_present, only: %i[edit update]
 
-  helper_method :current_change_report, :current_percentage
+  helper_method :current_change_report, :current_percentage, :self_or_other_member_translation_key
 
   layout "form"
 
@@ -50,6 +50,17 @@ class FormsController < ApplicationController
     if index_of_screens
       (100 / form_navigation.form_controllers.length) * index_of_screens
     end
+  end
+
+  def self_or_member
+    {
+      count: current_change_report.submitting_for_other_household_member? ? 1 : 0,
+      name: current_change_report.member&.first_name,
+    }
+  end
+
+  def self_or_other_member_translation_key(key)
+    current_change_report.submitting_for_other_household_member? ? "#{key}.other_member" : "#{key}.self"
   end
 
   private

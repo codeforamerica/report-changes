@@ -80,9 +80,9 @@ RSpec.describe ChangeReportDecorator do
     context "when there is a member" do
       it "returns it" do
         change_report = build :change_report
-        create :household_member, change_report: change_report, name: "Jane"
+        create :household_member, change_report: change_report, first_name: "Jane", last_name: "Doe"
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.client_name).to eq "Jane"
+        expect(decorator.client_name).to eq "Jane Doe"
       end
     end
 

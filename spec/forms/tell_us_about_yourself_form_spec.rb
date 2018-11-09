@@ -4,7 +4,6 @@ RSpec.describe TellUsAboutYourselfForm do
   describe "validations" do
     let(:valid_params) do
       {
-        name: "Jane Doe",
         phone_number: "1112223333",
         birthday_year: 2000,
         birthday_month: 1,
@@ -17,17 +16,6 @@ RSpec.describe TellUsAboutYourselfForm do
         form = TellUsAboutYourselfForm.new(nil, valid_params)
 
         expect(form).to be_valid
-      end
-    end
-
-    describe "name" do
-      context "when the name is not included" do
-        it "is invalid" do
-          invalid_params = valid_params.merge(name: nil)
-          form = TellUsAboutYourselfForm.new(nil, invalid_params)
-
-          expect(form).to_not be_valid
-        end
       end
     end
 
@@ -146,10 +134,8 @@ RSpec.describe TellUsAboutYourselfForm do
   end
 
   describe "#save" do
-    let(:change_report) { create :change_report }
     let(:valid_params) do
       {
-        name: "Jane Doe",
         phone_number: "111-222-3333",
         ssn: "111-22-3333",
         case_number: "123abc",
@@ -159,54 +145,34 @@ RSpec.describe TellUsAboutYourselfForm do
       }
     end
 
-    context "when the member does not yet exist" do
-      it "persists the values to the correct models" do
-        form = TellUsAboutYourselfForm.new(change_report, valid_params)
-        form.valid?
-        form.save
+    it "persists the values to the correct models" do
+      change_report = create(:change_report, :with_member)
+      form = TellUsAboutYourselfForm.new(change_report, valid_params)
+      form.valid?
+      form.save
 
-        change_report.reload
+      change_report.reload
 
-        expect(change_report.case_number).to eq "123abc"
-        expect(change_report.phone_number).to eq "1112223333"
-        expect(change_report.member.name).to eq "Jane Doe"
-        expect(change_report.member.ssn).to eq "111223333"
-        expect(change_report.member.birthday.year).to eq 2000
-        expect(change_report.member.birthday.month).to eq 1
-        expect(change_report.member.birthday.day).to eq 15
-      end
-    end
-
-    context "when the member already exists" do
-      it "updates the member" do
-        create(:household_member, name: "John Doe", change_report: change_report)
-        form = TellUsAboutYourselfForm.new(change_report, valid_params)
-
-        expect do
-          form.save
-        end.not_to(change { HouseholdMember.count })
-
-        change_report.reload
-
-        expect(change_report.member.name).to eq "Jane Doe"
-      end
+      expect(change_report.case_number).to eq "123abc"
+      expect(change_report.phone_number).to eq "1112223333"
+      expect(change_report.member.ssn).to eq "111223333"
+      expect(change_report.member.birthday.year).to eq 2000
+      expect(change_report.member.birthday.month).to eq 1
+      expect(change_report.member.birthday.day).to eq 15
     end
   end
 
   describe ".from_change_report" do
     it "assigns values from change report and other objects" do
       change_report = create(:change_report,
-        :with_navigator,
         case_number: "1A1234",
         phone_number: "1234567890",
         member: build(:household_member,
-          name: "Jane Doe",
           ssn: "111223333",
           birthday: DateTime.new(1950, 1, 31)))
 
       form = TellUsAboutYourselfForm.from_change_report(change_report)
 
-      expect(form.name).to eq("Jane Doe")
       expect(form.birthday_year).to eq(1950)
       expect(form.birthday_month).to eq(1)
       expect(form.birthday_day).to eq(31)
