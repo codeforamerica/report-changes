@@ -20,8 +20,16 @@ class ChangeReportDecorator < SimpleDelegator
     ]
   end
 
+  def manager_name
+    super.present? ? super : "no response"
+  end
+
   def manager_phone_number
-    format_phone_number(super)
+    if super.present?
+      format_phone_number(super)
+    else
+      "no response"
+    end
   end
 
   def ssn

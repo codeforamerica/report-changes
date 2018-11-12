@@ -31,22 +31,20 @@ RSpec.describe TellUsAboutChangeInHoursJobForm do
 
     describe "manager_name" do
       context "when the manager_name is not included" do
-        it "is invalid" do
-          invalid_params = valid_params.merge(manager_name: nil)
-          form = TellUsAboutChangeInHoursJobForm.new(nil, invalid_params)
+        it "is valid" do
+          form = TellUsAboutChangeInHoursJobForm.new(nil, valid_params.merge(manager_name: nil))
 
-          expect(form).to_not be_valid
+          expect(form).to be_valid
         end
       end
     end
 
     describe "manager_phone_number" do
       context "when the manager_phone_number is not included" do
-        it "is invalid" do
-          invalid_params = valid_params.merge(manager_phone_number: nil)
-          form = TellUsAboutChangeInHoursJobForm.new(nil, invalid_params)
+        it "is valid" do
+          form = TellUsAboutChangeInHoursJobForm.new(nil, valid_params.merge(manager_phone_number: nil))
 
-          expect(form).to_not be_valid
+          expect(form).to be_valid
         end
       end
 
