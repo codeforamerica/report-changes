@@ -409,4 +409,82 @@ RSpec.describe ChangeReportDecorator do
       end
     end
   end
+
+  describe "#change_type_description" do
+    context "when it is a job termination" do
+      it "returns the job termination string" do
+        change_report = create :change_report, change_type: :job_termination
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.change_type_description).to eq "Income change: job termination"
+      end
+    end
+
+    context "when it is a new job" do
+      it "returns the new job string" do
+        change_report = create :change_report, change_type: :new_job
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.change_type_description).to eq "Income change: new job"
+      end
+    end
+
+    context "when it is a change in hours" do
+      it "returns the change in hours string" do
+        change_report = create :change_report, change_type: :change_in_hours
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.change_type_description).to eq "Income change: change in hours"
+      end
+    end
+  end
+
+  describe "#paid_yet" do
+    context "new job change type" do
+      it "returns the paid_yet value" do
+        change_report = create :change_report, change_type: :new_job, paid_yet: "yes"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.paid_yet).to eq "yes"
+      end
+    end
+
+    context "job termination change type" do
+      it "returns empty string" do
+        change_report = create :change_report, change_type: :job_termination, paid_yet: "unfilled"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.paid_yet).to eq ""
+      end
+    end
+
+    context "new job change type" do
+      it "returns empty string" do
+        change_report = create :change_report, change_type: :change_in_hours, paid_yet: "unfilled"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.paid_yet).to eq ""
+      end
+    end
+  end
+
+  describe "#same_hours" do
+    context "new job change type" do
+      it "returns the same_hours value" do
+        change_report = create :change_report, change_type: :new_job, same_hours: "yes"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.same_hours).to eq "yes"
+      end
+    end
+
+    context "job termination change type" do
+      it "returns empty string" do
+        change_report = create :change_report, change_type: :job_termination, same_hours: "unfilled"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.same_hours).to eq ""
+      end
+    end
+
+    context "new job change type" do
+      it "returns empty string" do
+        change_report = create :change_report, change_type: :change_in_hours, same_hours: "unfilled"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.same_hours).to eq ""
+      end
+    end
+  end
 end

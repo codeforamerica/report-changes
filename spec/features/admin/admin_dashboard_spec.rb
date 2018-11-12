@@ -67,8 +67,9 @@ RSpec.feature "Admin viewing dashboard" do
     end
 
     scenario "can download a csv of all the change reports" do
-      create(:change_report, :with_member, signature: "st", manager_name: "Lavar Burton")
-      create(:change_report, :with_member, signature: "julie", manager_name: "Bob Ross")
+      create(:change_report, :with_member, :job_termination, signature: "st", manager_name: "Lavar Burton")
+      create(:change_report, :with_member, :new_job, signature: "julie", manager_name: "Bob Ross")
+      create(:change_report, :with_member, :change_in_hours, signature: "mike", manager_name: "Michael Scott")
       create(:change_report, :with_member, signature: nil, manager_name: "Mr Burns")
 
       visit admin_root_path
@@ -76,7 +77,12 @@ RSpec.feature "Admin viewing dashboard" do
       click_on "Download All"
 
       expect(page).to have_text "Lavar Burton"
+      expect(page).to have_text "Income change: job termination"
       expect(page).to have_text "Bob Ross"
+      expect(page).to have_text "Income change: new job"
+      expect(page).to have_text "Michael Scott"
+      expect(page).to have_text "Income change: change in hours"
+
       expect(page).not_to have_text "Mr Burns"
     end
   end

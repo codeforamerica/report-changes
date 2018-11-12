@@ -3,6 +3,7 @@ class ChangeReportDecorator < SimpleDelegator
 
   def self.header_attributes
     [
+      "change_type_description",
       "submitted_at",
       "case_number",
       "client_name",
@@ -17,6 +18,18 @@ class ChangeReportDecorator < SimpleDelegator
       "manager_phone_number",
       "manager_additional_information",
       "uploaded_proof",
+      "signature",
+      "first_day",
+      "paid_yet",
+      "first_paycheck",
+      "hourly_wage",
+      "same_hours",
+      "hours_a_week",
+      "paid_how_often",
+      "new_job_notes",
+      "change_date",
+      "change_in_hours_hours_a_week",
+      "change_in_hours_notes",
     ]
   end
 
@@ -118,6 +131,27 @@ class ChangeReportDecorator < SimpleDelegator
 
   def uploaded_new_job_verification
     letters.attached? ? "Yes" : "Neither"
+  end
+
+  def change_type_description
+    case change_type
+    when "job_termination"
+      "Income change: job termination"
+    when "new_job"
+      "Income change: new job"
+    when "change_in_hours"
+      "Income change: change in hours"
+    else
+      ""
+    end
+  end
+
+  def paid_yet
+    change_type_new_job? ? super : ""
+  end
+
+  def same_hours
+    change_type_new_job? ? super : ""
   end
 
   private
