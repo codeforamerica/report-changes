@@ -1,6 +1,24 @@
 require "rails_helper"
 
 RSpec.describe ChangeReportDecorator do
+  describe "#manager_name" do
+    context "when there is a manager_name" do
+      it "returns the name" do
+        change_report = create :change_report, manager_name: "Frances Perkins"
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.manager_name).to eq "Frances Perkins"
+      end
+    end
+
+    context "when there is not a manager_name" do
+      it "returns no response" do
+        change_report = create :change_report, manager_name: nil
+        decorator = ChangeReportDecorator.new(change_report)
+        expect(decorator.manager_name).to eq "no response"
+      end
+    end
+  end
+
   describe "#manager_phone_number" do
     context "when there is a manager_phone_number" do
       it "formats it" do
@@ -11,10 +29,10 @@ RSpec.describe ChangeReportDecorator do
     end
 
     context "when there is not a manager_phone_number" do
-      it "returns nil" do
+      it "returns no response" do
         change_report = create :change_report, manager_phone_number: nil
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.manager_phone_number).to be_nil
+        expect(decorator.manager_phone_number).to eq "no response"
       end
     end
   end
