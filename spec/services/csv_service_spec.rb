@@ -5,7 +5,7 @@ RSpec.describe CsvService do
     3.times do
       create :change_report
     end
-    create :change_report, :with_member, case_number: "1a12345"
+    create :change_report, :new_job, :with_member, case_number: "1a12345"
 
     change_reports = ChangeReport.all.map { |change_report| ChangeReportDecorator.new(change_report) }
     csv = CsvService.new(
@@ -17,7 +17,9 @@ RSpec.describe CsvService do
     expect(parsed_csv.count).to eq 5
     expect(parsed_csv.first).to include "case_number"
     expect(parsed_csv.first).to include "birthday"
+    expect(parsed_csv.first).to include "change_type_description"
     expect(parsed_csv.last).to include "1a12345"
     expect(parsed_csv.last).to include "Quincy Jones"
+    expect(parsed_csv.last).to include "Income change: new job"
   end
 end
