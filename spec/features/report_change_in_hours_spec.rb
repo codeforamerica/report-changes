@@ -25,7 +25,7 @@ RSpec.feature "Reporting a change", :a11y, :js do
       proceed_with "Continue"
 
       expect(page).to have_text "Who had this change?"
-      choose "Myself"
+      choose "Me"
       proceed_with "Continue"
 
       expect(page).to have_text "What is your name?"

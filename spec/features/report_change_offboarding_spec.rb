@@ -32,7 +32,7 @@ RSpec.feature "Report change" do
       click_on "Continue"
 
       expect(page).to have_text "Who had this change?"
-      choose "Myself"
+      choose "Me"
       click_on "Continue"
 
       expect(page).to have_text "What is your name?"
