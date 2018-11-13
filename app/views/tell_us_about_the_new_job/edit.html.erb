@@ -4,9 +4,7 @@
   <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
     <%= f.cfa_input_field :company_name, "What is the name of the company?" %>
 
-    <div class="notice">
-      <p>The following questions are optional, but they'll help the county verify your change. Try to answer them.</p>
-    </div>
+    <div class="notice">The following questions are optional, but they'll help the county verify your change. Try to answer them.</div>
 
     <%= f.cfa_input_field :manager_name,
                           t(self_or_other_member_translation_key(".manager_name"), name: current_change_report.member.first_name),

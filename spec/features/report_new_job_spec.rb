@@ -55,7 +55,7 @@ RSpec.feature "Reporting a change", :a11y, :js do
       fill_in "What is this person's phone number?", with: "999-888-7777"
       proceed_with "Continue"
 
-      expect(page.title).to eq "Tell us more about the new job. | ReportChangesColorado.org"
+      expect(page).to have_text "Tell us more about the new job."
       select "February", from: "form[first_day_month]"
       select "2", from: "form[first_day_day]"
       select "2018", from: "form[first_day_year]"
