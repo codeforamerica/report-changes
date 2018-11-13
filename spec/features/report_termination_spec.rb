@@ -35,12 +35,12 @@ feature "Reporting a change", :a11y, :js do
 
     expect(page).to have_text "Who had this change?"
     choose "Me"
-    click_on "Continue"
+    proceed_with "Continue"
 
     expect(page).to have_text "What is your name?"
     fill_in "What is your first name?", with: "Jane"
     fill_in "What is your last name?", with: "Doe"
-    click_on "Continue"
+    proceed_with "Continue"
 
     expect(page).to have_text "Tell us about yourself."
     fill_in "What is your phone number?", with: "555-222-3333"
@@ -134,12 +134,12 @@ feature "Reporting a change", :a11y, :js do
 
       expect(page).to have_text "Who had this change?"
       choose "Me"
-      click_on "Continue"
+      proceed_with "Continue"
 
       expect(page).to have_text "What is your name?"
       fill_in "What is your first name?", with: "Jane"
       fill_in "What is your last name?", with: "Doe"
-      click_on "Continue"
+      proceed_with "Continue"
 
       expect(page).to have_text "What changed?"
       choose "My job ended or I stopped working"

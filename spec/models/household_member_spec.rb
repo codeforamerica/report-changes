@@ -16,4 +16,13 @@ RSpec.describe HouseholdMember, type: :model do
       end
     end
   end
+
+  describe "#full_name" do
+    context "when first and last name present" do
+      it "returns the first and last name of the member" do
+        member = build(:household_member, first_name: "christa", last_name: "person")
+        expect(member.full_name).to eq("christa person")
+      end
+    end
+  end
 end

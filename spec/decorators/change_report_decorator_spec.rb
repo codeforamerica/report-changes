@@ -96,7 +96,7 @@ RSpec.describe ChangeReportDecorator do
 
   describe "#client_name" do
     context "when there is a member" do
-      it "returns it" do
+      it "returns client full name" do
         change_report = build :change_report
         create :household_member, change_report: change_report, first_name: "Jane", last_name: "Doe"
         decorator = ChangeReportDecorator.new(change_report)
