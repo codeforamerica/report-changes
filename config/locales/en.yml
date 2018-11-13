@@ -132,6 +132,8 @@ en:
       manager_phone_number:
         self: What is their phone number?
         other_member: What is this person's phone number?
+  tell_us_more_about_the_new_job:
+    edit:
       first_day:
         self: What was your first day at work?
         other_member: What was their first day at work?
