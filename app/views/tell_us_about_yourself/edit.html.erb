@@ -6,6 +6,7 @@
     <%= f.cfa_input_field :case_number,
                           t(self_or_other_member_translation_key(".case_number")),
                           help_text: t(self_or_other_member_translation_key(".case_number_help")),
+                          options: { placeholder: "1BXXXXX" },
                           optional: true %>
     <%= f.cfa_input_field :ssn,
                           t(self_or_other_member_translation_key(".ssn")),
