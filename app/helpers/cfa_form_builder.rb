@@ -268,7 +268,6 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     help_text: nil,
     options: {},
     classes: [],
-    placeholder: nil,
     autofocus: nil,
     hide_label: false,
     optional: false
@@ -277,7 +276,6 @@ class CfaFormBuilder < ActionView::Helpers::FormBuilder
     text_options = standard_options.merge(
       autofocus: autofocus,
       class: classes.join(" "),
-      placeholder: placeholder,
     ).merge(options).merge(error_attributes(method: method))
 
     <<~HTML.html_safe
