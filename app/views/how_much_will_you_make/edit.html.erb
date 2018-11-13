@@ -21,7 +21,7 @@
       help_text: "Estimate if you're not sure.",
       options: { start_year: Time.now.year, end_year: Time.now.year - 3 } %>
     <%= f.cfa_input_field :new_job_notes,  t(self_or_other_member_translation_key(".new_job_notes"), name: current_change_report.member.first_name),
-                          help_text: t(self_or_other_member_translation_key(".new_job_notes_help"), name: current_change_report.member.first_name),
+                          help_text: t(self_or_other_member_translation_key(".new_job_notes_help")),
                           optional: true %>
   <% end %>
 <% end %>
