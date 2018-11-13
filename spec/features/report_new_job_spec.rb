@@ -89,7 +89,7 @@ RSpec.feature "Reporting a change", :a11y, :js do
       expect(page).to have_text "image.jpg"
       proceed_with "Continue"
 
-      expect(page).to have_text "Sign your change report"
+      expect(page).to have_text "Sign this change report"
       fill_in "Type your full legal name", with: "Person McPeoples"
       proceed_with "Sign and submit"
 

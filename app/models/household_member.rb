@@ -13,4 +13,8 @@ class HouseholdMember < ActiveRecord::Base
       (time_delta / 1.years).to_int
     end
   end
+
+  def full_name
+    [first_name, last_name].compact.join(" ")
+  end
 end

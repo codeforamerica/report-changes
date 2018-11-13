@@ -223,6 +223,14 @@ en:
       change_in_hours_letter:
         self: A letter from your job saying how many hours you will work and how much you will earn
         other_member: A letter from their job saying how many hours they will work and how much they will earn
+  sign_submit:
+    edit:
+      title:
+        self: Sign your change report.
+        other_member: Sign this change report.
+      submit_agreement:
+        self: By entering your name you agree that you want to submit a change report, and that you have been honest on this report.
+        other_member: "By entering your name you agree that you want to submit a change report on behalf of %{full_name}, and that you have been honest on this report."
   success:
     edit:
       title:
