@@ -1,8 +1,6 @@
 class TellUsMoreAboutTheNewJobForm < Form
   set_attributes_for :change_report, :first_day_year, :first_day_month, :first_day_day, :paid_yet
 
-  set_attributes_for :navigator, :street_address, :city, :zip_code
-
   validates_presence_of :paid_yet, message: "Please answer this question."
   validates :first_day, date: true
 

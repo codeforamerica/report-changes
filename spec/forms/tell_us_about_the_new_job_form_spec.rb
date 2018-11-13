@@ -40,10 +40,10 @@ RSpec.describe TellUsAboutTheNewJobForm do
     end
 
     describe "manager_phone_number" do
-      context "when the manager_phone_number is not included" do
+      context "when the manager_phone_number is a blank string" do
         it "is valid" do
-          form = TellUsAboutTheNewJobForm.new(nil, valid_params.merge(manager_phone_number: nil))
-
+          params = valid_params.merge(manager_phone_number: "")
+          form = TellUsAboutTheNewJobForm.new(nil, params)
           expect(form).to be_valid
         end
       end
@@ -79,6 +79,20 @@ RSpec.describe TellUsAboutTheNewJobForm do
       expect(change_report.company_name).to eq "Abc Corp"
       expect(change_report.manager_name).to eq "Boss McBosser"
       expect(change_report.manager_phone_number).to eq "1112223333"
+    end
+  end
+
+  describe ".from_change_report" do
+    it "assigns values from change report and other objects" do
+      change_report = create(:change_report,
+        :with_navigator,
+        company_name: "Abc Corp",
+        manager_name: "Boss McBosser",
+        manager_phone_number: "1112223333")
+      form = TellUsAboutTheNewJobForm.from_change_report(change_report)
+      expect(form.company_name).to eq("Abc Corp")
+      expect(form.manager_name).to eq("Boss McBosser")
+      expect(form.manager_phone_number).to eq("1112223333")
     end
   end
 end
