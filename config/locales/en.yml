@@ -179,8 +179,8 @@ en:
         self: Is there anything else we should know about your hours or wages at this job?
         other_member: "Is there anything else we should know about %{name}'s hours or wages at this job?"
       new_job_notes_help:
-        self: If your offer letter or paystubs show a different number of hours than you entered above, please explain.
-        other_member: "If %{name}'s offer letter or paystubs show a different number of hours than you entered above, please explain."
+        self: If your paystubs show overtime, a training period, or bonuses, please explain whether they will continue.
+        other_member: If the paystubs show overtime, a training period, or bonuses, please explain whether they will continue.
   tell_us_about_change_in_hours:
     edit:
       title:
