@@ -54,6 +54,9 @@ feature "Reporting a change", :a11y, :js do
     fill_in "What is the name of the company?", with: "Abc Corp"
     fill_in "What is the name of someone from the company who can verify your employment?", with: "My boss"
     fill_in "What is their phone number?", with: "999-888-7777"
+    proceed_with "Continue"
+
+    expect(page).to have_text "Tell us more about the job that ended"
     select "February", from: "form[last_day_month]"
     select "2", from: "form[last_day_day]"
     select "2018", from: "form[last_day_year]"
