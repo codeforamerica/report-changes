@@ -112,6 +112,11 @@ en:
       manager_additional_information:
         self: Is there anything the caseworker should know before they talk to your old employer?
         other_member: "Is there anything the caseworker should know before they talk to %{name}'s old employer?"
+  tell_us_more_about_the_lost_job:
+    edit:
+      title:
+        self: Tell us more about the job that ended.
+        other_member: "Tell us more about %{name}'s job that ended."
       last_paycheck:
         self: What was the date of your final paycheck?
         other_member: What was the date of their final paycheck?

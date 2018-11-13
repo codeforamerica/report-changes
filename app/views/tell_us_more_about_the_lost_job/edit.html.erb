@@ -1,0 +1,19 @@
+<% content_for :card_title, t(self_or_other_member_translation_key(".title"), name: current_change_report.member.first_name) %>
+
+<% content_for :card_body do %>
+  <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+    <%= f.cfa_date_select :last_day,
+                          t(self_or_other_member_translation_key(".last_day")),
+                          help_text: "Estimate if you're not sure.",
+                          options: { start_year: Time.now.year, end_year: Time.now.year - 3 } %>
+    <%= f.cfa_date_select :last_paycheck,
+                          t(self_or_other_member_translation_key(".last_paycheck")),
+                          help_text: "Estimate if you're not sure.",
+                          options: { start_year: Time.now.year, end_year: Time.now.year - 3 } %>
+    <%= f.cfa_input_field :last_paycheck_amount,
+                          t(self_or_other_member_translation_key(".last_paycheck_amount")),
+                          classes: ["form-width--phone"],
+                          prefix: "$",
+                          optional: true %>
+  <% end %>
+<% end %>

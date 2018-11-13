@@ -13,6 +13,7 @@ class FormNavigation
     NotYetSupportedController,
     TellUsAboutYourselfController,
     TellUsAboutTheLostJobController,
+    TellUsMoreAboutTheLostJobController,
     TellUsAboutTheNewJobController,
     TellUsAboutChangeInHoursJobController,
     HowMuchWillYouMakeController,

@@ -5,14 +5,6 @@ RSpec.describe TellUsAboutTheLostJobForm do
     let(:valid_params) do
       {
         company_name: "Abc Corp",
-        manager_name: "Boss McBosserson",
-        manager_phone_number: "111-222-3333",
-        last_day_day: "15",
-        last_day_month: "1",
-        last_day_year: "2000",
-        last_paycheck_day: "28",
-        last_paycheck_month: "2",
-        last_paycheck_year: "2018",
       }
     end
 
@@ -35,189 +27,30 @@ RSpec.describe TellUsAboutTheLostJobForm do
       end
     end
 
-    describe "manager_name" do
-      context "when the manager_name is not included" do
-        it "is invalid" do
-          invalid_params = valid_params.merge(manager_name: nil)
+    describe "manager_phone_number" do
+      context "when correctly formatted manager_phone_number is included" do
+        it "is valid" do
+          invalid_params = valid_params.merge(manager_phone_number: "111-111-1234")
           form = TellUsAboutTheLostJobForm.new(nil, invalid_params)
 
-          expect(form).to_not be_valid
+          expect(form).to be_valid
         end
       end
-    end
 
-    describe "manager_phone_number" do
-      context "when the manager_phone_number is not included" do
-        it "is invalid" do
-          invalid_params = valid_params.merge(manager_phone_number: nil)
-          form = TellUsAboutTheLostJobForm.new(nil, invalid_params)
+      context "when the manager_phone_number is a blank string" do
+        it "is valid" do
+          form = TellUsAboutTheLostJobForm.new(nil, valid_params.merge(manager_phone_number: ""))
 
-          expect(form).to_not be_valid
+          expect(form).to be_valid
         end
       end
 
       context "when the manager_phone_number has less than 10 digits" do
         it "is invalid" do
-          invalid_params = valid_params.merge(manager_phone_number: "111-111-111")
+          invalid_params = valid_params.merge(manager_phone_number: "111-111-123")
           form = TellUsAboutTheLostJobForm.new(nil, invalid_params)
 
           expect(form).to_not be_valid
-        end
-      end
-    end
-
-    describe "last_day" do
-      context "when the last_day is not included" do
-        it "is invalid" do
-          invalid_params = valid_params.merge(
-            last_day_year: nil,
-            last_day_month: nil,
-            last_day_day: nil,
-          )
-          form = TellUsAboutTheLostJobForm.new(nil, invalid_params)
-
-          expect(form).to_not be_valid
-          expect(form.errors[:last_day].count).to eq 1
-          expect(form.errors[:last_day].first).
-            to eq "Please add a month, a day, and a year."
-        end
-      end
-
-      context "when the last_day is not included" do
-        it "is invalid" do
-          invalid_params = valid_params.merge(
-            last_day_year: 2000,
-            last_day_month: 2,
-            last_day_day: nil,
-          )
-          form = TellUsAboutTheLostJobForm.new(nil, invalid_params)
-
-          expect(form).to_not be_valid
-          expect(form.errors[:last_day].count).to eq 1
-          expect(form.errors[:last_day].first).
-            to eq "Please add a day."
-          expect(form.last_day_year).to eq 2000
-        end
-      end
-
-      context "when the last_day is not a valid date" do
-        it "is invalid" do
-          form = TellUsAboutTheLostJobForm.new(nil, last_day_year: 1992, last_day_month: 2, last_day_day: 30)
-
-          expect(form).not_to be_valid
-          expect(form.errors[:last_day].count).to eq 1
-          expect(form.errors[:last_day].first).to eq "Please provide a real date."
-        end
-      end
-    end
-
-    describe "last_paycheck" do
-      context "when the last_paycheck is not included" do
-        it "is invalid" do
-          invalid_params = valid_params.merge(
-            last_paycheck_year: nil,
-            last_paycheck_month: nil,
-            last_paycheck_day: nil,
-          )
-          form = TellUsAboutTheLostJobForm.new(nil, invalid_params)
-
-          expect(form).to_not be_valid
-          expect(form.errors[:last_paycheck].count).to eq 1
-          expect(form.errors[:last_paycheck].first).
-            to eq "Please add a month, a day, and a year."
-        end
-      end
-
-      context "when the last_paycheck is not included" do
-        it "is invalid" do
-          invalid_params = valid_params.merge(
-            last_paycheck_year: 2000,
-            last_paycheck_month: 2,
-            last_paycheck_day: nil,
-          )
-          form = TellUsAboutTheLostJobForm.new(nil, invalid_params)
-
-          expect(form).to_not be_valid
-          expect(form.errors[:last_paycheck].count).to eq 1
-          expect(form.errors[:last_paycheck].first).to eq "Please add a day."
-          expect(form.last_paycheck_year).to eq 2000
-        end
-      end
-
-      context "when the last_paycheck is not a valid date" do
-        it "is invalid" do
-          form = TellUsAboutTheLostJobForm.new(nil,
-            last_paycheck_year: 1992,
-            last_paycheck_month: 2,
-            last_paycheck_day: 30)
-
-          expect(form).not_to be_valid
-          expect(form.errors[:last_paycheck].count).to eq 1
-          expect(form.errors[:last_paycheck].first).to eq "Please provide a real date."
-        end
-      end
-    end
-
-    describe "last_paycheck_amount" do
-      context "when the last_paycheck_amount is nil" do
-        it "is valid" do
-          params = valid_params.merge(
-            last_paycheck_amount: nil,
-          )
-          form = TellUsAboutTheLostJobForm.new(nil, params)
-
-          expect(form).to be_valid
-          expect(form.last_paycheck_amount).to be_nil
-        end
-      end
-
-      context "when the last_paycheck_amount is blank" do
-        it "is valid" do
-          params = valid_params.merge(
-            last_paycheck_amount: "",
-          )
-          form = TellUsAboutTheLostJobForm.new(nil, params)
-
-          expect(form).to be_valid
-          expect(form.last_paycheck_amount).to eq ""
-        end
-      end
-
-      context "when the last_paycheck_amount is included and is a money shaped decimal" do
-        it "is valid" do
-          params = valid_params.merge(
-            last_paycheck_amount: "127.14",
-          )
-          form = TellUsAboutTheLostJobForm.new(nil, params)
-
-          expect(form).to be_valid
-          expect(form.last_paycheck_amount).to eq "127.14"
-        end
-      end
-
-      context "when the last_paycheck_amount is included and contains non-numeric (or , or .) characters" do
-        it "is valid" do
-          params = valid_params.merge(
-            last_paycheck_amount: "abc",
-          )
-          form = TellUsAboutTheLostJobForm.new(nil, params)
-
-          expect(form).not_to be_valid
-          expect(form.errors[:last_paycheck_amount].count).to eq 1
-          expect(form.errors[:last_paycheck_amount].first).to eq "Please add a number."
-        end
-      end
-
-      context "when the last_paycheck_amount is too long" do
-        it "is valid" do
-          params = valid_params.merge(
-            last_paycheck_amount: "100,000",
-          )
-          form = TellUsAboutTheLostJobForm.new(nil, params)
-
-          expect(form).not_to be_valid
-          expect(form.errors[:last_paycheck_amount].count).to eq 1
-          expect(form.errors[:last_paycheck_amount].first).to eq "Please add a number."
         end
       end
     end
@@ -230,13 +63,7 @@ RSpec.describe TellUsAboutTheLostJobForm do
         company_name: "Abc Corp",
         manager_name: "Boss McBosser",
         manager_phone_number: "111-222-3333",
-        last_day_day: "15",
-        last_day_month: "1",
-        last_day_year: "2000",
-        last_paycheck_day: "28",
-        last_paycheck_month: "2",
-        last_paycheck_year: "2018",
-        last_paycheck_amount: "1,127.143",
+        manager_additional_information: "They're my boss",
       }
     end
 
@@ -251,13 +78,7 @@ RSpec.describe TellUsAboutTheLostJobForm do
         expect(change_report.company_name).to eq "Abc Corp"
         expect(change_report.manager_name).to eq "Boss McBosser"
         expect(change_report.manager_phone_number).to eq "1112223333"
-        expect(change_report.last_day.year).to eq 2000
-        expect(change_report.last_day.month).to eq 1
-        expect(change_report.last_day.day).to eq 15
-        expect(change_report.last_paycheck.year).to eq 2018
-        expect(change_report.last_paycheck.month).to eq 2
-        expect(change_report.last_paycheck.day).to eq 28
-        expect(change_report.last_paycheck_amount).to eq 1127.14
+        expect(change_report.manager_additional_information).to eq "They're my boss"
       end
     end
   end
@@ -269,20 +90,14 @@ RSpec.describe TellUsAboutTheLostJobForm do
         company_name: "Abc Corp",
         manager_name: "Boss McBosser",
         manager_phone_number: "1112223333",
-        last_day: DateTime.new(2000, 1, 15),
-        last_paycheck: DateTime.new(2018, 2, 28))
+        manager_additional_information: "They're my boss")
 
       form = TellUsAboutTheLostJobForm.from_change_report(change_report)
 
       expect(form.company_name).to eq("Abc Corp")
       expect(form.manager_name).to eq("Boss McBosser")
       expect(form.manager_phone_number).to eq("1112223333")
-      expect(form.last_day_year).to eq(2000)
-      expect(form.last_day_month).to eq(1)
-      expect(form.last_day_day).to eq(15)
-      expect(form.last_paycheck_year).to eq(2018)
-      expect(form.last_paycheck_month).to eq(2)
-      expect(form.last_paycheck_day).to eq(28)
+      expect(form.manager_additional_information).to eq("They're my boss")
     end
   end
 end
