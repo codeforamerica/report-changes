@@ -2,20 +2,20 @@
 
  RSpec.describe DoYouHaveALetterForm do
    describe "validations" do
-     context "when has_termination_letter is provided" do
+     context "when has_documents is provided" do
        it "is valid" do
-         form = DoYouHaveALetterForm.new(nil, has_termination_letter: "yes")
+         form = DoYouHaveALetterForm.new(nil, has_documents: "yes")
 
          expect(form).to be_valid
        end
      end
 
-     context "when has_termination_letter is not provided" do
+     context "when has_documents is not provided" do
        it "is invalid" do
-         form = DoYouHaveALetterForm.new(nil, has_termination_letter: nil)
+         form = DoYouHaveALetterForm.new(nil, has_documents: nil)
 
          expect(form).not_to be_valid
-         expect(form.errors[:has_termination_letter]).to be_present
+         expect(form.errors[:has_documents]).to be_present
        end
      end
    end
@@ -25,7 +25,7 @@
 
      let(:valid_params) do
        {
-         has_termination_letter: "yes",
+         has_documents: "yes",
        }
      end
 
@@ -36,17 +36,17 @@
 
        change_report.reload
 
-       expect(change_report.navigator.has_termination_letter_yes?).to be_truthy
+       expect(change_report.navigator.has_documents_yes?).to be_truthy
      end
    end
 
    describe ".from_change_report" do
      it "assigns values from change report navigator" do
-       change_report = create(:change_report, navigator: build(:change_report_navigator, has_termination_letter: "yes"))
+       change_report = create(:change_report, navigator: build(:change_report_navigator, has_documents: "yes"))
 
        form = DoYouHaveALetterForm.from_change_report(change_report)
 
-       expect(form.has_termination_letter).to eq("yes")
+       expect(form.has_documents).to eq("yes")
      end
    end
  end

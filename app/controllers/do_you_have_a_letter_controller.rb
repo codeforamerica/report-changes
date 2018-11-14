@@ -1,2 +1,1 @@
-class DoYouHaveALetterController < FormsController
-end
+class DoYouHaveALetterController < FormsController; end

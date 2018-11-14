@@ -1,7 +1,7 @@
 class DoYouHaveALetterForm < Form
-  set_attributes_for :navigator, :has_termination_letter
+  set_attributes_for :navigator, :has_documents
 
-  validates_presence_of :has_termination_letter, message: "Please answer this question."
+  validates_presence_of :has_documents, message: "Please answer this question."
 
   def save
     change_report.navigator.update(attributes_for(:navigator))

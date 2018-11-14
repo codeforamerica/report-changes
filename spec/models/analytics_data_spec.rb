@@ -15,9 +15,7 @@ RSpec.describe AnalyticsData do
     it "returns basic information" do
       navigator = instance_double(ChangeReportNavigator,
                                   county_from_address: "Littleland",
-                                  has_offer_letter: "yes",
-                                  has_paystub: "yes",
-                                  has_termination_letter: "yes",
+                                  has_documents: "yes",
                                   selected_county_location: "arapahoe",
                                   source: "Land of Ooo")
 
@@ -42,9 +40,7 @@ RSpec.describe AnalyticsData do
       expect(data.fetch(:consent_to_sms)).to eq("yes")
       expect(data.fetch(:county_from_address)).to eq("Littleland")
       expect(data.fetch(:feedback_rating)).to eq("positive")
-      expect(data.fetch(:has_offer_letter)).to eq("yes")
-      expect(data.fetch(:has_paystub)).to eq("yes")
-      expect(data.fetch(:has_termination_letter)).to eq("yes")
+      expect(data.fetch(:has_documents)).to eq("yes")
       expect(data.fetch(:is_self_employed)).to eq("no")
       expect(data.fetch(:paid_how_often)).to eq("monthly")
       expect(data.fetch(:paid_yet)).to eq("no")
