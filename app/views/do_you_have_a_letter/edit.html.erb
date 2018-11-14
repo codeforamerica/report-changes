@@ -1,13 +1,13 @@
-<% content_for :card_title, "Do you have a letter or final paycheck?" %>
+<% content_for :card_title, "Do you have a letter or paystubs?" %>
 
 <% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
         <%= f.cfa_radio_set :has_termination_letter,
-                            label_text: "Do you have a letter or final paycheck?",
+                            label_text: "Do you have a letter or paystubs?",
                             legend_class: "sr-only",
                             collection: [
-                              { value: :yes, label: "Yes, I have this with me" },
-                              { value: :no, label: "No, I don't have this" },
+                              { value: :yes, label: "Yes" },
+                              { value: :no, label: "No" },
                             ] %>
     <% end %>
 <% end %>

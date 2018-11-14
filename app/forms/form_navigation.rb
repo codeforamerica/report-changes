@@ -21,7 +21,6 @@ class FormNavigation
     TellUsAboutChangeInHoursController,
     ProofInfoController,
     DoYouHaveALetterController,
-    WhatKindOfProofController,
     AddLetterController,
     TextMessageConsentController,
     SignSubmitController,

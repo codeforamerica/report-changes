@@ -75,16 +75,13 @@ RSpec.feature "Reporting a change", :a11y, :js do
       proceed_with "Continue"
 
       expect(page).to have_text "Do you have proof of this change?"
-      expect(page).to have_text "Paystubs showing their pre-tax earnings"
       proceed_with "Continue"
 
-      expect(page).to have_text "What do you have?"
-      check "I have an offer letter"
-      check "I have paystubs"
+      expect(page).to have_text "Do you have a letter or paystubs?"
+      choose "Yes"
       proceed_with "Continue"
 
-      expect(page).to have_text "Add the offer letter and paystubs."
-
+      expect(page).to have_text "Add the letter or paystubs."
       page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
       expect(page).to have_text "image.jpg"
       proceed_with "Continue"
