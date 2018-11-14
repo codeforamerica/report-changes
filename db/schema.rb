@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_12_235931) do
+ActiveRecord::Schema.define(version: 2018_11_14_213858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,10 +70,7 @@ ActiveRecord::Schema.define(version: 2018_11_12_235931) do
     t.string "city"
     t.string "county_from_address"
     t.datetime "created_at", null: false
-    t.integer "has_change_in_hours_letter", default: 0
-    t.integer "has_offer_letter", default: 0
-    t.integer "has_paystub", default: 0
-    t.integer "has_termination_letter", default: 0
+    t.integer "has_documents", default: 0
     t.integer "selected_county_location", default: 0
     t.string "source"
     t.string "street_address"

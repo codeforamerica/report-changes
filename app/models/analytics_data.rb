@@ -36,7 +36,7 @@ class AnalyticsData
       county_from_address: navigator.try(:county_from_address),
       has_offer_letter: navigator.try(:has_offer_letter),
       has_paystub: navigator.try(:has_paystub),
-      has_termination_letter: navigator.try(:has_termination_letter),
+      has_documents: navigator.try(:has_documents),
       selected_county_location: navigator.try(:selected_county_location),
       source: navigator.try(:source),
     }

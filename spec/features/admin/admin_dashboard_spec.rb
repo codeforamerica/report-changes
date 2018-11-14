@@ -28,7 +28,7 @@ RSpec.feature "Admin viewing dashboard" do
     context "with verifications" do
       scenario "viewing the pdf" do
         change_report = build(:change_report, :job_termination, :with_letter,
-                              navigator: build(:change_report_navigator, has_termination_letter: "yes"))
+                              navigator: build(:change_report_navigator, has_documents: "yes"))
         create(:household_member,
                first_name: "Todd",
                last_name: "Chavez",
