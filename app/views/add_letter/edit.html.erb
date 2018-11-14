@@ -1,19 +1,4 @@
-<% if current_change_report.navigator.documents_to_upload == :termination_letter %>
-  <% content_for :card_title, "Add the letter or final paycheck." %>
-<% elsif current_change_report.navigator.documents_to_upload == :offer_letter %>
-  <% content_for :card_title, "Add the offer letter." %>
-<% elsif current_change_report.navigator.documents_to_upload == :paystub %>
-  <% content_for :card_title, "Add the paystubs." %>
-  <% content_for :card_help, "It’s helpful to include 2 to 3 paystubs if you have them." %>
-<% elsif current_change_report.navigator.documents_to_upload == :offer_letter_and_paystub %>
-  <% content_for :card_title, "Add the offer letter and paystubs." %>
-  <% content_for :card_help, "It’s helpful to include 2 to 3 paystubs if you have them." %>
-<% elsif current_change_report.navigator.documents_to_upload == :change_in_hours_letter %>
-  <% content_for :card_title, "Add the letter." %>
-<% elsif current_change_report.navigator.documents_to_upload == :change_in_hours_letter_and_paystub %>
-  <% content_for :card_title, "Add the letter and paystubs." %>
-  <% content_for :card_help, "It’s helpful to include 2 to 3 paystubs if you have them." %>
-<% end %>
+<% content_for :card_title, "Add the letter or paystubs." %>
 
 <% content_for :card_body do %>
     <%= fields_for(:form, @form) do |f| %>
