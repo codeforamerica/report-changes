@@ -22,12 +22,15 @@ RSpec.describe AnalyticsData do
 
       member = instance_double(HouseholdMember, age: 22)
 
+      metadata = instance_double(ChangeReportMetadata,
+                                 consent_to_sms: "yes",
+                                 feedback_rating: "positive")
+
       allow(mock_change_report).to receive_messages(
         navigator: navigator,
         member: member,
+        metadata: metadata,
         change_type: "new_job",
-        consent_to_sms: "yes",
-        feedback_rating: "positive",
         paid_how_often: "monthly",
         paid_yet: "no",
         submitted_at: DateTime.new(2018, 1, 2),

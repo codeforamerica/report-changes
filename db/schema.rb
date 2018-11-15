@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_14_225439) do
+ActiveRecord::Schema.define(version: 2018_11_15_191953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,16 @@ ActiveRecord::Schema.define(version: 2018_11_14_225439) do
     t.index ["otp_challenge_expires"], name: "index_admin_users_on_otp_challenge_expires"
     t.index ["otp_session_challenge"], name: "index_admin_users_on_otp_session_challenge", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "change_report_metadata", force: :cascade do |t|
+    t.bigint "change_report_id"
+    t.integer "consent_to_sms", default: 0
+    t.datetime "created_at", null: false
+    t.text "feedback_comments"
+    t.integer "feedback_rating", default: 0
+    t.datetime "updated_at", null: false
+    t.index ["change_report_id"], name: "index_change_report_metadata_on_change_report_id"
   end
 
   create_table "change_report_navigators", force: :cascade do |t|

@@ -4,7 +4,7 @@ class AnalyticsData
   end
 
   def to_h
-    hash = change_report_data.merge(navigator_data).merge(member_data)
+    hash = change_report_data.merge(navigator_data).merge(member_data).merge(metadata_data)
     hash.transform_values { |v| unfilled_to_nil(v) }
   end
 
@@ -15,12 +15,10 @@ class AnalyticsData
   def change_report_data
     {
       change_type: change_report.change_type,
-      consent_to_sms: change_report.consent_to_sms,
       days_since_first_day_to_submission: days_since_submission(change_report.first_day),
       days_since_first_paycheck_to_submission: days_since_submission(change_report.first_paycheck),
       days_since_last_day_to_submission: days_since_submission(change_report.last_day),
       days_since_last_paycheck_to_submission: days_since_submission(change_report.last_paycheck),
-      feedback_rating: change_report.feedback_rating,
       paid_how_often: change_report.paid_how_often,
       paid_yet: change_report.paid_yet,
       same_hours: change_report.same_hours,
@@ -46,6 +44,14 @@ class AnalyticsData
     member = change_report.member
     {
       age: member.try(:age),
+    }
+  end
+
+  def metadata_data
+    metadata = change_report.metadata
+    {
+      consent_to_sms: metadata.try(:consent_to_sms),
+      feedback_rating: metadata.try(:feedback_rating),
     }
   end
 

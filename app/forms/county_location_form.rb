@@ -11,6 +11,7 @@ class CountyLocationForm < Form
       while_feature_flag_set_default_type
 
       change_report.create_navigator
+      change_report.create_metadata
     end
 
     change_report.navigator.update(attributes_for(:navigator))

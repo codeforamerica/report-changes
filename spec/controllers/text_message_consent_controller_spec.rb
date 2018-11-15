@@ -28,7 +28,7 @@ RSpec.describe TextMessageConsentController do
 
   describe "edit" do
     it "assigns existing attributes" do
-      current_change_report = create(:change_report, consent_to_sms: "yes")
+      current_change_report = create(:change_report, :with_metadata, consent_to_sms: "yes")
       session[:current_change_report_id] = current_change_report.id
 
       get :edit

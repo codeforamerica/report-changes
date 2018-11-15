@@ -12,14 +12,10 @@ class ChangeReportDashboard < Administrate::BaseDashboard
     case_number: Field::String,
     change_type: Field::Enum,
     company_name: Field::String,
-    consent_to_sms: Field::Enum.with_options(searchable: false),
     created_at: Field::DateTime,
-    feedback_comments: Field::Text,
-    feedback_rating: Field::Enum,
     first_day: Field::DateTime,
     first_paycheck: Field::DateTime,
     hourly_wage: Field::String,
-    is_self_employed: Field::Enum,
     last_day: Field::DateTime,
     last_paycheck: Field::DateTime,
     last_paycheck_amount: Field::Number,
@@ -64,13 +60,10 @@ class ChangeReportDashboard < Administrate::BaseDashboard
     case_number
     signature
     phone_number
-    consent_to_sms
     company_name
     manager_name
     manager_phone_number
     manager_additional_information
-    feedback_rating
-    feedback_comments
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -83,9 +76,6 @@ class ChangeReportDashboard < Administrate::BaseDashboard
     company_name
     last_day
     last_paycheck
-    consent_to_sms
-    feedback_rating
-    feedback_comments
     manager_name
     manager_phone_number
     manager_additional_information
