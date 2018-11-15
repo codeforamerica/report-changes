@@ -92,9 +92,7 @@
     <p class="label">
       Additional info about hours and wages
     </p>
-    <span class="value">
-      <%= @change_report.new_job_notes %>
-    </span>
+    <%= render partial: 'change_reports/value_or_no_response', locals: { value: @change_report.new_job_notes } %>
   </div>
 </div>
 
