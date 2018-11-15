@@ -85,8 +85,8 @@ class ChangeReportDecorator < SimpleDelegator
     letters.attached? ? "yes" : "no"
   end
 
-  def termination_verification
-    navigator.has_documents_yes? ? "See attached" : "Client does not have this"
+  def uploaded_proof_words_for_pdf
+    letters.attached? ? "See attached" : "Client does not have this"
   end
 
   def last_paycheck_amount
@@ -127,10 +127,6 @@ class ChangeReportDecorator < SimpleDelegator
     else
       lower_hours_a_week_amount
     end
-  end
-
-  def uploaded_new_job_verification
-    letters.attached? ? "Yes" : "Neither"
   end
 
   def change_type_description
