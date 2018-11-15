@@ -52,15 +52,8 @@ class FormsController < ApplicationController
     end
   end
 
-  def self_or_member
-    {
-      count: current_change_report.submitting_for_other_household_member? ? 1 : 0,
-      name: current_change_report.member&.first_name,
-    }
-  end
-
   def self_or_other_member_translation_key(key)
-    current_change_report.submitting_for_other_household_member? ? "#{key}.other_member" : "#{key}.self"
+    current_change_report.navigator.submitting_for_other_household_member? ? "#{key}.other_member" : "#{key}.self"
   end
 
   private

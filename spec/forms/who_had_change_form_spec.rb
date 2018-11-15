@@ -34,20 +34,21 @@ RSpec.describe WhoHadChangeForm do
     end
 
     it "persists the values to the correct models" do
-      change_report = create(:change_report)
+      change_report = create(:change_report, :with_navigator)
       form = WhoHadChangeForm.new(change_report, valid_params)
       form.valid?
       form.save
 
       change_report.reload
 
-      expect(change_report.submitting_for).to eq("self")
+      expect(change_report.navigator.submitting_for).to eq("self")
     end
   end
 
   describe ".from_change_report" do
     it "assigns values from change report" do
-      change_report = create(:change_report, submitting_for: "self")
+      navigator = build(:change_report_navigator, submitting_for: "self")
+      change_report = create(:change_report, navigator: navigator)
 
       form = WhoHadChangeForm.from_change_report(change_report)
 

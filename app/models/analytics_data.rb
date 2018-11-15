@@ -21,7 +21,6 @@ class AnalyticsData
       days_since_last_day_to_submission: days_since_submission(change_report.last_day),
       days_since_last_paycheck_to_submission: days_since_submission(change_report.last_paycheck),
       feedback_rating: change_report.feedback_rating,
-      is_self_employed: change_report.is_self_employed,
       paid_how_often: change_report.paid_how_often,
       paid_yet: change_report.paid_yet,
       same_hours: change_report.same_hours,
@@ -38,6 +37,7 @@ class AnalyticsData
       has_paystub: navigator.try(:has_paystub),
       has_documents: navigator.try(:has_documents),
       selected_county_location: navigator.try(:selected_county_location),
+      is_self_employed: navigator.try(:is_self_employed),
       source: navigator.try(:source),
     }
   end

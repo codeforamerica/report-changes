@@ -17,6 +17,7 @@ RSpec.describe AnalyticsData do
                                   county_from_address: "Littleland",
                                   has_documents: "yes",
                                   selected_county_location: "arapahoe",
+                                  is_self_employed: "no",
                                   source: "Land of Ooo")
 
       member = instance_double(HouseholdMember, age: 22)
@@ -27,7 +28,6 @@ RSpec.describe AnalyticsData do
         change_type: "new_job",
         consent_to_sms: "yes",
         feedback_rating: "positive",
-        is_self_employed: "no",
         paid_how_often: "monthly",
         paid_yet: "no",
         submitted_at: DateTime.new(2018, 1, 2),

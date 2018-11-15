@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_14_213858) do
+ActiveRecord::Schema.define(version: 2018_11_14_225439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,9 +71,11 @@ ActiveRecord::Schema.define(version: 2018_11_14_213858) do
     t.string "county_from_address"
     t.datetime "created_at", null: false
     t.integer "has_documents", default: 0
+    t.integer "is_self_employed", default: 0
     t.integer "selected_county_location", default: 0
     t.string "source"
     t.string "street_address"
+    t.integer "submitting_for", default: 0
     t.datetime "updated_at", null: false
     t.string "zip_code"
     t.index ["change_report_id"], name: "index_change_report_navigators_on_change_report_id"
