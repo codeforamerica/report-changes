@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_15_191953) do
+ActiveRecord::Schema.define(version: 2018_11_15_223104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,14 +97,10 @@ ActiveRecord::Schema.define(version: 2018_11_15_191953) do
     t.text "change_in_hours_notes"
     t.integer "change_type", default: 0
     t.string "company_name"
-    t.integer "consent_to_sms", default: 0
     t.datetime "created_at", null: false
-    t.text "feedback_comments"
-    t.integer "feedback_rating", default: 0
     t.datetime "first_day"
     t.datetime "first_paycheck"
     t.string "hourly_wage"
-    t.integer "is_self_employed", default: 0
     t.datetime "last_day"
     t.datetime "last_paycheck"
     t.decimal "last_paycheck_amount", precision: 8, scale: 2
@@ -120,7 +116,6 @@ ActiveRecord::Schema.define(version: 2018_11_15_191953) do
     t.string "same_hours_a_week_amount"
     t.string "signature"
     t.datetime "submitted_at"
-    t.integer "submitting_for", default: 0
     t.datetime "updated_at", null: false
     t.string "upper_hours_a_week_amount"
   end
