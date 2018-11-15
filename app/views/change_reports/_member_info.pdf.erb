@@ -44,18 +44,14 @@
     <p class="label">
       Social Security Number
     </p>
-    <span class="value">
-        <%= @change_report.ssn %>
-      </span>
+    <%= render partial: 'change_reports/value_or_no_response', locals: { value: @change_report.ssn } %>
   </div>
 
   <div class="column one-of-four">
     <p class="label">
       Case Number
     </p>
-    <span class="value">
-        <%= @change_report.case_number %>
-      </span>
+    <%= render partial: 'change_reports/value_or_no_response', locals: { value: @change_report.case_number } %>
   </div>
 
   <div class="column one-of-four">

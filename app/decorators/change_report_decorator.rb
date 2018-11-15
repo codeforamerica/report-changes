@@ -33,24 +33,12 @@ class ChangeReportDecorator < SimpleDelegator
     ]
   end
 
-  def manager_name
-    super.present? ? super : "no response"
-  end
-
   def manager_phone_number
-    if super.present?
-      format_phone_number(super)
-    else
-      "no response"
-    end
+    format_phone_number(super) if super.present?
   end
 
   def ssn
-    if member&.ssn.present?
-      "#{member.ssn[0..2]}-#{member.ssn[3..4]}-#{member.ssn[5..8]}"
-    else
-      "no response"
-    end
+    "#{member.ssn[0..2]}-#{member.ssn[3..4]}-#{member.ssn[5..8]}" if member&.ssn.present?
   end
 
   def submitted_at
@@ -77,10 +65,6 @@ class ChangeReportDecorator < SimpleDelegator
     format_phone_number(phone_number)
   end
 
-  def case_number
-    super.present? ? super : "no response"
-  end
-
   def uploaded_proof
     letters.attached? ? "yes" : "no"
   end
@@ -90,11 +74,7 @@ class ChangeReportDecorator < SimpleDelegator
   end
 
   def last_paycheck_amount
-    if super.present?
-      number_to_currency(super)
-    else
-      "no response"
-    end
+    number_to_currency(super) if super.present?
   end
 
   def first_day
