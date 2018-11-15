@@ -11,7 +11,7 @@
 
   <hr />
 
-  <% if @form.change_report.has_feedback? %>
+  <% if current_change_report.metadata.has_feedback? %>
     <div class="center">
       <div class="emoji emoji--big emoji--blush"></div>
       <h3>Thanks for your feedback! It will help improve this service.</h3>

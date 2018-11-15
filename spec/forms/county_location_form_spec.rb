@@ -45,7 +45,7 @@ RSpec.describe CountyLocationForm do
     end
 
     context "when there is no change report yet" do
-      it "creates the change report and navigator" do
+      it "creates the change report and navigator and metadata" do
         form = CountyLocationForm.new(nil, valid_params)
         form.valid?
 
@@ -54,6 +54,7 @@ RSpec.describe CountyLocationForm do
         end.to(change { ChangeReport.count }.from(0).to(1))
 
         expect(ChangeReport.last.navigator.selected_county_location_arapahoe?).to eq(true)
+        expect(ChangeReport.last.metadata).to_not be_nil
       end
     end
 

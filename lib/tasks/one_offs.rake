@@ -9,6 +9,15 @@ namespace :one_offs do
           submitting_for: change_report.submitting_for,
         )
       end
+
+      unless change_report.metadata.present?
+        change_report.create_metadata
+      end
+      change_report.metadata.update!(
+        consent_to_sms: change_report.consent_to_sms,
+        feedback_comments: change_report.feedback_comments,
+        feedback_rating: change_report.feedback_rating,
+      )
     end
   end
 end

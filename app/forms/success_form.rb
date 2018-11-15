@@ -1,5 +1,5 @@
 class SuccessForm < Form
-  set_attributes_for :change_report, :feedback_rating, :feedback_comments
+  set_attributes_for :metadata, :feedback_rating, :feedback_comments
 
   validate :feedback_entered
 
@@ -10,6 +10,6 @@ class SuccessForm < Form
   end
 
   def save
-    change_report.update(attributes_for(:change_report))
+    change_report.metadata.update(attributes_for(:metadata))
   end
 end
