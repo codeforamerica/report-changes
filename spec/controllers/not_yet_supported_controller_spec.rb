@@ -38,8 +38,8 @@ RSpec.describe NotYetSupportedController do
 
     context "when a client is self-employed" do
       it "returns true" do
-        navigator = build(:change_report_navigator, selected_county_location: :arapahoe)
-        change_report = create(:change_report, navigator: navigator, is_self_employed: "yes")
+        navigator = build(:change_report_navigator, selected_county_location: :arapahoe, is_self_employed: "yes")
+        change_report = create(:change_report, navigator: navigator)
 
         show_form = NotYetSupportedController.show?(change_report)
 
@@ -49,8 +49,8 @@ RSpec.describe NotYetSupportedController do
 
     context "when a client is not self-employed" do
       it "returns false" do
-        navigator = build(:change_report_navigator, selected_county_location: :arapahoe)
-        change_report = create(:change_report, navigator: navigator, is_self_employed: "no")
+        navigator = build(:change_report_navigator, selected_county_location: :arapahoe, is_self_employed: "no")
+        change_report = create(:change_report, navigator: navigator)
         show_form = NotYetSupportedController.show?(change_report)
 
         expect(show_form).to be_falsey

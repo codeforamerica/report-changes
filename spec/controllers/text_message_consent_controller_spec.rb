@@ -7,7 +7,8 @@ RSpec.describe TextMessageConsentController do
   describe "show?" do
     context "when client is submitting on behalf of someone" do
       it "returns false" do
-        change_report = create(:change_report, submitting_for: "other_household_member")
+        navigator = build(:change_report_navigator, submitting_for: "other_household_member")
+        change_report = create(:change_report, navigator: navigator)
 
         show_form = TextMessageConsentController.show?(change_report)
         expect(show_form).to eq(false)
@@ -16,7 +17,8 @@ RSpec.describe TextMessageConsentController do
 
     context "when client is submitting for themselves" do
       it "returns true" do
-        change_report = create(:change_report, submitting_for: "self")
+        navigator = build(:change_report_navigator, submitting_for: "self")
+        change_report = create(:change_report, navigator: navigator)
 
         show_form = TextMessageConsentController.show?(change_report)
         expect(show_form).to eq(true)
