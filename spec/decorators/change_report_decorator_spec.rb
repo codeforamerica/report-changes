@@ -232,22 +232,20 @@ RSpec.describe ChangeReportDecorator do
     end
   end
 
-  describe "#termination_verification" do
+  describe "#uploaded_proof_words_for_pdf" do
     context "when the client has one" do
       it "returns See attached" do
-        navigator = build :change_report_navigator, has_documents: "yes"
-        change_report = create :change_report, navigator: navigator
+        change_report = create :change_report, :with_letter
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.termination_verification).to eq "See attached"
+        expect(decorator.uploaded_proof_words_for_pdf).to eq "See attached"
       end
     end
 
     context "when the client does not have one" do
       it "returns Client does not have this" do
-        navigator = build :change_report_navigator, has_documents: "no"
-        change_report = create :change_report, navigator: navigator
+        change_report = create :change_report
         decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.termination_verification).to eq "Client does not have this"
+        expect(decorator.uploaded_proof_words_for_pdf).to eq "Client does not have this"
       end
     end
   end
@@ -369,24 +367,6 @@ RSpec.describe ChangeReportDecorator do
         change_report = create :change_report, lower_hours_a_week_amount: "5", upper_hours_a_week_amount: "15"
         decorator = ChangeReportDecorator.new(change_report)
         expect(decorator.change_in_hours_hours_a_week).to eq "5-15"
-      end
-    end
-  end
-
-  describe "#uploaded_new_job_verification" do
-    context "when the client uploaded documents" do
-      it "returns 'Yes'" do
-        change_report = create :change_report, :with_letter
-        decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.uploaded_new_job_verification).to eq "Yes"
-      end
-    end
-
-    context "when the client did not upload documents" do
-      it "returns 'Neither'" do
-        change_report = create :change_report
-        decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.uploaded_new_job_verification).to eq "Neither"
       end
     end
   end
