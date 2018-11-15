@@ -48,6 +48,14 @@ RSpec.describe TellUsAboutChangeInHoursJobForm do
         end
       end
 
+      context "when the manager_phone_number is an empty string" do
+        it "is valid" do
+          form = TellUsAboutChangeInHoursJobForm.new(nil, valid_params.merge(manager_phone_number: ""))
+
+          expect(form).to be_valid
+        end
+      end
+
       context "when the manager_phone_number has less than 10 digits" do
         it "is invalid" do
           invalid_params = valid_params.merge(manager_phone_number: "111-111-111")
