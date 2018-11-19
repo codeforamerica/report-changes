@@ -2,7 +2,7 @@
 <% content_for :card_help, "No P.O. boxes, please. This information is just to find which county your home is in." %>
 
 <% content_for :card_body do %>
-  <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+  <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
     <%= f.cfa_input_field :street_address, "Street address" %>
     <%= f.cfa_input_field :city, "City", classes: ["form-width--long"] %>
     <%= f.cfa_input_field :zip_code, "Zip code", classes: ["form-width--zip"] %>

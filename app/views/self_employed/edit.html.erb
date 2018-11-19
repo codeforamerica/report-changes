@@ -8,7 +8,7 @@
     <span class="example">Uber/Lyft drivers</span>
     <span class="example">Day care providers</span>
   </p>
-  <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+  <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
   <%= f.cfa_radio_set :is_self_employed,
     label_text: t(self_or_other_member_translation_key(".title")),
     legend_class: "sr-only",

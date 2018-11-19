@@ -20,7 +20,7 @@
     <div id="feedback-form" class="center">
       <div class="feedback-survey__form">
         <%= form_with url: current_path, method: :put, local: true %>
-          <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+          <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
             <%= f.cfa_radio_set :feedback_rating,
               label_text: "<h3>How was your experience with this tool?</h3>",
               collection: [

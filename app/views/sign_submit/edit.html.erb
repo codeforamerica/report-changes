@@ -3,7 +3,7 @@
 <% content_for :card_body do %>
     <p><%= t(self_or_other_member_translation_key(".submit_agreement"), full_name: current_change_report.member.full_name) %></p>
 
-    <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+    <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
       <%= f.cfa_input_field :signature, "Type your full legal name" %>
     <% end %>
 <% end %>
