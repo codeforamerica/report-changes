@@ -63,9 +63,6 @@ RSpec.feature "Reporting a change", :a11y, :js do
       fill_in "Is there anything else we should know about your hours or wages at this job?", with: "Not really"
       proceed_with "Continue"
 
-      expect(page).to have_text "Do you have proof of this change?"
-      proceed_with "Continue"
-
       expect(page).to have_text "Do you have a letter or paystubs?"
       choose "Yes"
       proceed_with "Continue"

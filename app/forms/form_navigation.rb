@@ -19,7 +19,6 @@ class FormNavigation
     TellUsAboutChangeInHoursJobController,
     HowMuchWillYouMakeController,
     TellUsAboutChangeInHoursController,
-    ProofInfoController,
     DoYouHaveALetterController,
     AddLetterController,
     TextMessageConsentController,

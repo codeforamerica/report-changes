@@ -66,10 +66,6 @@ feature "Reporting a change", :a11y, :js do
     fill_in "What was the amount of your final paystub, pre-tax?", with: "127.14"
     proceed_with "Continue"
 
-    expect(page).to have_text "Do you have proof of this change?"
-    expect(page).to have_text "A letter from your old employer"
-    proceed_with "Continue"
-
     expect(page).to have_text "Do you have a letter or paystubs?"
     choose "Yes"
     proceed_with "Continue"
