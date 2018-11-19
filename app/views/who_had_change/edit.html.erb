@@ -1,7 +1,7 @@
 <% content_for :card_title, "Who had this change?" %>
 
 <% content_for :card_body do %>
-    <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+    <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
       <%= f.cfa_radio_set :submitting_for,
                           label_text: "Who had this change?",
                           legend_class: "sr-only",

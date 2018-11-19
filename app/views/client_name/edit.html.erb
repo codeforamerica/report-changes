@@ -1,7 +1,7 @@
 <% content_for :card_title, t(self_or_other_member_translation_key(".title")) %>
 
 <% content_for :card_body do %>
-    <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+    <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
       <%= f.cfa_input_field :first_name, t(self_or_other_member_translation_key(".first_name")), help_text: t(self_or_other_member_translation_key(".name_help")) %>
       <%= f.cfa_input_field :last_name, t(self_or_other_member_translation_key(".last_name")), help_text: t(self_or_other_member_translation_key(".name_help")) %>
     <% end %>

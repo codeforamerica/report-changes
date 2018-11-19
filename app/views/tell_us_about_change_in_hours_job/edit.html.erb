@@ -1,7 +1,7 @@
 <% content_for :card_title, "Tell us about this job." %>
 
 <% content_for :card_body do %>
-  <%= fields_for(:form, @form, builder: CfaFormBuilder) do |f| %>
+  <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
     <%= f.cfa_input_field :company_name, "What is the name of the company?" %>
 
     <div class="notice">
