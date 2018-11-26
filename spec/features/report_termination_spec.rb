@@ -42,6 +42,10 @@ feature "Reporting a change", :a11y, :js do
     fill_in "What is your last name?", with: "Doe"
     proceed_with "Continue"
 
+    expect(page).to have_text "What changed?"
+    choose "My job ended or I stopped working"
+    proceed_with "Continue"
+
     expect(page).to have_text "Tell us about yourself."
     fill_in "What is your phone number?", with: "555-222-3333"
     select "January", from: "form[birthday_month]"
@@ -96,57 +100,5 @@ feature "Reporting a change", :a11y, :js do
 
     expect(emails.count).to eq 1
     expect(emails.last.attachments.count).to eq 1
-  end
-
-  context "when new job flow is enabled" do
-    around do |example|
-      with_modified_env NEW_JOB_FLOW_ENABLED: "true" do
-        example.run
-      end
-    end
-
-    scenario "job termination" do
-      visit "/"
-      proceed_with "Start my report", match: :first
-
-      expect(page).to have_text "Welcome! Here’s how reporting a change works"
-      proceed_with "Start the form"
-
-      expect(page).to have_text "do you live in Arapahoe County?"
-      choose "I'm not sure"
-      proceed_with "Continue"
-
-      expect(page).to have_text "Where do you live?"
-      fill_in "Street address", with: "1355 South Laredo Court"
-      fill_in "City", with: "Aurora"
-      fill_in "Zip code", with: "80017"
-      proceed_with "Continue"
-
-      expect(page).to have_text "Great, it looks like you live in Arapahoe County."
-      proceed_with "Continue"
-
-      expect(page).to have_text "Who had this change?"
-      choose "Me"
-      proceed_with "Continue"
-
-      expect(page).to have_text "What is your name?"
-      fill_in "What is your first name?", with: "Jane"
-      fill_in "What is your last name?", with: "Doe"
-      proceed_with "Continue"
-
-      expect(page).to have_text "What changed?"
-      choose "My job ended or I stopped working"
-      proceed_with "Continue"
-
-      expect(page).to have_text "Tell us about yourself."
-
-      fill_in "What is your phone number?", with: "555-222-3333"
-      select "January", from: "form[birthday_month]"
-      select "1", from: "form[birthday_day]"
-      select 20.years.ago.year.to_s, from: "form[birthday_year]"
-      proceed_with "Continue"
-
-      expect(page).to have_text "Tell us about the job that ended"
-    end
   end
 end

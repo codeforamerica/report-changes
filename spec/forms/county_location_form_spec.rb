@@ -57,21 +57,6 @@ RSpec.describe CountyLocationForm do
         expect(ChangeReport.last.metadata).to_not be_nil
       end
     end
-
-    context "when the new job feature is disabled" do
-      around do |example|
-        with_modified_env NEW_JOB_FLOW_ENABLED: "false" do
-          example.run
-        end
-      end
-
-      it "sets the change report change type to job_termination" do
-        form = CountyLocationForm.new(nil, valid_params)
-        form.save
-
-        expect(ChangeReport.last.change_type_job_termination?).to be_truthy
-      end
-    end
   end
 
   describe ".from_change_report" do
