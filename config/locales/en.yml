@@ -192,8 +192,8 @@ en:
         self: How many hours a week will you work?
         other_member: How many hours a week will they work?
       hourly_wage:
-        self: What is your hourly wage?
-        other_member: What is their hourly wage?
+        self: What will your hourly wage be?
+        other_member: What will their hourly wage be?
       paid_how_often:
         self: How often do you get paid?
         other_member: How often do they get paid?

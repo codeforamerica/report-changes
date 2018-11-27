@@ -52,7 +52,7 @@ RSpec.feature "Reporting a change", :a11y, :js do
     expect(page).to have_text "Tell us about your change in hours or pay."
 
     fill_in "Lower amount", with: "25" # How many hours a week will you work?
-    fill_in "What is your hourly wage?", with: "15"
+    fill_in "What will your hourly wage be?", with: "15"
     select "February", from: "form[change_date_month]"
     select "21", from: "form[change_date_day]"
     select "2018", from: "form[change_date_year]"
