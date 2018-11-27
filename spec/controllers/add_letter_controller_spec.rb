@@ -21,17 +21,32 @@ RSpec.describe AddLetterController do
           content_type: "image/jpg",
         )
       end
-      let(:valid_params) do
-        {
-          letters: ["", active_storage_blob.signed_id],
-        }
-      end
 
       before do
         session[:current_change_report_id] = current_change_report.id
       end
 
-      context "on successful update" do
+      context "with letters" do
+        let(:valid_params) do
+          {
+            letters: ["", active_storage_blob.signed_id],
+          }
+        end
+
+        it "redirects to next path" do
+          put :update, params: { form: valid_params }
+
+          expect(response).to redirect_to(subject.next_path)
+
+          put :update, params: { form: valid_params }
+        end
+      end
+
+      context "without letters (ie: Safari)" do
+        let(:valid_params) do
+          {}
+        end
+
         it "redirects to next path" do
           put :update, params: { form: valid_params }
 
