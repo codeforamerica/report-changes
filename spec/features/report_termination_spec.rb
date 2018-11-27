@@ -12,7 +12,7 @@ feature "Reporting a change", :a11y, :js do
 
   scenario "job termination" do
     visit "/"
-    expect(page).to have_text "Report the change"
+    expect(page).to have_text "Report changes to your benefits case"
     expect(page).to have_title "ReportChangesColorado.org"
     proceed_with "Start my report", match: :first
 
