@@ -29,12 +29,11 @@ RSpec.describe TellUsAboutYourselfForm do
         end
       end
 
-      context "when the phone_number is not included" do
-        it "is invalid" do
-          invalid_params = valid_params.merge(phone_number: nil)
-          form = TellUsAboutYourselfForm.new(nil, invalid_params)
+      context "when no phone number given" do
+        it "is valid" do
+          form = TellUsAboutYourselfForm.new(nil, valid_params.merge(phone_number: ""))
 
-          expect(form).to_not be_valid
+          expect(form).to be_valid
         end
       end
 

@@ -13,6 +13,6 @@
                           classes: ["form-width--ssn"],
                           optional: true,
                           notice: t(self_or_other_member_translation_key(".ssn_help"), name: current_change_report.member.first_name) %>
-    <%= f.cfa_input_field :phone_number, t(self_or_other_member_translation_key(".phone_number")), classes: ["form-width--phone"] %>
+    <%= f.cfa_input_field :phone_number, t(self_or_other_member_translation_key(".phone_number")), classes: ["form-width--phone"], optional: true %>
   <% end %>
 <% end %>
