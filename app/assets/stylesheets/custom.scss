@@ -25,6 +25,25 @@
     left: 0;
     bottom: 0;
     width: 100%;
+
+    h1 {
+      font-size: 1.8em;
+    }
+
+    .vertical-line {
+      position: relative;
+      margin-top: 1em;
+    }
+
+    .vertical-line::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -3em;
+      width: 2px;
+      background-color: #DFD7CC;
+    }
   }
 }
 

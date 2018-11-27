@@ -2,24 +2,68 @@
 
 <% content_for :content do %>
   <section class="slab--hero-<%= rand(1..3) %> slab slab--hero">
-    <div class="hero--cta-options text--centered">
-      <h1>
-        Leave a job? Report the change to your Food Assistance (Food Stamps) case
-      </h1>
+    <div class="hero--cta-options">
+      <div class="grid">
+        <div class="grid__item width-one-half">
+          <h1>
+            Report changes to your benefits case
+          </h1>
 
-      <%= link_to screen_path(FormNavigation.first) do %>
-        <button class="button button--large button--cta">Start my report <i class="button__icon icon-arrow_forward"></i></button>
-      <% end %>
+          <%= link_to screen_path(FormNavigation.first) do %>
+            <button class="button button--large button--cta">Start my report <i class="button__icon icon-arrow_forward"></i></button>
+          <% end %>
 
-      <p>It only takes 10 minutes</p>
+          <p>It only takes 10 minutes</p>
+        </div>
+        <div class="grid__item width-one-half is-tablet-hidden--inline vertical-line">
+          <div class="grid__item text--small width-one-half">
+            <p class="h4">Supported programs:</p>
+            <ul>
+              <li><i class="icon-done"></i> SNAP (food stamps)</li>
+              <li><i class="icon-done"></i> Medicaid</li>
+              <li><i class="icon-done"></i> ColoradoWorks</li>
+            </ul>
+          </div>
+          <div class="grid__item text--small width-one-half">
+            <p class="h4">Report changes in:</p>
+            <ul>
+              <li><i class="icon-done"></i> Employment</li>
+              <li><i class="icon-done"></i> Hours</li>
+              <li><i class="icon-done"></i> Pay</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="slab slab--white">
+    <div class="grid is-desktop-hidden--inline">
+      <div class="grid__item text--small width-one-half">
+        <p class="h4">Supported programs:</p>
+        <ul class="list--padded">
+          <li><i class="icon-done"></i> SNAP (food stamps)</li>
+          <li><i class="icon-done"></i> Medicaid</li>
+          <li><i class="icon-done"></i> ColoradoWorks</li>
+        </ul>
+      </div>
+      <br/>
+      <div class="grid__item text--small width-one-half">
+        <p class="h4">Report changes in:</p>
+        <ul class="list--padded">
+          <li><i class="icon-done"></i> Employment</li>
+          <li><i class="icon-done"></i> Hours</li>
+          <li><i class="icon-done"></i> Pay</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="is-desktop-hidden"/>
+
     <div class="grid">
-      <div class="grid__item text--small width-seven-twelfths">
+      <div class="grid__item width-seven-twelfths">
         <p class="h3">
-          If you stopped working at a job, you may be eligible for more food assistance benefits. This includes quitting, being laid off, fired, or leaving for any other reason.
+          If your income increases by a certain amount you need to report the change to your benefits case. If your income falls or your expenses increase, you may be eligible for more benefits.
         </p>
         <p class="h3">
           <%= link_to 'Start your report', screen_path(FormNavigation.first) %> now.
