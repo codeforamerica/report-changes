@@ -5,7 +5,7 @@ class TellUsAboutYourselfForm < Form
   before_validation -> { strip_dashes(:phone_number) }
   before_validation -> { strip_dashes(:ssn) }
 
-  validates :phone_number, ten_digit_phone_number: true
+  validates :phone_number, ten_digit_phone_number: true, allow_blank: true
   validates :ssn, length: { is: 9, message: "Please add a 9 digit social security number", allow_blank: true }
   attr_internal_reader :birthday
   validates :birthday, date: true
