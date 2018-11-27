@@ -53,8 +53,8 @@ en:
         self: I started a new job
         other_member: They started a new job
       change_in_hours:
-        self: My hours changed
-        other_member: Their hours changed
+        self: My hours or pay changed
+        other_member: Their hours or pay changed
   self_employed:
     edit:
       title:
@@ -186,8 +186,8 @@ en:
   tell_us_about_change_in_hours:
     edit:
       title:
-        self: Tell us about your change in hours.
-        other_member: "Tell us about %{name}'s change in hours."
+        self: Tell us about your change in hours or pay.
+        other_member: "Tell us about %{name}'s change in hours or pay."
       hourly_range:
         self: How many hours a week will you work?
         other_member: How many hours a week will they work?
