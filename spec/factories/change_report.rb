@@ -1,29 +1,6 @@
 FactoryBot.define do
   factory :change_report do
-    trait :with_navigator do
-      transient do
-        source { nil }
-      end
-
-      after(:create) do |change_report, evaluator|
-        create(:change_report_navigator, change_report: change_report, source: evaluator.source)
-      end
-    end
-
-    trait :with_member do
-      transient do
-        first_name { "Quincy" }
-        last_name { "Jones" }
-      end
-
-      after(:create) do |change_report, evaluator|
-        create(:household_member,
-               birthday: 25.years.ago - 1.day,
-               first_name: evaluator.first_name,
-               last_name: evaluator.last_name,
-               change_report: change_report)
-      end
-    end
+    member
 
     trait :job_termination do
       change_type { "job_termination" }
@@ -57,6 +34,6 @@ FactoryBot.define do
       end
     end
 
-    factory :change_report_with_letter, traits: %i[with_navigator with_member with_letter]
+    factory :change_report_with_letter, traits: %i[with_letter]
   end
 end

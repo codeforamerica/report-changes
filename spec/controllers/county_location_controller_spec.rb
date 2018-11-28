@@ -18,7 +18,7 @@ RSpec.describe CountyLocationController do
 
       context "with an existing change report and navigator" do
         it "redirects to next path and updates the change report" do
-          current_change_report = create(:change_report, :with_navigator)
+          current_change_report = create(:change_report)
           session[:current_change_report_id] = current_change_report.id
 
           put :update, params: { form: valid_params }

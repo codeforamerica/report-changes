@@ -33,7 +33,7 @@ RSpec.describe SignSubmitController do
         end
 
         it "does not enqueue a pdf mailer job" do
-          current_change_report = create(:change_report, :with_navigator)
+          current_change_report = create(:change_report)
           session[:current_change_report_id] = current_change_report.id
 
           allow(EmailChangeReportToOfficeJob).to receive(:perform_later)
@@ -45,7 +45,7 @@ RSpec.describe SignSubmitController do
       end
 
       it "enqueues a pdf mailer job" do
-        current_change_report = create(:change_report, :with_navigator)
+        current_change_report = create(:change_report)
         session[:current_change_report_id] = current_change_report.id
 
         allow(EmailChangeReportToOfficeJob).to receive(:perform_later)

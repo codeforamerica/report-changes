@@ -22,26 +22,16 @@ RSpec.describe ChangeReportDecorator do
   describe "#ssn" do
     context "when there is a member with a ssn" do
       it "formats it" do
-        change_report = build :change_report
-        create :household_member, change_report: change_report, ssn: "333224444"
-        decorator = ChangeReportDecorator.new(change_report)
+        member = create :member, :with_change_report, ssn: "333224444"
+        decorator = ChangeReportDecorator.new(member.change_reports.first)
         expect(decorator.ssn).to eq "333-22-4444"
       end
     end
 
     context "when there is not a ssn" do
       it "returns nil" do
-        change_report = build :change_report
-        create :household_member, change_report: change_report, ssn: ""
-        decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.ssn).to be_nil
-      end
-    end
-
-    context "when there is not a member" do
-      it "returns nil" do
-        change_report = create :change_report
-        decorator = ChangeReportDecorator.new(change_report)
+        member = create :member, :with_change_report, ssn: ""
+        decorator = ChangeReportDecorator.new(member.change_reports.first)
         expect(decorator.ssn).to be_nil
       end
     end
@@ -51,47 +41,26 @@ RSpec.describe ChangeReportDecorator do
     context "when there is a member with a birthday" do
       it "formats it" do
         birthday = DateTime.new(2018, 2, 3, 19, 5, 6)
-        change_report = build :change_report
-        create :household_member, change_report: change_report, birthday: birthday
-        decorator = ChangeReportDecorator.new(change_report)
+        member = create :member, :with_change_report, birthday: birthday
+        decorator = ChangeReportDecorator.new(member.change_reports.first)
         expect(decorator.birthday).to eq "02/03/18"
       end
     end
 
     context "when there is not a birthday" do
       it "returns nil" do
-        change_report = build :change_report
-        create :household_member, change_report: change_report, birthday: nil
-        decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.birthday).to be_nil
-      end
-    end
-
-    context "when there is not a member" do
-      it "returns nil" do
-        change_report = create :change_report
-        decorator = ChangeReportDecorator.new(change_report)
+        member = create :member, :with_change_report, birthday: nil
+        decorator = ChangeReportDecorator.new(member.change_reports.first)
         expect(decorator.birthday).to be_nil
       end
     end
   end
 
   describe "#client_name" do
-    context "when there is a member" do
-      it "returns client full name" do
-        change_report = build :change_report
-        create :household_member, change_report: change_report, first_name: "Jane", last_name: "Doe"
-        decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.client_name).to eq "Jane Doe"
-      end
-    end
-
-    context "when there is not a member" do
-      it "returns nil" do
-        change_report = create :change_report
-        decorator = ChangeReportDecorator.new(change_report)
-        expect(decorator.client_name).to be_nil
-      end
+    it "returns client full name" do
+      member = create :member, :with_change_report, first_name: "Jane", last_name: "Doe"
+      decorator = ChangeReportDecorator.new(member.change_reports.first)
+      expect(decorator.client_name).to eq "Jane Doe"
     end
   end
 

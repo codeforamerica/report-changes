@@ -85,7 +85,7 @@ RSpec.describe TellUsAboutChangeInHoursJobForm do
 
   describe ".from_change_report" do
     it "assigns values from change report" do
-      change_report = create(:change_report, :with_navigator,
+      change_report = create(:change_report,
                              company_name: "Abc Corp",
                              manager_name: "Boss McBosserson",
                              manager_phone_number: "1112223333")

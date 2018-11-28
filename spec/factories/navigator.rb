@@ -1,5 +1,7 @@
 FactoryBot.define do
-  factory :change_report_navigator do
+  factory :navigator do
+    change_report
+
     source { "awesome-cbo" }
   end
 end

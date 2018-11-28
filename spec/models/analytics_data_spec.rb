@@ -13,7 +13,7 @@ RSpec.describe AnalyticsData do
 
   describe "#to_h" do
     it "returns basic information" do
-      navigator = instance_double(ChangeReportNavigator,
+      navigator = instance_double(Navigator,
                                   county_from_address: "Littleland",
                                   has_documents: "yes",
                                   selected_county_location: "arapahoe",

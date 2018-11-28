@@ -1,9 +1,9 @@
-class ChangeReportNavigator < ActiveRecord::Base
-  belongs_to :change_report
+class Navigator < ActiveRecord::Base
+  has_many :change_reports
+  has_many :household_members
 
   enum selected_county_location: { unfilled: 0, arapahoe: 1, not_arapahoe: 2, not_sure: 3 },
        _prefix: :selected_county_location
-  enum has_documents: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_documents
   enum submitting_for: { unfilled: 0, self: 1, other_household_member: 2 }, _prefix: :submitting_for
   enum is_self_employed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :is_self_employed
 

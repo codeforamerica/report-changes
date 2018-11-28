@@ -13,7 +13,7 @@ RSpec.describe AddLetterController do
     end
 
     context "with change report" do
-      let(:current_change_report) { create(:change_report, :with_navigator) }
+      let(:current_change_report) { create(:change_report) }
       let(:active_storage_blob) do
         ActiveStorage::Blob.create_after_upload!(
           io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
@@ -62,7 +62,7 @@ RSpec.describe AddLetterController do
     context "when client has their letter" do
       it "returns true" do
         change_report = create(:change_report, navigator:
-          build(:change_report_navigator, has_documents: "yes"))
+          build(:navigator, has_documents: "yes"))
 
         show_form = AddLetterController.show?(change_report)
         expect(show_form).to eq(true)
@@ -72,7 +72,7 @@ RSpec.describe AddLetterController do
     context "when client does not have letter" do
       it "returns false" do
         change_report = create(:change_report, navigator:
-          build(:change_report_navigator, has_documents: "no"))
+          build(:navigator, has_documents: "no"))
 
         show_form = AddLetterController.show?(change_report)
         expect(show_form).to eq(false)

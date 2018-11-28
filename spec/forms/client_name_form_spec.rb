@@ -65,7 +65,8 @@ RSpec.describe ClientNameForm do
 
     context "when the member already exists" do
       it "updates the member" do
-        change_report = create(:change_report, :with_member, first_name: "Sophie")
+        member = create :member, first_name: "Sophie"
+        change_report = create :change_report, member: member
         form = ClientNameForm.new(change_report, valid_params)
 
         expect do

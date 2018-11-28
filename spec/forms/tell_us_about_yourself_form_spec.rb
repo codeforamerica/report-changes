@@ -145,7 +145,7 @@ RSpec.describe TellUsAboutYourselfForm do
     end
 
     it "persists the values to the correct models" do
-      change_report = create(:change_report, :with_member)
+      change_report = create(:change_report)
       form = TellUsAboutYourselfForm.new(change_report, valid_params)
       form.valid?
       form.save

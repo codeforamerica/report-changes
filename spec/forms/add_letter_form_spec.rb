@@ -54,7 +54,7 @@ RSpec.describe AddLetterForm do
 
   describe ".from_change_report" do
     it "assigns values from change report" do
-      change_report = create(:change_report, :with_navigator)
+      change_report = create(:change_report)
       change_report.letters.attach(
         io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
         filename: "image.jpg",

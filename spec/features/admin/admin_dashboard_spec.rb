@@ -27,12 +27,8 @@ RSpec.feature "Admin viewing dashboard" do
 
     context "with verifications" do
       scenario "viewing the pdf" do
-        change_report = build(:change_report, :job_termination, :with_letter,
-                              navigator: build(:change_report_navigator, has_documents: "yes"))
-        create(:household_member,
-               first_name: "Todd",
-               last_name: "Chavez",
-               change_report: change_report)
+        change_report = create(:change_report, :job_termination, :with_letter,
+                              navigator: build(:navigator, has_documents: "yes"))
         change_report.letters.attach(
           io: File.open(Rails.root.join("spec", "fixtures", "document.pdf")),
           filename: "document.pdf",
@@ -53,7 +49,7 @@ RSpec.feature "Admin viewing dashboard" do
         pdf_attachment_text = pdf.pages.last.text
 
         expect(pdf_text).to have_content "Change Request Form"
-        expect(pdf_text).to have_content "Todd Chavez"
+        expect(pdf_text).to have_content "Frank Sinatra"
         expect(pdf_text).to have_content "See attached"
 
         expect(pdf_attachment_text).to have_content "This is the test pdf contents."
@@ -67,10 +63,10 @@ RSpec.feature "Admin viewing dashboard" do
     end
 
     scenario "can download a csv of all the change reports" do
-      create(:change_report, :with_member, :job_termination, signature: "st", manager_name: "Lavar Burton")
-      create(:change_report, :with_member, :new_job, signature: "julie", manager_name: "Bob Ross")
-      create(:change_report, :with_member, :change_in_hours, signature: "mike", manager_name: "Michael Scott")
-      create(:change_report, :with_member, signature: nil, manager_name: "Mr Burns")
+      create(:change_report, :job_termination, signature: "st", manager_name: "Lavar Burton")
+      create(:change_report, :new_job, signature: "julie", manager_name: "Bob Ross")
+      create(:change_report, :change_in_hours, signature: "mike", manager_name: "Michael Scott")
+      create(:change_report, signature: nil, manager_name: "Mr Burns")
 
       visit admin_root_path
 

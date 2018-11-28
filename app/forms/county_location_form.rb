@@ -6,7 +6,8 @@ class CountyLocationForm < Form
 
   def save
     unless change_report.present?
-      self.change_report = ChangeReport.create
+      self.household_member = HouseholdMember.create
+      self.change_report = household_member.change_reports.create
 
       change_report.create_navigator
       change_report.create_metadata

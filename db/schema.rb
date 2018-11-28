@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_15_223104) do
+ActiveRecord::Schema.define(version: 2018_11_28_214148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,22 +75,6 @@ ActiveRecord::Schema.define(version: 2018_11_15_223104) do
     t.index ["change_report_id"], name: "index_change_report_metadata_on_change_report_id"
   end
 
-  create_table "change_report_navigators", force: :cascade do |t|
-    t.bigint "change_report_id"
-    t.string "city"
-    t.string "county_from_address"
-    t.datetime "created_at", null: false
-    t.integer "has_documents", default: 0
-    t.integer "is_self_employed", default: 0
-    t.integer "selected_county_location", default: 0
-    t.string "source"
-    t.string "street_address"
-    t.integer "submitting_for", default: 0
-    t.datetime "updated_at", null: false
-    t.string "zip_code"
-    t.index ["change_report_id"], name: "index_change_report_navigators_on_change_report_id"
-  end
-
   create_table "change_reports", force: :cascade do |t|
     t.string "case_number"
     t.datetime "change_date"
@@ -100,7 +84,9 @@ ActiveRecord::Schema.define(version: 2018_11_15_223104) do
     t.datetime "created_at", null: false
     t.datetime "first_day"
     t.datetime "first_paycheck"
+    t.integer "has_documents", default: 0
     t.string "hourly_wage"
+    t.bigint "household_member_id"
     t.datetime "last_day"
     t.datetime "last_paycheck"
     t.decimal "last_paycheck_amount", precision: 8, scale: 2
@@ -108,6 +94,7 @@ ActiveRecord::Schema.define(version: 2018_11_15_223104) do
     t.string "manager_additional_information"
     t.string "manager_name"
     t.string "manager_phone_number"
+    t.bigint "navigator_id"
     t.text "new_job_notes"
     t.string "paid_how_often"
     t.integer "paid_yet", default: 0
@@ -118,6 +105,8 @@ ActiveRecord::Schema.define(version: 2018_11_15_223104) do
     t.datetime "submitted_at"
     t.datetime "updated_at", null: false
     t.string "upper_hours_a_week_amount"
+    t.index ["household_member_id"], name: "index_change_reports_on_household_member_id"
+    t.index ["navigator_id"], name: "index_change_reports_on_navigator_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -143,8 +132,26 @@ ActiveRecord::Schema.define(version: 2018_11_15_223104) do
     t.string "encrypted_ssn_iv"
     t.string "first_name"
     t.string "last_name"
+    t.bigint "navigator_id"
     t.datetime "updated_at", null: false
     t.index ["change_report_id"], name: "index_household_members_on_change_report_id"
+    t.index ["navigator_id"], name: "index_household_members_on_navigator_id"
+  end
+
+  create_table "navigators", force: :cascade do |t|
+    t.bigint "change_report_id"
+    t.string "city"
+    t.string "county_from_address"
+    t.datetime "created_at", null: false
+    t.integer "has_documents", default: 0
+    t.integer "is_self_employed", default: 0
+    t.integer "selected_county_location", default: 0
+    t.string "source"
+    t.string "street_address"
+    t.integer "submitting_for", default: 0
+    t.datetime "updated_at", null: false
+    t.string "zip_code"
+    t.index ["change_report_id"], name: "index_navigators_on_change_report_id"
   end
 
 end

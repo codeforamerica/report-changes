@@ -62,7 +62,7 @@ RSpec.describe WhereDoYouLiveForm do
   end
 
   describe "#save" do
-    let(:change_report) { create :change_report, :with_navigator }
+    let(:change_report) { create :change_report }
     let(:valid_params) do
       {
         zip_code: "11111",
@@ -97,7 +97,7 @@ RSpec.describe WhereDoYouLiveForm do
   describe ".from_change_report" do
     it "assigns values from the change report navigator" do
       navigator = build(
-        :change_report_navigator,
+        :navigator,
         street_address: "123 Main St",
         city: "Springfield",
         zip_code: "12345",

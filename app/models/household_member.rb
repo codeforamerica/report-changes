@@ -1,5 +1,6 @@
 class HouseholdMember < ActiveRecord::Base
-  belongs_to :change_report
+  belongs_to :navigator
+  has_many :change_reports
 
   attribute :ssn
   attr_encrypted(

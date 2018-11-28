@@ -21,7 +21,7 @@
    end
 
    describe "#save" do
-     let(:change_report) { create :change_report, :with_navigator }
+     let(:change_report) { create :change_report }
 
      let(:valid_params) do
        {
@@ -42,7 +42,7 @@
 
    describe ".from_change_report" do
      it "assigns values from change report navigator" do
-       change_report = create(:change_report, navigator: build(:change_report_navigator, has_documents: "yes"))
+       change_report = create(:change_report, navigator: build(:navigator, has_documents: "yes"))
 
        form = DoYouHaveALetterForm.from_change_report(change_report)
 

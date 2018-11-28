@@ -27,7 +27,7 @@ RSpec.describe SelfEmployedForm do
   end
 
   describe "#save" do
-    let(:change_report) { create :change_report, :with_navigator }
+    let(:change_report) { create :change_report }
 
     let(:valid_params) { { is_self_employed: "no" } }
 
@@ -44,7 +44,7 @@ RSpec.describe SelfEmployedForm do
 
   describe ".from_change_report" do
     it "assigns values from change report" do
-      navigator = build(:change_report_navigator, is_self_employed: "no")
+      navigator = build(:navigator, is_self_employed: "no")
       change_report = create(:change_report, navigator: navigator)
 
       form = SelfEmployedForm.from_change_report(change_report)

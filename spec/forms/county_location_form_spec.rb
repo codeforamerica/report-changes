@@ -29,10 +29,8 @@ RSpec.describe CountyLocationForm do
 
     context "with an existing change report" do
       it "updates the navigator" do
-        change_report = create(:change_report,
-                               navigator: build(:change_report_navigator,
-                                 selected_county_location: :not_sure))
-        form = CountyLocationForm.new(change_report, valid_params)
+        navigator = create(:navigator, selected_county_location: :not_sure)
+        form = CountyLocationForm.new(navigator.change_report, valid_params)
         form.valid?
 
         expect do
@@ -63,7 +61,7 @@ RSpec.describe CountyLocationForm do
     context "with an existing change report" do
       it "assigns values from change report" do
         change_report = create(:change_report)
-        create(:change_report_navigator,
+        create(:navigator,
           change_report: change_report,
           selected_county_location: "arapahoe")
 

@@ -6,7 +6,7 @@ RSpec.describe NotYetSupportedController do
   describe "show?" do
     context "when the client selects Arapahoe as their county" do
       it "returns false" do
-        navigator = build(:change_report_navigator, selected_county_location: :arapahoe)
+        navigator = build(:navigator, selected_county_location: :arapahoe)
         change_report = create(:change_report, navigator: navigator)
 
         show_form = NotYetSupportedController.show?(change_report)
@@ -16,7 +16,7 @@ RSpec.describe NotYetSupportedController do
 
     context "when the client's address is in Arapahoe County" do
       it "returns false" do
-        navigator = build(:change_report_navigator, county_from_address: "Arapahoe County")
+        navigator = build(:navigator, county_from_address: "Arapahoe County")
         change_report = create(:change_report, navigator: navigator)
 
         show_form = NotYetSupportedController.show?(change_report)
@@ -26,7 +26,7 @@ RSpec.describe NotYetSupportedController do
 
     context "when the client's county is not Arapahoe" do
       it "returns true" do
-        navigator = build(:change_report_navigator,
+        navigator = build(:navigator,
                           selected_county_location: :not_sure,
                           county_from_address: "Jefferson County")
         change_report = create(:change_report, navigator: navigator)
@@ -38,7 +38,7 @@ RSpec.describe NotYetSupportedController do
 
     context "when a client is self-employed" do
       it "returns true" do
-        navigator = build(:change_report_navigator, selected_county_location: :arapahoe, is_self_employed: "yes")
+        navigator = build(:navigator, selected_county_location: :arapahoe, is_self_employed: "yes")
         change_report = create(:change_report, navigator: navigator)
 
         show_form = NotYetSupportedController.show?(change_report)
@@ -49,7 +49,7 @@ RSpec.describe NotYetSupportedController do
 
     context "when a client is not self-employed" do
       it "returns false" do
-        navigator = build(:change_report_navigator, selected_county_location: :arapahoe, is_self_employed: "no")
+        navigator = build(:navigator, selected_county_location: :arapahoe, is_self_employed: "no")
         change_report = create(:change_report, navigator: navigator)
         show_form = NotYetSupportedController.show?(change_report)
 
