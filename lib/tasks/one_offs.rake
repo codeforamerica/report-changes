@@ -12,10 +12,12 @@ namespace :one_offs do
     # Copy over has_letter from navigator to change report
     ChangeReport.where(navigator_id: nil).each do |cr|
       navigator = Navigator.find_by_change_report_id cr.id
-      cr.update!(
-        navigator_id: navigator.id,
-        has_documents: navigator.has_documents
-      ) if navigator
+      if navigator
+        cr.update!(
+          navigator_id: navigator.id,
+          has_documents: navigator.has_documents,
+        )
+      end
     end
   end
 end

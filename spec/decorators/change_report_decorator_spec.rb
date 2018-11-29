@@ -22,16 +22,22 @@ RSpec.describe ChangeReportDecorator do
   describe "#ssn" do
     context "when there is a member with a ssn" do
       it "formats it" do
-        member = create :member, :with_change_report, ssn: "333224444"
-        decorator = ChangeReportDecorator.new(member.change_reports.first)
+        change_report = create :change_report
+        change_report.member.update ssn: "333224444"
+
+        decorator = ChangeReportDecorator.new(change_report)
+
         expect(decorator.ssn).to eq "333-22-4444"
       end
     end
 
     context "when there is not a ssn" do
       it "returns nil" do
-        member = create :member, :with_change_report, ssn: ""
-        decorator = ChangeReportDecorator.new(member.change_reports.first)
+        change_report = create :change_report
+        change_report.member.update ssn: ""
+
+        decorator = ChangeReportDecorator.new(change_report)
+
         expect(decorator.ssn).to be_nil
       end
     end
@@ -41,16 +47,22 @@ RSpec.describe ChangeReportDecorator do
     context "when there is a member with a birthday" do
       it "formats it" do
         birthday = DateTime.new(2018, 2, 3, 19, 5, 6)
-        member = create :member, :with_change_report, birthday: birthday
-        decorator = ChangeReportDecorator.new(member.change_reports.first)
+        change_report = create :change_report
+        change_report.member.update birthday: birthday
+
+        decorator = ChangeReportDecorator.new(change_report)
+
         expect(decorator.birthday).to eq "02/03/18"
       end
     end
 
     context "when there is not a birthday" do
       it "returns nil" do
-        member = create :member, :with_change_report, birthday: nil
-        decorator = ChangeReportDecorator.new(member.change_reports.first)
+        change_report = create :change_report
+        change_report.member.update birthday: nil
+
+        decorator = ChangeReportDecorator.new(change_report)
+
         expect(decorator.birthday).to be_nil
       end
     end
@@ -58,8 +70,11 @@ RSpec.describe ChangeReportDecorator do
 
   describe "#client_name" do
     it "returns client full name" do
-      member = create :member, :with_change_report, first_name: "Jane", last_name: "Doe"
-      decorator = ChangeReportDecorator.new(member.change_reports.first)
+      change_report = create :change_report
+      change_report.member.update first_name: "Jane", last_name: "Doe"
+
+      decorator = ChangeReportDecorator.new(change_report)
+
       expect(decorator.client_name).to eq "Jane Doe"
     end
   end

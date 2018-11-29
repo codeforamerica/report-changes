@@ -4,7 +4,7 @@ class Form
   include ActiveModel::Validations::Callbacks
 
   class_attribute :attribute_names
-  attr_accessor :change_report, :household_member
+  attr_accessor :change_report, :member, :navigator
 
   def initialize(change_report, params = {})
     @change_report = change_report

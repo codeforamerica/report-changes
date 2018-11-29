@@ -14,7 +14,7 @@ RSpec.feature "Admin viewing dashboard" do
     end
 
     scenario "viewing details for a change_report" do
-      change_report = create(:change_report)
+      change_report = create :change_report
 
       visit admin_root_path
 
@@ -27,8 +27,9 @@ RSpec.feature "Admin viewing dashboard" do
 
     context "with verifications" do
       scenario "viewing the pdf" do
-        change_report = create(:change_report, :job_termination, :with_letter,
-                              navigator: build(:navigator, has_documents: "yes"))
+        change_report = create(:change_report,
+                               :job_termination,
+                               has_documents: "yes")
         change_report.letters.attach(
           io: File.open(Rails.root.join("spec", "fixtures", "document.pdf")),
           filename: "document.pdf",

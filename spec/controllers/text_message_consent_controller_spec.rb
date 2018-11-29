@@ -4,11 +4,12 @@ RSpec.describe TextMessageConsentController do
   it_behaves_like "form controller base behavior"
   it_behaves_like "form controller successful update", { consent_to_sms: "yes" }
 
+  let(:change_report) { create :change_report }
+
   describe "show?" do
     context "when client is submitting on behalf of someone" do
       it "returns false" do
-        navigator = build(:navigator, submitting_for: "other_household_member")
-        change_report = create(:change_report, navigator: navigator)
+        change_report.navigator.update submitting_for: "other_household_member"
 
         show_form = TextMessageConsentController.show?(change_report)
         expect(show_form).to eq(false)
@@ -17,8 +18,8 @@ RSpec.describe TextMessageConsentController do
 
     context "when client is submitting for themselves" do
       it "returns true" do
-        navigator = build(:navigator, submitting_for: "self")
-        change_report = create(:change_report, navigator: navigator)
+        change_report.navigator.update submitting_for: "self"
+
 
         show_form = TextMessageConsentController.show?(change_report)
         expect(show_form).to eq(true)

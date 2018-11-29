@@ -61,8 +61,7 @@ RSpec.describe AddLetterController do
   describe "show?" do
     context "when client has their letter" do
       it "returns true" do
-        change_report = create(:change_report, navigator:
-          build(:navigator, has_documents: "yes"))
+        change_report = create(:change_report, has_documents: "yes")
 
         show_form = AddLetterController.show?(change_report)
         expect(show_form).to eq(true)
@@ -71,8 +70,7 @@ RSpec.describe AddLetterController do
 
     context "when client does not have letter" do
       it "returns false" do
-        change_report = create(:change_report, navigator:
-          build(:navigator, has_documents: "no"))
+        change_report = create(:change_report, has_documents: "no")
 
         show_form = AddLetterController.show?(change_report)
         expect(show_form).to eq(false)

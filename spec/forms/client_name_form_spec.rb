@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe ClientNameForm do
+  let(:change_report) { create :change_report }
+
   describe "validations" do
     context "when all required attributes are provided" do
       it "is valid" do
@@ -49,57 +51,28 @@ RSpec.describe ClientNameForm do
       }
     end
 
-    context "when the member does not yet exist" do
-      it "creates member with given values" do
-        change_report = create(:change_report)
-        form = ClientNameForm.new(change_report, valid_params)
-        form.valid?
+    it "updates the member" do
+      change_report.member.update first_name: "Sophie"
+      form = ClientNameForm.new(change_report, valid_params)
+
+      expect do
         form.save
+      end.not_to(change { HouseholdMember.count })
 
-        change_report.reload
+      change_report.reload
 
-        expect(change_report.member.first_name).to eq "Annie"
-        expect(change_report.member.last_name).to eq "McDog"
-      end
-    end
-
-    context "when the member already exists" do
-      it "updates the member" do
-        member = create :member, first_name: "Sophie"
-        change_report = create :change_report, member: member
-        form = ClientNameForm.new(change_report, valid_params)
-
-        expect do
-          form.save
-        end.not_to(change { HouseholdMember.count })
-
-        change_report.reload
-
-        expect(change_report.member.first_name).to eq "Annie"
-      end
+      expect(change_report.member.first_name).to eq "Annie"
     end
   end
 
   describe ".from_change_report" do
-    context "when member exists" do
-      it "assigns values from change report and other objects" do
-        change_report = create(:change_report,
-                               member: build(:household_member, first_name: "Annie", last_name: "McDog"))
+    it "assigns values from change report and other objects" do
+      change_report.member.update first_name: "Annie", last_name: "McDog"
 
-        form = ClientNameForm.from_change_report(change_report)
+      form = ClientNameForm.from_change_report(change_report)
 
-        expect(form.first_name).to eq("Annie")
-        expect(form.last_name).to eq("McDog")
-      end
-    end
-
-    context "when member does not exist" do
-      it "assigns an empty hash" do
-        form = ClientNameForm.from_change_report(create(:change_report))
-
-        expect(form.first_name).to be_nil
-        expect(form.last_name).to be_nil
-      end
+      expect(form.first_name).to eq("Annie")
+      expect(form.last_name).to eq("McDog")
     end
   end
 end

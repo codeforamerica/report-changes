@@ -3,6 +3,7 @@ FactoryBot.define do
     first_name { "Frank" }
     last_name { "Sinatra" }
 
+
     trait :with_change_report do
       after(:create) do |member|
         create(:change_report, member: member)

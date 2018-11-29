@@ -1,6 +1,12 @@
 FactoryBot.define do
   factory :change_report do
-    member
+
+    before(:create) do |change_report, evaluator|
+      navigator = create :navigator
+      member = create :member, navigator: navigator
+      change_report.navigator = navigator
+      change_report.member = member
+    end
 
     trait :job_termination do
       change_type { "job_termination" }
@@ -36,4 +42,5 @@ FactoryBot.define do
 
     factory :change_report_with_letter, traits: %i[with_letter]
   end
+
 end

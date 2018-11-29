@@ -36,13 +36,13 @@
 
        change_report.reload
 
-       expect(change_report.navigator.has_documents_yes?).to be_truthy
+       expect(change_report.has_documents_yes?).to be_truthy
      end
    end
 
    describe ".from_change_report" do
-     it "assigns values from change report navigator" do
-       change_report = create(:change_report, navigator: build(:navigator, has_documents: "yes"))
+     it "assigns values" do
+       change_report = create :change_report, has_documents: "yes"
 
        form = DoYouHaveALetterForm.from_change_report(change_report)
 

@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :navigator do
-    change_report
-
+    selected_county_location { "arapahoe" }
+    is_self_employed { "no" }
     source { "awesome-cbo" }
   end
 end
