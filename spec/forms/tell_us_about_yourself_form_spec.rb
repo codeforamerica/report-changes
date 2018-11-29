@@ -165,10 +165,8 @@ RSpec.describe TellUsAboutYourselfForm do
     it "assigns values from change report and other objects" do
       change_report = create(:change_report,
         case_number: "1A1234",
-        phone_number: "1234567890",
-        member: build(:household_member,
-          ssn: "111223333",
-          birthday: DateTime.new(1950, 1, 31)))
+        phone_number: "1234567890")
+      change_report.member.update ssn: "111223333", birthday: DateTime.new(1950, 1, 31)
 
       form = TellUsAboutYourselfForm.from_change_report(change_report)
 

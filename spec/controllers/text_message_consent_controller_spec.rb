@@ -20,7 +20,6 @@ RSpec.describe TextMessageConsentController do
       it "returns true" do
         change_report.navigator.update submitting_for: "self"
 
-
         show_form = TextMessageConsentController.show?(change_report)
         expect(show_form).to eq(true)
       end

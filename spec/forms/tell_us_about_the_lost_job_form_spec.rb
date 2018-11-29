@@ -84,9 +84,8 @@ RSpec.describe TellUsAboutTheLostJobForm do
   end
 
   describe ".from_change_report" do
-    it "assigns values from change report and other objects" do
+    it "assigns values from change report" do
       change_report = create(:change_report,
-        :with_navigator,
         company_name: "Abc Corp",
         manager_name: "Boss McBosser",
         manager_phone_number: "1112223333",

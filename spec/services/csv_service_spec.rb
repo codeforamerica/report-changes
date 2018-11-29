@@ -19,7 +19,7 @@ RSpec.describe CsvService do
     expect(parsed_csv.first).to include "birthday"
     expect(parsed_csv.first).to include "change_type_description"
     expect(parsed_csv.last).to include "1a12345"
-    expect(parsed_csv.last).to include "Quincy Jones"
+    expect(parsed_csv.last).to include "Frank Sinatra"
     expect(parsed_csv.last).to include "Income change: new job"
   end
 end

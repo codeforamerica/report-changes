@@ -47,8 +47,8 @@ RSpec.describe WhoHadChangeForm do
 
   describe ".from_change_report" do
     it "assigns values from change report" do
-      navigator = build(:navigator, submitting_for: "self")
-      change_report = create(:change_report, navigator: navigator)
+      change_report = create :change_report
+      change_report.navigator.update submitting_for: "self"
 
       form = WhoHadChangeForm.from_change_report(change_report)
 

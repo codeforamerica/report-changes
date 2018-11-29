@@ -7,8 +7,7 @@ RSpec.describe Navigator do
     context "with selected county location of arapahoe" do
       it "returns true" do
         navigator = build(:navigator,
-                           selected_county_location: :arapahoe,
-                           change_report: change_report)
+                           selected_county_location: :arapahoe)
 
         expect(navigator.supported_county?).to be_truthy
       end
@@ -17,8 +16,7 @@ RSpec.describe Navigator do
     context "with county from address of Arapahoe County" do
       it "returns true" do
         navigator = build(:navigator,
-                           county_from_address: "Arapahoe County",
-                           change_report: change_report)
+                           county_from_address: "Arapahoe County")
 
         expect(navigator.supported_county?).to be_truthy
       end
@@ -28,8 +26,7 @@ RSpec.describe Navigator do
       it "returns false" do
         navigator = build(:navigator,
                            selected_county_location: :not_sure,
-                           county_from_address: "Jefferson County",
-                           change_report: change_report)
+                           county_from_address: "Jefferson County")
 
         expect(navigator.supported_county?).to be_falsey
       end

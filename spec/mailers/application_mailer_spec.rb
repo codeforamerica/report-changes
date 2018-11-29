@@ -2,8 +2,10 @@ require "rails_helper"
 
 RSpec.describe ApplicationMailer do
   let(:change_report) do
-    create(:change_report_with_letter, :job_termination, first_name: "Joe", last_name: "MacMillan")
+    create(:change_report_with_letter, :job_termination)
   end
+
+  before { change_report.member.update first_name: "Joe", last_name: "MacMillan" }
 
   describe ".office_change_report_submission" do
     it "sets the correct headers" do

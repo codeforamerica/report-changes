@@ -28,7 +28,8 @@ RSpec.describe SupportedCountyController do
       it "returns false" do
         change_report.navigator.update(
           selected_county_location: :not_sure,
-          county_from_address: "Jefferson County")
+          county_from_address: "Jefferson County",
+        )
 
         show_form = SupportedCountyController.show?(change_report)
         expect(show_form).to eq(false)

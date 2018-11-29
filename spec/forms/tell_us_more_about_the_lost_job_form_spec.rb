@@ -212,9 +212,8 @@ RSpec.describe TellUsMoreAboutTheLostJobForm do
   end
 
   describe ".from_change_report" do
-    it "assigns values from change report and other objects" do
+    it "assigns values from change report" do
       change_report = create(:change_report,
-                             :with_navigator,
                              last_day: DateTime.new(2000, 1, 15),
                              last_paycheck: DateTime.new(2018, 2, 28),
                              last_paycheck_amount: 1127.14)

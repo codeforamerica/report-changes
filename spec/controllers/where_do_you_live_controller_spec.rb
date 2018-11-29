@@ -25,7 +25,6 @@ RSpec.describe WhereDoYouLiveController do
       it "returns false" do
         change_report.navigator.update selected_county_location: :not_arapahoe
 
-
         show_form = WhereDoYouLiveController.show?(change_report)
         expect(show_form).to eq(false)
       end
