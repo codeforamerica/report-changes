@@ -4,11 +4,11 @@ class SelfEmployedForm < Form
   validates_presence_of :is_self_employed, message: "Please answer this question."
 
   def save
-    change_report.navigator.update(attributes_for(:navigator))
+    report.navigator.update(attributes_for(:navigator))
   end
 
-  def self.existing_attributes(change_report)
-    attributes = change_report.navigator.attributes
+  def self.existing_attributes(report)
+    attributes = report.navigator.attributes
     HashWithIndifferentAccess.new(attributes)
   end
 end

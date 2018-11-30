@@ -1,7 +1,7 @@
 class FormsController < ApplicationController
-  before_action :ensure_change_report_present, only: %i[edit update]
+  before_action :ensure_report_present, only: %i[edit update]
 
-  helper_method :current_change_report, :current_percentage, :self_or_other_member_translation_key
+  helper_method :current_report, :current_percentage, :self_or_other_member_translation_key
 
   layout "form"
 
@@ -10,11 +10,11 @@ class FormsController < ApplicationController
   end
 
   def edit
-    @form = form_class.from_change_report(current_change_report)
+    @form = form_class.from_report(current_report)
   end
 
   def update
-    @form = form_class.new(current_change_report, form_params)
+    @form = form_class.new(current_report, form_params)
     if @form.valid?
       @form.save
       update_session
@@ -37,12 +37,12 @@ class FormsController < ApplicationController
     end
   end
 
-  def self.show?(change_report)
-    show_rule_sets(change_report).all?
+  def self.show?(report)
+    show_rule_sets(report).all?
   end
 
-  def current_change_report
-    ChangeReport.find_by(id: session[:current_change_report_id])
+  def current_report
+    Report.find_by(id: session[:current_report_id])
   end
 
   def current_percentage
@@ -53,7 +53,7 @@ class FormsController < ApplicationController
   end
 
   def self_or_other_member_translation_key(key)
-    current_change_report.navigator.submitting_for_other_household_member? ? "#{key}.other_member" : "#{key}.self"
+    current_report.navigator.submitting_for_other_household_member? ? "#{key}.other_member" : "#{key}.self"
   end
 
   private
@@ -70,8 +70,8 @@ class FormsController < ApplicationController
 
   # Don't override in subclasses
 
-  def ensure_change_report_present
-    if current_change_report.blank?
+  def ensure_report_present
+    if current_report.blank?
       redirect_to root_path
     end
   end
@@ -82,9 +82,9 @@ class FormsController < ApplicationController
 
   def send_mixpanel_event
     MixpanelService.instance.run(
-      unique_id: current_change_report.id,
+      unique_id: current_report.id,
       event_name: @form.class.analytics_event_name,
-      data: AnalyticsData.new(current_change_report).to_h,
+      data: AnalyticsData.new(current_report).to_h,
     )
   end
 
@@ -94,12 +94,12 @@ class FormsController < ApplicationController
       errors: @form.errors.messages.keys,
     }
 
-    if current_change_report.present?
-      data.merge!(AnalyticsData.new(current_change_report).to_h)
+    if current_report.present?
+      data.merge!(AnalyticsData.new(current_report).to_h)
     end
 
     MixpanelService.instance.run(
-      unique_id: current_change_report.try(:id),
+      unique_id: current_report.try(:id),
       event_name: "validation_error",
       data: data,
     )

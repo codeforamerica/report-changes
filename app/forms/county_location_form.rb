@@ -5,19 +5,19 @@ class CountyLocationForm < Form
     message: "Please answer this question"
 
   def save
-    unless change_report.present?
-      self.change_report = ChangeReport.create
+    unless report.present?
+      self.report = Report.create
 
-      change_report.create_navigator
-      change_report.create_metadata
+      report.create_navigator
+      report.create_metadata
     end
 
-    change_report.navigator.update(attributes_for(:navigator))
+    report.navigator.update(attributes_for(:navigator))
   end
 
-  def self.existing_attributes(change_report)
-    if change_report.present?
-      HashWithIndifferentAccess.new(change_report.navigator.attributes)
+  def self.existing_attributes(report)
+    if report.present?
+      HashWithIndifferentAccess.new(report.navigator.attributes)
     else
       {}
     end

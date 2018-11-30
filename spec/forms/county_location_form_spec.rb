@@ -29,18 +29,18 @@ RSpec.describe CountyLocationForm do
 
     context "with an existing change report" do
       it "updates the navigator" do
-        change_report = create(:change_report,
-                               navigator: build(:change_report_navigator,
+        report = create(:report,
+                               navigator: build(:navigator,
                                  selected_county_location: :not_sure))
-        form = CountyLocationForm.new(change_report, valid_params)
+        form = CountyLocationForm.new(report, valid_params)
         form.valid?
 
         expect do
           form.save
-        end.to_not(change { ChangeReport.count })
+        end.to_not(change { Report.count })
 
-        expect(ChangeReport.last.navigator.selected_county_location_arapahoe?).to eq(true)
-        expect(ChangeReport.last.navigator.source).to eq("awesome-cbo")
+        expect(Report.last.navigator.selected_county_location_arapahoe?).to eq(true)
+        expect(Report.last.navigator.source).to eq("awesome-cbo")
       end
     end
 
@@ -51,23 +51,23 @@ RSpec.describe CountyLocationForm do
 
         expect do
           form.save
-        end.to(change { ChangeReport.count }.from(0).to(1))
+        end.to(change { Report.count }.from(0).to(1))
 
-        expect(ChangeReport.last.navigator.selected_county_location_arapahoe?).to eq(true)
-        expect(ChangeReport.last.metadata).to_not be_nil
+        expect(Report.last.navigator.selected_county_location_arapahoe?).to eq(true)
+        expect(Report.last.metadata).to_not be_nil
       end
     end
   end
 
-  describe ".from_change_report" do
+  describe ".from_report" do
     context "with an existing change report" do
       it "assigns values from change report" do
-        change_report = create(:change_report)
-        create(:change_report_navigator,
-          change_report: change_report,
+        report = create(:report)
+        create(:navigator,
+          report: report,
           selected_county_location: "arapahoe")
 
-        form = CountyLocationForm.from_change_report(change_report)
+        form = CountyLocationForm.from_report(report)
 
         expect(form.selected_county_location).to eq("arapahoe")
       end
@@ -75,7 +75,7 @@ RSpec.describe CountyLocationForm do
 
     context "without a change report" do
       it "doesn't blow up" do
-        form = CountyLocationForm.from_change_report(nil)
+        form = CountyLocationForm.from_report(nil)
 
         expect(form.selected_county_location).to be_nil
       end

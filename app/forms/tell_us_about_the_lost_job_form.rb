@@ -1,5 +1,5 @@
 class TellUsAboutTheLostJobForm < Form
-  set_attributes_for :change_report, :company_name, :manager_name,
+  set_attributes_for :report, :company_name, :manager_name,
                      :manager_phone_number, :manager_additional_information
 
   before_validation -> { strip_dashes(:manager_phone_number) }
@@ -8,6 +8,6 @@ class TellUsAboutTheLostJobForm < Form
   validates :manager_phone_number, ten_digit_phone_number: true, allow_blank: true
 
   def save
-    change_report.update(attributes_for(:change_report))
+    report.update(attributes_for(:report))
   end
 end

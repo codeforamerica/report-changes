@@ -179,7 +179,7 @@ RSpec.describe TellUsMoreAboutTheLostJobForm do
   end
 
   describe "#save" do
-    let(:change_report) { create :change_report }
+    let(:report) { create :report }
     let(:valid_params) do
       {
         last_day_day: "15",
@@ -194,32 +194,32 @@ RSpec.describe TellUsMoreAboutTheLostJobForm do
 
     context "when the member does not yet exist" do
       it "persists the values to the correct models" do
-        form = TellUsMoreAboutTheLostJobForm.new(change_report, valid_params)
+        form = TellUsMoreAboutTheLostJobForm.new(report, valid_params)
         form.valid?
         form.save
 
-        change_report.reload
+        report.reload
 
-        expect(change_report.last_day.year).to eq 2000
-        expect(change_report.last_day.month).to eq 1
-        expect(change_report.last_day.day).to eq 15
-        expect(change_report.last_paycheck.year).to eq 2018
-        expect(change_report.last_paycheck.month).to eq 2
-        expect(change_report.last_paycheck.day).to eq 28
-        expect(change_report.last_paycheck_amount).to eq 1127.14
+        expect(report.last_day.year).to eq 2000
+        expect(report.last_day.month).to eq 1
+        expect(report.last_day.day).to eq 15
+        expect(report.last_paycheck.year).to eq 2018
+        expect(report.last_paycheck.month).to eq 2
+        expect(report.last_paycheck.day).to eq 28
+        expect(report.last_paycheck_amount).to eq 1127.14
       end
     end
   end
 
-  describe ".from_change_report" do
+  describe ".from_report" do
     it "assigns values from change report and other objects" do
-      change_report = create(:change_report,
+      report = create(:report,
                              :with_navigator,
                              last_day: DateTime.new(2000, 1, 15),
                              last_paycheck: DateTime.new(2018, 2, 28),
                              last_paycheck_amount: 1127.14)
 
-      form = TellUsMoreAboutTheLostJobForm.from_change_report(change_report)
+      form = TellUsMoreAboutTheLostJobForm.from_report(report)
 
       expect(form.last_day_year).to eq(2000)
       expect(form.last_day_month).to eq(1)

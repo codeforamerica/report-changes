@@ -1,8 +1,8 @@
 class NotYetSupportedController < FormsController
   layout "off_ramp"
 
-  def self.show_rule_sets(change_report)
-    super << (!change_report.navigator.supported_county? || change_report.navigator.is_self_employed_yes?)
+  def self.show_rule_sets(report)
+    super << (!report.navigator.supported_county? || report.navigator.is_self_employed_yes?)
   end
 
   def form_class

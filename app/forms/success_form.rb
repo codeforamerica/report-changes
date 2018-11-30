@@ -10,6 +10,6 @@ class SuccessForm < Form
   end
 
   def save
-    change_report.metadata.update(attributes_for(:metadata))
+    report.metadata.update(attributes_for(:metadata))
   end
 end

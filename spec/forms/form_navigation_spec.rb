@@ -7,7 +7,7 @@ RSpec.describe FormNavigation do
         true
       end
 
-      def current_change_report; end
+      def current_report; end
     end
 
     class FirstController < BaseController; end

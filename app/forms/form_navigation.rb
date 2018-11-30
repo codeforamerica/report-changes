@@ -55,7 +55,7 @@ class FormNavigation
 
   def seek(list)
     list.detect do |form_controller_class|
-      form_controller_class.show?(@form_controller.current_change_report)
+      form_controller_class.show?(@form_controller.current_report)
     end
   end
 end

@@ -1,5 +1,5 @@
-class ChangeReportNavigator < ActiveRecord::Base
-  belongs_to :change_report
+class Navigator < ActiveRecord::Base
+  belongs_to :report, foreign_key: "change_report_id"
 
   enum selected_county_location: { unfilled: 0, arapahoe: 1, not_arapahoe: 2, not_sure: 3 },
        _prefix: :selected_county_location

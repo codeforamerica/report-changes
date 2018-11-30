@@ -1,5 +1,5 @@
 class HowMuchWillYouMakeForm < Form
-  set_attributes_for :change_report, :hourly_wage, :same_hours, :paid_how_often,
+  set_attributes_for :report, :hourly_wage, :same_hours, :paid_how_often,
     :first_paycheck_day, :first_paycheck_month, :first_paycheck_year, :new_job_notes,
     :same_hours_a_week_amount, :lower_hours_a_week_amount, :upper_hours_a_week_amount
 
@@ -13,16 +13,16 @@ class HowMuchWillYouMakeForm < Form
   attr_internal_reader :first_paycheck
 
   def save
-    attributes = attributes_for(:change_report)
+    attributes = attributes_for(:report)
     attributes[:first_paycheck] = to_datetime(first_paycheck_year, first_paycheck_month, first_paycheck_day)
 
-    change_report.update(filter_attributes(attributes))
+    report.update(filter_attributes(attributes))
   end
 
-  def self.existing_attributes(change_report)
-    attributes = change_report.attributes
+  def self.existing_attributes(report)
+    attributes = report.attributes
     %i[year month day].each do |sym|
-      attributes["first_paycheck_#{sym}"] = change_report.first_paycheck.try(sym)
+      attributes["first_paycheck_#{sym}"] = report.first_paycheck.try(sym)
     end
     HashWithIndifferentAccess.new(attributes)
   end

@@ -20,7 +20,7 @@ RSpec.describe SignSubmitForm do
   end
 
   describe "#save" do
-    let(:change_report) { create :change_report }
+    let(:report) { create :report }
 
     let(:valid_params) do
       {
@@ -29,14 +29,14 @@ RSpec.describe SignSubmitForm do
     end
 
     it "persists the values to the correct models" do
-      form = SignSubmitForm.new(change_report, valid_params)
+      form = SignSubmitForm.new(report, valid_params)
       form.valid?
       form.save
 
-      change_report.reload
+      report.reload
 
-      expect(change_report.signature).to eq "Jane Doe"
-      expect(change_report.submitted_at).to be_within(1.second).of(Time.zone.now)
+      expect(report.signature).to eq "Jane Doe"
+      expect(report.submitted_at).to be_within(1.second).of(Time.zone.now)
     end
   end
 end

@@ -1,4 +1,4 @@
-<% content_for :card_title, t(self_or_other_member_translation_key(".title"), name: current_change_report.member.first_name) %>
+<% content_for :card_title, t(self_or_other_member_translation_key(".title"), name: current_report.member.first_name) %>
 
 <% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
@@ -17,7 +17,7 @@
                             t(self_or_other_member_translation_key(".paid_how_often")),
                             help_text: "For example: every other Friday, or the 15th and the 30th of each month." %>
       <%= f.cfa_input_field :change_in_hours_notes,
-                            t(self_or_other_member_translation_key(".change_in_hours_notes"), name: current_change_report.member.first_name),
+                            t(self_or_other_member_translation_key(".change_in_hours_notes"), name: current_report.member.first_name),
                             optional: true %>
     <% end %>
 <% end %>

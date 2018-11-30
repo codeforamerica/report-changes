@@ -21,7 +21,7 @@
    end
 
    describe "#save" do
-     let(:change_report) { create :change_report, :with_navigator }
+     let(:report) { create :report, :with_navigator }
 
      let(:valid_params) do
        {
@@ -30,21 +30,21 @@
      end
 
      it "persists the values to the correct models" do
-       form = DoYouHaveALetterForm.new(change_report, valid_params)
+       form = DoYouHaveALetterForm.new(report, valid_params)
        form.valid?
        form.save
 
-       change_report.reload
+       report.reload
 
-       expect(change_report.navigator.has_documents_yes?).to be_truthy
+       expect(report.navigator.has_documents_yes?).to be_truthy
      end
    end
 
-   describe ".from_change_report" do
+   describe ".from_report" do
      it "assigns values from change report navigator" do
-       change_report = create(:change_report, navigator: build(:change_report_navigator, has_documents: "yes"))
+       report = create(:report, navigator: build(:navigator, has_documents: "yes"))
 
-       form = DoYouHaveALetterForm.from_change_report(change_report)
+       form = DoYouHaveALetterForm.from_report(report)
 
        expect(form.has_documents).to eq("yes")
      end

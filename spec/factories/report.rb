@@ -1,12 +1,12 @@
 FactoryBot.define do
-  factory :change_report do
+  factory :report do
     trait :with_navigator do
       transient do
         source { nil }
       end
 
-      after(:create) do |change_report, evaluator|
-        create(:change_report_navigator, change_report: change_report, source: evaluator.source)
+      after(:create) do |report, evaluator|
+        create(:navigator, report: report, source: evaluator.source)
       end
     end
 
@@ -16,12 +16,12 @@ FactoryBot.define do
         last_name { "Jones" }
       end
 
-      after(:create) do |change_report, evaluator|
+      after(:create) do |report, evaluator|
         create(:household_member,
                birthday: 25.years.ago - 1.day,
                first_name: evaluator.first_name,
                last_name: evaluator.last_name,
-               change_report: change_report)
+               report: report)
       end
     end
 
@@ -52,11 +52,11 @@ FactoryBot.define do
         consent_to_sms { nil }
       end
 
-      after(:create) do |change_report, evaluator|
-        create(:change_report_metadata, change_report: change_report, consent_to_sms: evaluator.consent_to_sms)
+      after(:create) do |report, evaluator|
+        create(:report_metadata, report: report, consent_to_sms: evaluator.consent_to_sms)
       end
     end
 
-    factory :change_report_with_letter, traits: %i[with_navigator with_member with_letter]
+    factory :report_with_letter, traits: %i[with_navigator with_member with_letter]
   end
 end

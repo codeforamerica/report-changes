@@ -1,6 +1,6 @@
 require "administrate/field/base"
 
-class ChangeReportDownloadLinkField < Administrate::Field::Base
+class DownloadLinkField < Administrate::Field::Base
   def to_s
     resource.id
   end

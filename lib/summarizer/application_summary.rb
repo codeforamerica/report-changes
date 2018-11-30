@@ -4,7 +4,7 @@ module Summarizer
       @date = datetime.in_time_zone(timezone)
       date_range = @date.beginning_of_day..@date.end_of_day
 
-      @change_reports = ChangeReport.
+      @change_reports = Report.
         where(created_at: date_range).
         signed
     end

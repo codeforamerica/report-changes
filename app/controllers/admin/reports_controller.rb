@@ -1,5 +1,5 @@
 module Admin
-  class ChangeReportsController < Admin::ApplicationController
+  class ReportsController < Admin::ApplicationController
     # To customize the behavior of this controller,
     # you can overwrite any of the RESTful actions. For example:
     #
@@ -24,17 +24,17 @@ module Admin
           super
         end
         format.pdf do
-          pdf = ChangeReportPdfBuilder.new(ChangeReportDecorator.new(ChangeReport.find(params[:id]))).run
+          pdf = ReportPdfBuilder.new(ReportDecorator.new(Report.find(params[:id]))).run
           send_data pdf, type: "application/pdf", disposition: "inline"
         end
       end
     end
 
     def download
-      change_reports = ChangeReport.signed.map { |change_report| ChangeReportDecorator.new(change_report) }
+      reports = Report.signed.map { |report| ReportDecorator.new(report) }
       csv = CsvService.new(
-        active_record_collection: change_reports,
-        header_attributes: ChangeReportDecorator.header_attributes,
+        active_record_collection: reports,
+        header_attributes: ReportDecorator.header_attributes,
       ).run
 
       respond_to do |format|

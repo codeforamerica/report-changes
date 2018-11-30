@@ -1,4 +1,4 @@
-<%= render partial: 'change_reports/member_info' %>
+<%= render partial: 'reports/member_info' %>
 
 <div class="row">
   <div class="column one-of-two">
@@ -15,7 +15,7 @@
       Employer name
     </p>
     <span class="value">
-      <%= @change_report.company_name %>
+      <%= @report.company_name %>
     </span>
   </div>
 </div>
@@ -26,7 +26,7 @@
       Date of change
     </p>
     <span class="value">
-      <%= @change_report.change_date %>
+      <%= @report.change_date %>
     </span>
   </div>
 
@@ -35,7 +35,7 @@
       Wage
     </p>
     <span class="value">
-      <%= @change_report.hourly_wage %>
+      <%= @report.hourly_wage %>
     </span>
   </div>
 
@@ -44,7 +44,7 @@
       Pay frequency
     </p>
     <span class="value">
-      <%= @change_report.paid_how_often %>
+      <%= @report.paid_how_often %>
     </span>
   </div>
 </div>
@@ -55,7 +55,7 @@
       New hours per week (range)
     </p>
     <span class="value">
-      <%= @change_report.change_in_hours_hours_a_week %>
+      <%= @report.change_in_hours_hours_a_week %>
     </span>
   </div>
 </div>
@@ -65,7 +65,7 @@
     <p class="label">
       Additional info about hours and wages
     </p>
-    <%= render partial: 'change_reports/value_or_no_response', locals: { value: @change_report.change_in_hours_notes } %>
+    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.change_in_hours_notes } %>
   </div>
 </div>
 
@@ -82,9 +82,9 @@
     </p>
 
     <span class="value">
-      <%= @change_report.uploaded_proof_words_for_pdf %>
+      <%= @report.uploaded_proof_words_for_pdf %>
     </span>
   </div>
 </div>
 
-<%= render partial: 'change_reports/job_contact_info' %>
+<%= render partial: 'reports/job_contact_info' %>

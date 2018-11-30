@@ -18,26 +18,26 @@ RSpec.describe CountyLocationController do
 
       context "with an existing change report and navigator" do
         it "redirects to next path and updates the change report" do
-          current_change_report = create(:change_report, :with_navigator)
-          session[:current_change_report_id] = current_change_report.id
+          current_report = create(:report, :with_navigator)
+          session[:current_report_id] = current_report.id
 
           put :update, params: { form: valid_params }
 
-          current_change_report.reload
+          current_report.reload
 
           expect(response).to redirect_to(subject.next_path)
-          expect(current_change_report.navigator.selected_county_location_arapahoe?).to be_truthy
-          expect(current_change_report.navigator.source).to eq "awesome-cbo"
+          expect(current_report.navigator.selected_county_location_arapahoe?).to be_truthy
+          expect(current_report.navigator.source).to eq "awesome-cbo"
         end
       end
 
       context "without an existing change report" do
         it "redirects to next path and creates the change report" do
           put :update, params: { form: valid_params }
-          current_change_report = ChangeReport.find(session[:current_change_report_id])
+          current_report = Report.find(session[:current_report_id])
 
           expect(response).to redirect_to(subject.next_path)
-          expect(current_change_report.navigator.selected_county_location_arapahoe?).to be_truthy
+          expect(current_report.navigator.selected_county_location_arapahoe?).to be_truthy
         end
       end
     end

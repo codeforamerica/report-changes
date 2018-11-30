@@ -7,20 +7,20 @@ RSpec.describe TextMessageConsentController do
   describe "show?" do
     context "when client is submitting on behalf of someone" do
       it "returns false" do
-        navigator = build(:change_report_navigator, submitting_for: "other_household_member")
-        change_report = create(:change_report, navigator: navigator)
+        navigator = build(:navigator, submitting_for: "other_household_member")
+        report = create(:report, navigator: navigator)
 
-        show_form = TextMessageConsentController.show?(change_report)
+        show_form = TextMessageConsentController.show?(report)
         expect(show_form).to eq(false)
       end
     end
 
     context "when client is submitting for themselves" do
       it "returns true" do
-        navigator = build(:change_report_navigator, submitting_for: "self")
-        change_report = create(:change_report, navigator: navigator)
+        navigator = build(:navigator, submitting_for: "self")
+        report = create(:report, navigator: navigator)
 
-        show_form = TextMessageConsentController.show?(change_report)
+        show_form = TextMessageConsentController.show?(report)
         expect(show_form).to eq(true)
       end
     end
@@ -28,8 +28,8 @@ RSpec.describe TextMessageConsentController do
 
   describe "edit" do
     it "assigns existing attributes" do
-      current_change_report = create(:change_report, :with_metadata, consent_to_sms: "yes")
-      session[:current_change_report_id] = current_change_report.id
+      current_report = create(:report, :with_metadata, consent_to_sms: "yes")
+      session[:current_report_id] = current_report.id
 
       get :edit
 

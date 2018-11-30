@@ -62,7 +62,7 @@ RSpec.describe WhereDoYouLiveForm do
   end
 
   describe "#save" do
-    let(:change_report) { create :change_report, :with_navigator }
+    let(:report) { create :report, :with_navigator }
     let(:valid_params) do
       {
         zip_code: "11111",
@@ -81,30 +81,30 @@ RSpec.describe WhereDoYouLiveForm do
       ).and_return(county_finder)
       allow(county_finder).to receive(:run).and_return("Arapahoe")
 
-      form = WhereDoYouLiveForm.new(change_report, valid_params)
+      form = WhereDoYouLiveForm.new(report, valid_params)
       form.valid?
       form.save
 
-      change_report.reload
+      report.reload
 
-      expect(change_report.navigator.zip_code).to eq "11111"
-      expect(change_report.navigator.city).to eq "Littleton"
-      expect(change_report.navigator.street_address).to eq "123 Main St"
-      expect(change_report.navigator.county_from_address).to eq "Arapahoe"
+      expect(report.navigator.zip_code).to eq "11111"
+      expect(report.navigator.city).to eq "Littleton"
+      expect(report.navigator.street_address).to eq "123 Main St"
+      expect(report.navigator.county_from_address).to eq "Arapahoe"
     end
   end
 
-  describe ".from_change_report" do
+  describe ".from_report" do
     it "assigns values from the change report navigator" do
       navigator = build(
-        :change_report_navigator,
+        :navigator,
         street_address: "123 Main St",
         city: "Springfield",
         zip_code: "12345",
       )
-      change_report = create(:change_report, navigator: navigator)
+      report = create(:report, navigator: navigator)
 
-      form = WhereDoYouLiveForm.from_change_report(change_report)
+      form = WhereDoYouLiveForm.from_report(report)
 
       expect(form.street_address).to eq("123 Main St")
       expect(form.city).to eq("Springfield")

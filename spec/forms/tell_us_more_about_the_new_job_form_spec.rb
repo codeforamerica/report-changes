@@ -78,7 +78,7 @@ RSpec.describe TellUsMoreAboutTheNewJobForm do
   end
 
   describe "#save" do
-    let(:change_report) { create :change_report }
+    let(:report) { create :report }
     let(:valid_params) do
       {
         first_day_day: "15",
@@ -89,27 +89,27 @@ RSpec.describe TellUsMoreAboutTheNewJobForm do
     end
 
     it "persists the values to the correct models" do
-      form = TellUsMoreAboutTheNewJobForm.new(change_report, valid_params)
+      form = TellUsMoreAboutTheNewJobForm.new(report, valid_params)
       form.valid?
       form.save
 
-      change_report.reload
+      report.reload
 
-      expect(change_report.first_day.year).to eq 2000
-      expect(change_report.first_day.month).to eq 1
-      expect(change_report.first_day.day).to eq 15
-      expect(change_report.paid_yet_yes?).to be_truthy
+      expect(report.first_day.year).to eq 2000
+      expect(report.first_day.month).to eq 1
+      expect(report.first_day.day).to eq 15
+      expect(report.paid_yet_yes?).to be_truthy
     end
   end
 
-  describe ".from_change_report" do
+  describe ".from_report" do
     it "assigns values from change report and other objects" do
-      change_report = create(:change_report,
+      report = create(:report,
         :with_navigator,
         first_day: DateTime.new(2000, 1, 15),
         paid_yet: "no")
 
-      form = TellUsMoreAboutTheNewJobForm.from_change_report(change_report)
+      form = TellUsMoreAboutTheNewJobForm.from_report(report)
 
       expect(form.first_day_year).to eq(2000)
       expect(form.first_day_month).to eq(1)

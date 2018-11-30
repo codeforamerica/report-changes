@@ -21,7 +21,7 @@ RSpec.describe ChangeTypeForm do
   end
 
   describe "#save" do
-    let(:change_report) { create :change_report }
+    let(:report) { create :report }
 
     let(:valid_params) do
       {
@@ -30,21 +30,21 @@ RSpec.describe ChangeTypeForm do
     end
 
     it "persists the values to the correct models" do
-      form = ChangeTypeForm.new(change_report, valid_params)
+      form = ChangeTypeForm.new(report, valid_params)
       form.valid?
       form.save
 
-      change_report.reload
+      report.reload
 
-      expect(change_report.change_type_job_termination?).to be_truthy
+      expect(report.change_type_job_termination?).to be_truthy
     end
   end
 
-  describe ".from_change_report" do
+  describe ".from_report" do
     it "assigns values from change report" do
-      change_report = create(:change_report, :new_job)
+      report = create(:report, :new_job)
 
-      form = ChangeTypeForm.from_change_report(change_report)
+      form = ChangeTypeForm.from_report(report)
 
       expect(form.change_type).to eq "new_job"
     end

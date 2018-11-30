@@ -6,11 +6,11 @@ class WhereDoYouLiveForm < Form
   validates :zip_code, length: { is: 5, message: "Please add a five digit ZIP code" }
 
   def save
-    change_report.navigator.update!(attributes_for(:navigator).merge(county_from_address: county))
+    report.navigator.update!(attributes_for(:navigator).merge(county_from_address: county))
   end
 
-  def self.existing_attributes(change_report)
-    HashWithIndifferentAccess.new(change_report.navigator.attributes)
+  def self.existing_attributes(report)
+    HashWithIndifferentAccess.new(report.navigator.attributes)
   end
 
   private

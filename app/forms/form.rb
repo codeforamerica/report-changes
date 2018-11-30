@@ -4,10 +4,10 @@ class Form
   include ActiveModel::Validations::Callbacks
 
   class_attribute :attribute_names
-  attr_accessor :change_report
+  attr_accessor :report
 
-  def initialize(change_report, params = {})
-    @change_report = change_report
+  def initialize(report, params = {})
+    @report = report
     super(params)
   end
 
@@ -31,9 +31,9 @@ class Form
       attr_accessor(*attribute_strings)
     end
 
-    def from_change_report(change_report)
+    def from_report(report)
       attribute_keys = Attributes.new(attribute_names).to_sym
-      new(change_report, existing_attributes(change_report).slice(*attribute_keys))
+      new(report, existing_attributes(report).slice(*attribute_keys))
     end
 
     def scoped_attributes
@@ -46,8 +46,8 @@ class Form
 
     # Override in subclasses if needed
 
-    def existing_attributes(change_report)
-      HashWithIndifferentAccess.new(change_report.attributes)
+    def existing_attributes(report)
+      HashWithIndifferentAccess.new(report.attributes)
     end
   end
 

@@ -68,29 +68,29 @@ RSpec.describe TellUsAboutChangeInHoursJobForm do
   end
 
   describe "#save" do
-    let(:change_report) { create :change_report }
+    let(:report) { create :report }
 
     it "persists the values to the correct models" do
-      form = TellUsAboutChangeInHoursJobForm.new(change_report, valid_params)
+      form = TellUsAboutChangeInHoursJobForm.new(report, valid_params)
       form.valid?
       form.save
 
-      change_report.reload
+      report.reload
 
-      expect(change_report.company_name).to eq("Abc Corp")
-      expect(change_report.manager_name).to eq("Boss McBosserson")
-      expect(change_report.manager_phone_number).to eq("1112223333")
+      expect(report.company_name).to eq("Abc Corp")
+      expect(report.manager_name).to eq("Boss McBosserson")
+      expect(report.manager_phone_number).to eq("1112223333")
     end
   end
 
-  describe ".from_change_report" do
+  describe ".from_report" do
     it "assigns values from change report" do
-      change_report = create(:change_report, :with_navigator,
+      report = create(:report, :with_navigator,
                              company_name: "Abc Corp",
                              manager_name: "Boss McBosserson",
                              manager_phone_number: "1112223333")
 
-      form = TellUsAboutChangeInHoursJobForm.from_change_report(change_report)
+      form = TellUsAboutChangeInHoursJobForm.from_report(report)
 
       expect(form.company_name).to eq("Abc Corp")
       expect(form.manager_name).to eq("Boss McBosserson")

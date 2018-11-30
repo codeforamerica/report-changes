@@ -1,5 +1,5 @@
 class TellUsAboutChangeInHoursForm < Form
-  set_attributes_for :change_report,
+  set_attributes_for :report,
                      :hourly_wage, :lower_hours_a_week_amount, :upper_hours_a_week_amount, :paid_how_often,
                      :change_date_day, :change_date_month, :change_date_year, :change_in_hours_notes
 
@@ -11,16 +11,16 @@ class TellUsAboutChangeInHoursForm < Form
   attr_internal_reader :change_date
 
   def save
-    attributes = attributes_for(:change_report)
+    attributes = attributes_for(:report)
     attributes[:change_date] = to_datetime(change_date_year, change_date_month, change_date_day)
 
-    change_report.update(attributes.except(:change_date_day, :change_date_month, :change_date_year))
+    report.update(attributes.except(:change_date_day, :change_date_month, :change_date_year))
   end
 
-  def self.existing_attributes(change_report)
-    attributes = change_report.attributes
+  def self.existing_attributes(report)
+    attributes = report.attributes
     %i[year month day].each do |sym|
-      attributes["change_date_#{sym}"] = change_report.change_date.try(sym)
+      attributes["change_date_#{sym}"] = report.change_date.try(sym)
     end
     HashWithIndifferentAccess.new(attributes)
   end

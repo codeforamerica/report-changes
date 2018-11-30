@@ -145,32 +145,32 @@ RSpec.describe TellUsAboutYourselfForm do
     end
 
     it "persists the values to the correct models" do
-      change_report = create(:change_report, :with_member)
-      form = TellUsAboutYourselfForm.new(change_report, valid_params)
+      report = create(:report, :with_member)
+      form = TellUsAboutYourselfForm.new(report, valid_params)
       form.valid?
       form.save
 
-      change_report.reload
+      report.reload
 
-      expect(change_report.case_number).to eq "123abc"
-      expect(change_report.phone_number).to eq "1112223333"
-      expect(change_report.member.ssn).to eq "111223333"
-      expect(change_report.member.birthday.year).to eq 2000
-      expect(change_report.member.birthday.month).to eq 1
-      expect(change_report.member.birthday.day).to eq 15
+      expect(report.case_number).to eq "123abc"
+      expect(report.phone_number).to eq "1112223333"
+      expect(report.member.ssn).to eq "111223333"
+      expect(report.member.birthday.year).to eq 2000
+      expect(report.member.birthday.month).to eq 1
+      expect(report.member.birthday.day).to eq 15
     end
   end
 
-  describe ".from_change_report" do
+  describe ".from_report" do
     it "assigns values from change report and other objects" do
-      change_report = create(:change_report,
+      report = create(:report,
         case_number: "1A1234",
         phone_number: "1234567890",
         member: build(:household_member,
           ssn: "111223333",
           birthday: DateTime.new(1950, 1, 31)))
 
-      form = TellUsAboutYourselfForm.from_change_report(change_report)
+      form = TellUsAboutYourselfForm.from_report(report)
 
       expect(form.birthday_year).to eq(1950)
       expect(form.birthday_month).to eq(1)
