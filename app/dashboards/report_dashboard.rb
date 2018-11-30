@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class ChangeReportDashboard < Administrate::BaseDashboard
+class ReportDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -33,7 +33,7 @@ class ChangeReportDashboard < Administrate::BaseDashboard
     submitted_at: Field::DateTime,
     updated_at: Field::DateTime,
     upper_hours_a_week_amount: Field::Number,
-    download_link: ChangeReportDownloadLinkField,
+    download_link: DownloadLinkField,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -84,7 +84,7 @@ class ChangeReportDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how change reports are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(change_report)
-  #   "ChangeReport ##{change_report.id}"
+  # def display_resource(report)
+  #   "ChangeReport ##{report.id}"
   # end
 end

@@ -1,4 +1,4 @@
-class ChangeReportDecorator < SimpleDelegator
+class ReportDecorator < SimpleDelegator
   include ActionView::Helpers::NumberHelper
 
   def self.header_attributes

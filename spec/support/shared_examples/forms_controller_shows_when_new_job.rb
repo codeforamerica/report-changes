@@ -4,18 +4,18 @@ RSpec.shared_examples_for "form controller shows when new job" do
   describe "show?" do
     context "when change_type is new job" do
       it "returns true" do
-        change_report = create(:change_report, :new_job)
+        report = create(:report, :new_job)
 
-        show_form = subject.class.show?(change_report)
+        show_form = subject.class.show?(report)
         expect(show_form).to eq(true)
       end
     end
 
     context "when change_type is not new_job" do
       it "returns false" do
-        change_report = create(:change_report, :job_termination)
+        report = create(:report, :job_termination)
 
-        show_form = subject.class.show?(change_report)
+        show_form = subject.class.show?(report)
         expect(show_form).to eq(false)
       end
     end

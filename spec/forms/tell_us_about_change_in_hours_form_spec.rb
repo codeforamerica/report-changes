@@ -104,27 +104,27 @@ RSpec.describe TellUsAboutChangeInHoursForm do
   end
 
   describe "#save" do
-    let(:change_report) { create :change_report }
+    let(:report) { create :report }
 
     it "persists the values to the correct models" do
-      form = TellUsAboutChangeInHoursForm.new(change_report, valid_params)
+      form = TellUsAboutChangeInHoursForm.new(report, valid_params)
       form.valid?
       form.save
 
-      change_report.reload
+      report.reload
 
-      expect(change_report.hourly_wage).to eq("9.50")
-      expect(change_report.lower_hours_a_week_amount).to eq("20")
-      expect(change_report.upper_hours_a_week_amount).to be_nil
-      expect(change_report.paid_how_often).to eq("Every two weeks")
-      expect(change_report.change_date).to eq(DateTime.new(2018, 1, 15))
-      expect(change_report.change_in_hours_notes).to eq("Those extra hours were only for one week")
+      expect(report.hourly_wage).to eq("9.50")
+      expect(report.lower_hours_a_week_amount).to eq("20")
+      expect(report.upper_hours_a_week_amount).to be_nil
+      expect(report.paid_how_often).to eq("Every two weeks")
+      expect(report.change_date).to eq(DateTime.new(2018, 1, 15))
+      expect(report.change_in_hours_notes).to eq("Those extra hours were only for one week")
     end
   end
 
-  describe ".from_change_report" do
+  describe ".from_report" do
     it "assigns values from change report" do
-      change_report = create(:change_report,
+      report = create(:report,
                              hourly_wage: "9.50",
                              lower_hours_a_week_amount: "20",
                              upper_hours_a_week_amount: "25",
@@ -132,7 +132,7 @@ RSpec.describe TellUsAboutChangeInHoursForm do
                              change_date: DateTime.new(2018, 1, 15),
                              change_in_hours_notes: "Those extra hours were only for one week")
 
-      form = TellUsAboutChangeInHoursForm.from_change_report(change_report)
+      form = TellUsAboutChangeInHoursForm.from_report(report)
 
       expect(form.hourly_wage).to eq("9.50")
       expect(form.lower_hours_a_week_amount).to eq("20")

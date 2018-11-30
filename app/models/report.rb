@@ -1,11 +1,11 @@
-class ChangeReport < ActiveRecord::Base
+class Report < ActiveRecord::Base
   has_one :navigator,
-          class_name: "ChangeReportNavigator",
+          class_name: "Navigator",
           foreign_key: "change_report_id",
           dependent: :destroy
 
   has_one :metadata,
-          class_name: "ChangeReportMetadata",
+          class_name: "ReportMetadata",
           foreign_key: "change_report_id",
           dependent: :destroy
 

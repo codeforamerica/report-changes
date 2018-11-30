@@ -3,7 +3,7 @@ class SignSubmitController < FormsController
 
   def update_session
     unless Rails.env.demo?
-      EmailChangeReportToOfficeJob.perform_later(change_report: current_change_report)
+      EmailChangeReportToOfficeJob.perform_later(report: current_report)
     end
   end
 end

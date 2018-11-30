@@ -4,7 +4,7 @@
       Date Submitted
     </p>
     <span class="value">
-        <%= @change_report.submitted_at %>
+        <%= @report.submitted_at %>
       </span>
   </div>
   <div class="column one-of-two">
@@ -12,7 +12,7 @@
       Submitted by
     </p>
     <span class="value">
-        <%= @change_report.signature %>
+        <%= @report.signature %>
       </span>
   </div>
 </div>
@@ -25,7 +25,7 @@
       Full name
     </p>
     <span class="value">
-        <%= @change_report.client_name %>
+        <%= @report.client_name %>
       </span>
   </div>
 
@@ -34,7 +34,7 @@
       Phone Number
     </p>
     <span class="value">
-        <%= @change_report.client_phone_number %>
+        <%= @report.client_phone_number %>
       </span>
   </div>
 </div>
@@ -44,14 +44,14 @@
     <p class="label">
       Social Security Number
     </p>
-    <%= render partial: 'change_reports/value_or_no_response', locals: { value: @change_report.ssn } %>
+    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.ssn } %>
   </div>
 
   <div class="column one-of-four">
     <p class="label">
       Case Number
     </p>
-    <%= render partial: 'change_reports/value_or_no_response', locals: { value: @change_report.case_number } %>
+    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.case_number } %>
   </div>
 
   <div class="column one-of-four">
@@ -59,7 +59,7 @@
       Date of Birth
     </p>
     <span class="value">
-        <%= @change_report.birthday %>
+        <%= @report.birthday %>
       </span>
   </div>
 </div>

@@ -1,5 +1,5 @@
 class TextMessageConsentController < FormsController
-  def self.show_rule_sets(change_report)
-    super << change_report.navigator.submitting_for_self?
+  def self.show_rule_sets(report)
+    super << report.navigator.submitting_for_self?
   end
 end

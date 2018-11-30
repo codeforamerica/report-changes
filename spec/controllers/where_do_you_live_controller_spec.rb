@@ -12,30 +12,30 @@ RSpec.describe WhereDoYouLiveController do
   describe "show?" do
     context "when the client lives in Arapahoe County" do
       it "returns false" do
-        navigator = build(:change_report_navigator, selected_county_location: :arapahoe)
-        change_report = create(:change_report, navigator: navigator)
+        navigator = build(:navigator, selected_county_location: :arapahoe)
+        report = create(:report, navigator: navigator)
 
-        show_form = WhereDoYouLiveController.show?(change_report)
+        show_form = WhereDoYouLiveController.show?(report)
         expect(show_form).to eq(false)
       end
     end
 
     context "when the client does not live in Arapahoe County" do
       it "returns false" do
-        navigator = build(:change_report_navigator, selected_county_location: :not_arapahoe)
-        change_report = create(:change_report, navigator: navigator)
+        navigator = build(:navigator, selected_county_location: :not_arapahoe)
+        report = create(:report, navigator: navigator)
 
-        show_form = WhereDoYouLiveController.show?(change_report)
+        show_form = WhereDoYouLiveController.show?(report)
         expect(show_form).to eq(false)
       end
     end
 
     context "when the client doesn't know if they live in Arapahoe County" do
       it "returns true" do
-        navigator = build(:change_report_navigator, selected_county_location: :not_sure)
-        change_report = create(:change_report, navigator: navigator)
+        navigator = build(:navigator, selected_county_location: :not_sure)
+        report = create(:report, navigator: navigator)
 
-        show_form = WhereDoYouLiveController.show?(change_report)
+        show_form = WhereDoYouLiveController.show?(report)
         expect(show_form).to eq(true)
       end
     end

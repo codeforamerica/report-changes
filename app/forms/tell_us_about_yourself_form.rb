@@ -1,6 +1,6 @@
 class TellUsAboutYourselfForm < Form
   set_attributes_for :member, :ssn, :birthday_year, :birthday_month, :birthday_day
-  set_attributes_for :change_report, :phone_number, :case_number
+  set_attributes_for :report, :phone_number, :case_number
 
   before_validation -> { strip_dashes(:phone_number) }
   before_validation -> { strip_dashes(:ssn) }
@@ -11,17 +11,17 @@ class TellUsAboutYourselfForm < Form
   validates :birthday, date: true
 
   def save
-    change_report.update(attributes_for(:change_report))
-    change_report.member.update(member_data)
+    report.update(attributes_for(:report))
+    report.member.update(member_data)
   end
 
-  def self.existing_attributes(change_report)
-    if change_report.member.present?
-      attributes = change_report.attributes.merge(change_report.member.attributes)
+  def self.existing_attributes(report)
+    if report.member.present?
+      attributes = report.attributes.merge(report.member.attributes)
       %i[year month day].each do |sym|
-        attributes["birthday_#{sym}"] = change_report.member.birthday.try(sym)
+        attributes["birthday_#{sym}"] = report.member.birthday.try(sym)
       end
-      attributes[:ssn] = change_report.member.ssn
+      attributes[:ssn] = report.member.ssn
       HashWithIndifferentAccess.new(attributes)
     else
       {}

@@ -155,7 +155,7 @@ RSpec.describe HowMuchWillYouMakeForm do
   end
 
   describe "#save" do
-    let(:change_report) { create :change_report }
+    let(:report) { create :report }
     let(:valid_params) do
       {
         hourly_wage: "9.50",
@@ -172,22 +172,22 @@ RSpec.describe HowMuchWillYouMakeForm do
     end
 
     it "persists the values to the correct models" do
-      form = HowMuchWillYouMakeForm.new(change_report, valid_params)
+      form = HowMuchWillYouMakeForm.new(report, valid_params)
       form.valid?
       form.save
 
-      change_report.reload
+      report.reload
 
-      expect(change_report.hourly_wage).to eq "9.50"
-      expect(change_report.same_hours).to eq "no"
-      expect(change_report.same_hours_a_week_amount).to eq nil
-      expect(change_report.lower_hours_a_week_amount).to eq "5"
-      expect(change_report.upper_hours_a_week_amount).to eq "25"
-      expect(change_report.paid_how_often).to eq "Every two weeks"
-      expect(change_report.first_paycheck.year).to eq 2018
-      expect(change_report.first_paycheck.month).to eq 1
-      expect(change_report.first_paycheck.day).to eq 15
-      expect(change_report.new_job_notes).to eq "Those extra hours were only for one week"
+      expect(report.hourly_wage).to eq "9.50"
+      expect(report.same_hours).to eq "no"
+      expect(report.same_hours_a_week_amount).to eq nil
+      expect(report.lower_hours_a_week_amount).to eq "5"
+      expect(report.upper_hours_a_week_amount).to eq "25"
+      expect(report.paid_how_often).to eq "Every two weeks"
+      expect(report.first_paycheck.year).to eq 2018
+      expect(report.first_paycheck.month).to eq 1
+      expect(report.first_paycheck.day).to eq 15
+      expect(report.new_job_notes).to eq "Those extra hours were only for one week"
     end
 
     context "when same_hours is no" do
@@ -196,16 +196,16 @@ RSpec.describe HowMuchWillYouMakeForm do
                             same_hours_a_week_amount: "50",
                             lower_hours_a_week_amount: "5",
                             upper_hours_a_week_amount: "25")
-        form = HowMuchWillYouMakeForm.new(change_report, valid_params)
+        form = HowMuchWillYouMakeForm.new(report, valid_params)
         form.valid?
         form.save
 
-        change_report.reload
+        report.reload
 
-        expect(change_report.same_hours).to eq "no"
-        expect(change_report.same_hours_a_week_amount).to eq nil
-        expect(change_report.lower_hours_a_week_amount).to eq "5"
-        expect(change_report.upper_hours_a_week_amount).to eq "25"
+        expect(report.same_hours).to eq "no"
+        expect(report.same_hours_a_week_amount).to eq nil
+        expect(report.lower_hours_a_week_amount).to eq "5"
+        expect(report.upper_hours_a_week_amount).to eq "25"
       end
     end
 
@@ -215,23 +215,23 @@ RSpec.describe HowMuchWillYouMakeForm do
                             same_hours_a_week_amount: "50",
                             lower_hours_a_week_amount: "5",
                             upper_hours_a_week_amount: "25")
-        form = HowMuchWillYouMakeForm.new(change_report, valid_params)
+        form = HowMuchWillYouMakeForm.new(report, valid_params)
         form.valid?
         form.save
 
-        change_report.reload
+        report.reload
 
-        expect(change_report.same_hours).to eq "yes"
-        expect(change_report.same_hours_a_week_amount).to eq "50"
-        expect(change_report.lower_hours_a_week_amount).to eq nil
-        expect(change_report.upper_hours_a_week_amount).to eq nil
+        expect(report.same_hours).to eq "yes"
+        expect(report.same_hours_a_week_amount).to eq "50"
+        expect(report.lower_hours_a_week_amount).to eq nil
+        expect(report.upper_hours_a_week_amount).to eq nil
       end
     end
   end
 
-  describe ".from_change_report" do
+  describe ".from_report" do
     it "assigns values from change report and other objects" do
-      change_report = create(:change_report,
+      report = create(:report,
           hourly_wage: "9.50",
           same_hours: "yes",
           same_hours_a_week_amount: "50",
@@ -239,7 +239,7 @@ RSpec.describe HowMuchWillYouMakeForm do
           first_paycheck: DateTime.new(2018, 1, 15),
           new_job_notes: "Those extra hours were only for one week")
 
-      form = HowMuchWillYouMakeForm.from_change_report(change_report)
+      form = HowMuchWillYouMakeForm.from_report(report)
 
       expect(form.hourly_wage).to eq "9.50"
       expect(form.same_hours).to eq "yes"

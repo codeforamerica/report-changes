@@ -13,32 +13,32 @@ RSpec.feature "Admin viewing dashboard" do
       login_as(user)
     end
 
-    scenario "viewing details for a change_report" do
-      change_report = create(:change_report)
+    scenario "viewing details for a report" do
+      report = create(:report)
 
       visit admin_root_path
 
-      expect(page).to have_content("Change Report")
+      expect(page).to have_content("Report")
 
-      click_on change_report.id
+      click_on report.id
 
-      expect(page).to have_content("ChangeReport ##{change_report.id}")
+      expect(page).to have_content("Report ##{report.id}")
     end
 
     context "with verifications" do
       scenario "viewing the pdf" do
-        change_report = build(:change_report, :job_termination, :with_letter,
-                              navigator: build(:change_report_navigator, has_documents: "yes"))
+        report = build(:report, :job_termination, :with_letter,
+                              navigator: build(:navigator, has_documents: "yes"))
         create(:household_member,
                first_name: "Todd",
                last_name: "Chavez",
-               change_report: change_report)
-        change_report.letters.attach(
+               report: report)
+        report.letters.attach(
           io: File.open(Rails.root.join("spec", "fixtures", "document.pdf")),
           filename: "document.pdf",
           content_type: "application/pdf",
         )
-        change_report.letters.attach(
+        report.letters.attach(
           io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
           filename: "image.jpg",
           content_type: "image/jpg",
@@ -63,14 +63,14 @@ RSpec.feature "Admin viewing dashboard" do
     scenario "searching isn't broken", js: true do
       visit admin_root_path(search: "asdf")
 
-      expect(page).to have_content("Change Report")
+      expect(page).to have_content("Report")
     end
 
     scenario "can download a csv of all the change reports" do
-      create(:change_report, :with_member, :job_termination, signature: "st", manager_name: "Lavar Burton")
-      create(:change_report, :with_member, :new_job, signature: "julie", manager_name: "Bob Ross")
-      create(:change_report, :with_member, :change_in_hours, signature: "mike", manager_name: "Michael Scott")
-      create(:change_report, :with_member, signature: nil, manager_name: "Mr Burns")
+      create(:report, :with_member, :job_termination, signature: "st", manager_name: "Lavar Burton")
+      create(:report, :with_member, :new_job, signature: "julie", manager_name: "Bob Ross")
+      create(:report, :with_member, :change_in_hours, signature: "mike", manager_name: "Michael Scott")
+      create(:report, :with_member, signature: nil, manager_name: "Mr Burns")
 
       visit admin_root_path
 

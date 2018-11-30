@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :household_member do
-    change_report
+    report
 
     first_name { "Frank" }
     last_name { "Sinatra" }

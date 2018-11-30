@@ -1,19 +1,19 @@
 require "rails_helper"
 
 RSpec.describe AnalyticsData do
-  let(:mock_change_report) do
-    instance_double(ChangeReport,
-      first_day: nil,
-      first_paycheck: nil,
-      last_day: nil,
-      last_paycheck: nil,
-      letters: [],
-      submitted_at: nil).as_null_object
+  let(:mock_report) do
+    instance_double(Report,
+                    first_day: nil,
+                    first_paycheck: nil,
+                    last_day: nil,
+                    last_paycheck: nil,
+                    letters: [],
+                    submitted_at: nil).as_null_object
   end
 
   describe "#to_h" do
     it "returns basic information" do
-      navigator = instance_double(ChangeReportNavigator,
+      navigator = instance_double(Navigator,
                                   county_from_address: "Littleland",
                                   has_documents: "yes",
                                   selected_county_location: "arapahoe",
@@ -22,11 +22,11 @@ RSpec.describe AnalyticsData do
 
       member = instance_double(HouseholdMember, age: 22)
 
-      metadata = instance_double(ChangeReportMetadata,
+      metadata = instance_double(ReportMetadata,
                                  consent_to_sms: "yes",
                                  feedback_rating: "positive")
 
-      allow(mock_change_report).to receive_messages(
+      allow(mock_report).to receive_messages(
         navigator: navigator,
         member: member,
         metadata: metadata,
@@ -36,7 +36,7 @@ RSpec.describe AnalyticsData do
         submitted_at: DateTime.new(2018, 1, 2),
       )
 
-      data = AnalyticsData.new(mock_change_report).to_h
+      data = AnalyticsData.new(mock_report).to_h
 
       expect(data.fetch(:age)).to eq(22)
       expect(data.fetch(:change_type)).to eq("new_job")
@@ -55,15 +55,15 @@ RSpec.describe AnalyticsData do
 
     it "calculates time since submission" do
       submission_date = Time.utc(2018, 1, 10, 1, 2, 3)
-      allow(mock_change_report).to receive_messages(change_type: "new_job",
-                                                    first_day: submission_date - 30.days,
-                                                    first_paycheck: submission_date - 20.days,
-                                                    last_day: submission_date - 90.days,
-                                                    last_paycheck: submission_date - 100.days,
-                                                    same_hours: "yes",
-                                                    submitted_at: submission_date)
+      allow(mock_report).to receive_messages(change_type: "new_job",
+                                             first_day: submission_date - 30.days,
+                                             first_paycheck: submission_date - 20.days,
+                                             last_day: submission_date - 90.days,
+                                             last_paycheck: submission_date - 100.days,
+                                             same_hours: "yes",
+                                             submitted_at: submission_date)
 
-      data = AnalyticsData.new(mock_change_report).to_h
+      data = AnalyticsData.new(mock_report).to_h
 
       expect(data.fetch(:same_hours)).to eq("yes")
       expect(data.fetch(:days_since_first_day_to_submission)).to eq(30)
@@ -73,9 +73,9 @@ RSpec.describe AnalyticsData do
     end
 
     it "sends nil for any 'unfilled' values" do
-      allow(mock_change_report).to receive_messages(same_hours: "unfilled")
+      allow(mock_report).to receive_messages(same_hours: "unfilled")
 
-      data = AnalyticsData.new(mock_change_report).to_h
+      data = AnalyticsData.new(mock_report).to_h
 
       expect(data.fetch(:same_hours)).to be_nil
     end
@@ -83,7 +83,7 @@ RSpec.describe AnalyticsData do
     context "when member and navigator are not present" do
       it "does not error" do
         expect do
-          AnalyticsData.new(build(:change_report)).to_h
+          AnalyticsData.new(build(:report)).to_h
         end.to_not raise_error
       end
     end

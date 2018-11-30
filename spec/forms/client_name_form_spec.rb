@@ -51,41 +51,41 @@ RSpec.describe ClientNameForm do
 
     context "when the member does not yet exist" do
       it "creates member with given values" do
-        change_report = create(:change_report)
-        form = ClientNameForm.new(change_report, valid_params)
+        report = create(:report)
+        form = ClientNameForm.new(report, valid_params)
         form.valid?
         form.save
 
-        change_report.reload
+        report.reload
 
-        expect(change_report.member.first_name).to eq "Annie"
-        expect(change_report.member.last_name).to eq "McDog"
+        expect(report.member.first_name).to eq "Annie"
+        expect(report.member.last_name).to eq "McDog"
       end
     end
 
     context "when the member already exists" do
       it "updates the member" do
-        change_report = create(:change_report, :with_member, first_name: "Sophie")
-        form = ClientNameForm.new(change_report, valid_params)
+        report = create(:report, :with_member, first_name: "Sophie")
+        form = ClientNameForm.new(report, valid_params)
 
         expect do
           form.save
         end.not_to(change { HouseholdMember.count })
 
-        change_report.reload
+        report.reload
 
-        expect(change_report.member.first_name).to eq "Annie"
+        expect(report.member.first_name).to eq "Annie"
       end
     end
   end
 
-  describe ".from_change_report" do
+  describe ".from_report" do
     context "when member exists" do
       it "assigns values from change report and other objects" do
-        change_report = create(:change_report,
+        report = create(:report,
                                member: build(:household_member, first_name: "Annie", last_name: "McDog"))
 
-        form = ClientNameForm.from_change_report(change_report)
+        form = ClientNameForm.from_report(report)
 
         expect(form.first_name).to eq("Annie")
         expect(form.last_name).to eq("McDog")
@@ -94,7 +94,7 @@ RSpec.describe ClientNameForm do
 
     context "when member does not exist" do
       it "assigns an empty hash" do
-        form = ClientNameForm.from_change_report(create(:change_report))
+        form = ClientNameForm.from_report(create(:report))
 
         expect(form.first_name).to be_nil
         expect(form.last_name).to be_nil

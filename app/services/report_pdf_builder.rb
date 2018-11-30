@@ -1,15 +1,15 @@
-class ChangeReportPdfBuilder
+class ReportPdfBuilder
   attr_reader :pdf_from_html, :attachments
 
-  def initialize(change_report)
+  def initialize(report)
     rendered_string = ApplicationController.render(
-      layout: "change_report",
-      template: "change_reports/#{change_report.change_type}",
-      assigns: { change_report: change_report },
+      layout: "report",
+      template: "reports/#{report.change_type}",
+      assigns: { report: report },
     )
     @pdf_from_html = WickedPdf.new.pdf_from_string(rendered_string)
 
-    @attachments = change_report.pdf_letters
+    @attachments = report.pdf_letters
   end
 
   def run

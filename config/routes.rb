@@ -7,10 +7,10 @@ Rails.application.routes.draw do
     namespace :admin do
       match "/delayed_job" => DelayedJobWeb, :anchor => false, :via => %i[get post]
 
-      resources :change_reports, only: %i[index show]
-      get "download_all", to: "change_reports#download", format: "csv"
+      resources :reports, only: %i[index show]
+      get "download_all", to: "reports#download", format: "csv"
 
-      root to: "change_reports#index"
+      root to: "reports#index"
     end
   end
 

@@ -2,15 +2,15 @@ require "rails_helper"
 
 RSpec.shared_examples_for "form controller base behavior" do |is_last_section|
   context "with session" do
-    let(:current_change_report) { create(:change_report, :with_navigator, :with_metadata) }
+    let(:current_report) { create(:report, :with_navigator, :with_metadata) }
 
     before do
-      session[:current_change_report_id] = current_change_report.id
+      session[:current_report_id] = current_report.id
     end
 
-    describe "#current_change_report" do
+    describe "#current_report" do
       it "returns the ChangeReport from the id in the session" do
-        expect(controller.current_change_report).to eq current_change_report
+        expect(controller.current_report).to eq current_report
       end
     end
 

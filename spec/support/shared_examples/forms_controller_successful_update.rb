@@ -11,10 +11,10 @@ RSpec.shared_examples_for "form controller successful update" do |valid_params|
     end
 
     context "with change report" do
-      let(:current_change_report) { create(:change_report, :with_navigator, :with_member, :with_metadata) }
+      let(:current_report) { create(:report, :with_navigator, :with_member, :with_metadata) }
 
       before do
-        session[:current_change_report_id] = current_change_report.id
+        session[:current_report_id] = current_report.id
       end
 
       context "on successful update" do
@@ -29,13 +29,13 @@ RSpec.shared_examples_for "form controller successful update" do |valid_params|
           fake_analytics_data = { foo: "bar" }
 
           allow(MixpanelService).to receive(:instance).and_return(mock_mixpanel_service)
-          allow(AnalyticsData).to receive(:new).with(current_change_report) { fake_analytics_data }
+          allow(AnalyticsData).to receive(:new).with(current_report) { fake_analytics_data }
 
           put :update, params: { form: valid_params }
 
-          current_change_report.reload
+          current_report.reload
           expect(mock_mixpanel_service).to have_received(:run).with(
-            unique_id: current_change_report.id,
+            unique_id: current_report.id,
             event_name: controller.form_class.analytics_event_name,
             data: fake_analytics_data,
           )

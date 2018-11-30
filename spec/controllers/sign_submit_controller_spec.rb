@@ -10,8 +10,8 @@ RSpec.describe SignSubmitController do
 
   describe "edit" do
     it "assigns existing attributes" do
-      current_change_report = create(:change_report, signature: "Best E. Person")
-      session[:current_change_report_id] = current_change_report.id
+      current_report = create(:report, signature: "Best E. Person")
+      session[:current_report_id] = current_report.id
 
       get :edit
 
@@ -33,8 +33,8 @@ RSpec.describe SignSubmitController do
         end
 
         it "does not enqueue a pdf mailer job" do
-          current_change_report = create(:change_report, :with_navigator)
-          session[:current_change_report_id] = current_change_report.id
+          current_report = create(:report, :with_navigator)
+          session[:current_report_id] = current_report.id
 
           allow(EmailChangeReportToOfficeJob).to receive(:perform_later)
 
@@ -45,14 +45,14 @@ RSpec.describe SignSubmitController do
       end
 
       it "enqueues a pdf mailer job" do
-        current_change_report = create(:change_report, :with_navigator)
-        session[:current_change_report_id] = current_change_report.id
+        current_report = create(:report, :with_navigator)
+        session[:current_report_id] = current_report.id
 
         allow(EmailChangeReportToOfficeJob).to receive(:perform_later)
 
         put :update, params: { form: valid_params }
 
-        expect(EmailChangeReportToOfficeJob).to have_received(:perform_later).with(change_report: current_change_report)
+        expect(EmailChangeReportToOfficeJob).to have_received(:perform_later).with(report: current_report)
       end
     end
   end

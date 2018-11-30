@@ -5,16 +5,16 @@ class ClientNameForm < Form
   validates_presence_of :last_name, message: "Please add your last name."
 
   def save
-    if change_report.member.present?
-      change_report.member.update(attributes_for(:member))
+    if report.member.present?
+      report.member.update(attributes_for(:member))
     else
-      change_report.create_member(attributes_for(:member))
+      report.create_member(attributes_for(:member))
     end
   end
 
-  def self.existing_attributes(change_report)
-    if change_report.member.present?
-      HashWithIndifferentAccess.new(change_report.member.attributes)
+  def self.existing_attributes(report)
+    if report.member.present?
+      HashWithIndifferentAccess.new(report.member.attributes)
     else
       {}
     end

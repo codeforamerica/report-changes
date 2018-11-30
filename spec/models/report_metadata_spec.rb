@@ -1,12 +1,12 @@
 require "rails_helper"
 
-RSpec.describe ChangeReportMetadata, type: :model do
+RSpec.describe ReportMetadata, type: :model do
   describe "#has_feedback?" do
     let(:metadata) do
-      create :change_report_metadata,
+      create :report_metadata,
              feedback_rating: "unfilled",
              feedback_comments: "This was so helpful.",
-             change_report: build(:change_report)
+             report: build(:report)
     end
 
     it "returns true if there is either a rating that has been filled or comments left" do
