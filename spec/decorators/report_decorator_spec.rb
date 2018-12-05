@@ -4,7 +4,7 @@ RSpec.describe ReportDecorator do
   describe "#manager_phone_number" do
     context "when there is a manager_phone_number" do
       it "formats it" do
-        report = create :report, manager_phone_number: "5553339999"
+        report = create :report, reported_change: build(:change, manager_phone_number: "5553339999")
         decorator = ReportDecorator.new(report)
         expect(decorator.manager_phone_number).to eq "555-333-9999"
       end

@@ -58,7 +58,7 @@ class ReportDecorator < SimpleDelegator
   end
 
   def manager_phone_number
-    format_phone_number(super) if super.present?
+    format_phone_number(reported_change&.manager_phone_number)
   end
 
   def ssn
