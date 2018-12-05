@@ -25,16 +25,16 @@ FactoryBot.define do
       end
     end
 
-    trait :job_termination do
-      change_type { "job_termination" }
-    end
+    trait :with_change do
+      transient do
+        change_type { "job_termination" }
+      end
 
-    trait :new_job do
-      change_type { "new_job" }
-    end
-
-    trait :change_in_hours do
-      change_type { "change_in_hours" }
+      after(:create) do |report, evaluator|
+        create(:change,
+          change_type: evaluator.change_type,
+          report: report)
+      end
     end
 
     trait :with_letter do

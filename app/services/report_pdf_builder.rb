@@ -4,7 +4,7 @@ class ReportPdfBuilder
   def initialize(report)
     rendered_string = ApplicationController.render(
       layout: "report",
-      template: "reports/#{report.change_type}",
+      template: "reports/#{report.reported_change.change_type}",
       assigns: { report: report },
     )
     @pdf_from_html = WickedPdf.new.pdf_from_string(rendered_string)

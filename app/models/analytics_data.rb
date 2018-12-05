@@ -13,15 +13,16 @@ class AnalyticsData
   attr_reader :report
 
   def report_data
+    reported_change = report.reported_change
     {
-      change_type: report.change_type,
-      days_since_first_day_to_submission: days_since_submission(report.first_day),
-      days_since_first_paycheck_to_submission: days_since_submission(report.first_paycheck),
-      days_since_last_day_to_submission: days_since_submission(report.last_day),
-      days_since_last_paycheck_to_submission: days_since_submission(report.last_paycheck),
-      paid_how_often: report.paid_how_often,
-      paid_yet: report.paid_yet,
-      same_hours: report.same_hours,
+      change_type: reported_change.try(:change_type),
+      days_since_first_day_to_submission: days_since_submission(reported_change.try(:first_day)),
+      days_since_first_paycheck_to_submission: days_since_submission(reported_change.try(:first_paycheck)),
+      days_since_last_day_to_submission: days_since_submission(reported_change.try(:last_day)),
+      days_since_last_paycheck_to_submission: days_since_submission(reported_change.try(:last_paycheck)),
+      paid_how_often: reported_change.try(:paid_how_often),
+      paid_yet: reported_change.try(:paid_yet),
+      same_hours: reported_change.try(:same_hours),
       submitted_at: report.submitted_at,
       verification_documents_count: report.letters.count,
     }

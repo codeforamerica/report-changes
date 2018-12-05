@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_30_004506) do
+ActiveRecord::Schema.define(version: 2018_12_04_195439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,33 @@ ActiveRecord::Schema.define(version: 2018_11_30_004506) do
     t.index ["otp_challenge_expires"], name: "index_admin_users_on_otp_challenge_expires"
     t.index ["otp_session_challenge"], name: "index_admin_users_on_otp_session_challenge", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "changes", force: :cascade do |t|
+    t.datetime "change_date"
+    t.text "change_in_hours_notes"
+    t.integer "change_type", default: 0
+    t.string "company_name"
+    t.datetime "created_at", null: false
+    t.datetime "first_day"
+    t.datetime "first_paycheck"
+    t.string "hourly_wage"
+    t.datetime "last_day"
+    t.datetime "last_paycheck"
+    t.decimal "last_paycheck_amount", precision: 8, scale: 2
+    t.string "lower_hours_a_week_amount"
+    t.string "manager_additional_information"
+    t.string "manager_name"
+    t.string "manager_phone_number"
+    t.text "new_job_notes"
+    t.string "paid_how_often"
+    t.integer "paid_yet", default: 0
+    t.bigint "report_id"
+    t.integer "same_hours", default: 0
+    t.string "same_hours_a_week_amount"
+    t.datetime "updated_at", null: false
+    t.string "upper_hours_a_week_amount"
+    t.index ["report_id"], name: "index_changes_on_report_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -120,31 +147,13 @@ ActiveRecord::Schema.define(version: 2018_11_30_004506) do
 
   create_table "reports", force: :cascade do |t|
     t.string "case_number"
-    t.datetime "change_date"
-    t.text "change_in_hours_notes"
-    t.integer "change_type", default: 0
-    t.string "company_name"
     t.datetime "created_at", null: false
-    t.datetime "first_day"
-    t.datetime "first_paycheck"
-    t.string "hourly_wage"
-    t.datetime "last_day"
-    t.datetime "last_paycheck"
-    t.decimal "last_paycheck_amount", precision: 8, scale: 2
-    t.string "lower_hours_a_week_amount"
-    t.string "manager_additional_information"
-    t.string "manager_name"
     t.string "manager_phone_number"
-    t.text "new_job_notes"
-    t.string "paid_how_often"
-    t.integer "paid_yet", default: 0
     t.string "phone_number"
-    t.integer "same_hours", default: 0
-    t.string "same_hours_a_week_amount"
     t.string "signature"
     t.datetime "submitted_at"
     t.datetime "updated_at", null: false
-    t.string "upper_hours_a_week_amount"
   end
 
+  add_foreign_key "changes", "reports"
 end

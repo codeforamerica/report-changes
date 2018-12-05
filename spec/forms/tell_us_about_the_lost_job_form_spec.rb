@@ -57,7 +57,7 @@ RSpec.describe TellUsAboutTheLostJobForm do
   end
 
   describe "#save" do
-    let(:report) { create :report }
+    let(:report) { create :report, :with_change }
     let(:valid_params) do
       {
         company_name: "Abc Corp",
@@ -67,19 +67,17 @@ RSpec.describe TellUsAboutTheLostJobForm do
       }
     end
 
-    context "when the member does not yet exist" do
-      it "persists the values to the correct models" do
-        form = TellUsAboutTheLostJobForm.new(report, valid_params)
-        form.valid?
-        form.save
+    it "persists the values to the correct models" do
+      form = TellUsAboutTheLostJobForm.new(report, valid_params)
+      form.valid?
+      form.save
 
-        report.reload
+      report.reported_change.reload
 
-        expect(report.company_name).to eq "Abc Corp"
-        expect(report.manager_name).to eq "Boss McBosser"
-        expect(report.manager_phone_number).to eq "1112223333"
-        expect(report.manager_additional_information).to eq "They're my boss"
-      end
+      expect(report.reported_change.company_name).to eq "Abc Corp"
+      expect(report.reported_change.manager_name).to eq "Boss McBosser"
+      expect(report.reported_change.manager_phone_number).to eq "1112223333"
+      expect(report.reported_change.manager_additional_information).to eq "They're my boss"
     end
   end
 
@@ -87,10 +85,11 @@ RSpec.describe TellUsAboutTheLostJobForm do
     it "assigns values from change report and other objects" do
       report = create(:report,
         :with_navigator,
+        reported_change: build(:change,
         company_name: "Abc Corp",
         manager_name: "Boss McBosser",
         manager_phone_number: "1112223333",
-        manager_additional_information: "They're my boss")
+        manager_additional_information: "They're my boss"))
 
       form = TellUsAboutTheLostJobForm.from_report(report)
 

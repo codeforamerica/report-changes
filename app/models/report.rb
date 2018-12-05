@@ -10,15 +10,16 @@ class Report < ActiveRecord::Base
           dependent: :destroy
 
   has_one :member,
-           class_name: "HouseholdMember",
-           foreign_key: "change_report_id",
+          class_name: "HouseholdMember",
+          foreign_key: "change_report_id",
+          dependent: :destroy
+
+  has_one :reported_change,
+           class_name: "Change",
+           foreign_key: "report_id",
            dependent: :destroy
 
   has_many_attached :letters
-
-  enum change_type: { unfilled: 0, job_termination: 1, new_job: 2, change_in_hours: 3 }, _prefix: :change_type
-  enum paid_yet: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_yet
-  enum same_hours: { unfilled: 0, yes: 1, no: 2 }, _prefix: :same_hours
 
   scope :signed, -> { where.not(signature: nil) }
 

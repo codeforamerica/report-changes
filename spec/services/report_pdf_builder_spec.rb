@@ -4,7 +4,11 @@ RSpec.describe ReportPdfBuilder do
   context "job termination" do
     it "creates a pdf from a Change Report" do
       report = ReportDecorator.new(
-        create(:report_with_letter, :job_termination, first_name: "Person", last_name: "McPeoples"),
+        create(:report_with_letter,
+          :with_change,
+          change_type: :job_termination,
+          first_name: "Person",
+          last_name: "McPeoples"),
       )
 
       raw_pdf = ReportPdfBuilder.new(report).run
@@ -19,7 +23,7 @@ RSpec.describe ReportPdfBuilder do
   context "new job" do
     it "creates a pdf from a Change Report" do
       report = ReportDecorator.new(
-        create(:report_with_letter, :new_job, first_name: "Person", last_name: "McPeoples"),
+        create(:report_with_letter, :with_change, change_type: :new_job, first_name: "Person", last_name: "McPeoples"),
       )
 
       raw_pdf = ReportPdfBuilder.new(report).run

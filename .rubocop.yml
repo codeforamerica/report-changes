@@ -469,6 +469,10 @@ Layout/InitialIndentation:
 
 # Lint
 
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+  - "spec/**/*"
+
 Lint/AmbiguousOperator:
   Description: >-
                  Checks for ambiguous operators in the first argument of a

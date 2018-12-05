@@ -15,7 +15,7 @@
       Employer name
     </p>
     <span class="value">
-      <%= @report.company_name %>
+      <%= @report.reported_change.company_name %>
     </span>
   </div>
 </div>
@@ -82,7 +82,7 @@
       Pay frequency
     </p>
     <span class="value">
-      <%= @report.paid_how_often %>
+      <%= @report.reported_change.paid_how_often %>
     </span>
   </div>
 </div>
@@ -92,7 +92,7 @@
     <p class="label">
       Additional info about hours and wages
     </p>
-    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.new_job_notes } %>
+    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.reported_change.new_job_notes } %>
   </div>
 </div>
 

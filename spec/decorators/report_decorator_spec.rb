@@ -118,7 +118,7 @@ RSpec.describe ReportDecorator do
     context "when there is a last_day" do
       it "formats it" do
         last_day = DateTime.new(2018, 2, 3, 19, 5, 6)
-        report = create :report, last_day: last_day
+        report = create(:report, reported_change: build(:change, last_day: last_day))
         decorator = ReportDecorator.new(report)
         expect(decorator.last_day).to eq "02/03/18"
       end
@@ -126,7 +126,7 @@ RSpec.describe ReportDecorator do
 
     context "when there is not a last_day" do
       it "returns nil" do
-        report = create :report, last_day: nil
+        report = create(:report, reported_change: build(:change, last_day: nil))
         decorator = ReportDecorator.new(report)
         expect(decorator.last_day).to be_nil
       end
@@ -137,7 +137,7 @@ RSpec.describe ReportDecorator do
     context "when there is a last_paycheck" do
       it "formats it" do
         last_paycheck = DateTime.new(2018, 2, 3, 19, 5, 6)
-        report = create :report, last_paycheck: last_paycheck
+        report = create(:report, reported_change: build(:change, last_paycheck: last_paycheck))
         decorator = ReportDecorator.new(report)
         expect(decorator.last_paycheck).to eq "02/03/18"
       end
@@ -145,7 +145,7 @@ RSpec.describe ReportDecorator do
 
     context "when there is not a last_paycheck" do
       it "returns nil" do
-        report = create :report, last_paycheck: nil
+        report = create(:report, reported_change: build(:change, last_paycheck: nil))
         decorator = ReportDecorator.new(report)
         expect(decorator.last_paycheck).to be_nil
       end
@@ -209,7 +209,7 @@ RSpec.describe ReportDecorator do
   describe "#last_paycheck_amount" do
     context "when there is not an amount" do
       it "returns nil" do
-        report = create :report, last_paycheck_amount: nil
+        report = create(:report, reported_change: build(:change, last_paycheck_amount: nil))
         decorator = ReportDecorator.new(report)
         expect(decorator.last_paycheck_amount).to be_nil
       end
@@ -217,7 +217,7 @@ RSpec.describe ReportDecorator do
 
     context "when there is an amount" do
       it "returns the formatted amount" do
-        report = create :report, last_paycheck_amount: 1127.14
+        report = create(:report, reported_change: build(:change, last_paycheck_amount: 1127.14))
         decorator = ReportDecorator.new(report)
         expect(decorator.last_paycheck_amount).to eq "$1,127.14"
       end
@@ -228,7 +228,7 @@ RSpec.describe ReportDecorator do
     context "when there is a first_day" do
       it "formats it" do
         first_day = DateTime.new(2018, 2, 3, 19, 5, 6)
-        report = create :report, first_day: first_day
+        report = create(:report, reported_change: build(:change, first_day: first_day))
         decorator = ReportDecorator.new(report)
         expect(decorator.first_day).to eq "02/03/18"
       end
@@ -236,7 +236,7 @@ RSpec.describe ReportDecorator do
 
     context "when there is not a first_day" do
       it "returns nil" do
-        report = create :report, first_day: nil
+        report = create(:report, reported_change: build(:change, first_day: nil))
         decorator = ReportDecorator.new(report)
         expect(decorator.first_day).to be_nil
       end
@@ -247,7 +247,7 @@ RSpec.describe ReportDecorator do
     context "when there is a first_paycheck" do
       it "formats it" do
         first_paycheck = DateTime.new(2018, 2, 3, 19, 5, 6)
-        report = create :report, first_paycheck: first_paycheck
+        report = create(:report, reported_change: build(:change, first_paycheck: first_paycheck))
         decorator = ReportDecorator.new(report)
         expect(decorator.first_paycheck).to eq "02/03/18"
       end
@@ -255,7 +255,7 @@ RSpec.describe ReportDecorator do
 
     context "when there is not a first_paycheck" do
       it "returns nil" do
-        report = create :report, first_paycheck: nil
+        report = create(:report, reported_change: build(:change, first_paycheck: nil))
         decorator = ReportDecorator.new(report)
         expect(decorator.first_paycheck).to be_nil
       end
@@ -265,7 +265,7 @@ RSpec.describe ReportDecorator do
   describe "#hourly_wage" do
     context "when there is an hourly_wage" do
       it "formats it" do
-        report = create :report, hourly_wage: "50"
+        report = create(:report, reported_change: build(:change, hourly_wage: "50"))
         decorator = ReportDecorator.new(report)
         expect(decorator.hourly_wage).to eq "$50 /hr"
       end
@@ -273,7 +273,7 @@ RSpec.describe ReportDecorator do
 
     context "when there is not an hourly_wage" do
       it "returns nil" do
-        report = create :report, hourly_wage: nil
+        report = create(:report, reported_change: build(:change, hourly_wage: nil))
         decorator = ReportDecorator.new(report)
         expect(decorator.hourly_wage).to be_nil
       end
@@ -283,8 +283,8 @@ RSpec.describe ReportDecorator do
   describe "#hours_a_week" do
     context "when the hours are the same" do
       it "returns the value" do
-        report = create :report, same_hours: "yes",
-                                 same_hours_a_week_amount: "20"
+        report = create(:report, reported_change: build(:change, same_hours: "yes",
+                                                                 same_hours_a_week_amount: "20"))
         decorator = ReportDecorator.new(report)
         expect(decorator.hours_a_week).to eq "20"
       end
@@ -292,9 +292,10 @@ RSpec.describe ReportDecorator do
 
     context "when the hours are in a range" do
       it "returns the range" do
-        report = create :report, same_hours: "no",
-                                 lower_hours_a_week_amount: "5",
-                                 upper_hours_a_week_amount: "15"
+        report = create(:report, reported_change: build(:change,
+          same_hours: "no",
+          lower_hours_a_week_amount: "5",
+          upper_hours_a_week_amount: "15"))
         decorator = ReportDecorator.new(report)
         expect(decorator.hours_a_week).to eq "5-15"
       end
@@ -302,7 +303,8 @@ RSpec.describe ReportDecorator do
 
     context "when there are no hours" do
       it "returns nil" do
-        report = create :report, same_hours: "unfilled"
+        report = create(:report, reported_change: build(:change,
+          same_hours: "unfilled"))
         decorator = ReportDecorator.new(report)
         expect(decorator.hours_a_week).to be_nil
       end
@@ -312,7 +314,8 @@ RSpec.describe ReportDecorator do
   describe "#change_in_hours_hours_a_week" do
     context "when only the lower hours are present" do
       it "returns the value" do
-        report = create :report, lower_hours_a_week_amount: "5"
+        report = create(:report, reported_change: build(:change,
+          lower_hours_a_week_amount: "5"))
         decorator = ReportDecorator.new(report)
         expect(decorator.change_in_hours_hours_a_week).to eq "5"
       end
@@ -320,7 +323,8 @@ RSpec.describe ReportDecorator do
 
     context "when both the lower and upper hours are present" do
       it "returns the range" do
-        report = create :report, lower_hours_a_week_amount: "5", upper_hours_a_week_amount: "15"
+        report = create(:report, reported_change: build(:change,
+          lower_hours_a_week_amount: "5", upper_hours_a_week_amount: "15"))
         decorator = ReportDecorator.new(report)
         expect(decorator.change_in_hours_hours_a_week).to eq "5-15"
       end
@@ -331,7 +335,7 @@ RSpec.describe ReportDecorator do
     context "when there is a change_date" do
       it "formats it" do
         change_date = DateTime.new(2018, 2, 3, 19, 5, 6)
-        report = create :report, change_date: change_date
+        report = create(:report, reported_change: build(:change, change_date: change_date))
         decorator = ReportDecorator.new(report)
         expect(decorator.change_date).to eq "02/03/18"
       end
@@ -339,7 +343,7 @@ RSpec.describe ReportDecorator do
 
     context "when there is not a change_date" do
       it "returns nil" do
-        report = create :report, change_date: nil
+        report = create(:report, reported_change: build(:change, change_date: nil))
         decorator = ReportDecorator.new(report)
         expect(decorator.change_date).to be_nil
       end
@@ -349,7 +353,7 @@ RSpec.describe ReportDecorator do
   describe "#change_type_description" do
     context "when it is a job termination" do
       it "returns the job termination string" do
-        report = create :report, change_type: :job_termination
+        report = create(:report, reported_change: build(:change, change_type: :job_termination))
         decorator = ReportDecorator.new(report)
         expect(decorator.change_type_description).to eq "Income change: job termination"
       end
@@ -357,7 +361,7 @@ RSpec.describe ReportDecorator do
 
     context "when it is a new job" do
       it "returns the new job string" do
-        report = create :report, change_type: :new_job
+        report = create(:report, reported_change: build(:change, change_type: :new_job))
         decorator = ReportDecorator.new(report)
         expect(decorator.change_type_description).to eq "Income change: new job"
       end
@@ -365,7 +369,7 @@ RSpec.describe ReportDecorator do
 
     context "when it is a change in hours" do
       it "returns the change in hours string" do
-        report = create :report, change_type: :change_in_hours
+        report = create(:report, reported_change: build(:change, change_type: :change_in_hours))
         decorator = ReportDecorator.new(report)
         expect(decorator.change_type_description).to eq "Income change: change in hours"
       end
@@ -375,7 +379,7 @@ RSpec.describe ReportDecorator do
   describe "#paid_yet" do
     context "new job change type" do
       it "returns the paid_yet value" do
-        report = create :report, change_type: :new_job, paid_yet: "yes"
+        report = create(:report, reported_change: build(:change, change_type: :new_job, paid_yet: "yes"))
         decorator = ReportDecorator.new(report)
         expect(decorator.paid_yet).to eq "yes"
       end
@@ -383,7 +387,7 @@ RSpec.describe ReportDecorator do
 
     context "job termination change type" do
       it "returns empty string" do
-        report = create :report, change_type: :job_termination, paid_yet: "unfilled"
+        report = create(:report, reported_change: build(:change, change_type: :job_termination, paid_yet: "unfilled"))
         decorator = ReportDecorator.new(report)
         expect(decorator.paid_yet).to eq ""
       end
@@ -391,7 +395,7 @@ RSpec.describe ReportDecorator do
 
     context "new job change type" do
       it "returns empty string" do
-        report = create :report, change_type: :change_in_hours, paid_yet: "unfilled"
+        report = create(:report, reported_change: build(:change, change_type: :change_in_hours, paid_yet: "unfilled"))
         decorator = ReportDecorator.new(report)
         expect(decorator.paid_yet).to eq ""
       end
@@ -401,7 +405,7 @@ RSpec.describe ReportDecorator do
   describe "#same_hours" do
     context "new job change type" do
       it "returns the same_hours value" do
-        report = create :report, change_type: :new_job, same_hours: "yes"
+        report = create(:report, reported_change: build(:change, change_type: :new_job, same_hours: "yes"))
         decorator = ReportDecorator.new(report)
         expect(decorator.same_hours).to eq "yes"
       end
@@ -409,7 +413,7 @@ RSpec.describe ReportDecorator do
 
     context "job termination change type" do
       it "returns empty string" do
-        report = create :report, change_type: :job_termination, same_hours: "unfilled"
+        report = create(:report, reported_change: build(:change, change_type: :job_termination, same_hours: "unfilled"))
         decorator = ReportDecorator.new(report)
         expect(decorator.same_hours).to eq ""
       end
@@ -417,7 +421,7 @@ RSpec.describe ReportDecorator do
 
     context "new job change type" do
       it "returns empty string" do
-        report = create :report, change_type: :change_in_hours, same_hours: "unfilled"
+        report = create(:report, reported_change: build(:change, change_type: :change_in_hours, same_hours: "unfilled"))
         decorator = ReportDecorator.new(report)
         expect(decorator.same_hours).to eq ""
       end
