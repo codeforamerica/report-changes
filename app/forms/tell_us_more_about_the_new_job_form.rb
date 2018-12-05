@@ -10,17 +10,15 @@ class TellUsMoreAboutTheNewJobForm < Form
     attributes = attributes_for(:report)
     attributes[:first_day] = to_datetime(first_day_year, first_day_month, first_day_day)
 
-    report.update(attributes.except(
-                    :first_day_year,
-      :first_day_month,
-      :first_day_day,
-    ))
+    report.reported_change.update(attributes.except(:first_day_year, :first_day_month, :first_day_day))
   end
 
   def self.existing_attributes(report)
-    attributes = report.attributes
+    reported_change = report.reported_change
+
+    attributes = reported_change.attributes
     %i[year month day].each do |sym|
-      attributes["first_day_#{sym}"] = report.first_day.try(sym)
+      attributes["first_day_#{sym}"] = reported_change.first_day.try(sym)
     end
     HashWithIndifferentAccess.new(attributes)
   end

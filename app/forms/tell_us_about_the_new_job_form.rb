@@ -9,4 +9,8 @@ class TellUsAboutTheNewJobForm < Form
   def save
     report.reported_change.update(attributes_for(:change))
   end
+
+  def self.existing_attributes(report)
+    HashWithIndifferentAccess.new(report.reported_change.attributes)
+  end
 end

@@ -155,7 +155,7 @@ RSpec.describe HowMuchWillYouMakeForm do
   end
 
   describe "#save" do
-    let(:report) { create :report }
+    let(:report) { create :report, :with_change }
     let(:valid_params) do
       {
         hourly_wage: "9.50",
@@ -178,16 +178,16 @@ RSpec.describe HowMuchWillYouMakeForm do
 
       report.reload
 
-      expect(report.hourly_wage).to eq "9.50"
-      expect(report.same_hours).to eq "no"
-      expect(report.same_hours_a_week_amount).to eq nil
-      expect(report.lower_hours_a_week_amount).to eq "5"
-      expect(report.upper_hours_a_week_amount).to eq "25"
-      expect(report.paid_how_often).to eq "Every two weeks"
-      expect(report.first_paycheck.year).to eq 2018
-      expect(report.first_paycheck.month).to eq 1
-      expect(report.first_paycheck.day).to eq 15
-      expect(report.new_job_notes).to eq "Those extra hours were only for one week"
+      expect(report.reported_change.hourly_wage).to eq "9.50"
+      expect(report.reported_change.same_hours).to eq "no"
+      expect(report.reported_change.same_hours_a_week_amount).to eq nil
+      expect(report.reported_change.lower_hours_a_week_amount).to eq "5"
+      expect(report.reported_change.upper_hours_a_week_amount).to eq "25"
+      expect(report.reported_change.paid_how_often).to eq "Every two weeks"
+      expect(report.reported_change.first_paycheck.year).to eq 2018
+      expect(report.reported_change.first_paycheck.month).to eq 1
+      expect(report.reported_change.first_paycheck.day).to eq 15
+      expect(report.reported_change.new_job_notes).to eq "Those extra hours were only for one week"
     end
 
     context "when same_hours is no" do
@@ -202,10 +202,10 @@ RSpec.describe HowMuchWillYouMakeForm do
 
         report.reload
 
-        expect(report.same_hours).to eq "no"
-        expect(report.same_hours_a_week_amount).to eq nil
-        expect(report.lower_hours_a_week_amount).to eq "5"
-        expect(report.upper_hours_a_week_amount).to eq "25"
+        expect(report.reported_change.same_hours).to eq "no"
+        expect(report.reported_change.same_hours_a_week_amount).to eq nil
+        expect(report.reported_change.lower_hours_a_week_amount).to eq "5"
+        expect(report.reported_change.upper_hours_a_week_amount).to eq "25"
       end
     end
 
@@ -221,23 +221,24 @@ RSpec.describe HowMuchWillYouMakeForm do
 
         report.reload
 
-        expect(report.same_hours).to eq "yes"
-        expect(report.same_hours_a_week_amount).to eq "50"
-        expect(report.lower_hours_a_week_amount).to eq nil
-        expect(report.upper_hours_a_week_amount).to eq nil
+        expect(report.reported_change.same_hours).to eq "yes"
+        expect(report.reported_change.same_hours_a_week_amount).to eq "50"
+        expect(report.reported_change.lower_hours_a_week_amount).to eq nil
+        expect(report.reported_change.upper_hours_a_week_amount).to eq nil
       end
     end
   end
 
   describe ".from_report" do
     it "assigns values from change report and other objects" do
-      report = create(:report,
-          hourly_wage: "9.50",
-          same_hours: "yes",
-          same_hours_a_week_amount: "50",
-          paid_how_often: "Every two weeks",
-          first_paycheck: DateTime.new(2018, 1, 15),
-          new_job_notes: "Those extra hours were only for one week")
+      change = build(:change,
+                     hourly_wage: "9.50",
+                     same_hours: "yes",
+                     same_hours_a_week_amount: "50",
+                     paid_how_often: "Every two weeks",
+                     first_paycheck: DateTime.new(2018, 1, 15),
+                     new_job_notes: "Those extra hours were only for one week")
+      report = create(:report, reported_change: change)
 
       form = HowMuchWillYouMakeForm.from_report(report)
 
