@@ -7,7 +7,7 @@ RSpec.describe TextMessageConsentController do
   describe "show?" do
     context "when client is submitting on behalf of someone" do
       it "returns false" do
-        navigator = build(:navigator, submitting_for: "other_household_member")
+        navigator = build(:navigator, submitting_for: "other_member")
         report = create(:report, navigator: navigator)
 
         show_form = TextMessageConsentController.show?(report)

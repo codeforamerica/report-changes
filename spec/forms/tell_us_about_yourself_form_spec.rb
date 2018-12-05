@@ -166,7 +166,7 @@ RSpec.describe TellUsAboutYourselfForm do
       report = create(:report,
         case_number: "1A1234",
         phone_number: "1234567890",
-        member: build(:household_member,
+        member: build(:member,
           ssn: "111223333",
           birthday: DateTime.new(1950, 1, 31)))
 

@@ -70,7 +70,7 @@ RSpec.describe ClientNameForm do
 
         expect do
           form.save
-        end.not_to(change { HouseholdMember.count })
+        end.not_to(change { Member.count })
 
         report.reload
 
@@ -83,7 +83,7 @@ RSpec.describe ClientNameForm do
     context "when member exists" do
       it "assigns values from change report and other objects" do
         report = create(:report,
-                               member: build(:household_member, first_name: "Annie", last_name: "McDog"))
+                               member: build(:member, first_name: "Annie", last_name: "McDog"))
 
         form = ClientNameForm.from_report(report)
 

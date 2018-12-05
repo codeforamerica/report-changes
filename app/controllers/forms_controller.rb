@@ -53,7 +53,7 @@ class FormsController < ApplicationController
   end
 
   def self_or_other_member_translation_key(key)
-    current_report.navigator.submitting_for_other_household_member? ? "#{key}.other_member" : "#{key}.self"
+    current_report.navigator.submitting_for_other_member? ? "#{key}.other_member" : "#{key}.self"
   end
 
   private

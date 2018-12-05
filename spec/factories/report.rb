@@ -17,7 +17,7 @@ FactoryBot.define do
       end
 
       after(:create) do |report, evaluator|
-        create(:household_member,
+        create(:member,
                birthday: 25.years.ago - 1.day,
                first_name: evaluator.first_name,
                last_name: evaluator.last_name,

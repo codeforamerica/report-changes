@@ -24,7 +24,7 @@ RSpec.describe AnalyticsData do
                                   is_self_employed: "no",
                                   source: "Land of Ooo")
 
-      member = instance_double(HouseholdMember, age: 22)
+      member = instance_double(Member, age: 22)
 
       metadata = instance_double(ReportMetadata,
                                  consent_to_sms: "yes",

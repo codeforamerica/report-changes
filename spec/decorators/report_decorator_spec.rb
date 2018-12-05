@@ -23,7 +23,7 @@ RSpec.describe ReportDecorator do
     context "when there is a member with a ssn" do
       it "formats it" do
         report = build :report
-        create :household_member, report: report, ssn: "333224444"
+        create :member, report: report, ssn: "333224444"
         decorator = ReportDecorator.new(report)
         expect(decorator.ssn).to eq "333-22-4444"
       end
@@ -32,7 +32,7 @@ RSpec.describe ReportDecorator do
     context "when there is not a ssn" do
       it "returns nil" do
         report = build :report
-        create :household_member, report: report, ssn: ""
+        create :member, report: report, ssn: ""
         decorator = ReportDecorator.new(report)
         expect(decorator.ssn).to be_nil
       end
@@ -52,7 +52,7 @@ RSpec.describe ReportDecorator do
       it "formats it" do
         birthday = DateTime.new(2018, 2, 3, 19, 5, 6)
         report = build :report
-        create :household_member, report: report, birthday: birthday
+        create :member, report: report, birthday: birthday
         decorator = ReportDecorator.new(report)
         expect(decorator.birthday).to eq "02/03/18"
       end
@@ -61,7 +61,7 @@ RSpec.describe ReportDecorator do
     context "when there is not a birthday" do
       it "returns nil" do
         report = build :report
-        create :household_member, report: report, birthday: nil
+        create :member, report: report, birthday: nil
         decorator = ReportDecorator.new(report)
         expect(decorator.birthday).to be_nil
       end
@@ -80,7 +80,7 @@ RSpec.describe ReportDecorator do
     context "when there is a member" do
       it "returns client full name" do
         report = build :report
-        create :household_member, report: report, first_name: "Jane", last_name: "Doe"
+        create :member, report: report, first_name: "Jane", last_name: "Doe"
         decorator = ReportDecorator.new(report)
         expect(decorator.client_name).to eq "Jane Doe"
       end

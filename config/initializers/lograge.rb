@@ -3,7 +3,7 @@ Rails.application.configure do
 
   config.lograge.custom_payload do |controller|
     {
-      change_report_id: controller.try(:current_change_report).try(:id),
+      report_id: controller.try(:current_report).try(:id),
       admin_user_email: controller.try(:current_admin_user).try(:email),
     }
   end

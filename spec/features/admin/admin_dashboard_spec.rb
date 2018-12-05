@@ -35,7 +35,7 @@ RSpec.feature "Admin viewing dashboard" do
           :with_letter,
           reported_change: build(:change, change_type: "job_termination"),
           navigator: build(:navigator, has_documents: "yes"))
-        create(:household_member,
+        create(:member,
                first_name: "Todd",
                last_name: "Chavez",
                report: report)

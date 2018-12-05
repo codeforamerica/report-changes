@@ -14,6 +14,6 @@ report = Report.find_or_initialize_by(case_number: "8675309")
 report.update!(phone_number: "5551231234")
 puts "Found or created: Case report with case number '#{report.case_number}'"
 
-member = HouseholdMember.find_or_initialize_by(first_name: "Todd", last_name: "Chavez")
+member = Member.find_or_initialize_by(first_name: "Todd", last_name: "Chavez")
 member.update!(report: report)
 puts "Found or created: Member with name '#{member.first_name} #{member.last_name}'"
