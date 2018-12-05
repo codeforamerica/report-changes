@@ -14,7 +14,7 @@ RSpec.feature "Admin viewing dashboard" do
     end
 
     scenario "viewing details for a report" do
-      report = create(:report)
+      report = create(:report, :with_change)
 
       visit admin_root_path
 
@@ -23,6 +23,10 @@ RSpec.feature "Admin viewing dashboard" do
       click_on report.id
 
       expect(page).to have_content("Report ##{report.id}")
+
+      click_on report.reported_change.id
+
+      expect(page).to have_content("Change ##{report.reported_change.id}")
     end
 
     context "with verifications" do

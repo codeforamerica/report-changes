@@ -11,6 +11,7 @@ class ReportDashboard < Administrate::BaseDashboard
     id: Field::Number,
     case_number: Field::String,
     created_at: Field::DateTime,
+    reported_change: Field::HasOne.with_options(class_name: "Change"),
     phone_number: Field::String,
     signature: Field::String,
     submitted_at: Field::DateTime,
@@ -37,6 +38,7 @@ class ReportDashboard < Administrate::BaseDashboard
     id
     created_at
     updated_at
+    reported_change
     case_number
     signature
     phone_number
