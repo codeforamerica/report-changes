@@ -114,20 +114,20 @@ class ReportDecorator < SimpleDelegator
   end
 
   def hourly_wage
-    "$#{reported_change&.hourly_wage} /hr" if reported_change&.hourly_wage
+    "$#{reported_change.hourly_wage} /hr" if reported_change&.hourly_wage.present?
   end
 
   def hours_a_week
     if reported_change&.same_hours_yes?
-      reported_change&.same_hours_a_week_amount
+      reported_change.same_hours_a_week_amount
     elsif reported_change&.same_hours_no?
-      "#{reported_change&.lower_hours_a_week_amount}-#{reported_change&.upper_hours_a_week_amount}"
+      "#{reported_change.lower_hours_a_week_amount}-#{reported_change.upper_hours_a_week_amount}"
     end
   end
 
   def change_in_hours_hours_a_week
-    if reported_change&.upper_hours_a_week_amount
-      "#{reported_change&.lower_hours_a_week_amount}-#{reported_change&.upper_hours_a_week_amount}"
+    if reported_change&.upper_hours_a_week_amount.present?
+      "#{reported_change.lower_hours_a_week_amount}-#{reported_change.upper_hours_a_week_amount}"
     else
       reported_change&.lower_hours_a_week_amount
     end
@@ -157,7 +157,7 @@ class ReportDecorator < SimpleDelegator
   private
 
   def format_phone_number(phone_number)
-    if phone_number
+    if phone_number.present?
       "#{phone_number[0..2]}-#{phone_number[3..5]}-#{phone_number[6..9]}"
     end
   end

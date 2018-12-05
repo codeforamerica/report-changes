@@ -12,7 +12,7 @@ RSpec.describe ReportDecorator do
 
     context "when there is not a manager_phone_number" do
       it "returns nil" do
-        report = create :report, manager_phone_number: nil
+        report = create :report, reported_change: build(:change, manager_phone_number: "")
         decorator = ReportDecorator.new(report)
         expect(decorator.manager_phone_number).to be_nil
       end
@@ -163,7 +163,7 @@ RSpec.describe ReportDecorator do
 
     context "when there is not a phone_number" do
       it "returns nil" do
-        report = create :report, phone_number: nil
+        report = create :report, phone_number: ""
         decorator = ReportDecorator.new(report)
         expect(decorator.client_phone_number).to be_nil
       end
@@ -273,7 +273,7 @@ RSpec.describe ReportDecorator do
 
     context "when there is not an hourly_wage" do
       it "returns nil" do
-        report = create(:report, reported_change: build(:change, hourly_wage: nil))
+        report = create(:report, reported_change: build(:change, hourly_wage: ""))
         decorator = ReportDecorator.new(report)
         expect(decorator.hourly_wage).to be_nil
       end
@@ -303,8 +303,10 @@ RSpec.describe ReportDecorator do
 
     context "when there are no hours" do
       it "returns nil" do
-        report = create(:report, reported_change: build(:change,
-          same_hours: "unfilled"))
+        report = create(:report,
+                        reported_change: build(:change, same_hours: "unfilled",
+                                                        lower_hours_a_week_amount: "",
+                                                        upper_hours_a_week_amount: ""))
         decorator = ReportDecorator.new(report)
         expect(decorator.hours_a_week).to be_nil
       end
@@ -314,8 +316,10 @@ RSpec.describe ReportDecorator do
   describe "#change_in_hours_hours_a_week" do
     context "when only the lower hours are present" do
       it "returns the value" do
-        report = create(:report, reported_change: build(:change,
-          lower_hours_a_week_amount: "5"))
+        report = create(:report,
+                        reported_change: build(:change,
+                                               lower_hours_a_week_amount: "5",
+                                               upper_hours_a_week_amount: ""))
         decorator = ReportDecorator.new(report)
         expect(decorator.change_in_hours_hours_a_week).to eq "5"
       end
@@ -323,8 +327,10 @@ RSpec.describe ReportDecorator do
 
     context "when both the lower and upper hours are present" do
       it "returns the range" do
-        report = create(:report, reported_change: build(:change,
-          lower_hours_a_week_amount: "5", upper_hours_a_week_amount: "15"))
+        report = create(:report,
+                        reported_change: build(:change,
+                                               lower_hours_a_week_amount: "5",
+                                               upper_hours_a_week_amount: "15"))
         decorator = ReportDecorator.new(report)
         expect(decorator.change_in_hours_hours_a_week).to eq "5-15"
       end
