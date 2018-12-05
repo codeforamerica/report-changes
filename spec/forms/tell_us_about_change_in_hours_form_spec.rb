@@ -104,7 +104,7 @@ RSpec.describe TellUsAboutChangeInHoursForm do
   end
 
   describe "#save" do
-    let(:report) { create :report }
+    let(:report) { create :report, :with_change }
 
     it "persists the values to the correct models" do
       form = TellUsAboutChangeInHoursForm.new(report, valid_params)
@@ -113,24 +113,25 @@ RSpec.describe TellUsAboutChangeInHoursForm do
 
       report.reload
 
-      expect(report.hourly_wage).to eq("9.50")
-      expect(report.lower_hours_a_week_amount).to eq("20")
-      expect(report.upper_hours_a_week_amount).to be_nil
-      expect(report.paid_how_often).to eq("Every two weeks")
-      expect(report.change_date).to eq(DateTime.new(2018, 1, 15))
-      expect(report.change_in_hours_notes).to eq("Those extra hours were only for one week")
+      expect(report.reported_change.hourly_wage).to eq("9.50")
+      expect(report.reported_change.lower_hours_a_week_amount).to eq("20")
+      expect(report.reported_change.upper_hours_a_week_amount).to be_nil
+      expect(report.reported_change.paid_how_often).to eq("Every two weeks")
+      expect(report.reported_change.change_date).to eq(DateTime.new(2018, 1, 15))
+      expect(report.reported_change.change_in_hours_notes).to eq("Those extra hours were only for one week")
     end
   end
 
   describe ".from_report" do
     it "assigns values from change report" do
-      report = create(:report,
-                             hourly_wage: "9.50",
-                             lower_hours_a_week_amount: "20",
-                             upper_hours_a_week_amount: "25",
-                             paid_how_often: "Every two weeks",
-                             change_date: DateTime.new(2018, 1, 15),
-                             change_in_hours_notes: "Those extra hours were only for one week")
+      change = build(:change,
+                     hourly_wage: "9.50",
+                     lower_hours_a_week_amount: "20",
+                     upper_hours_a_week_amount: "25",
+                     paid_how_often: "Every two weeks",
+                     change_date: DateTime.new(2018, 1, 15),
+                     change_in_hours_notes: "Those extra hours were only for one week")
+      report = create(:report, reported_change: change)
 
       form = TellUsAboutChangeInHoursForm.from_report(report)
 

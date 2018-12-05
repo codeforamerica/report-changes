@@ -15,7 +15,7 @@
       Employer name
     </p>
     <span class="value">
-      <%= @report.company_name %>
+      <%= @report.reported_change.company_name %>
     </span>
   </div>
 </div>
@@ -72,6 +72,6 @@
     <p class="label">
       Additional info
     </p>
-    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.manager_additional_information } %>
+    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.reported_change.manager_additional_information } %>
   </div>
 </div>

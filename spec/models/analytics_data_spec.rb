@@ -1,14 +1,18 @@
 require "rails_helper"
 
 RSpec.describe AnalyticsData do
+  let(:mock_change) do
+    instance_double(Change,
+    first_day: nil,
+    first_paycheck: nil,
+    last_day: nil,
+    last_paycheck: nil).as_null_object
+  end
   let(:mock_report) do
     instance_double(Report,
-                    first_day: nil,
-                    first_paycheck: nil,
-                    last_day: nil,
-                    last_paycheck: nil,
-                    letters: [],
-                    submitted_at: nil).as_null_object
+      submitted_at: nil,
+      reported_change: mock_change,
+      letters: []).as_null_object
   end
 
   describe "#to_h" do
@@ -20,7 +24,7 @@ RSpec.describe AnalyticsData do
                                   is_self_employed: "no",
                                   source: "Land of Ooo")
 
-      member = instance_double(HouseholdMember, age: 22)
+      member = instance_double(Member, age: 22)
 
       metadata = instance_double(ReportMetadata,
                                  consent_to_sms: "yes",
@@ -30,10 +34,12 @@ RSpec.describe AnalyticsData do
         navigator: navigator,
         member: member,
         metadata: metadata,
+        submitted_at: DateTime.new(2018, 1, 2),
+      )
+      allow(mock_change).to receive_messages(
         change_type: "new_job",
         paid_how_often: "monthly",
         paid_yet: "no",
-        submitted_at: DateTime.new(2018, 1, 2),
       )
 
       data = AnalyticsData.new(mock_report).to_h
@@ -55,14 +61,15 @@ RSpec.describe AnalyticsData do
 
     it "calculates time since submission" do
       submission_date = Time.utc(2018, 1, 10, 1, 2, 3)
-      allow(mock_report).to receive_messages(change_type: "new_job",
-                                             first_day: submission_date - 30.days,
-                                             first_paycheck: submission_date - 20.days,
-                                             last_day: submission_date - 90.days,
-                                             last_paycheck: submission_date - 100.days,
-                                             same_hours: "yes",
-                                             submitted_at: submission_date)
-
+      allow(mock_report).to receive_messages(submitted_at: submission_date)
+      allow(mock_change).to receive_messages(
+        change_type: "new_job",
+        first_day: submission_date - 30.days,
+        first_paycheck: submission_date - 20.days,
+        last_day: submission_date - 90.days,
+        last_paycheck: submission_date - 100.days,
+        same_hours: "yes",
+      )
       data = AnalyticsData.new(mock_report).to_h
 
       expect(data.fetch(:same_hours)).to eq("yes")
@@ -73,14 +80,14 @@ RSpec.describe AnalyticsData do
     end
 
     it "sends nil for any 'unfilled' values" do
-      allow(mock_report).to receive_messages(same_hours: "unfilled")
+      allow(mock_change).to receive_messages(same_hours: "unfilled")
 
       data = AnalyticsData.new(mock_report).to_h
 
       expect(data.fetch(:same_hours)).to be_nil
     end
 
-    context "when member and navigator are not present" do
+    context "when member and navigator and_reported_change are not present" do
       it "does not error" do
         expect do
           AnalyticsData.new(build(:report)).to_h

@@ -7,8 +7,8 @@ RSpec.describe TextMessageConsentController do
   describe "show?" do
     context "when client is submitting on behalf of someone" do
       it "returns false" do
-        navigator = build(:navigator, submitting_for: "other_household_member")
-        report = create(:report, navigator: navigator)
+        navigator = build(:navigator, submitting_for: "other_member")
+        report = create(:report, phone_number: "5555551234", navigator: navigator)
 
         show_form = TextMessageConsentController.show?(report)
         expect(show_form).to eq(false)
@@ -16,12 +16,24 @@ RSpec.describe TextMessageConsentController do
     end
 
     context "when client is submitting for themselves" do
-      it "returns true" do
-        navigator = build(:navigator, submitting_for: "self")
-        report = create(:report, navigator: navigator)
+      context "when phone number has not been provided" do
+        it "returns false" do
+          navigator = build(:navigator, submitting_for: "self")
+          report = create(:report, phone_number: nil, navigator: navigator)
 
-        show_form = TextMessageConsentController.show?(report)
-        expect(show_form).to eq(true)
+          show_form = TextMessageConsentController.show?(report)
+          expect(show_form).to eq(false)
+        end
+      end
+
+      context "when phone number has been provided" do
+        it "returns true" do
+          navigator = build(:navigator, submitting_for: "self")
+          report = create(:report, phone_number: "5555551234", navigator: navigator)
+
+          show_form = TextMessageConsentController.show?(report)
+          expect(show_form).to eq(true)
+        end
       end
     end
   end

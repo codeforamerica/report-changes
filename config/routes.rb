@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       match "/delayed_job" => DelayedJobWeb, :anchor => false, :via => %i[get post]
 
       resources :reports, only: %i[index show]
+      resources :changes, only: %i[index show]
       get "download_all", to: "reports#download", format: "csv"
 
       root to: "reports#index"

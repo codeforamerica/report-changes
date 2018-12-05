@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.shared_examples_for "form controller base behavior" do |is_last_section|
   context "with session" do
-    let(:current_report) { create(:report, :with_navigator, :with_metadata) }
+    let(:current_report) { create(:report, :with_navigator, :with_metadata, :with_change) }
 
     before do
       session[:current_report_id] = current_report.id

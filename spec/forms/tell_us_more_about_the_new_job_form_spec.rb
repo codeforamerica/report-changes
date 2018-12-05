@@ -78,7 +78,7 @@ RSpec.describe TellUsMoreAboutTheNewJobForm do
   end
 
   describe "#save" do
-    let(:report) { create :report }
+    let(:report) { create :report, :with_change }
     let(:valid_params) do
       {
         first_day_day: "15",
@@ -95,19 +95,17 @@ RSpec.describe TellUsMoreAboutTheNewJobForm do
 
       report.reload
 
-      expect(report.first_day.year).to eq 2000
-      expect(report.first_day.month).to eq 1
-      expect(report.first_day.day).to eq 15
-      expect(report.paid_yet_yes?).to be_truthy
+      expect(report.reported_change.first_day.year).to eq 2000
+      expect(report.reported_change.first_day.month).to eq 1
+      expect(report.reported_change.first_day.day).to eq 15
+      expect(report.reported_change.paid_yet_yes?).to be_truthy
     end
   end
 
   describe ".from_report" do
     it "assigns values from change report and other objects" do
-      report = create(:report,
-        :with_navigator,
-        first_day: DateTime.new(2000, 1, 15),
-        paid_yet: "no")
+      change = build(:change, first_day: DateTime.new(2000, 1, 15), paid_yet: "no")
+      report = create(:report, :with_navigator, reported_change: change)
 
       form = TellUsMoreAboutTheNewJobForm.from_report(report)
 

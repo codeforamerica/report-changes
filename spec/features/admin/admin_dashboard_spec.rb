@@ -14,7 +14,7 @@ RSpec.feature "Admin viewing dashboard" do
     end
 
     scenario "viewing details for a report" do
-      report = create(:report)
+      report = create(:report, :with_change)
 
       visit admin_root_path
 
@@ -23,13 +23,19 @@ RSpec.feature "Admin viewing dashboard" do
       click_on report.id
 
       expect(page).to have_content("Report ##{report.id}")
+
+      click_on report.reported_change.id
+
+      expect(page).to have_content("Change ##{report.reported_change.id}")
     end
 
     context "with verifications" do
       scenario "viewing the pdf" do
-        report = build(:report, :job_termination, :with_letter,
-                              navigator: build(:navigator, has_documents: "yes"))
-        create(:household_member,
+        report = build(:report,
+          :with_letter,
+          reported_change: build(:change, change_type: "job_termination"),
+          navigator: build(:navigator, has_documents: "yes"))
+        create(:member,
                first_name: "Todd",
                last_name: "Chavez",
                report: report)
@@ -67,10 +73,29 @@ RSpec.feature "Admin viewing dashboard" do
     end
 
     scenario "can download a csv of all the change reports" do
-      create(:report, :with_member, :job_termination, signature: "st", manager_name: "Lavar Burton")
-      create(:report, :with_member, :new_job, signature: "julie", manager_name: "Bob Ross")
-      create(:report, :with_member, :change_in_hours, signature: "mike", manager_name: "Michael Scott")
-      create(:report, :with_member, signature: nil, manager_name: "Mr Burns")
+      create(:report,
+        :with_member,
+        signature: "st",
+        reported_change: build(:change,
+          change_type: :job_termination,
+          manager_name: "Lavar Burton"))
+      create(:report,
+        :with_member,
+        signature: "julie",
+        reported_change: build(:change,
+          change_type: :new_job,
+          manager_name: "Bob Ross"))
+      create(:report,
+        :with_member,
+        signature: "mike",
+        reported_change: build(:change,
+          change_type: :change_in_hours,
+          manager_name: "Michael Scott"))
+      create(:report,
+        :with_member,
+        signature: nil,
+        reported_change: build(:change,
+          manager_name: "Mr Burns"))
 
       visit admin_root_path
 

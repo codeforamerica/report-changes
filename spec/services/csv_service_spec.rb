@@ -5,7 +5,7 @@ RSpec.describe CsvService do
     3.times do
       create :report
     end
-    create :report, :new_job, :with_member, case_number: "1a12345"
+    create :report, :with_member, case_number: "1a12345", reported_change: build(:change, change_type: :new_job)
 
     reports = Report.all.map { |report| ReportDecorator.new(report) }
     csv = CsvService.new(

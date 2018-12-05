@@ -33,8 +33,32 @@ class ReportDecorator < SimpleDelegator
     ]
   end
 
+  def company_name
+    reported_change&.company_name
+  end
+
+  def manager_additional_information
+    reported_change&.manager_additional_information
+  end
+
+  def manager_name
+    reported_change&.manager_name
+  end
+
+  def paid_how_often
+    reported_change&.paid_how_often
+  end
+
+  def new_job_notes
+    reported_change&.new_job_notes
+  end
+
+  def change_in_hours_notes
+    reported_change&.change_in_hours_notes
+  end
+
   def manager_phone_number
-    format_phone_number(super) if super.present?
+    format_phone_number(reported_change&.manager_phone_number)
   end
 
   def ssn
@@ -46,15 +70,15 @@ class ReportDecorator < SimpleDelegator
   end
 
   def birthday
-    member.birthday.strftime("%D") if member&.birthday
+    member&.birthday&.strftime("%D")
   end
 
   def last_day
-    super&.strftime("%D")
+    reported_change&.last_day&.strftime("%D")
   end
 
   def last_paycheck
-    super&.strftime("%D")
+    reported_change&.last_paycheck&.strftime("%D")
   end
 
   def client_name
@@ -74,43 +98,43 @@ class ReportDecorator < SimpleDelegator
   end
 
   def last_paycheck_amount
-    number_to_currency(super) if super.present?
+    number_to_currency(reported_change&.last_paycheck_amount)
   end
 
   def first_day
-    super&.strftime("%D")
+    reported_change&.first_day&.strftime("%D")
   end
 
   def change_date
-    super&.strftime("%D")
+    reported_change&.change_date&.strftime("%D")
   end
 
   def first_paycheck
-    super&.strftime("%D")
+    reported_change&.first_paycheck&.strftime("%D")
   end
 
   def hourly_wage
-    "$#{super} /hr" if super.present?
+    "$#{reported_change.hourly_wage} /hr" if reported_change&.hourly_wage.present?
   end
 
   def hours_a_week
-    if same_hours_yes?
-      same_hours_a_week_amount
-    elsif same_hours_no?
-      "#{lower_hours_a_week_amount}-#{upper_hours_a_week_amount}"
+    if reported_change&.same_hours_yes?
+      reported_change.same_hours_a_week_amount
+    elsif reported_change&.same_hours_no?
+      "#{reported_change.lower_hours_a_week_amount}-#{reported_change.upper_hours_a_week_amount}"
     end
   end
 
   def change_in_hours_hours_a_week
-    if upper_hours_a_week_amount.present?
-      "#{lower_hours_a_week_amount}-#{upper_hours_a_week_amount}"
+    if reported_change&.upper_hours_a_week_amount.present?
+      "#{reported_change.lower_hours_a_week_amount}-#{reported_change.upper_hours_a_week_amount}"
     else
-      lower_hours_a_week_amount
+      reported_change&.lower_hours_a_week_amount
     end
   end
 
   def change_type_description
-    case change_type
+    case reported_change&.change_type
     when "job_termination"
       "Income change: job termination"
     when "new_job"
@@ -123,17 +147,17 @@ class ReportDecorator < SimpleDelegator
   end
 
   def paid_yet
-    change_type_new_job? ? super : ""
+    reported_change&.change_type_new_job? ? reported_change&.paid_yet : ""
   end
 
   def same_hours
-    change_type_new_job? ? super : ""
+    reported_change&.change_type_new_job? ? reported_change&.same_hours : ""
   end
 
   private
 
   def format_phone_number(phone_number)
-    if phone_number
+    if phone_number.present?
       "#{phone_number[0..2]}-#{phone_number[3..5]}-#{phone_number[6..9]}"
     end
   end

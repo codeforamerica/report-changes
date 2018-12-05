@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe ApplicationMailer do
   let(:report) do
-    create(:report_with_letter, :job_termination, first_name: "Joe", last_name: "MacMillan")
+    create(:report_with_letter, :with_change, first_name: "Joe", last_name: "MacMillan", change_type: "job_termination")
   end
 
   describe ".office_change_report_submission" do

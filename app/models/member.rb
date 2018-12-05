@@ -1,5 +1,5 @@
-class HouseholdMember < ActiveRecord::Base
-  belongs_to :report, foreign_key: "change_report_id"
+class Member < ActiveRecord::Base
+  belongs_to :report
 
   attribute :ssn
   attr_encrypted(

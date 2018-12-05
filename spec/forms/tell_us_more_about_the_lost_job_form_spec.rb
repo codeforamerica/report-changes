@@ -179,7 +179,7 @@ RSpec.describe TellUsMoreAboutTheLostJobForm do
   end
 
   describe "#save" do
-    let(:report) { create :report }
+    let(:report) { create :report, :with_change }
     let(:valid_params) do
       {
         last_day_day: "15",
@@ -192,32 +192,31 @@ RSpec.describe TellUsMoreAboutTheLostJobForm do
       }
     end
 
-    context "when the member does not yet exist" do
-      it "persists the values to the correct models" do
-        form = TellUsMoreAboutTheLostJobForm.new(report, valid_params)
-        form.valid?
-        form.save
+    it "persists the values to the correct models" do
+      form = TellUsMoreAboutTheLostJobForm.new(report, valid_params)
+      form.valid?
+      form.save
 
-        report.reload
+      report.reported_change.reload
 
-        expect(report.last_day.year).to eq 2000
-        expect(report.last_day.month).to eq 1
-        expect(report.last_day.day).to eq 15
-        expect(report.last_paycheck.year).to eq 2018
-        expect(report.last_paycheck.month).to eq 2
-        expect(report.last_paycheck.day).to eq 28
-        expect(report.last_paycheck_amount).to eq 1127.14
-      end
+      expect(report.reported_change.last_day.year).to eq 2000
+      expect(report.reported_change.last_day.month).to eq 1
+      expect(report.reported_change.last_day.day).to eq 15
+      expect(report.reported_change.last_paycheck.year).to eq 2018
+      expect(report.reported_change.last_paycheck.month).to eq 2
+      expect(report.reported_change.last_paycheck.day).to eq 28
+      expect(report.reported_change.last_paycheck_amount).to eq 1127.14
     end
   end
 
   describe ".from_report" do
     it "assigns values from change report and other objects" do
       report = create(:report,
-                             :with_navigator,
-                             last_day: DateTime.new(2000, 1, 15),
-                             last_paycheck: DateTime.new(2018, 2, 28),
-                             last_paycheck_amount: 1127.14)
+                     :with_navigator,
+                     reported_change: build(:change,
+                     last_day: DateTime.new(2000, 1, 15),
+                     last_paycheck: DateTime.new(2018, 2, 28),
+                     last_paycheck_amount: 1127.14))
 
       form = TellUsMoreAboutTheLostJobForm.from_report(report)
 

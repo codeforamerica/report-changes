@@ -21,28 +21,52 @@ RSpec.describe ChangeTypeForm do
   end
 
   describe "#save" do
-    let(:report) { create :report }
+    context "when no reported_change exists yet" do
+      let(:report) { create :report }
 
-    let(:valid_params) do
-      {
-        change_type: "job_termination",
-      }
+      let(:valid_params) do
+        {
+          change_type: "job_termination",
+        }
+      end
+
+      it "persists the values to the correct models" do
+        form = ChangeTypeForm.new(report, valid_params)
+        form.valid?
+        form.save
+
+        report.reload
+
+        expect(report.reported_change.change_type_job_termination?).to be_truthy
+      end
     end
 
-    it "persists the values to the correct models" do
-      form = ChangeTypeForm.new(report, valid_params)
-      form.valid?
-      form.save
+    context "when reported_change already exists" do
+      let(:report) { create :report, :with_change, change_type: "new_job" }
 
-      report.reload
+      let(:valid_params) do
+        {
+          change_type: "job_termination",
+        }
+      end
 
-      expect(report.change_type_job_termination?).to be_truthy
+      it "updates the existing model" do
+        form = ChangeTypeForm.new(report, valid_params)
+        form.valid?
+
+        expect do
+          form.save
+          report.reload
+        end.to_not change { report.reported_change.id }
+
+        expect(report.reported_change.change_type_job_termination?).to be_truthy
+      end
     end
   end
 
   describe ".from_report" do
     it "assigns values from change report" do
-      report = create(:report, :new_job)
+      report = create(:report, :with_change, change_type: "new_job")
 
       form = ChangeTypeForm.from_report(report)
 
