@@ -34,7 +34,14 @@ RSpec.feature "Report change" do
     click_on "Continue"
 
     expect(page).to have_text "What changed?"
-    choose "I started a new job"
+    check "I started a new job"
+    click_on "Continue"
+
+    expect(page).to have_text "Tell us about yourself."
+    fill_in "What is your phone number?", with: "555-222-3333"
+    select "January", from: "form[birthday_month]"
+    select "1", from: "form[birthday_day]"
+    select 20.years.ago.year.to_s, from: "form[birthday_year]"
     click_on "Continue"
 
     expect(page).to have_text "Are you self-employed?"

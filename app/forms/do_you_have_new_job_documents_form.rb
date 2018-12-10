@@ -1,7 +1,7 @@
-class DoYouHaveALetterForm < Form
-  set_attributes_for :navigator, :has_documents
+class DoYouHaveNewJobDocumentsForm < Form
+  set_attributes_for :navigator, :has_new_job_documents
 
-  validates_presence_of :has_documents, message: "Please answer this question."
+  validates_presence_of :has_new_job_documents, message: "Please answer this question."
 
   def save
     report.navigator.update(attributes_for(:navigator))

@@ -13,7 +13,7 @@ class CsvService
       csv << header_attributes
 
       active_record_collection.each do |active_record_object|
-        csv << header_attributes.map { |attribute| active_record_object.send(attribute) }
+        csv << header_attributes.map { |attribute| active_record_object.public_send(attribute) }
       end
     end
   end

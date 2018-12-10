@@ -4,7 +4,7 @@ RSpec.describe <%= model.camelcase %>Controller do
   it_behaves_like "form controller base behavior"
   it_behaves_like "form controller successful update", {
     signature: "Best E. Person",
-  }
+  }, "job_termination"
   it_behaves_like "form controller unsuccessful update"
   it_behaves_like "form controller always shows"
 end

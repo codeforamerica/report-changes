@@ -1,0 +1,5 @@
+<% if current_report.job_termination_change.present? %>
+  <% content_for :card_title, "Next, tell us about the new job." %>
+<% else %>
+  <% content_for :card_title, "First, tell us about the new job." %>
+<% end %>

@@ -1,17 +1,17 @@
 class <%= model.camelcase %>Form < Form
   <%- if options.doc? -%>
-  # Whitelist top-level parameter names for ChangeReport, e.g.
+  # Whitelist top-level parameter names for Report, e.g.
   #
   #   given params: { form: { living_situation: "stable_housing" } }
   #
-  #   set_attributes_for :change_report, :living_situation
+  #   set_attributes_for :report, :living_situation
   #
-  # Delete the method if you aren't updating the ChangeReport.
+  # Delete the method if you aren't updating the Report.
   <%- end -%>
-  set_attributes_for :change_report, :foo
+  set_attributes_for :report, :foo
 
   <%- if options.doc? -%>
-  # Whitelist top-level parameter names for ChangeReportNavigator, e.g.
+  # Whitelist top-level parameter names for Navigator, e.g.
   #
   #   given params: { form: { anyone_requesting_food: "yes" } }
   #
@@ -20,7 +20,7 @@ class <%= model.camelcase %>Form < Form
   # These attributes should be used for application flow, and not to fill out
   # the application PDF.
   #
-  # Delete the method if you aren't updating the ChangeReportNavigator.
+  # Delete the method if you aren't updating the Navigator.
   <%- end -%>
   set_attributes_for :navigator, :street_address, :city, :zip_code
 
@@ -28,11 +28,10 @@ class <%= model.camelcase %>Form < Form
   # Add any validations below. Be sure to include helpful error messages.
   <%- end -%>
   validates_presence_of :street_address, message: "Please add your street address"
-  validates_presence_of :city, message: "Please add the city you live in"
   validates :zip_code, length: { is: 5, message: "Please add a five digit ZIP code" }
 
   def save
-    change_report.update(attributes_for(:change_report))
-    change_report.navigator.update(attributes_for(:navigator))
+    report.update(attributes_for(:report))
+    report.navigator.update(attributes_for(:navigator))
   end
 end

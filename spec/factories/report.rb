@@ -3,10 +3,14 @@ FactoryBot.define do
     trait :with_navigator do
       transient do
         source { nil }
+        has_new_job_documents { nil }
       end
 
       after(:create) do |report, evaluator|
-        create(:navigator, report: report, source: evaluator.source)
+        create(:navigator,
+               report: report,
+               source: evaluator.source,
+               has_new_job_documents: evaluator.has_new_job_documents)
       end
     end
 
@@ -28,18 +32,14 @@ FactoryBot.define do
     trait :with_change do
       transient do
         change_type { "job_termination" }
+        documents { [] }
       end
 
       after(:create) do |report, evaluator|
         create(:change,
           change_type: evaluator.change_type,
-          report: report)
-      end
-    end
-
-    trait :with_letter do
-      letters do
-        [fixture_file_upload(Rails.root.join("spec", "fixtures", "image.jpg"), "image/jpg")]
+          report: report,
+          documents: evaluator.documents)
       end
     end
 
@@ -57,6 +57,6 @@ FactoryBot.define do
       end
     end
 
-    factory :report_with_letter, traits: %i[with_navigator with_member with_letter]
+    factory :report_with_letter, traits: %i[with_navigator with_member]
   end
 end

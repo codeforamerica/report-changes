@@ -3,13 +3,13 @@
     <p class="label">
       Supervisor or manager's name
     </p>
-    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.reported_change.manager_name } %>
+    <%= render partial: 'reports/value_or_no_response', locals: { value: manager_name } %>
 
   </div>
   <div class="column one-of-two">
     <p class="label">
       Supervisor or manager's phone number
     </p>
-    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.manager_phone_number } %>
+    <%= render partial: 'reports/value_or_no_response', locals: { value: manager_phone_number } %>
   </div>
 </div>

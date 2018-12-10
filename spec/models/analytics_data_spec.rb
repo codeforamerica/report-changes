@@ -1,55 +1,42 @@
 require "rails_helper"
 
 RSpec.describe AnalyticsData do
-  let(:mock_change) do
-    instance_double(Change,
-    first_day: nil,
-    first_paycheck: nil,
-    last_day: nil,
-    last_paycheck: nil).as_null_object
-  end
-  let(:mock_report) do
-    instance_double(Report,
-      submitted_at: nil,
-      reported_change: mock_change,
-      letters: []).as_null_object
-  end
-
   describe "#to_h" do
     it "returns basic information" do
-      navigator = instance_double(Navigator,
+      navigator = build(:navigator,
                                   county_from_address: "Littleland",
-                                  has_documents: "yes",
+                                  has_new_job_documents: "yes",
                                   selected_county_location: "arapahoe",
                                   is_self_employed: "no",
                                   source: "Land of Ooo")
 
-      member = instance_double(Member, age: 22)
+      member = build(:member, birthday: (22.years.ago - 1.week))
 
-      metadata = instance_double(ReportMetadata,
+      metadata = build(:report_metadata,
                                  consent_to_sms: "yes",
                                  feedback_rating: "positive")
 
-      allow(mock_report).to receive_messages(
+      report = create(:report,
         navigator: navigator,
         member: member,
         metadata: metadata,
         submitted_at: DateTime.new(2018, 1, 2),
-      )
-      allow(mock_change).to receive_messages(
-        change_type: "new_job",
-        paid_how_often: "monthly",
-        paid_yet: "no",
-      )
+        new_job_change: build(:change,
+          change_type: "new_job",
+          paid_how_often: "monthly",
+          paid_yet: "no",
+          report: report))
 
-      data = AnalyticsData.new(mock_report).to_h
+      data = AnalyticsData.new(report).to_h
 
       expect(data.fetch(:age)).to eq(22)
-      expect(data.fetch(:change_type)).to eq("new_job")
+      expect(data.fetch(:new_job)).to eq("yes")
+      expect(data.fetch(:job_termination)).to eq("no")
+      expect(data.fetch(:change_in_hours)).to eq("no")
       expect(data.fetch(:consent_to_sms)).to eq("yes")
       expect(data.fetch(:county_from_address)).to eq("Littleland")
       expect(data.fetch(:feedback_rating)).to eq("positive")
-      expect(data.fetch(:has_documents)).to eq("yes")
+      expect(data.fetch(:has_new_job_documents)).to eq("yes")
       expect(data.fetch(:is_self_employed)).to eq("no")
       expect(data.fetch(:paid_how_often)).to eq("monthly")
       expect(data.fetch(:paid_yet)).to eq("no")
@@ -61,16 +48,16 @@ RSpec.describe AnalyticsData do
 
     it "calculates time since submission" do
       submission_date = Time.utc(2018, 1, 10, 1, 2, 3)
-      allow(mock_report).to receive_messages(submitted_at: submission_date)
-      allow(mock_change).to receive_messages(
+      report = build(:report, submitted_at: submission_date)
+      create(:change,
         change_type: "new_job",
         first_day: submission_date - 30.days,
         first_paycheck: submission_date - 20.days,
         last_day: submission_date - 90.days,
         last_paycheck: submission_date - 100.days,
         same_hours: "yes",
-      )
-      data = AnalyticsData.new(mock_report).to_h
+        report: report)
+      data = AnalyticsData.new(report).to_h
 
       expect(data.fetch(:same_hours)).to eq("yes")
       expect(data.fetch(:days_since_first_day_to_submission)).to eq(30)
@@ -80,9 +67,10 @@ RSpec.describe AnalyticsData do
     end
 
     it "sends nil for any 'unfilled' values" do
-      allow(mock_change).to receive_messages(same_hours: "unfilled")
-
-      data = AnalyticsData.new(mock_report).to_h
+      change = build(:change,
+                    same_hours: "unfilled",
+                    report: build(:report))
+      data = AnalyticsData.new(change.report).to_h
 
       expect(data.fetch(:same_hours)).to be_nil
     end

@@ -1,8 +1,10 @@
 require "rails_helper"
 
-RSpec.shared_examples_for "form controller base behavior" do |is_last_section|
+RSpec.shared_examples_for "form controller base behavior" do |change_type|
   context "with session" do
-    let(:current_report) { create(:report, :with_navigator, :with_metadata, :with_change) }
+    let(:current_report) do
+      create(:report, :with_navigator, :with_metadata, :with_change, change_type: change_type || "job_termination")
+    end
 
     before do
       session[:current_report_id] = current_report.id
@@ -33,11 +35,7 @@ RSpec.shared_examples_for "form controller base behavior" do |is_last_section|
       it "returns the next path from this controller" do
         form_navigation = FormNavigation.new(controller)
 
-        if is_last_section
-          expect(controller.next_path).to eq "/screens/#{controller.class.to_param}"
-        else
-          expect(controller.next_path).to eq "/screens/#{form_navigation.next.to_param}"
-        end
+        expect(controller.next_path).to eq "/screens/#{form_navigation.next.to_param}"
       end
     end
   end

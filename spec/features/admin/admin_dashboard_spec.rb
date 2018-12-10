@@ -14,7 +14,7 @@ RSpec.feature "Admin viewing dashboard" do
     end
 
     scenario "viewing details for a report" do
-      report = create(:report, :with_change)
+      report = create(:report, :with_change, change_type: "job_termination")
 
       visit admin_root_path
 
@@ -24,27 +24,27 @@ RSpec.feature "Admin viewing dashboard" do
 
       expect(page).to have_content("Report ##{report.id}")
 
-      click_on report.reported_change.id
+      click_on report.job_termination_change.id
 
-      expect(page).to have_content("Change ##{report.reported_change.id}")
+      expect(page).to have_content("Change ##{report.job_termination_change.id}")
     end
 
     context "with verifications" do
       scenario "viewing the pdf" do
         report = build(:report,
-          :with_letter,
-          reported_change: build(:change, change_type: "job_termination"),
-          navigator: build(:navigator, has_documents: "yes"))
+          navigator: build(:navigator, has_job_termination_documents: "yes"))
         create(:member,
                first_name: "Todd",
                last_name: "Chavez",
                report: report)
-        report.letters.attach(
+        change = create(:change, change_type: "job_termination", report: report)
+
+        change.documents.attach(
           io: File.open(Rails.root.join("spec", "fixtures", "document.pdf")),
           filename: "document.pdf",
           content_type: "application/pdf",
         )
-        report.letters.attach(
+        change.documents.attach(
           io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
           filename: "image.jpg",
           content_type: "image/jpg",
@@ -76,25 +76,26 @@ RSpec.feature "Admin viewing dashboard" do
       create(:report,
         :with_member,
         signature: "st",
-        reported_change: build(:change,
+        job_termination_change: build(:change,
           change_type: :job_termination,
           manager_name: "Lavar Burton"))
       create(:report,
         :with_member,
         signature: "julie",
-        reported_change: build(:change,
+        new_job_change: build(:change,
           change_type: :new_job,
           manager_name: "Bob Ross"))
       create(:report,
         :with_member,
         signature: "mike",
-        reported_change: build(:change,
+        change_in_hours_change: build(:change,
           change_type: :change_in_hours,
           manager_name: "Michael Scott"))
       create(:report,
         :with_member,
         signature: nil,
-        reported_change: build(:change,
+        job_termination_change: build(:change,
+          change_type: :job_termination,
           manager_name: "Mr Burns"))
 
       visit admin_root_path
@@ -102,11 +103,8 @@ RSpec.feature "Admin viewing dashboard" do
       click_on "Download All"
 
       expect(page).to have_text "Lavar Burton"
-      expect(page).to have_text "Income change: job termination"
       expect(page).to have_text "Bob Ross"
-      expect(page).to have_text "Income change: new job"
       expect(page).to have_text "Michael Scott"
-      expect(page).to have_text "Income change: change in hours"
 
       expect(page).not_to have_text "Mr Burns"
     end

@@ -15,7 +15,7 @@
       Employer name
     </p>
     <span class="value">
-      <%= @report.reported_change.company_name %>
+      <%= @report.job_termination_change.company_name %>
     </span>
   </div>
 </div>
@@ -60,18 +60,18 @@
     </p>
 
     <span class="value">
-      <%= @report.uploaded_proof_words_for_pdf %>
+      <%= @report.job_termination_uploaded_proof_words_for_pdf %>
     </span>
   </div>
 </div>
 
-<%= render partial: 'reports/job_contact_info' %>
+<%= render partial: 'reports/job_contact_info', locals: { manager_name: @report.job_termination_change.manager_name, manager_phone_number: @report.job_termination_manager_phone_number } %>
 
 <div class="row">
   <div class="column one-of-one">
     <p class="label">
       Additional info
     </p>
-    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.reported_change.manager_additional_information } %>
+    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.job_termination_change.manager_additional_information } %>
   </div>
 </div>

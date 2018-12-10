@@ -6,20 +6,24 @@ class Report < ActiveRecord::Base
           class_name: "ReportMetadata",
           dependent: :destroy
 
-  has_one :reported_change,
+  has_many :reported_changes,
           class_name: "Change",
           foreign_key: "report_id",
           dependent: :destroy
 
-  has_many_attached :letters
+  has_one :job_termination_change,
+          -> { where(change_type: "job_termination").limit(1) },
+          class_name: "Change"
+
+  has_one :new_job_change,
+          -> { where(change_type: "new_job").limit(1) },
+          class_name: "Change"
+
+  has_one :change_in_hours_change,
+          -> { where(change_type: "change_in_hours").limit(1) },
+          class_name: "Change"
 
   scope :signed, -> { where.not(signature: nil) }
 
-  def pdf_letters
-    letters.select { |letter| letter.content_type == "application/pdf" }
-  end
-
-  def image_letters
-    letters.select(&:image?)
-  end
+  has_many_attached :letters
 end

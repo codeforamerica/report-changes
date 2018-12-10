@@ -3,7 +3,7 @@ class <%= model.camelcase %>Controller < FormsController
   # Specify under what conditions controller should be accessible:
   # (By default it will always be shown
   <%- end -%>
-  # def self.show_rule_sets(change_report)
-  #   super << ShowRules.must_have_supported_county(change_report)
+  # def self.show_rule_sets(report)
+  #   super << ShowRules.must_have_supported_county(report)
   # end
 end

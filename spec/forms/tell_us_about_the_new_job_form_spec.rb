@@ -60,7 +60,7 @@ RSpec.describe TellUsAboutTheNewJobForm do
   end
 
   describe "#save" do
-    let(:report) { create :report, :with_change }
+    let(:report) { create :report, :with_change, change_type: :new_job }
     let(:valid_params) do
       {
         company_name: "Abc Corp",
@@ -76,9 +76,9 @@ RSpec.describe TellUsAboutTheNewJobForm do
 
       report.reload
 
-      expect(report.reported_change.company_name).to eq "Abc Corp"
-      expect(report.reported_change.manager_name).to eq "Boss McBosser"
-      expect(report.reported_change.manager_phone_number).to eq "1112223333"
+      expect(report.new_job_change.company_name).to eq "Abc Corp"
+      expect(report.new_job_change.manager_name).to eq "Boss McBosser"
+      expect(report.new_job_change.manager_phone_number).to eq "1112223333"
     end
   end
 
@@ -88,7 +88,7 @@ RSpec.describe TellUsAboutTheNewJobForm do
                      company_name: "Abc Corp",
                      manager_name: "Boss McBosser",
                      manager_phone_number: "1112223333")
-      report = create(:report, :with_navigator, reported_change: change)
+      report = create(:report, :with_navigator, new_job_change: change)
       form = TellUsAboutTheNewJobForm.from_report(report)
       expect(form.company_name).to eq("Abc Corp")
       expect(form.manager_name).to eq("Boss McBosser")

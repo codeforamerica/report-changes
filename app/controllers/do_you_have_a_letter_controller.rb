@@ -1,1 +1,0 @@
-class DoYouHaveALetterController < FormsController; end

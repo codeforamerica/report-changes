@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_05_192534) do
+ActiveRecord::Schema.define(version: 2018_12_12_002609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,7 +123,9 @@ ActiveRecord::Schema.define(version: 2018_12_05_192534) do
     t.string "city"
     t.string "county_from_address"
     t.datetime "created_at", null: false
-    t.integer "has_documents", default: 0
+    t.integer "has_change_in_hours_documents", default: 0
+    t.integer "has_job_termination_documents", default: 0
+    t.integer "has_new_job_documents", default: 0
     t.integer "is_self_employed", default: 0
     t.bigint "report_id"
     t.integer "selected_county_location", default: 0
@@ -148,7 +150,6 @@ ActiveRecord::Schema.define(version: 2018_12_05_192534) do
   create_table "reports", force: :cascade do |t|
     t.string "case_number"
     t.datetime "created_at", null: false
-    t.string "manager_phone_number"
     t.string "phone_number"
     t.string "signature"
     t.datetime "submitted_at"
