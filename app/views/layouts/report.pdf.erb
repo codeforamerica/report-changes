@@ -16,7 +16,7 @@
     </p>
   </div>
 
-  <% @report.image_letters.each do |letter| %>
+  <% @report.reported_changes.first.image_documents.each do |letter| %>
     <div class="alwaysbreak">
       <%= image_tag(wicked_blob_path(letter), alt: '_', width: "100%") %>
     </div>

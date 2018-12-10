@@ -4,7 +4,10 @@ RSpec.describe ChangeTypeForm do
   describe "validations" do
     context "when change_type is provided" do
       it "is valid" do
-        form = ChangeTypeForm.new(nil, change_type: :job_termination)
+        form = ChangeTypeForm.new(nil,
+                                  job_termination: "1",
+                                  new_job: "1",
+                                  change_in_hours: "0")
 
         expect(form).to be_valid
       end
@@ -12,7 +15,10 @@ RSpec.describe ChangeTypeForm do
 
     context "when change_type is not provided" do
       it "is invalid" do
-        form = ChangeTypeForm.new(nil, change_type: nil)
+        form = ChangeTypeForm.new(nil,
+                                  job_termination: "0",
+                                  new_job: "0",
+                                  change_in_hours: "0")
 
         expect(form).not_to be_valid
         expect(form.errors[:change_type]).to be_present
@@ -26,18 +32,21 @@ RSpec.describe ChangeTypeForm do
 
       let(:valid_params) do
         {
-          change_type: "job_termination",
+          job_termination: "1",
+          new_job: "1",
+          change_in_hours: "0",
         }
       end
 
-      it "persists the values to the correct models" do
+      it "creates a new change for each selected change type" do
         form = ChangeTypeForm.new(report, valid_params)
         form.valid?
         form.save
 
         report.reload
 
-        expect(report.reported_change.change_type_job_termination?).to be_truthy
+        expect(report.reported_changes.count).to eq(2)
+        expect(report.reported_changes.map(&:change_type)).to match_array(["job_termination", "new_job"])
       end
     end
 
@@ -46,20 +55,43 @@ RSpec.describe ChangeTypeForm do
 
       let(:valid_params) do
         {
-          change_type: "job_termination",
+          job_termination: "0",
+          new_job: "1",
+          change_in_hours: "0",
         }
       end
 
-      it "updates the existing model" do
+      it "does not create new change of same type" do
         form = ChangeTypeForm.new(report, valid_params)
         form.valid?
 
         expect do
           form.save
           report.reload
-        end.to_not change { report.reported_change.id }
+        end.to_not change { report.reported_changes.detect { |change| change.change_type == "new_job" }.id }
+      end
+    end
 
-        expect(report.reported_change.change_type_job_termination?).to be_truthy
+    context "a change for a given type already exists but is not selected" do
+      let(:report) { create :report, :with_change, change_type: "new_job" }
+
+      let(:valid_params) do
+        {
+          job_termination: "1",
+          new_job: "0",
+          change_in_hours: "0",
+        }
+      end
+
+      it "removes the change of that type" do
+        form = ChangeTypeForm.new(report, valid_params)
+        form.valid?
+
+        form.save
+        report.reload
+
+        expect(report.reported_changes.count).to eq(1)
+        expect(report.reported_changes.map(&:change_type)).to match_array(["job_termination"])
       end
     end
   end
@@ -70,7 +102,9 @@ RSpec.describe ChangeTypeForm do
 
       form = ChangeTypeForm.from_report(report)
 
-      expect(form.change_type).to eq "new_job"
+      expect(form.new_job).to eq "1"
+      expect(form.job_termination).to be_nil
+      expect(form.change_in_hours).to be_nil
     end
   end
 end

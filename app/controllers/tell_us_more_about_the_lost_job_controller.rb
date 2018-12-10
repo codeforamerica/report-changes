@@ -1,5 +1,5 @@
 class TellUsMoreAboutTheLostJobController < FormsController
   def self.show_rule_sets(report)
-    super << report.reported_change.change_type_job_termination?
+    super << ShowRules.show_for_job_termination(report)
   end
 end

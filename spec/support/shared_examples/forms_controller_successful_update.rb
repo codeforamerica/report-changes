@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.shared_examples_for "form controller successful update" do |valid_params|
+RSpec.shared_examples_for "form controller successful update" do |valid_params, change_type|
   describe "#update" do
     context "without change report" do
       it "redirects to homepage" do
@@ -11,7 +11,14 @@ RSpec.shared_examples_for "form controller successful update" do |valid_params|
     end
 
     context "with change report" do
-      let(:current_report) { create(:report, :with_navigator, :with_member, :with_metadata, :with_change) }
+      let(:current_report) do
+        create(:report,
+               :with_navigator,
+               :with_member,
+               :with_metadata,
+               :with_change,
+               change_type: change_type || :job_termination)
+      end
 
       before do
         session[:current_report_id] = current_report.id

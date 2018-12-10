@@ -22,10 +22,14 @@ feature "Uploading verifications", js: true do
     fill_in "What is your first name?", with: "Jane"
     fill_in "What is your last name?", with: "Doe"
     click_on "Continue"
+
+    expect(page).to have_text "What changed?"
+    check "My hours or pay changed"
+    proceed_with "Continue"
   end
 
-  scenario "add letters" do
-    visit add_letter_screens_path
+  scenario "add documents" do
+    visit add_change_in_hours_documents_screens_path
     page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
     expect(page).to have_text "image.jpg"
 
@@ -33,7 +37,7 @@ feature "Uploading verifications", js: true do
 
     expect(page).to_not have_text "Add your letter."
 
-    visit add_letter_screens_path
+    visit add_change_in_hours_documents_screens_path
     expect(page).to have_text "image.jpg"
 
     click_on "Continue"
@@ -42,7 +46,7 @@ feature "Uploading verifications", js: true do
   end
 
   scenario "delete letters" do
-    visit add_letter_screens_path
+    visit add_change_in_hours_documents_screens_path
 
     page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
     expect(page).to have_text "image.jpg"
@@ -51,14 +55,14 @@ feature "Uploading verifications", js: true do
     expect(page).to_not have_text "image.jpg"
     click_on "Continue"
 
-    visit add_letter_screens_path
+    visit add_change_in_hours_documents_screens_path
     expect(page).to_not have_text "image.jpg"
 
     page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
     expect(page).to have_text "image.jpg"
 
     click_on "Continue"
-    visit add_letter_screens_path
+    visit add_change_in_hours_documents_screens_path
     expect(page).to have_text "image.jpg"
     click_on "Delete"
 

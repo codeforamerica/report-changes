@@ -1,0 +1,39 @@
+<% content_for :card_title, "Do you have a letter or paystubs?" %>
+
+<% content_for :card_body do %>
+    <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
+        <%= f.cfa_radio_set :has_job_termination_documents,
+                            label_text: "Do you have a letter or paystubs?",
+                            legend_class: "sr-only",
+                            collection: [
+                              { value: :yes, label: "Yes" },
+                              { value: :no, label: "No" },
+                            ] %>
+    <% end %>
+
+    <div class="reveal">
+      <p><a href="#" class="reveal__link">What should these include?</a></p>
+      <div class="reveal__content text--left">
+        <div class="notice">
+          <p>
+            <%= t(self_or_other_member_translation_key(".verify_income"), name: current_report.member.first_name) %> The best ways to prove this are:
+          </p>
+
+          <ul class="list--bulleted">
+            <li>A paycheck labeled “final”</li>
+            <li>A letter from your old employer</li>
+          </ul>
+          <p>It would be helpful for the letter to:</p>
+          <ul class="list--bulleted">
+            <li><%= t(self_or_other_member_translation_key(".dont_work_there"), name: current_report.member.first_name) %></li>
+            <li><%= t(self_or_other_member_translation_key(".last_day_work")) %></li>
+            <li><%= t(self_or_other_member_translation_key(".amount_last_paycheck")) %></li>
+            <li>Be on letterhead</li>
+          </ul>
+          <p>
+            If you don’t have this, we’ll work with you to find other ways to prove this change.
+          </p>
+        </div>
+      </div>
+    </div>
+<% end %>

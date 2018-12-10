@@ -31,7 +31,7 @@ RSpec.feature "Reporting a change", :a11y, :js do
     proceed_with "Continue"
 
     expect(page).to have_text "What changed?"
-    choose "My hours or pay changed"
+    check "My hours or pay changed"
     proceed_with "Continue"
 
     expect(page).to have_text "Tell us about yourself."

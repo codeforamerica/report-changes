@@ -8,10 +8,10 @@ class TellUsAboutTheLostJobForm < Form
   validates :manager_phone_number, ten_digit_phone_number: true, allow_blank: true
 
   def save
-    report.reported_change.update(attributes_for(:change))
+    report.job_termination_change.update(attributes_for(:change))
   end
 
   def self.existing_attributes(report)
-    HashWithIndifferentAccess.new(report.reported_change.attributes)
+    HashWithIndifferentAccess.new(report.job_termination_change.attributes)
   end
 end

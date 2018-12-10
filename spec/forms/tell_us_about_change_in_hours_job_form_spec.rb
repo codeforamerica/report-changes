@@ -68,7 +68,7 @@ RSpec.describe TellUsAboutChangeInHoursJobForm do
   end
 
   describe "#save" do
-    let(:report) { create :report, :with_change }
+    let(:report) { create :report, :with_change, change_type: :change_in_hours }
 
     it "persists the values to the correct models" do
       form = TellUsAboutChangeInHoursJobForm.new(report, valid_params)
@@ -77,9 +77,9 @@ RSpec.describe TellUsAboutChangeInHoursJobForm do
 
       report.reload
 
-      expect(report.reported_change.company_name).to eq("Abc Corp")
-      expect(report.reported_change.manager_name).to eq("Boss McBosserson")
-      expect(report.reported_change.manager_phone_number).to eq("1112223333")
+      expect(report.change_in_hours_change.company_name).to eq("Abc Corp")
+      expect(report.change_in_hours_change.manager_name).to eq("Boss McBosserson")
+      expect(report.change_in_hours_change.manager_phone_number).to eq("1112223333")
     end
   end
 
@@ -89,7 +89,7 @@ RSpec.describe TellUsAboutChangeInHoursJobForm do
                      company_name: "Abc Corp",
                      manager_name: "Boss McBosserson",
                      manager_phone_number: "1112223333")
-      report = create(:report, :with_navigator, reported_change: change)
+      report = create(:report, :with_navigator, change_in_hours_change: change)
 
       form = TellUsAboutChangeInHoursJobForm.from_report(report)
 

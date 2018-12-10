@@ -1,6 +1,8 @@
 require "rails_helper"
 
-RSpec.shared_examples_for "form controller shows when new job" do
+RSpec.shared_examples_for "form controller new job behavior" do
+  it_behaves_like "form controller base behavior", "new_job"
+
   describe "show?" do
     context "when change_type is new job" do
       it "returns true" do

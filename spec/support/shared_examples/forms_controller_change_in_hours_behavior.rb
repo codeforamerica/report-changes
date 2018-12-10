@@ -1,6 +1,8 @@
 require "rails_helper"
 
-RSpec.shared_examples_for "form controller shows when change in hours" do
+RSpec.shared_examples_for "form controller change in hours behavior" do
+  it_behaves_like "form controller base behavior", "change_in_hours"
+
   describe "show?" do
     context "when change_type is change_in_hours" do
       it "returns true" do

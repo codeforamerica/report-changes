@@ -15,7 +15,7 @@
       Employer name
     </p>
     <span class="value">
-      <%= @report.company_name %>
+      <%= @report.change_in_hours_company_name %>
     </span>
   </div>
 </div>
@@ -35,7 +35,7 @@
       Wage
     </p>
     <span class="value">
-      <%= @report.hourly_wage %>
+      <%= @report.change_in_hours_hourly_wage %>
     </span>
   </div>
 
@@ -44,7 +44,7 @@
       Pay frequency
     </p>
     <span class="value">
-      <%= @report.paid_how_often %>
+      <%= @report.change_in_hours_paid_how_often %>
     </span>
   </div>
 </div>
@@ -82,9 +82,9 @@
     </p>
 
     <span class="value">
-      <%= @report.uploaded_proof_words_for_pdf %>
+      <%= @report.change_in_hours_uploaded_proof_words_for_pdf %>
     </span>
   </div>
 </div>
 
-<%= render partial: 'reports/job_contact_info' %>
+<%= render partial: 'reports/job_contact_info', locals: { manager_name: @report.change_in_hours_manager_name, manager_phone_number: @report.change_in_hours_manager_phone_number } %>

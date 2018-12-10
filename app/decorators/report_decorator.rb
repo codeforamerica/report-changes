@@ -3,62 +3,115 @@ class ReportDecorator < SimpleDelegator
 
   def self.header_attributes
     [
-      "change_type_description",
       "submitted_at",
       "case_number",
       "client_name",
       "birthday",
       "ssn",
       "client_phone_number",
-      "company_name",
+      "signature",
+      # job termination traits
+      "job_termination",
+      "job_termination_company_name",
+      "job_termination_manager_name",
+      "job_termination_manager_additional_information",
+      "job_termination_manager_phone_number",
       "last_day",
       "last_paycheck",
       "last_paycheck_amount",
-      "manager_name",
-      "manager_phone_number",
-      "manager_additional_information",
-      "uploaded_proof",
-      "signature",
+      "job_termination_uploaded_proof",
+      # new job traits
+      "new_job",
+      "new_job_company_name",
+      "new_job_manager_name",
+      "new_job_manager_additional_information",
+      "new_job_manager_phone_number",
+      "new_job_hourly_wage",
+      "new_job_paid_how_often",
+      "new_job_notes",
       "first_day",
       "paid_yet",
       "first_paycheck",
-      "hourly_wage",
       "same_hours",
       "hours_a_week",
-      "paid_how_often",
-      "new_job_notes",
+      "new_job_uploaded_proof",
+      # change in hours traits
+      "change_in_hours",
+      "change_in_hours_company_name",
+      "change_in_hours_manager_name",
+      "change_in_hours_manager_additional_information",
+      "change_in_hours_manager_phone_number",
+      "change_in_hours_hourly_wage",
+      "change_in_hours_paid_how_often",
       "change_date",
       "change_in_hours_hours_a_week",
       "change_in_hours_notes",
+      "change_in_hours_uploaded_proof",
     ]
   end
 
-  def company_name
-    reported_change&.company_name
+  def job_termination_company_name
+    job_termination_change&.company_name
   end
 
-  def manager_additional_information
-    reported_change&.manager_additional_information
+  def new_job_company_name
+    new_job_change&.company_name
   end
 
-  def manager_name
-    reported_change&.manager_name
+  def change_in_hours_company_name
+    change_in_hours_change&.company_name
   end
 
-  def paid_how_often
-    reported_change&.paid_how_often
+  def job_termination_manager_additional_information
+    job_termination_change&.manager_additional_information
+  end
+
+  def new_job_manager_additional_information
+    new_job_change&.manager_additional_information
+  end
+
+  def change_in_hours_manager_additional_information
+    change_in_hours_change&.manager_additional_information
+  end
+
+  def job_termination_manager_name
+    job_termination_change&.manager_name
+  end
+
+  def new_job_manager_name
+    new_job_change&.manager_name
+  end
+
+  def change_in_hours_manager_name
+    change_in_hours_change&.manager_name
+  end
+
+  def new_job_paid_how_often
+    new_job_change&.paid_how_often
+  end
+
+  def change_in_hours_paid_how_often
+    change_in_hours_change&.paid_how_often
   end
 
   def new_job_notes
-    reported_change&.new_job_notes
+    new_job_change&.new_job_notes
   end
 
   def change_in_hours_notes
-    reported_change&.change_in_hours_notes
+    change_in_hours_change&.change_in_hours_notes
   end
 
-  def manager_phone_number
-    format_phone_number(reported_change&.manager_phone_number)
+  def job_termination_manager_phone_number
+    format_phone_number(job_termination_change&.manager_phone_number)
+  end
+
+  def new_job_manager_phone_number
+    format_phone_number(new_job_change&.manager_phone_number)
+  end
+
+  def change_in_hours_manager_phone_number
+    format_phone_number(change_in_hours_change&.manager_phone_number)
   end
 
   def ssn
@@ -74,11 +127,11 @@ class ReportDecorator < SimpleDelegator
   end
 
   def last_day
-    reported_change&.last_day&.strftime("%D")
+    job_termination_change&.last_day&.strftime("%D")
   end
 
   def last_paycheck
-    reported_change&.last_paycheck&.strftime("%D")
+    job_termination_change&.last_paycheck&.strftime("%D")
   end
 
   def client_name
@@ -89,69 +142,88 @@ class ReportDecorator < SimpleDelegator
     format_phone_number(phone_number)
   end
 
-  def uploaded_proof
-    letters.attached? ? "yes" : "no"
+  def job_termination_uploaded_proof
+    job_termination_change&.documents&.attached? ? "yes" : "no"
   end
 
-  def uploaded_proof_words_for_pdf
-    letters.attached? ? "See attached" : "Client does not have this"
+  def new_job_uploaded_proof
+    new_job_change&.documents&.attached? ? "yes" : "no"
+  end
+
+  def change_in_hours_uploaded_proof
+    change_in_hours_change&.documents&.attached? ? "yes" : "no"
+  end
+
+  def job_termination_uploaded_proof_words_for_pdf
+    job_termination_change&.documents&.attached? ? "See attached" : "Client does not have this"
+  end
+
+  def new_job_uploaded_proof_words_for_pdf
+    new_job_change&.documents&.attached? ? "See attached" : "Client does not have this"
+  end
+
+  def change_in_hours_uploaded_proof_words_for_pdf
+    change_in_hours_change&.documents&.attached? ? "See attached" : "Client does not have this"
   end
 
   def last_paycheck_amount
-    number_to_currency(reported_change&.last_paycheck_amount)
+    number_to_currency(job_termination_change&.last_paycheck_amount)
   end
 
   def first_day
-    reported_change&.first_day&.strftime("%D")
+    new_job_change&.first_day&.strftime("%D")
   end
 
   def change_date
-    reported_change&.change_date&.strftime("%D")
+    change_in_hours_change&.change_date&.strftime("%D")
   end
 
   def first_paycheck
-    reported_change&.first_paycheck&.strftime("%D")
+    new_job_change&.first_paycheck&.strftime("%D")
   end
 
-  def hourly_wage
-    "$#{reported_change.hourly_wage} /hr" if reported_change&.hourly_wage.present?
+  def new_job_hourly_wage
+    "$#{new_job_change.hourly_wage} /hr" if new_job_change&.hourly_wage.present?
+  end
+
+  def change_in_hours_hourly_wage
+    "$#{change_in_hours_change.hourly_wage} /hr" if change_in_hours_change&.hourly_wage.present?
   end
 
   def hours_a_week
-    if reported_change&.same_hours_yes?
-      reported_change.same_hours_a_week_amount
-    elsif reported_change&.same_hours_no?
-      "#{reported_change.lower_hours_a_week_amount}-#{reported_change.upper_hours_a_week_amount}"
+    if new_job_change&.same_hours_yes?
+      new_job_change.same_hours_a_week_amount
+    elsif new_job_change&.same_hours_no?
+      "#{new_job_change.lower_hours_a_week_amount}-#{new_job_change.upper_hours_a_week_amount}"
     end
   end
 
   def change_in_hours_hours_a_week
-    if reported_change&.upper_hours_a_week_amount.present?
-      "#{reported_change.lower_hours_a_week_amount}-#{reported_change.upper_hours_a_week_amount}"
+    if change_in_hours_change&.upper_hours_a_week_amount.present?
+      "#{change_in_hours_change.lower_hours_a_week_amount}-#{change_in_hours_change.upper_hours_a_week_amount}"
     else
-      reported_change&.lower_hours_a_week_amount
+      change_in_hours_change&.lower_hours_a_week_amount
     end
   end
 
-  def change_type_description
-    case reported_change&.change_type
-    when "job_termination"
-      "Income change: job termination"
-    when "new_job"
-      "Income change: new job"
-    when "change_in_hours"
-      "Income change: change in hours"
-    else
-      ""
-    end
+  def job_termination
+    job_termination_change.present? ? "Yes" : "No"
+  end
+
+  def new_job
+    new_job_change.present? ? "Yes" : "No"
+  end
+
+  def change_in_hours
+    change_in_hours_change.present? ? "Yes" : "No"
   end
 
   def paid_yet
-    reported_change&.change_type_new_job? ? reported_change&.paid_yet : ""
+    new_job_change&.paid_yet || ""
   end
 
   def same_hours
-    reported_change&.change_type_new_job? ? reported_change&.same_hours : ""
+    new_job_change&.same_hours || ""
   end
 
   private

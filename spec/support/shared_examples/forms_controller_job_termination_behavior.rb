@@ -1,6 +1,8 @@
 require "rails_helper"
 
-RSpec.shared_examples_for "form controller shows when job termination" do
+RSpec.shared_examples_for "form controller job termination behavior" do
+  it_behaves_like "form controller base behavior", "job_termination"
+
   describe "show?" do
     context "when change_type is job_termination" do
       it "returns true" do

@@ -1,5 +1,5 @@
 class TellUsAboutChangeInHoursJobController < FormsController
   def self.show_rule_sets(report)
-    super << report.reported_change.change_type_change_in_hours?
+    super << ShowRules.show_for_change_in_hours(report)
   end
 end

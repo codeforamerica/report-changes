@@ -13,9 +13,11 @@ class AnalyticsData
   attr_reader :report
 
   def report_data
-    reported_change = report.reported_change
+    reported_change = report.reported_changes.first
     {
-      change_type: reported_change.try(:change_type),
+      new_job: reported_change.try(:change_type_new_job?) ? "yes" : "no",
+      job_termination: reported_change.try(:change_type_job_termination?) ? "yes" : "no",
+      change_in_hours: reported_change.try(:change_type_change_in_hours?) ? "yes" : "no",
       days_since_first_day_to_submission: days_since_submission(reported_change.try(:first_day)),
       days_since_first_paycheck_to_submission: days_since_submission(reported_change.try(:first_paycheck)),
       days_since_last_day_to_submission: days_since_submission(reported_change.try(:last_day)),
@@ -24,7 +26,7 @@ class AnalyticsData
       paid_yet: reported_change.try(:paid_yet),
       same_hours: reported_change.try(:same_hours),
       submitted_at: report.submitted_at,
-      verification_documents_count: report.letters.count,
+      verification_documents_count: reported_change.try(:documents).try(:count),
     }
   end
 
@@ -34,7 +36,9 @@ class AnalyticsData
       county_from_address: navigator.try(:county_from_address),
       has_offer_letter: navigator.try(:has_offer_letter),
       has_paystub: navigator.try(:has_paystub),
-      has_documents: navigator.try(:has_documents),
+      has_job_termination_documents: navigator.try(:has_job_termination_documents),
+      has_new_job_documents: navigator.try(:has_new_job_documents),
+      has_change_in_hours_documents: navigator.try(:has_change_in_hours_documents),
       selected_county_location: navigator.try(:selected_county_location),
       is_self_employed: navigator.try(:is_self_employed),
       source: navigator.try(:source),

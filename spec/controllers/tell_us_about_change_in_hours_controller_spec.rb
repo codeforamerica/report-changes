@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe TellUsAboutChangeInHoursController do
-  it_behaves_like "form controller base behavior"
   it_behaves_like "form controller successful update", {
     lower_hours_a_week_amount: 20,
     change_date_day: "15",
@@ -10,7 +9,7 @@ RSpec.describe TellUsAboutChangeInHoursController do
     hourly_wage: "10",
     paid_how_often: "Every two weeks",
     change_in_hours_notes: "My notes",
-  }
+  }, "change_in_hours"
   it_behaves_like "form controller unsuccessful update"
-  it_behaves_like "form controller shows when change in hours"
+  it_behaves_like "form controller change in hours behavior"
 end

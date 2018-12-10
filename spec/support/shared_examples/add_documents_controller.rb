@@ -1,8 +1,6 @@
 require "rails_helper"
 
-RSpec.describe AddLetterController do
-  it_behaves_like "form controller base behavior"
-
+RSpec.shared_examples_for "add documents controller" do |change_type|
   describe "#update" do
     context "without change report" do
       it "redirects to homepage" do
@@ -13,7 +11,10 @@ RSpec.describe AddLetterController do
     end
 
     context "with change report" do
-      let(:current_report) { create(:report, :with_navigator) }
+      let(:current_report) do
+        create(:report, :with_navigator, :with_change, change_type: change_type)
+      end
+
       let(:active_storage_blob) do
         ActiveStorage::Blob.create_after_upload!(
           io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
@@ -26,10 +27,10 @@ RSpec.describe AddLetterController do
         session[:current_report_id] = current_report.id
       end
 
-      context "with letters" do
+      context "with documents" do
         let(:valid_params) do
           {
-            letters: ["", active_storage_blob.signed_id],
+            documents: ["", active_storage_blob.signed_id],
           }
         end
 
@@ -37,12 +38,10 @@ RSpec.describe AddLetterController do
           put :update, params: { form: valid_params }
 
           expect(response).to redirect_to(subject.next_path)
-
-          put :update, params: { form: valid_params }
         end
       end
 
-      context "without letters (ie: Safari)" do
+      context "without documents (ie: Safari)" do
         let(:valid_params) do
           {}
         end
@@ -51,31 +50,7 @@ RSpec.describe AddLetterController do
           put :update, params: { form: valid_params }
 
           expect(response).to redirect_to(subject.next_path)
-
-          put :update, params: { form: valid_params }
         end
-      end
-    end
-  end
-
-  describe "show?" do
-    context "when client has their letter" do
-      it "returns true" do
-        report = create(:report, navigator:
-          build(:navigator, has_documents: "yes"))
-
-        show_form = AddLetterController.show?(report)
-        expect(show_form).to eq(true)
-      end
-    end
-
-    context "when client does not have letter" do
-      it "returns false" do
-        report = create(:report, navigator:
-          build(:navigator, has_documents: "no"))
-
-        show_form = AddLetterController.show?(report)
-        expect(show_form).to eq(false)
       end
     end
   end

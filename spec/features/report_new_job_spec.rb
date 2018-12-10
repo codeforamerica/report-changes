@@ -31,11 +31,7 @@ RSpec.feature "Reporting a change", :a11y, :js do
     proceed_with "Continue"
 
     expect(page).to have_text "What changed?"
-    choose "They started a new job"
-    proceed_with "Continue"
-
-    expect(page).to have_text "Is Jane self-employed?"
-    choose "They are not self-employed"
+    check "They started a new job"
     proceed_with "Continue"
 
     expect(page).to have_text "Tell us about Jane."
@@ -43,6 +39,10 @@ RSpec.feature "Reporting a change", :a11y, :js do
     select "January", from: "form[birthday_month]"
     select "1", from: "form[birthday_day]"
     select 20.years.ago.year.to_s, from: "form[birthday_year]"
+    proceed_with "Continue"
+
+    expect(page).to have_text "Is Jane self-employed?"
+    choose "They are not self-employed"
     proceed_with "Continue"
 
     expect(page).to have_text "Tell us about the new job."
