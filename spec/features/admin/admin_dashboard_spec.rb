@@ -14,7 +14,7 @@ RSpec.feature "Admin viewing dashboard" do
     end
 
     scenario "viewing details for a report" do
-      report = create(:report, :with_change, change_type: "job_termination")
+      report = create(:report, :with_change, :with_metadata, change_type: "job_termination", consent_to_sms: "no")
 
       visit admin_root_path
 
@@ -23,6 +23,7 @@ RSpec.feature "Admin viewing dashboard" do
       click_on report.id
 
       expect(page).to have_content("Report ##{report.id}")
+      expect(page).to have_content("CONSENT TO SMS", "no")
 
       click_on report.job_termination_change.id
 
