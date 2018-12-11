@@ -17,6 +17,7 @@ class ReportDashboard < Administrate::BaseDashboard
     submitted_at: Field::DateTime,
     updated_at: Field::DateTime,
     download_link: DownloadLinkField,
+    sms_consent: SmsConsentField,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -42,6 +43,7 @@ class ReportDashboard < Administrate::BaseDashboard
     case_number
     signature
     phone_number
+    sms_consent
   ].freeze
 
   # FORM_ATTRIBUTES
