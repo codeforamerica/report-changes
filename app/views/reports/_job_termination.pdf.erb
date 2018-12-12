@@ -45,24 +45,6 @@
   </div>
 </div>
 
-<div class="divider"></div>
-
-<p class="label">
-  Verifications
-</p>
-
-<div class="row">
-  <div class="column one-of-two">
-    <p class="label">
-      Included document?
-    </p>
-
-    <span class="value">
-      <%= @report.job_termination_uploaded_proof_words_for_pdf %>
-    </span>
-  </div>
-</div>
-
 <%= render partial: 'reports/job_contact_info', locals: { manager_name: @report.job_termination_change.manager_name, manager_phone_number: @report.job_termination_manager_phone_number } %>
 
 <div class="row">
@@ -73,3 +55,17 @@
     <%= render partial: 'reports/value_or_no_response', locals: { value: @report.job_termination_change.manager_additional_information } %>
   </div>
 </div>
+
+<div class="row">
+  <div class="column one-of-two">
+    <p class="label">
+      Included verification documents?
+    </p>
+
+    <span class="value">
+      <%= @report.job_termination_uploaded_proof_words_for_pdf %>
+    </span>
+  </div>
+</div>
+
+<div class="divider"></div>
