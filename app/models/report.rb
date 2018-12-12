@@ -30,4 +30,8 @@ class Report < ActiveRecord::Base
   def pdf_documents
     reported_changes.map(&:pdf_documents).flatten
   end
+
+  def image_documents
+    reported_changes.map(&:image_documents).flatten
+  end
 end
