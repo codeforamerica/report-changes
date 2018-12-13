@@ -26,4 +26,16 @@ class Report < ActiveRecord::Base
   scope :signed, -> { where.not(signature: nil) }
 
   has_many_attached :letters
+
+  def pdf_documents
+    reported_changes.map(&:pdf_documents).flatten
+  end
+
+  def image_documents
+    reported_changes.map(&:image_documents).flatten
+  end
+
+  def document_count
+    (reported_changes.map(&:pdf_documents).flatten + reported_changes.map(&:image_documents).flatten).count
+  end
 end

@@ -13,20 +13,19 @@ class AnalyticsData
   attr_reader :report
 
   def report_data
-    reported_change = report.reported_changes.first
     {
-      new_job: reported_change.try(:change_type_new_job?) ? "yes" : "no",
-      job_termination: reported_change.try(:change_type_job_termination?) ? "yes" : "no",
-      change_in_hours: reported_change.try(:change_type_change_in_hours?) ? "yes" : "no",
-      days_since_first_day_to_submission: days_since_submission(reported_change.try(:first_day)),
-      days_since_first_paycheck_to_submission: days_since_submission(reported_change.try(:first_paycheck)),
-      days_since_last_day_to_submission: days_since_submission(reported_change.try(:last_day)),
-      days_since_last_paycheck_to_submission: days_since_submission(reported_change.try(:last_paycheck)),
-      paid_how_often: reported_change.try(:paid_how_often),
-      paid_yet: reported_change.try(:paid_yet),
-      same_hours: reported_change.try(:same_hours),
+      new_job: report.new_job_change.present? ? "yes" : "no",
+      job_termination: report.job_termination_change.present? ? "yes" : "no",
+      change_in_hours: report.change_in_hours_change.present? ? "yes" : "no",
+      days_since_first_day_to_submission: days_since_submission(report.new_job_change.try(:first_day)),
+      days_since_first_paycheck_to_submission: days_since_submission(report.new_job_change.try(:first_paycheck)),
+      days_since_last_day_to_submission: days_since_submission(report.job_termination_change.try(:last_day)),
+      days_since_last_paycheck_to_submission: days_since_submission(report.job_termination_change.try(:last_paycheck)),
+      paid_how_often: report.new_job_change.try(:paid_how_often),
+      paid_yet: report.new_job_change.try(:paid_yet),
+      same_hours: report.new_job_change.try(:same_hours),
       submitted_at: report.submitted_at,
-      verification_documents_count: reported_change.try(:documents).try(:count),
+      verification_documents_count: report.document_count,
     }
   end
 

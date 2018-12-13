@@ -1,5 +1,3 @@
-<%= render partial: 'reports/member_info' %>
-
 <div class="row">
   <div class="column one-of-two">
     <p class="label">
@@ -87,6 +85,8 @@
   </div>
 </div>
 
+<%= render partial: 'reports/job_contact_info', locals: { manager_name: @report.new_job_manager_name, manager_phone_number: @report.new_job_manager_phone_number } %>
+
 <div class="row">
   <div class="column one-of-one">
     <p class="label">
@@ -96,16 +96,10 @@
   </div>
 </div>
 
-<div class="divider"></div>
-
-<p class="label">
-  Verifications
-</p>
-
 <div class="row">
   <div class="column one-of-two">
     <p class="label">
-      Included document?
+      Included verification documents?
     </p>
 
     <span class="value">
@@ -114,4 +108,4 @@
   </div>
 </div>
 
-<%= render partial: 'reports/job_contact_info', locals: { manager_name: @report.new_job_manager_name, manager_phone_number: @report.new_job_manager_phone_number } %>
+<div class="divider"></div>

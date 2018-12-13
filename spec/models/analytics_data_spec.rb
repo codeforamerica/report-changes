@@ -6,6 +6,7 @@ RSpec.describe AnalyticsData do
       navigator = build(:navigator,
                                   county_from_address: "Littleland",
                                   has_new_job_documents: "yes",
+                                  has_job_termination_documents: "yes",
                                   selected_county_location: "arapahoe",
                                   is_self_employed: "no",
                                   source: "Land of Ooo")
@@ -25,18 +26,25 @@ RSpec.describe AnalyticsData do
           change_type: "new_job",
           paid_how_often: "monthly",
           paid_yet: "no",
+          first_day: DateTime.new(2016, 1, 2),
+          report: report),
+        job_termination_change: build(:change,
+          change_type: "job_termination",
+          last_paycheck: DateTime.new(2017, 1, 2),
+          last_day: DateTime.new(2016, 1, 2),
           report: report))
 
       data = AnalyticsData.new(report).to_h
 
       expect(data.fetch(:age)).to eq(22)
       expect(data.fetch(:new_job)).to eq("yes")
-      expect(data.fetch(:job_termination)).to eq("no")
+      expect(data.fetch(:job_termination)).to eq("yes")
       expect(data.fetch(:change_in_hours)).to eq("no")
       expect(data.fetch(:consent_to_sms)).to eq("yes")
       expect(data.fetch(:county_from_address)).to eq("Littleland")
       expect(data.fetch(:feedback_rating)).to eq("positive")
       expect(data.fetch(:has_new_job_documents)).to eq("yes")
+      expect(data.fetch(:has_job_termination_documents)).to eq("yes")
       expect(data.fetch(:is_self_employed)).to eq("no")
       expect(data.fetch(:paid_how_often)).to eq("monthly")
       expect(data.fetch(:paid_yet)).to eq("no")
@@ -53,9 +61,12 @@ RSpec.describe AnalyticsData do
         change_type: "new_job",
         first_day: submission_date - 30.days,
         first_paycheck: submission_date - 20.days,
+        same_hours: "yes",
+        report: report)
+      create(:change,
+        change_type: "job_termination",
         last_day: submission_date - 90.days,
         last_paycheck: submission_date - 100.days,
-        same_hours: "yes",
         report: report)
       data = AnalyticsData.new(report).to_h
 
