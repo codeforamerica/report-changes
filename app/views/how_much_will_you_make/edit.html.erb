@@ -19,7 +19,7 @@
     <%= f.cfa_date_select :first_paycheck,
       current_report.new_job_change.paid_yet_yes? ? t(self_or_other_member_translation_key(".first_paycheck.paid_yet_yes")) : t(self_or_other_member_translation_key(".first_paycheck.paid_yet_no")),
       help_text: "Estimate if you're not sure.",
-      options: { start_year: Time.now.year, end_year: Time.now.year - 3 } %>
+      options: { start_year: Time.now.year, end_year: Time.now.year + 2 } %>
     <%= f.cfa_input_field :new_job_notes,  t(self_or_other_member_translation_key(".new_job_notes"), name: current_report.member.first_name),
                           help_text: t(self_or_other_member_translation_key(".new_job_notes_help")),
                           optional: true %>
