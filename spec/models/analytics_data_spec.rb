@@ -14,8 +14,9 @@ RSpec.describe AnalyticsData do
       member = build(:member, birthday: (22.years.ago - 1.week))
 
       metadata = build(:report_metadata,
-                                 consent_to_sms: "yes",
-                                 feedback_rating: "positive")
+                       consent_to_sms: "yes",
+                       feedback_rating: "positive",
+                       feedback_comments: "great!")
 
       report = create(:report,
         navigator: navigator,
@@ -43,6 +44,7 @@ RSpec.describe AnalyticsData do
       expect(data.fetch(:consent_to_sms)).to eq("yes")
       expect(data.fetch(:county_from_address)).to eq("Littleland")
       expect(data.fetch(:feedback_rating)).to eq("positive")
+      expect(data.fetch(:feedback_comments)).to eq("great!")
       expect(data.fetch(:has_new_job_documents)).to eq("yes")
       expect(data.fetch(:has_job_termination_documents)).to eq("yes")
       expect(data.fetch(:is_self_employed)).to eq("no")
