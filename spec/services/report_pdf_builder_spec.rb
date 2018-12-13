@@ -37,7 +37,7 @@ RSpec.describe ReportPdfBuilder do
       expect(text_analysis).to include("Income change: new job")
       expect(text_analysis).to include("Income change: change in hours/pay")
       expect(text_analysis.scan("This is the test pdf contents").size).to eq 2
-      expect(page_analysis.pages.size).to eq 5 # Report, multiple images and multiple pdfs
+      expect(page_analysis.pages.size).to eq 7 # Report, multiple images and multiple pdfs
     end
   end
 
