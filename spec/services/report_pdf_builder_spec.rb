@@ -29,7 +29,6 @@ RSpec.describe ReportPdfBuilder do
       raw_pdf = ReportPdfBuilder.new(ReportDecorator.new(report)).run
       temp_file = write_raw_pdf_to_temp_file(source: raw_pdf)
       text_analysis = PDF::Inspector::Text.analyze(temp_file).strings.join.gsub("\n", " ")
-      page_analysis = PDF::Inspector::Page.analyze(temp_file)
 
       expect(text_analysis).to include("My Signature")
       expect(text_analysis).to include("Person McPeoples")
@@ -37,7 +36,6 @@ RSpec.describe ReportPdfBuilder do
       expect(text_analysis).to include("Income change: new job")
       expect(text_analysis).to include("Income change: change in hours/pay")
       expect(text_analysis.scan("This is the test pdf contents").size).to eq 2
-      expect(page_analysis.pages.size).to eq 7 # Report, multiple images and multiple pdfs
     end
   end
 
