@@ -56,6 +56,7 @@ class AnalyticsData
     {
       consent_to_sms: metadata.try(:consent_to_sms),
       feedback_rating: metadata.try(:feedback_rating),
+      feedback_comments: metadata.try(:feedback_comments),
     }
   end
 
