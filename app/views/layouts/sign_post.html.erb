@@ -1,40 +1,33 @@
 <% content_for :content do %>
-  <div class="slab">
-    <main id="main" class="card">
-      <% if content_for? :emoji %>
-        <header class="text--centered with-padding-large nudge--large">
-          <div class="emoji emoji--big <%= content_for :emoji %>"></div>
-      <% else %>
-        <% if content_for? :card_body %>
-          <header class="card__header">
-        <% end %>
-    <% end %>
-        <h1 class="card__title">
-          <%= yield :card_title %>
-        </h1>
+    <div class="slab">
+      <main id="main" class="form-card form-card--transition">
+        <header class="form-card__header">
+          <%= yield :card_illustration %>
+          <h1 class="form-card__title">
+            <%= yield :card_title %>
+          </h1>
 
-        <% if content_for? :card_help %>
-          <p class="text--help">
-            <%= yield :card_help %>
-          </p>
-        <% end %>
-      <% if content_for? :card_body %>
+          <% if content_for? :card_help %>
+            <p class="text--help">
+              <%= yield :card_help %>
+            </p>
+          <% end %>
         </header>
-      <% end %>
 
-      <% if content_for? :card_body %>
-        <div class="card__content">
+        <div class="form-card__content">
           <%= yield :card_body %>
         </div>
-      <% end %>
 
-      <div class="card__footer">
-        <%= render "shared/next_step_link", button_label: content_for(:card_footer_button_label) || 'Continue' %>
-      </div>
-    </main>
-
-    <%= render "shared/progress_indicator", progress_indicator_percentage: current_percentage %>
-  </div>
+        <div class="form-card__footer">
+          <% if content_for? :card_footer %>
+            <%= yield :card_footer %>
+          <% else %>
+            <%= render "shared/next_step_link", button_label: content_for(:card_footer_button_label) || 'Continue' %>
+          <% end %>
+        </div>
+      </main>
+      <%= render "shared/progress_indicator", progress_indicator_percentage: current_percentage %>
+    </div>
 <% end %>
 
 <%= render template: 'layouts/application' %>

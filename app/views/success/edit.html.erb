@@ -1,5 +1,7 @@
 <% content_for :success, true %>
-<% content_for :emoji, "emoji--party-popper" %>
+<% content_for :card_illustration do %>
+  <div class="emoji emoji--big emoji--party-popper"></div>
+<% end %>
 <% content_for :card_title, t(self_or_other_member_translation_key(".title")) %>
 <% content_for :card_body do %>
   <hr />
