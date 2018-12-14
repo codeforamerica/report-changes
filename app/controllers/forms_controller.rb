@@ -3,7 +3,7 @@ class FormsController < ApplicationController
 
   helper_method :current_report, :current_percentage, :self_or_other_member_translation_key
 
-  layout "form"
+  layout "left_aligned"
 
   def index
     render layout: "application"

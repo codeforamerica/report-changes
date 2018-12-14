@@ -1,6 +1,8 @@
-<% content_for :emoji, "emoji--warning" %>
+<% content_for :card_illustration do %>
+  <div class="emoji emoji--big emoji--warning"></div>
+<% end %>
 <% content_for :card_title, "Thanks for visiting the ReportChangesColorado example tool!" %>
-<% content_for :card_subtitle, "This site is for example purposes only. If you need to submit a change report, visit ReportChangesColorado.org." %>
+<% content_for :card_help, "This site is for example purposes only. If you need to submit a change report, visit ReportChangesColorado.org." %>
 <% content_for :card_body do %>
   <%= link_to "Report on ReportChangesColorado.org", "https://www.reportchangescolorado.org", class: "button button--primary" %>
   <%= link_to "Continue demo tool", next_path, class: "button" %>
