@@ -20,11 +20,13 @@
   }
 }
 
-.card {
+.form-card {
   max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.card--transition .card__header .card__title{
+.form-card--transition .form-card__header .form-card__title{
   max-width: 57rem;
   margin-bottom: .5em;
 }
