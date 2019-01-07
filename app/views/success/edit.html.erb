@@ -4,8 +4,6 @@
 <% end %>
 <% content_for :card_title, t(self_or_other_member_translation_key(".title")) %>
 <% content_for :card_body do %>
-  <hr />
-
   <p>
     What’s next? We’ll use your answers on this form to see if your household benefits change.
     <%= t(self_or_other_member_translation_key(".client_notified"), name: current_report.member.first_name) %>
