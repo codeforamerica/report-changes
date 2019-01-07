@@ -55,7 +55,7 @@ RSpec.feature "Reporting a change", :a11y, :js do
     expect(page).to have_text "Tell us more about the new job."
     select "February", from: "form[first_day_month]"
     select "2", from: "form[first_day_day]"
-    select "2018", from: "form[first_day_year]"
+    select Time.now.year, from: "form[first_day_year]"
     choose "Yes" # Have they been paid yet?
     proceed_with "Continue"
 
@@ -67,7 +67,7 @@ RSpec.feature "Reporting a change", :a11y, :js do
     fill_in "How often do they get paid?", with: "Every two weeks"
     select "February", from: "form[first_paycheck_month]"
     select "21", from: "form[first_paycheck_day]"
-    select "2018", from: "form[first_paycheck_year]"
+    select Time.now.year, from: "form[first_paycheck_year]"
     fill_in "Is there anything else we should know about Jane's hours or wages at this job?", with: "Not really"
     proceed_with "Continue"
 

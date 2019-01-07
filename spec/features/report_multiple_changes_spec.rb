@@ -59,10 +59,10 @@ feature "Reporting a change", :a11y, :js do
     expect(page).to have_text "Tell us more about the job that ended"
     select "February", from: "form[last_day_month]"
     select "2", from: "form[last_day_day]"
-    select "2018", from: "form[last_day_year]"
+    select Time.now.year, from: "form[last_day_year]"
     select "February", from: "form[last_paycheck_month]"
     select "12", from: "form[last_paycheck_day]"
-    select "2018", from: "form[last_paycheck_year]"
+    select Time.now.year, from: "form[last_paycheck_year]"
     fill_in "What was the amount of your final paystub, pre-tax?", with: "127.14"
     proceed_with "Continue"
 
@@ -87,7 +87,7 @@ feature "Reporting a change", :a11y, :js do
     expect(page).to have_text "Tell us more about the new job."
     select "February", from: "form[first_day_month]"
     select "2", from: "form[first_day_day]"
-    select "2018", from: "form[first_day_year]"
+    select Time.now.year, from: "form[first_day_year]"
     choose "Yes" # Have they been paid yet?
     proceed_with "Continue"
 
@@ -99,7 +99,7 @@ feature "Reporting a change", :a11y, :js do
     fill_in "How often do you get paid?", with: "Every two weeks"
     select "February", from: "form[first_paycheck_month]"
     select "21", from: "form[first_paycheck_day]"
-    select "2018", from: "form[first_paycheck_year]"
+    select Time.now.year, from: "form[first_paycheck_year]"
     fill_in "Is there anything else we should know about your hours or wages at this job?", with: "Not really"
     proceed_with "Continue"
 
@@ -123,7 +123,7 @@ feature "Reporting a change", :a11y, :js do
     fill_in "What will your hourly wage be?", with: "15"
     select "February", from: "form[change_date_month]"
     select "21", from: "form[change_date_day]"
-    select "2018", from: "form[change_date_year]"
+    select Time.now.year, from: "form[change_date_year]"
     fill_in "How often do you get paid?", with: "Every two weeks"
     fill_in "Is there anything else we should know about your hours or wages at this job?", with: "Not really"
     proceed_with "Continue"
