@@ -1,0 +1,8 @@
+<h1>The following documents are for the reported <%= @change.change_type.humanize(capitalize: false) %></h1>
+
+
+<% @change.image_documents.each do |document| %>
+  <div class="alwaysbreak">
+    <%= image_tag(wicked_blob_path(document), alt: '_', width: "100%") %>
+  </div>
+<% end %>
