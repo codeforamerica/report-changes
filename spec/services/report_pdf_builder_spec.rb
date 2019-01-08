@@ -104,4 +104,59 @@ RSpec.describe ReportPdfBuilder do
       expect(text_analysis).to include("Income change: change in hours/pay")
     end
   end
+
+  context "Multiple changes with multiple documents" do
+    it "has cover pages for each change type's documents" do
+      report = create(:report,
+        :with_member,
+        navigator: build(:navigator,
+          has_job_termination_documents: "yes",
+          has_new_job_documents: "yes",
+          has_change_in_hours_documents: "yes"))
+      termination = create(:change, change_type: "job_termination", report: report)
+      termination.documents.attach(
+        io: File.open(Rails.root.join("spec", "fixtures", "document.pdf")),
+        filename: "document.pdf",
+        content_type: "application/pdf",
+      )
+      termination.documents.attach(
+        io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
+        filename: "image.jpg",
+        content_type: "image/jpg",
+      )
+      new_job = create(:change, change_type: "new_job", report: report)
+      new_job.documents.attach(
+        io: File.open(Rails.root.join("spec", "fixtures", "document.pdf")),
+        filename: "document.pdf",
+        content_type: "application/pdf",
+      )
+      new_job.documents.attach(
+        io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
+        filename: "image.jpg",
+        content_type: "image/jpg",
+      )
+      change_in_hours = create(:change, change_type: "change_in_hours", report: report)
+      change_in_hours.documents.attach(
+        io: File.open(Rails.root.join("spec", "fixtures", "document.pdf")),
+        filename: "document.pdf",
+        content_type: "application/pdf",
+      )
+      change_in_hours.documents.attach(
+        io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
+        filename: "image.jpg",
+        content_type: "image/jpg",
+      )
+
+      expect(report.pdf_documents.count).to eq 3
+      expect(report.image_documents.count).to eq 3
+
+      raw_pdf = ReportPdfBuilder.new(ReportDecorator.new(report)).run
+      temp_file = write_raw_pdf_to_temp_file(source: raw_pdf)
+      text_analysis = PDF::Inspector::Text.analyze(temp_file).strings.join.gsub("\n", " ")
+
+      expect(text_analysis).to include("The following documents are for the reported job termination")
+      expect(text_analysis).to include("The following documents are for the reported new job")
+      expect(text_analysis).to include("The following documents are for the reported change in hours")
+    end
+  end
 end
