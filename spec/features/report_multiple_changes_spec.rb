@@ -1,15 +1,6 @@
 require "rails_helper"
 
 feature "Reporting a change", :a11y, :js do
-  include ActiveJob::TestHelper
-
-  around do |example|
-    ActionMailer::Base.deliveries.clear
-    perform_enqueued_jobs do
-      example.run
-    end
-  end
-
   scenario "all change types" do
     visit "/"
     expect(page).to have_text "Report changes to your benefits case"
@@ -148,10 +139,5 @@ feature "Reporting a change", :a11y, :js do
     proceed_with "Submit"
 
     expect(page).to have_content("Thanks for your feedback")
-
-    emails = ActionMailer::Base.deliveries
-
-    expect(emails.count).to eq 1
-    expect(emails.last.attachments.count).to eq 1
   end
 end

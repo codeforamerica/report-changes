@@ -1,15 +1,6 @@
 require "rails_helper"
 
 RSpec.feature "Reporting a change", :a11y, :js do
-  include ActiveJob::TestHelper
-
-  around do |example|
-    ActionMailer::Base.deliveries.clear
-    perform_enqueued_jobs do
-      example.run
-    end
-  end
-
   scenario "new job" do
     visit "/"
     proceed_with "Start my report", match: :first
@@ -90,10 +81,5 @@ RSpec.feature "Reporting a change", :a11y, :js do
     proceed_with "Submit"
 
     expect(page).to have_content("Thanks for your feedback")
-
-    emails = ActionMailer::Base.deliveries
-
-    expect(emails.count).to eq 1
-    expect(emails.last.attachments.count).to eq 1
   end
 end
