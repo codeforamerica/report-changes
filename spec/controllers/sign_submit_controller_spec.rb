@@ -42,10 +42,21 @@ RSpec.describe SignSubmitController do
 
           expect(EmailChangeReportToOfficeJob).to_not have_received(:perform_later)
         end
+
+        it "does not enqueue a confirmation text job" do
+          current_report = create(:report, :with_navigator, metadata: build(:report_metadata, consent_to_sms: :yes))
+          session[:current_report_id] = current_report.id
+
+          allow(TextConfirmationToClientJob).to receive(:perform_later)
+
+          put :update, params: { form: valid_params }
+
+          expect(TextConfirmationToClientJob).to_not have_received(:perform_later)
+        end
       end
 
       it "enqueues a pdf mailer job" do
-        current_report = create(:report, :with_navigator)
+        current_report = create(:report, :with_navigator, :with_metadata)
         session[:current_report_id] = current_report.id
 
         allow(EmailChangeReportToOfficeJob).to receive(:perform_later)
@@ -53,6 +64,38 @@ RSpec.describe SignSubmitController do
         put :update, params: { form: valid_params }
 
         expect(EmailChangeReportToOfficeJob).to have_received(:perform_later).with(report: current_report)
+      end
+
+      context "when the client has consented to SMS" do
+        it "enqueues a confirmation text job" do
+          current_report = create(:report,
+                                  :with_navigator,
+                                  phone_number: "1113334444",
+                                  metadata: build(:report_metadata, consent_to_sms: :yes))
+          session[:current_report_id] = current_report.id
+
+          allow(TextConfirmationToClientJob).to receive(:perform_later)
+
+          put :update, params: { form: valid_params }
+
+          expect(TextConfirmationToClientJob).to have_received(:perform_later).
+            with(phone_number: current_report.phone_number)
+        end
+      end
+
+      context "when the client has not consented to SMS" do
+        it "does not enqueue a confirmation text job" do
+          current_report = create(:report,
+                                  :with_navigator,
+                                  metadata: build(:report_metadata, consent_to_sms: :no))
+          session[:current_report_id] = current_report.id
+
+          allow(TextConfirmationToClientJob).to receive(:perform_later)
+
+          put :update, params: { form: valid_params }
+
+          expect(TextConfirmationToClientJob).to_not have_received(:perform_later)
+        end
       end
     end
   end

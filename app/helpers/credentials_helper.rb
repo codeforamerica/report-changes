@@ -13,6 +13,10 @@ module CredentialsHelper
       environment_credential_for_key(:county_email_address, alternate_value: "county@example.com")
     end
 
+    def twilio_phone_number
+      environment_credential_for_key(:twilio_phone_number, alternate_value: "15553338888")
+    end
+
     def environment_credential_for_key(key, alternate_value: nil)
       if Rails.env.test? || Rails.env.development?
         alternate_value
