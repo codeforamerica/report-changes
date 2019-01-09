@@ -7,9 +7,11 @@ module GenericSpecHelper
     ClimateControl.modify(options, &block)
   end
 
-  def write_raw_pdf_to_temp_file(source:)
+  def pdf_to_text(pdf)
     temp_pdf = Tempfile.new("pdf", encoding: "ascii-8bit")
-    temp_pdf << source
-    temp_pdf
+    temp_pdf << pdf
+    PDF::Reader.new(temp_pdf).pages.map do |page|
+      page.text.gsub("\t", " ").gsub("\n", " ").squeeze(" ")
+    end.join(" ")
   end
 end
