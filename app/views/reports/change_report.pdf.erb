@@ -1,3 +1,5 @@
+<h1>Change Request Form</h1>
+
 <%= render partial: 'reports/member_info' %>
 
 <% if @report.job_termination_change.present? %>
@@ -11,3 +13,9 @@
 <% if @report.change_in_hours_change.present? %>
   <%= render partial: 'reports/change_in_hours' %>
 <% end %>
+
+<div class="row">
+  <p>
+    Questions or feedback on this PDF? Email us at <%= ENV["SENDING_EMAIL_ADDRESS"] %>.
+  </p>
+</div>

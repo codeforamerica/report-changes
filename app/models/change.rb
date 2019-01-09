@@ -14,4 +14,15 @@ class Change < ApplicationRecord
   def image_documents
     documents.select(&:image?)
   end
+
+  def name
+    case change_type
+    when "job_termination"
+      "job termination"
+    when "new_job"
+      "new job"
+    when "change_in_hours"
+      "change in hours/pay"
+    end
+  end
 end

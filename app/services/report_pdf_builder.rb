@@ -1,36 +1,49 @@
 class ReportPdfBuilder
-  attr_reader :report_pdf_from_html, :report
+  attr_reader :report
 
   def initialize(report)
     @report = report
-
-    report_pdf_string = ApplicationController.render(
-      layout: "report",
-      template: "reports/change_report",
-      assigns: { report: report },
-    )
-    @report_pdf_from_html = WickedPdf.new.pdf_from_string(report_pdf_string)
   end
 
   def run
-    combined_file = CombinePDF.parse(report_pdf_from_html)
+    report_pdf_html = ApplicationController.render(
+      layout: "pdf_layout",
+      template: "reports/change_report",
+      assigns: { report: report },
+    )
+    report_pdf = WickedPdf.new.pdf_from_string(report_pdf_html)
 
+    change_type_cover_sheet_and_documents = []
     report.reported_changes.each do |change|
-      # cover page and images
-      change_html = ApplicationController.render(
-        layout: "change_docs",
-        template: "reports/change_docs",
-        assigns: { change: change },
-      )
-      change_docs_pdf_from_html = WickedPdf.new.pdf_from_string(change_html)
-      combined_file << CombinePDF.parse(change_docs_pdf_from_html)
+      if change.documents.any?
+        cover_sheet_html = ApplicationController.render(
+          layout: "pdf_layout",
+          template: "reports/cover_sheet",
+          assigns: { change: change },
+        )
+        cover_sheet_pdf = WickedPdf.new.pdf_from_string(cover_sheet_html)
+        change_type_cover_sheet_and_documents << cover_sheet_pdf
 
-      # pdfs
-      change.pdf_documents.each do |pdf|
-        combined_file << CombinePDF.parse(pdf.download)
+        change.image_documents.each do |image|
+          images_html = ApplicationController.render(
+            layout: "pdf_layout",
+            template: "reports/image",
+            assigns: { image: image },
+          )
+          images_pdf = WickedPdf.new.pdf_from_string(images_html)
+          change_type_cover_sheet_and_documents << images_pdf
+        end
+
+        change.pdf_documents.each do |pdf|
+          change_type_cover_sheet_and_documents << pdf.download
+        end
       end
     end
+    combined_pdf = CombinePDF.parse(report_pdf)
+    change_type_cover_sheet_and_documents.each do |pdf|
+      combined_pdf << CombinePDF.parse(pdf)
+    end
 
-    combined_file.to_pdf
+    combined_pdf.to_pdf
   end
 end

@@ -60,7 +60,6 @@ group :test do
   gem "chromedriver-helper"
   gem "climate_control"
   gem "launchy"
-  gem "pdf-inspector", require: "pdf/inspector"
   gem "rspec_junit_formatter"
   gem "timecop"
 end
