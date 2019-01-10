@@ -1,4 +1,7 @@
 <h1 class="cover-sheet">
-  The following documents were uploaded to verify the reported <%= @change.name %>
+  <%= @change.name.capitalize %> verification documents
 </h1>
+<h2>
+  <%= pluralize(@change.documents.count, 'document') %>
+</h2>
 <div class="divider"></div>

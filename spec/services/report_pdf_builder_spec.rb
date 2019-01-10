@@ -63,7 +63,7 @@ RSpec.describe ReportPdfBuilder do
       pdf = ReportPdfBuilder.new(report).run
       pdf_text = pdf_to_text(pdf)
 
-      expect(pdf_text).not_to include("The following documents were uploaded")
+      expect(pdf_text).not_to include("Job termination verification documents")
     end
   end
 
@@ -157,9 +157,10 @@ RSpec.describe ReportPdfBuilder do
       pdf = ReportPdfBuilder.new(ReportDecorator.new(report)).run
       pdf_text = pdf_to_text(pdf)
 
-      expect(pdf_text).to include("The following documents were uploaded to verify the reported job termination")
-      expect(pdf_text).to include("The following documents were uploaded to verify the reported new job")
-      expect(pdf_text).to include("The following documents were uploaded to verify the reported change in hours/pay")
+      expect(pdf_text).to include("Job termination verification documents")
+      expect(pdf_text).to include("New job verification documents")
+      expect(pdf_text).to include("Change in hours/pay verification documents")
+      expect(pdf_text).to include("2 documents")
     end
   end
 end
