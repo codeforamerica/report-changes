@@ -19,10 +19,11 @@ RSpec.describe AnalyticsData do
                        feedback_comments: "great!")
 
       report = create(:report,
+        created_at: DateTime.new(2018, 1, 2, 12, 0, 0),
         navigator: navigator,
         member: member,
         metadata: metadata,
-        submitted_at: DateTime.new(2018, 1, 2),
+        submitted_at: DateTime.new(2018, 1, 2, 12, 10, 0),
         new_job_change: build(:change,
           change_type: "new_job",
           paid_how_often: "monthly",
@@ -53,7 +54,8 @@ RSpec.describe AnalyticsData do
       expect(data.fetch(:selected_county_location)).to eq("arapahoe")
       expect(data.fetch(:source)).to eq("Land of Ooo")
       expect(data.fetch(:verification_documents_count)).to eq(0)
-      expect(data.fetch(:submitted_at)).to eq(DateTime.new(2018, 1, 2))
+      expect(data.fetch(:submitted_at)).to eq(DateTime.new(2018, 1, 2, 12, 10, 0))
+      expect(data.fetch(:time_to_complete)).to eq(10 * 60)
     end
 
     it "calculates time since submission" do
@@ -93,6 +95,16 @@ RSpec.describe AnalyticsData do
         expect do
           AnalyticsData.new(build(:report)).to_h
         end.to_not raise_error
+      end
+    end
+
+    context "before a client has submitted their report" do
+      it "time_to_complete is nil" do
+        report = create :report, submitted_at: nil
+
+        data = AnalyticsData.new(report).to_h
+
+        expect(data.fetch(:time_to_complete)).to be_nil
       end
     end
   end

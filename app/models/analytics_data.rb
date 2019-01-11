@@ -25,6 +25,7 @@ class AnalyticsData
       paid_yet: report.new_job_change.try(:paid_yet),
       same_hours: report.new_job_change.try(:same_hours),
       submitted_at: report.submitted_at,
+      time_to_complete: time_to_complete,
       verification_documents_count: report.document_count,
     }
   end
@@ -68,5 +69,9 @@ class AnalyticsData
 
   def unfilled_to_nil(value)
     value == "unfilled" ? nil : value
+  end
+
+  def time_to_complete
+    (report.submitted_at - report.created_at) / 1.second if report.submitted_at
   end
 end
