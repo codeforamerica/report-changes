@@ -8,6 +8,9 @@ RSpec.feature "Report change" do
     choose "No"
     click_on "Continue"
 
+    expect(page).to have_content "What county do you live in?"
+    click_on "Continue"
+
     expect(page).to have_content "Sorry, you'll need to report this change a different way."
     expect(page).to have_content("Go to PEAK")
     expect(page).to have_content("Find my county office")

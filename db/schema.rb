@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_12_002609) do
+ActiveRecord::Schema.define(version: 2019_01_15_174328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 2018_12_12_002609) do
     t.integer "feedback_rating", default: 0
     t.bigint "report_id"
     t.datetime "updated_at", null: false
+    t.string "what_county"
     t.index ["report_id"], name: "index_report_metadata_on_report_id"
   end
 

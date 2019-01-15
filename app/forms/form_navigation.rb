@@ -5,6 +5,7 @@ class FormNavigation
     CountyLocationController,
     WhereDoYouLiveController,
     SupportedCountyController,
+    WhatCountyController,
     NotYetSupportedController,
     WhoHadChangeController,
     ClientNameController,
