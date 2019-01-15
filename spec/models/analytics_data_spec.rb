@@ -16,7 +16,8 @@ RSpec.describe AnalyticsData do
       metadata = build(:report_metadata,
                        consent_to_sms: "yes",
                        feedback_rating: "positive",
-                       feedback_comments: "great!")
+                       feedback_comments: "great!",
+                       what_county: "A different county.")
 
       report = create(:report,
         created_at: DateTime.new(2018, 1, 2, 12, 0, 0),
@@ -56,6 +57,7 @@ RSpec.describe AnalyticsData do
       expect(data.fetch(:verification_documents_count)).to eq(0)
       expect(data.fetch(:submitted_at)).to eq(DateTime.new(2018, 1, 2, 12, 10, 0))
       expect(data.fetch(:time_to_complete)).to eq(10 * 60)
+      expect(data.fetch(:what_county)).to eq("A different county.")
     end
 
     it "calculates time since submission" do
