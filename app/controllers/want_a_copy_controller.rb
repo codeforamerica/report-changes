@@ -1,0 +1,1 @@
+class WantACopyController < FormsController; end

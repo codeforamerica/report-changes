@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_15_174328) do
+ActiveRecord::Schema.define(version: 2019_01_16_232150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 2019_01_15_174328) do
   create_table "report_metadata", force: :cascade do |t|
     t.integer "consent_to_sms", default: 0
     t.datetime "created_at", null: false
+    t.string "email"
     t.text "feedback_comments"
     t.integer "feedback_rating", default: 0
     t.bigint "report_id"

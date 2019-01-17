@@ -1,0 +1,9 @@
+<% content_for :card_title, "Would you like a copy of this change report?" %>
+
+<% content_for :card_help, "We can send you a copy for your records." %>
+
+<% content_for :card_body do %>
+  <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
+    <%= f.cfa_input_field :email, "What is your email address?", optional: true %>
+  <% end %>
+<% end %>

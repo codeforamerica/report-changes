@@ -126,7 +126,10 @@ feature "Reporting a change", :a11y, :js do
     expect(page).to have_text "May we contact you via text message"
     expect(page).to have_text "We'll send text messages to (555) 222-3333"
     choose "Yes"
+    proceed_with "Continue"
 
+    expect(page).to have_text "Would you like a copy of this change report?"
+    fill_in "What is your email address?", with: "fake@example.com"
     proceed_with "Continue"
 
     expect(page).to have_text "Sign your change report"
