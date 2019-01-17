@@ -59,6 +59,7 @@ class AnalyticsData
       feedback_rating: metadata.try(:feedback_rating),
       feedback_comments: metadata.try(:feedback_comments),
       what_county: metadata.try(:what_county),
+      want_a_copy: metadata.try(:email).present?,
     }
   end
 
