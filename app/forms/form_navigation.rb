@@ -34,6 +34,7 @@ class FormNavigation
     AddChangeInHoursDocumentsController,
     # Closing
     TextMessageConsentController,
+    WantACopyController,
     SignSubmitController,
     SuccessController,
   ].freeze
