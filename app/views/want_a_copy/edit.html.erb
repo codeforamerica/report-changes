@@ -4,6 +4,6 @@
 
 <% content_for :card_body do %>
   <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
-    <%= f.cfa_input_field :email, "What is your email address?", optional: true %>
+    <%= f.cfa_input_field :email, "What is your email address?", optional: true, type: :email %>
   <% end %>
 <% end %>
