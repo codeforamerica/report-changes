@@ -107,7 +107,7 @@ feature "Reporting a change", :a11y, :js do
 
     emails = ActionMailer::Base.deliveries
 
-    expect(emails.count).to eq 1
+    expect(emails.count).to eq 2
     expect(emails.last.attachments.count).to eq 1
   end
 end

@@ -97,6 +97,37 @@ RSpec.describe SignSubmitController do
           expect(TextConfirmationToClientJob).to_not have_received(:perform_later)
         end
       end
+
+      context "when the client wants an emailed copy of the report" do
+        it "enqueues a email report copy job" do
+          current_report = create(:report,
+            :with_navigator,
+            phone_number: "1113334444",
+            metadata: build(:report_metadata, email: "fake@example.com"))
+          session[:current_report_id] = current_report.id
+
+          allow(EmailReportCopyToClientJob).to receive(:perform_later)
+
+          put :update, params: { form: valid_params }
+
+          expect(EmailReportCopyToClientJob).to have_received(:perform_later).
+            with(report: current_report)
+        end
+      end
+
+      context "when the client does not want an emailed copy of the report" do
+        it "does not enqueue a email report copy job" do
+          current_report = create(:report,
+            :with_navigator, :with_metadata)
+          session[:current_report_id] = current_report.id
+
+          allow(EmailReportCopyToClientJob).to receive(:perform_later)
+
+          put :update, params: { form: valid_params }
+
+          expect(EmailReportCopyToClientJob).to_not have_received(:perform_later)
+        end
+      end
     end
   end
 end
