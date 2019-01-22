@@ -13,6 +13,20 @@ RSpec.feature "Admin viewing dashboard" do
       login_as(user)
     end
 
+    scenario "logged out after 30 minutes inactive" do
+      report = create(:report, :with_change, :with_metadata, change_type: "job_termination", consent_to_sms: "no")
+
+      visit admin_root_path
+
+      Timecop.travel(Time.now + 31.minutes)
+
+      click_on report.id
+
+      expect(page).to have_content "Log in"
+
+      Timecop.return
+    end
+
     scenario "viewing details for a report" do
       report = create(:report, :with_change, :with_metadata, change_type: "job_termination", consent_to_sms: "no")
 
