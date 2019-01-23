@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_16_232150) do
+ActiveRecord::Schema.define(version: 2019_01_23_193653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,8 +42,10 @@ ActiveRecord::Schema.define(version: 2019_01_16_232150) do
     t.inet "current_sign_in_ip"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.integer "failed_attempts", default: 0, null: false
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
+    t.datetime "locked_at"
     t.string "otp_auth_secret"
     t.datetime "otp_challenge_expires"
     t.boolean "otp_enabled", default: false, null: false
