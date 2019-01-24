@@ -89,7 +89,7 @@ feature "Reporting a change", :a11y, :js do
     fill_in "What is your email address?", with: "fake@example.com"
     proceed_with "Continue"
 
-    expect(page).to have_text "Sign your change report"
+    expect(page).to have_text "Type your name to sign your change report."
     fill_in "Type your full legal name", with: "Jane Doe"
     proceed_with "Sign and submit"
 

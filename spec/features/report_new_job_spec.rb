@@ -75,7 +75,7 @@ RSpec.feature "Reporting a change", :a11y, :js do
     fill_in "What is your email address?", with: "fake@example.com"
     proceed_with "Continue"
 
-    expect(page).to have_text "Sign this change report"
+    expect(page).to have_text "Type your name to sign this change report."
     fill_in "Type your full legal name", with: "Person McPeoples"
     proceed_with "Sign and submit"
 

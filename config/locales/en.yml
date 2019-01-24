@@ -226,8 +226,8 @@ en:
   sign_submit:
     edit:
       title:
-        self: Sign your change report.
-        other_member: Sign this change report.
+        self: Type your name to sign your change report.
+        other_member: Type your name to sign this change report.
       submit_agreement:
         self: By entering your name you agree that you want to submit a change report, and that you have been honest on this report.
         other_member: "By entering your name you agree that you want to submit a change report on behalf of %{full_name}, and that you have been honest on this report."
