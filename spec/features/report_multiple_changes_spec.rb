@@ -25,9 +25,7 @@ feature "Reporting a change", :a11y, :js do
     proceed_with "Continue"
 
     expect(page).to have_text "What changed?"
-    check "My job ended or I stopped working"
-    check "I started a new job"
-    check "My hours or pay changed"
+    choose "I started a new job"
     proceed_with "Continue"
 
     expect(page).to have_text "Tell us about yourself."
@@ -37,39 +35,11 @@ feature "Reporting a change", :a11y, :js do
     select 20.years.ago.year.to_s, from: "form[birthday_year]"
     proceed_with "Continue"
 
-    expect(page).to have_text "First, tell us about the job that ended."
-    proceed_with "Continue"
-
-    expect(page).to have_text "Tell us about the job that ended"
-
-    fill_in "What is the name of the company?", with: "Abc Corp"
-    fill_in "What is the name of someone from the company who can verify your employment?", with: "My boss"
-    fill_in "What is their phone number?", with: "999-888-7777"
-    proceed_with "Continue"
-
-    expect(page).to have_text "Tell us more about the job that ended"
-    select "February", from: "form[last_day_month]"
-    select "2", from: "form[last_day_day]"
-    select Time.now.year, from: "form[last_day_year]"
-    select "February", from: "form[last_paycheck_month]"
-    select "12", from: "form[last_paycheck_day]"
-    select Time.now.year, from: "form[last_paycheck_year]"
-    fill_in "What was the amount of your final paystub, pre-tax?", with: "127.14"
-    proceed_with "Continue"
-
-    expect(page).to have_text "Do you have a letter or paystubs?"
-    choose "No"
-    proceed_with "Continue"
-
-    expect(page).to have_text "Next, tell us about the new job."
-    proceed_with "Continue"
-
     expect(page).to have_text "Are you self-employed?"
     choose "I am not self-employed"
     proceed_with "Continue"
 
     expect(page).to have_text "Tell us about the new job."
-
     fill_in "What is the name of the company?", with: "Abc Corp"
     fill_in "What is the name of your supervisor or manager?", with: "My boss"
     fill_in "What is their phone number?", with: "999-888-7777"
@@ -83,7 +53,6 @@ feature "Reporting a change", :a11y, :js do
     proceed_with "Continue"
 
     expect(page).to have_text "Tell us about how much you will make at this job."
-
     fill_in "What is your hourly wage?", with: "15"
     choose "Yes" # same number of hours
     fill_in "How many hours a week will you work?", with: "25"
@@ -98,7 +67,12 @@ feature "Reporting a change", :a11y, :js do
     choose "No"
     proceed_with "Continue"
 
-    expect(page).to have_text "Next, tell us about the change in hours or pay."
+    expect(page).to have_text "Do you have any other changes to report?"
+    choose "Yes"
+    proceed_with "Continue"
+
+    expect(page).to have_text "What changed?"
+    choose "My hours or pay changed"
     proceed_with "Continue"
 
     expect(page).to have_text "Tell us about this job."
@@ -117,6 +91,35 @@ feature "Reporting a change", :a11y, :js do
     select Time.now.year, from: "form[change_date_year]"
     fill_in "How often do you get paid?", with: "Every two weeks"
     fill_in "Is there anything else we should know about your hours or wages at this job?", with: "Not really"
+    proceed_with "Continue"
+
+    expect(page).to have_text "Do you have a letter or paystubs?"
+    choose "No"
+    proceed_with "Continue"
+
+    expect(page).to have_text "Do you have any other changes to report?"
+    choose "Yes"
+    proceed_with "Continue"
+
+    expect(page).to have_text "What changed?"
+    choose "My job ended or I stopped working"
+    proceed_with "Continue"
+
+    expect(page).to have_text "Tell us about the job that ended"
+
+    fill_in "What is the name of the company?", with: "Abc Corp"
+    fill_in "What is the name of someone from the company who can verify your employment?", with: "My boss"
+    fill_in "What is their phone number?", with: "999-888-7777"
+    proceed_with "Continue"
+
+    expect(page).to have_text "Tell us more about the job that ended"
+    select "February", from: "form[last_day_month]"
+    select "2", from: "form[last_day_day]"
+    select Time.now.year, from: "form[last_day_year]"
+    select "February", from: "form[last_paycheck_month]"
+    select "12", from: "form[last_paycheck_day]"
+    select Time.now.year, from: "form[last_paycheck_year]"
+    fill_in "What was the amount of your final paystub, pre-tax?", with: "127.14"
     proceed_with "Continue"
 
     expect(page).to have_text "Do you have a letter or paystubs?"

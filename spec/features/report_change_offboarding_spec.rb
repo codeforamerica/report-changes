@@ -37,7 +37,7 @@ RSpec.feature "Report change" do
     click_on "Continue"
 
     expect(page).to have_text "What changed?"
-    check "I started a new job"
+    choose "I started a new job"
     click_on "Continue"
 
     expect(page).to have_text "Tell us about yourself."

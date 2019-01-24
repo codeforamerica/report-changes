@@ -1,0 +1,21 @@
+<% content_for :card_title, "Do you have any other changes to report?" %>
+
+<% content_for :card_body do %>
+  <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
+  <%= f.cfa_radio_set :any_other_changes,
+    label_text: "Do you have any more changes to report?",
+    legend_class: "sr-only",
+    collection: [
+      { value: :yes, label: "Yes" },
+      { value: :no, label: "No" },
+    ] %>
+  <% end %>
+
+  <% current_report.reported_changes.each do |change| %>
+    <p>
+      <i class="icon-check"></i>
+      <%= t(self_or_other_member_translation_key(".reported"), name: current_report.member.full_name, change: change.name) %>
+    </p>
+
+  <% end %>
+<% end %>

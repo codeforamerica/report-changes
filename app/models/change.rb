@@ -25,4 +25,15 @@ class Change < ApplicationRecord
       "change in hours/pay"
     end
   end
+
+  def show?
+    case change_type
+    when "job_termination"
+      report.navigator.has_job_termination_documents_unfilled?
+    when "new_job"
+      report.navigator.has_new_job_documents_unfilled?
+    when "change_in_hours"
+      report.navigator.has_change_in_hours_documents_unfilled?
+    end
+  end
 end

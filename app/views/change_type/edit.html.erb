@@ -1,15 +1,12 @@
 <% content_for :card_title, "What changed?" %>
+<% content_for :card_help, "You can add additional changes later." %>
 
 <% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
-        <%= f.cfa_checkbox_set :change_type,
-                             [
-                               { method: :job_termination, label: t(self_or_other_member_translation_key(".job_termination")) },
-                               { method: :new_job, label: t(self_or_other_member_translation_key(".new_job")) },
-                               { method: :change_in_hours, label: t(self_or_other_member_translation_key(".change_in_hours")) },
-                             ],
-                            label_text: "What changed?",
-                            legend_class: "sr-only"
-                             %>
+        <%= f.cfa_radio_set :change_type,
+          collection: collection_of_unreported_change_types,
+          label_text: "What changed?",
+          legend_class: "sr-only"
+           %>
     <% end %>
 <% end %>

@@ -25,4 +25,34 @@ RSpec.describe Report, type: :model do
       expect(report.pdf_documents.first.filename).to eq "document.pdf"
     end
   end
+
+  describe "#unreported_change_types" do
+    context "when no changes have been reported" do
+      it "returns an array of all the change types" do
+        report = build :report, reported_changes: []
+
+        expect(report.unreported_change_types).to eq ["job_termination", "new_job", "change_in_hours"]
+      end
+    end
+
+    context "when one change has been reported" do
+      it "returns an array of available change types" do
+        report = create :report
+        create :change, change_type: "job_termination", report: report
+
+        expect(report.unreported_change_types).to eq ["new_job", "change_in_hours"]
+      end
+    end
+
+    context "when all changes have been reported" do
+      it "returns an empty array" do
+        report = create :report
+        create :change, change_type: :job_termination, report: report
+        create :change, change_type: :new_job, report: report
+        create :change, change_type: :change_in_hours, report: report
+
+        expect(report.unreported_change_types).to eq []
+      end
+    end
+  end
 end
