@@ -24,7 +24,7 @@ feature "Uploading verifications", js: true do
     click_on "Continue"
 
     expect(page).to have_text "What changed?"
-    check "My hours or pay changed"
+    choose "My hours or pay changed"
     proceed_with "Continue"
   end
 

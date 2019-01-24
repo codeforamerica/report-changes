@@ -3,7 +3,8 @@ require "rails_helper"
 RSpec.shared_examples_for "form controller base behavior" do |change_type|
   context "with session" do
     let(:current_report) do
-      create(:report, :with_navigator, :with_metadata, :with_change, change_type: change_type || "job_termination")
+      create(:report, :with_navigator, :with_metadata,
+        :with_member, :with_change, change_type: change_type || "job_termination")
     end
 
     before do

@@ -44,7 +44,7 @@ feature "Reporting a change", :a11y, :js do
     proceed_with "Continue"
 
     expect(page).to have_text "What changed?"
-    check "My job ended or I stopped working"
+    choose "My job ended or I stopped working"
     proceed_with "Continue"
 
     expect(page).to have_text "Tell us about yourself."
@@ -78,6 +78,10 @@ feature "Reporting a change", :a11y, :js do
     expect(page).to have_text "Add the letter or paystubs."
     page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
     expect(page).to have_text "image.jpg"
+    proceed_with "Continue"
+
+    expect(page).to have_text "Do you have any other changes to report?"
+    choose "No"
     proceed_with "Continue"
 
     expect(page).to have_text "May we contact you via text message"

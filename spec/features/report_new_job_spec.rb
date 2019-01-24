@@ -22,7 +22,7 @@ RSpec.feature "Reporting a change", :a11y, :js do
     proceed_with "Continue"
 
     expect(page).to have_text "What changed?"
-    check "They started a new job"
+    choose "They started a new job"
     proceed_with "Continue"
 
     expect(page).to have_text "Tell us about Jane."
@@ -69,6 +69,10 @@ RSpec.feature "Reporting a change", :a11y, :js do
     expect(page).to have_text "Add the letter or paystubs."
     page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
     expect(page).to have_text "image.jpg"
+    proceed_with "Continue"
+
+    expect(page).to have_text "Do you have any other changes to report?"
+    choose "No"
     proceed_with "Continue"
 
     expect(page).to have_text "Would you like a copy of this change report?"

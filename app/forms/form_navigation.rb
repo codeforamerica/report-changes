@@ -12,13 +12,11 @@ class FormNavigation
     ChangeTypeController,
     TellUsAboutYourselfController,
     # Job termination questions
-    JobEndedSignpostController,
     TellUsAboutTheLostJobController,
     TellUsMoreAboutTheLostJobController,
     DoYouHaveLostJobDocumentsController,
     AddLostJobDocumentsController,
     # New job questions
-    NewJobSignpostController,
     SelfEmployedController,
     NotYetSupportedController,
     TellUsAboutTheNewJobController,
@@ -27,12 +25,12 @@ class FormNavigation
     DoYouHaveNewJobDocumentsController,
     AddNewJobDocumentsController,
     # Change in hours questions
-    ChangeInHoursSignpostController,
     TellUsAboutChangeInHoursJobController,
     TellUsAboutChangeInHoursController,
     DoYouHaveChangeInHoursDocumentsController,
     AddChangeInHoursDocumentsController,
     # Closing
+    AnyOtherChangesController,
     TextMessageConsentController,
     WantACopyController,
     SignSubmitController,

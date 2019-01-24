@@ -3,7 +3,7 @@ FactoryBot.define do
     trait :with_navigator do
       transient do
         source { nil }
-        has_new_job_documents { nil }
+        has_new_job_documents { :unfilled }
       end
 
       after(:create) do |report, evaluator|

@@ -223,6 +223,11 @@ en:
       change_in_hours_letter:
         self: A letter from your job saying how many hours you will work and how much you will earn
         other_member: A letter from their job saying how many hours they will work and how much they will earn
+  any_other_changes:
+    edit:
+      reported:
+        self: "You reported that you had a %{change}."
+        other_member: "You reported that %{name} had a %{change}."
   sign_submit:
     edit:
       title:

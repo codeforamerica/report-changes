@@ -38,4 +38,10 @@ class Report < ActiveRecord::Base
   def document_count
     (reported_changes.map(&:pdf_documents).flatten + reported_changes.map(&:image_documents).flatten).count
   end
+
+  def unreported_change_types
+    all_change_types = Change.change_types.keys - ["unfilled"]
+    reported_change_types = reported_changes.pluck :change_type
+    all_change_types - reported_change_types
+  end
 end

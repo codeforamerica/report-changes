@@ -11,4 +11,22 @@ RSpec.describe TellUsAboutYourselfController do
     birthday_year: "2000",
   }
   it_behaves_like "form controller unsuccessful update"
+
+  describe "#show" do
+    context "the required field of birthday hasn't been answered yet" do
+      it "shows" do
+        report = create :report, member: build(:member, birthday: nil)
+
+        expect(TellUsAboutYourselfController.show?(report)).to eq true
+      end
+    end
+
+    context "the required field of birthday hasn't been answered yet" do
+      it "shows" do
+        report = create :report, member: build(:member, birthday: Date.today)
+
+        expect(TellUsAboutYourselfController.show?(report)).to eq false
+      end
+    end
+  end
 end
