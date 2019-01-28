@@ -131,6 +131,50 @@ feature "Reporting a change", :a11y, :js do
     choose "No"
     proceed_with "Continue"
 
+    expect(page).to have_text "Do you have any other changes to report?"
+    choose "Yes"
+    proceed_with "Continue"
+
+    expect(page).to have_text "What changed?"
+    choose "I started a new job"
+    proceed_with "Continue"
+
+    expect(page).to have_text "Are you self-employed?"
+    choose "I am not self-employed"
+    proceed_with "Continue"
+
+    expect(page).to have_text "Tell us about the new job."
+    fill_in "What is the name of the company?", with: "123 BIZ"
+    fill_in "What is the name of your supervisor or manager?", with: "A different boss"
+    fill_in "What is their phone number?", with: "999-888-7777"
+    proceed_with "Continue"
+
+    expect(page).to have_text "Tell us more about the new job."
+    select "February", from: "form[first_day_month]"
+    select "2", from: "form[first_day_day]"
+    select Time.now.year, from: "form[first_day_year]"
+    choose "Yes" # Have they been paid yet?
+    proceed_with "Continue"
+
+    expect(page).to have_text "Tell us about how much you will make at this job."
+    fill_in "What is your hourly wage?", with: "15"
+    choose "Yes" # same number of hours
+    fill_in "How many hours a week will you work?", with: "25"
+    fill_in "How often do you get paid?", with: "Every two weeks"
+    select "February", from: "form[first_paycheck_month]"
+    select "21", from: "form[first_paycheck_day]"
+    select Time.now.year, from: "form[first_paycheck_year]"
+    fill_in "Is there anything else we should know about your hours or wages at this job?", with: "Not really"
+    proceed_with "Continue"
+
+    expect(page).to have_text "Do you have a letter or paystubs?"
+    choose "No"
+    proceed_with "Continue"
+
+    expect(page).to have_text "Do you have any other changes to report?"
+    choose "No"
+    proceed_with "Continue"
+
     expect(page).to have_text "May we contact you via text message"
     expect(page).to have_text "We'll send text messages to (555) 222-3333"
     choose "Yes"
