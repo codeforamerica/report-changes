@@ -64,8 +64,13 @@ feature "Reporting a change", :a11y, :js do
     proceed_with "Continue"
 
     expect(page).to have_text "Do you have a letter or paystubs?"
-    choose "No"
+    choose "Yes"
     proceed_with "Continue"
+
+    expect(page).to have_text "Add the letter or paystubs."
+    page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
+    expect(page).to have_text "image.jpg"
+    click_on "Continue"
 
     expect(page).to have_text "Do you have any other changes to report?"
     choose "Yes"

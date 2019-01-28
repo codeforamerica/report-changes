@@ -6,12 +6,27 @@ RSpec.describe AddChangeInHoursDocumentsController do
 
   describe "show?" do
     context "when client has change in hours documents" do
-      it "returns true" do
-        report = create(:report,
-                        navigator: build(:navigator, has_change_in_hours_documents: "yes"))
+      context "and has not uploaded anything yet" do
+        it "returns true" do
+          report = create(:report,
+                          navigator: build(:navigator, has_change_in_hours_documents: "yes"))
+          create :change, report: report, change_type: "change_in_hours"
 
-        show_form = AddChangeInHoursDocumentsController.show?(report)
-        expect(show_form).to eq(true)
+          show_form = AddChangeInHoursDocumentsController.show?(report)
+          expect(show_form).to eq(true)
+        end
+      end
+
+      context "has already uploaded documents" do
+        it "returns false" do
+          report = create(:report,
+            navigator: build(:navigator, has_change_in_hours_documents: "yes"))
+          documents = [fixture_file_upload(Rails.root.join("spec", "fixtures", "image.jpg"), "image/jpg")]
+          create :change, report: report, change_type: "change_in_hours", documents: documents
+
+          show_form = AddChangeInHoursDocumentsController.show?(report)
+          expect(show_form).to eq(false)
+        end
       end
     end
 
@@ -19,6 +34,7 @@ RSpec.describe AddChangeInHoursDocumentsController do
       it "returns false" do
         report = create(:report,
                         navigator: build(:navigator, has_change_in_hours_documents: "no"))
+        create :change, report: report, change_type: "change_in_hours"
 
         show_form = AddChangeInHoursDocumentsController.show?(report)
         expect(show_form).to eq(false)
