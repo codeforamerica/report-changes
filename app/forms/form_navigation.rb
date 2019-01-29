@@ -1,5 +1,5 @@
 class FormNavigation
-  MAIN = [
+  BEGINNING_FLOW = [
     HowItWorksController,
     DemoConfirmationController,
     CountyLocationController,
@@ -11,25 +11,9 @@ class FormNavigation
     ClientNameController,
     ChangeTypeController,
     TellUsAboutYourselfController,
-    # Job termination questions
-    TellUsAboutTheLostJobController,
-    TellUsMoreAboutTheLostJobController,
-    DoYouHaveLostJobDocumentsController,
-    AddLostJobDocumentsController,
-    # New job questions
-    SelfEmployedController,
-    NotYetSupportedController,
-    TellUsAboutTheNewJobController,
-    TellUsMoreAboutTheNewJobController,
-    HowMuchWillYouMakeController,
-    DoYouHaveNewJobDocumentsController,
-    AddNewJobDocumentsController,
-    # Change in hours questions
-    TellUsAboutChangeInHoursJobController,
-    TellUsAboutChangeInHoursController,
-    DoYouHaveChangeInHoursDocumentsController,
-    AddChangeInHoursDocumentsController,
-    # Closing
+    ].freeze
+
+  CLOSING_FLOW = [
     AnyOtherChangesController,
     TextMessageConsentController,
     WantACopyController,
@@ -37,11 +21,37 @@ class FormNavigation
     SuccessController,
   ].freeze
 
+  JOB_TERMINATION_FLOW = [
+    TellUsAboutTheLostJobController,
+    TellUsMoreAboutTheLostJobController,
+    DoYouHaveLostJobDocumentsController,
+    AddLostJobDocumentsController,
+  ].freeze
+
+  NEW_JOB_FLOW = [
+    SelfEmployedController,
+    NotYetSupportedController,
+    TellUsAboutTheNewJobController,
+    TellUsMoreAboutTheNewJobController,
+    HowMuchWillYouMakeController,
+    DoYouHaveNewJobDocumentsController,
+    AddNewJobDocumentsController,
+  ].freeze
+
+  CHANGE_IN_HOURS_FLOW = [
+    TellUsAboutChangeInHoursJobController,
+    TellUsAboutChangeInHoursController,
+    DoYouHaveChangeInHoursDocumentsController,
+    AddChangeInHoursDocumentsController,
+  ]
+
+  CHANGE_FLOWS = JOB_TERMINATION_FLOW + NEW_JOB_FLOW + CHANGE_IN_HOURS_FLOW
+
   class << self
     delegate :first, to: :form_controllers
 
     def form_controllers
-      MAIN
+      BEGINNING_FLOW + CHANGE_FLOWS + CLOSING_FLOW
     end
   end
 
