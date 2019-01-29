@@ -77,7 +77,7 @@ RSpec.describe ShowRules do
         end
       end
 
-      context "required change_date is already answered" do
+      context "required has_change_in_hours_documents is already answered" do
         it "returns false" do
           report = create :report
           create :change, change_type: "change_in_hours", report: report
