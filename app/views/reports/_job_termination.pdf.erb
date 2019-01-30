@@ -4,7 +4,7 @@
       Change type
     </p>
     <span class="value">
-      Income change: <%= @report.job_termination_change.name %>
+      Income change: <%= change.name %>
     </span>
   </div>
 
@@ -13,7 +13,7 @@
       Employer name
     </p>
     <span class="value">
-      <%= @report.job_termination_change.company_name %>
+      <%= change.company_name %>
     </span>
   </div>
 </div>
@@ -24,7 +24,7 @@
       Last day of work
     </p>
     <span class="value">
-      <%= @report.last_day %>
+      <%= change.last_day.strftime("%D") %>
     </span>
   </div>
 
@@ -33,7 +33,7 @@
       Last paycheck
     </p>
     <span class="value">
-      <%= @report.last_paycheck %>
+      <%= change.last_paycheck.strftime("%D") %>
     </span>
   </div>
 
@@ -41,18 +41,18 @@
     <p class="label">
       Final paystub amount
     </p>
-    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.last_paycheck_amount } %>
+    <%= render partial: 'reports/value_or_no_response', locals: { value: number_to_currency(change.last_paycheck_amount) } %>
   </div>
 </div>
 
-<%= render partial: 'reports/job_contact_info', locals: { manager_name: @report.job_termination_change.manager_name, manager_phone_number: @report.job_termination_manager_phone_number } %>
+<%= render partial: 'reports/job_contact_info', locals: { manager_name: change.manager_name, manager_phone_number: change.manager_phone_number } %>
 
 <div class="row">
   <div class="column one-of-one">
     <p class="label">
       Additional info
     </p>
-    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.job_termination_change.manager_additional_information } %>
+    <%= render partial: 'reports/value_or_no_response', locals: { value: change.manager_additional_information } %>
   </div>
 </div>
 
@@ -63,7 +63,7 @@
     </p>
 
     <span class="value">
-      <%= @report.job_termination_uploaded_proof_words_for_pdf %>
+      <%= change.documents.attached? ? "See attached" : "Client does not have this" %>
     </span>
   </div>
 </div>

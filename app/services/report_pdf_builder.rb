@@ -1,4 +1,6 @@
 class ReportPdfBuilder
+  include ActionView::Helpers::NumberHelper
+
   attr_reader :report
 
   def initialize(report)

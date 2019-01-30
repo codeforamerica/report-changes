@@ -2,16 +2,8 @@
 
 <%= render partial: 'reports/member_info' %>
 
-<% if @report.job_termination_change.present? %>
-  <%= render partial: 'reports/job_termination' %>
-<% end %>
-
-<% if @report.new_job_change.present? %>
-  <%= render partial: 'reports/new_job' %>
-<% end %>
-
-<% if @report.change_in_hours_change.present? %>
-  <%= render partial: 'reports/change_in_hours' %>
+<% @report.reported_changes.each do |change| %>
+  <%= render partial: "reports/#{change.change_type}", locals: {change: change} %>
 <% end %>
 
 <div class="row">
