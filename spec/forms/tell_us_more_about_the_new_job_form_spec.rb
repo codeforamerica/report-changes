@@ -95,17 +95,17 @@ RSpec.describe TellUsMoreAboutTheNewJobForm do
 
       report.reload
 
-      expect(report.new_job_change.first_day.year).to eq 2000
-      expect(report.new_job_change.first_day.month).to eq 1
-      expect(report.new_job_change.first_day.day).to eq 15
-      expect(report.new_job_change.paid_yet_yes?).to be_truthy
+      expect(report.reported_changes.last.first_day.year).to eq 2000
+      expect(report.reported_changes.last.first_day.month).to eq 1
+      expect(report.reported_changes.last.first_day.day).to eq 15
+      expect(report.reported_changes.last.paid_yet_yes?).to be_truthy
     end
   end
 
   describe ".from_report" do
     it "assigns values from change report and other objects" do
-      change = build(:change, first_day: DateTime.new(2000, 1, 15), paid_yet: "no")
-      report = create(:report, :with_navigator, new_job_change: change)
+      report = create :report, :with_navigator
+      create :change, first_day: DateTime.new(2000, 1, 15), paid_yet: "no", report: report
 
       form = TellUsMoreAboutTheNewJobForm.from_report(report)
 

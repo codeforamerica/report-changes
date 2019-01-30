@@ -20,23 +20,22 @@ RSpec.describe AnalyticsData do
                        what_county: "A different county.",
                        email: nil)
 
-      report = create(:report,
+      report = create :report,
         created_at: DateTime.new(2018, 1, 2, 12, 0, 0),
         navigator: navigator,
         member: member,
         metadata: metadata,
-        submitted_at: DateTime.new(2018, 1, 2, 12, 10, 0),
-        new_job_change: build(:change,
-          change_type: "new_job",
-          paid_how_often: "monthly",
-          paid_yet: "no",
-          first_day: DateTime.new(2016, 1, 2),
-          report: report),
-        job_termination_change: build(:change,
-          change_type: "job_termination",
-          last_paycheck: DateTime.new(2017, 1, 2),
-          last_day: DateTime.new(2016, 1, 2),
-          report: report))
+        submitted_at: DateTime.new(2018, 1, 2, 12, 10, 0)
+      create :change, report: report,
+                      change_type: "new_job",
+                      paid_how_often: "monthly",
+                      paid_yet: "no",
+                      first_day: DateTime.new(2016, 1, 2)
+      create :change,
+        change_type: "job_termination",
+        last_paycheck: DateTime.new(2017, 1, 2),
+        last_day: DateTime.new(2016, 1, 2),
+        report: report
 
       data = AnalyticsData.new(report).to_h
 

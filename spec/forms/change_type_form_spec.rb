@@ -48,14 +48,14 @@ RSpec.describe ChangeTypeForm do
         }
       end
 
-      it "does not create new change of same type" do
+      it "creates another change" do
         form = ChangeTypeForm.new(report, valid_params)
         form.valid?
 
         expect do
           form.save
           report.reload
-        end.to_not change { report.reported_changes.detect { |change| change.change_type == "new_job" }.id }
+        end.to change { report.reported_changes.detect { |change| change.change_type == "new_job" }.id }
       end
     end
   end

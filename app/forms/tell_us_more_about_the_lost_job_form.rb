@@ -20,8 +20,8 @@ class TellUsMoreAboutTheLostJobForm < Form
     attributes = attributes_for(:change)
     attributes[:last_day] = to_datetime(last_day_year, last_day_month, last_day_day)
     attributes[:last_paycheck] = to_datetime(last_paycheck_year, last_paycheck_month, last_paycheck_day)
-    report.job_termination_change.update(attributes.except(
-                                           :last_day_year,
+    report.reported_changes.last.update(attributes.except(
+                                          :last_day_year,
         :last_day_month,
         :last_day_day,
         :last_paycheck_year,
@@ -31,10 +31,10 @@ class TellUsMoreAboutTheLostJobForm < Form
   end
 
   def self.existing_attributes(report)
-    attributes = report.job_termination_change.attributes
+    attributes = report.reported_changes.last.attributes
     %i[year month day].each do |sym|
-      attributes["last_day_#{sym}"] = report.job_termination_change.last_day.try(sym)
-      attributes["last_paycheck_#{sym}"] = report.job_termination_change.last_paycheck.try(sym)
+      attributes["last_day_#{sym}"] = report.reported_changes.last.last_day.try(sym)
+      attributes["last_paycheck_#{sym}"] = report.reported_changes.last.last_paycheck.try(sym)
     end
     HashWithIndifferentAccess.new(attributes)
   end

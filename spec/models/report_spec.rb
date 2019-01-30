@@ -55,4 +55,7 @@ RSpec.describe Report, type: :model do
       end
     end
   end
+
+  xdescribe "#has_job_termination_change?" do
+  end
 end

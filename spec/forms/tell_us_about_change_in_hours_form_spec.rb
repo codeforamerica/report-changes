@@ -113,25 +113,25 @@ RSpec.describe TellUsAboutChangeInHoursForm do
 
       report.reload
 
-      expect(report.change_in_hours_change.hourly_wage).to eq("9.50")
-      expect(report.change_in_hours_change.lower_hours_a_week_amount).to eq("20")
-      expect(report.change_in_hours_change.upper_hours_a_week_amount).to be_nil
-      expect(report.change_in_hours_change.paid_how_often).to eq("Every two weeks")
-      expect(report.change_in_hours_change.change_date).to eq(DateTime.new(2018, 1, 15))
-      expect(report.change_in_hours_change.change_in_hours_notes).to eq("Those extra hours were only for one week")
+      expect(report.reported_changes.last.hourly_wage).to eq("9.50")
+      expect(report.reported_changes.last.lower_hours_a_week_amount).to eq("20")
+      expect(report.reported_changes.last.upper_hours_a_week_amount).to be_nil
+      expect(report.reported_changes.last.paid_how_often).to eq("Every two weeks")
+      expect(report.reported_changes.last.change_date).to eq(DateTime.new(2018, 1, 15))
+      expect(report.reported_changes.last.change_in_hours_notes).to eq("Those extra hours were only for one week")
     end
   end
 
   describe ".from_report" do
     it "assigns values from change report" do
-      change = build(:change,
-                     hourly_wage: "9.50",
-                     lower_hours_a_week_amount: "20",
-                     upper_hours_a_week_amount: "25",
-                     paid_how_often: "Every two weeks",
-                     change_date: DateTime.new(2018, 1, 15),
-                     change_in_hours_notes: "Those extra hours were only for one week")
-      report = create(:report, change_in_hours_change: change)
+      report = create :report
+      create :change, report: report,
+                      hourly_wage: "9.50",
+                      lower_hours_a_week_amount: "20",
+                      upper_hours_a_week_amount: "25",
+                      paid_how_often: "Every two weeks",
+                      change_date: DateTime.new(2018, 1, 15),
+                      change_in_hours_notes: "Those extra hours were only for one week"
 
       form = TellUsAboutChangeInHoursForm.from_report(report)
 

@@ -15,7 +15,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!
 
-Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.javascript_driver = :selenium_chrome
 Capybara.server = :puma, { Silent: true }
 Capybara.default_max_wait_time = 0.2
 
@@ -29,7 +29,7 @@ RSpec.configure do |config|
 
   config.before :all, :a11y do
     unless ENV["SKIP_ACCESSIBILITY_SPECS"] == "true"
-      Capybara.current_driver = :selenium_chrome_headless
+      Capybara.current_driver = :selenium_chrome
     end
   end
 

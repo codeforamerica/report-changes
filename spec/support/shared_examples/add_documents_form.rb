@@ -24,23 +24,23 @@ RSpec.shared_examples_for "add documents form" do |change_type|
 
       report.reload
 
-      expect(report.public_send("#{change_type}_change").documents.count).to eq 1
+      expect(report.reported_changes.last.documents.count).to eq 1
     end
 
     it "ignores values that are already present" do
-      report.public_send("#{change_type}_change").documents.attach(active_storage_blob)
-      valid_params[:letters] = [report.public_send("#{change_type}_change").documents.first.signed_id]
+      report.reported_changes.last.documents.attach(active_storage_blob)
+      valid_params[:letters] = [report.reported_changes.last.documents.first.signed_id]
 
       form = described_class.new(report, valid_params)
       form.valid?
 
       expect do
         form.save
-      end.to_not(change { report.public_send("#{change_type}_change").documents.count })
+      end.to_not(change { report.reported_changes.last.documents.count })
     end
 
     it "removes values that are not included anymore" do
-      report.public_send("#{change_type}_change").documents.attach(active_storage_blob)
+      report.reported_changes.last.documents.attach(active_storage_blob)
       valid_params[:letters] = []
 
       form = described_class.new(report, valid_params)
@@ -48,14 +48,14 @@ RSpec.shared_examples_for "add documents form" do |change_type|
 
       expect do
         form.save
-      end.to(change { report.public_send("#{change_type}_change").documents.count }.from(1).to(0))
+      end.to(change { report.reported_changes.last.documents.count }.from(1).to(0))
     end
   end
 
   describe ".from_report" do
     it "assigns values from change report" do
       report = create(:report, :with_navigator, :with_change, change_type: change_type)
-      report.public_send("#{change_type}_change").documents.attach(
+      report.reported_changes.last.documents.attach(
         io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
         filename: "image.jpg",
         content_type: "image/jpg",

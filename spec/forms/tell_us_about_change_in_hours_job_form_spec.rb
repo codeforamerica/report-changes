@@ -77,19 +77,19 @@ RSpec.describe TellUsAboutChangeInHoursJobForm do
 
       report.reload
 
-      expect(report.change_in_hours_change.company_name).to eq("Abc Corp")
-      expect(report.change_in_hours_change.manager_name).to eq("Boss McBosserson")
-      expect(report.change_in_hours_change.manager_phone_number).to eq("1112223333")
+      expect(report.reported_changes.last.company_name).to eq("Abc Corp")
+      expect(report.reported_changes.last.manager_name).to eq("Boss McBosserson")
+      expect(report.reported_changes.last.manager_phone_number).to eq("1112223333")
     end
   end
 
   describe ".from_report" do
     it "assigns values from change report" do
-      change = build(:change,
-                     company_name: "Abc Corp",
-                     manager_name: "Boss McBosserson",
-                     manager_phone_number: "1112223333")
-      report = create(:report, :with_navigator, change_in_hours_change: change)
+      report = create :report, :with_navigator
+      create :change, report: report,
+                      company_name: "Abc Corp",
+                      manager_name: "Boss McBosserson",
+                      manager_phone_number: "1112223333"
 
       form = TellUsAboutChangeInHoursJobForm.from_report(report)
 

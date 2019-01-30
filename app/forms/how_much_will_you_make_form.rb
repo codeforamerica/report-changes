@@ -16,13 +16,13 @@ class HowMuchWillYouMakeForm < Form
     attributes = attributes_for(:change)
     attributes[:first_paycheck] = to_datetime(first_paycheck_year, first_paycheck_month, first_paycheck_day)
 
-    report.new_job_change.update(filter_attributes(attributes))
+    report.reported_changes.last.update(filter_attributes(attributes))
   end
 
   def self.existing_attributes(report)
-    attributes = report.new_job_change.attributes
+    attributes = report.reported_changes.last.attributes
     %i[year month day].each do |sym|
-      attributes["first_paycheck_#{sym}"] = report.new_job_change.first_paycheck.try(sym)
+      attributes["first_paycheck_#{sym}"] = report.reported_changes.last.first_paycheck.try(sym)
     end
     HashWithIndifferentAccess.new(attributes)
   end

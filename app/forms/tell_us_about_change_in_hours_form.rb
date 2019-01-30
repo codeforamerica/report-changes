@@ -14,13 +14,13 @@ class TellUsAboutChangeInHoursForm < Form
     attributes = attributes_for(:change)
     attributes[:change_date] = to_datetime(change_date_year, change_date_month, change_date_day)
 
-    report.change_in_hours_change.update(attributes.except(:change_date_day, :change_date_month, :change_date_year))
+    report.reported_changes.last.update(attributes.except(:change_date_day, :change_date_month, :change_date_year))
   end
 
   def self.existing_attributes(report)
-    attributes = report.change_in_hours_change.attributes
+    attributes = report.reported_changes.last.attributes
     %i[year month day].each do |sym|
-      attributes["change_date_#{sym}"] = report.change_in_hours_change.change_date.try(sym)
+      attributes["change_date_#{sym}"] = report.reported_changes.last.change_date.try(sym)
     end
     HashWithIndifferentAccess.new(attributes)
   end

@@ -5,17 +5,17 @@ class AddDocumentsForm < Form
     self.letters ||= []
     letters_to_attach = letters.reject do |letter_signed_id|
       letter_signed_id.blank? ||
-        report.public_send("#{change_type}_change").documents.map(&:signed_id).include?(letter_signed_id)
+        report.reported_changes.last.documents.map(&:signed_id).include?(letter_signed_id)
     end
-    report.public_send("#{change_type}_change").documents.attach(letters_to_attach)
-    report.public_send("#{change_type}_change").documents.each do |letter|
+    report.reported_changes.last.documents.attach(letters_to_attach)
+    report.reported_changes.last.documents.each do |letter|
       letter.delete if letters.exclude?(letter.signed_id)
     end
   end
 
   def self.existing_attributes(report)
     {
-      letters: report.public_send("#{change_type}_change").documents,
+      letters: report.reported_changes.last.documents,
     }
   end
 

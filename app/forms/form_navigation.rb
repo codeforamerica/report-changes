@@ -1,5 +1,5 @@
 class FormNavigation
-  BEGINNING_FLOW = [
+  MAIN = [
     HowItWorksController,
     DemoConfirmationController,
     CountyLocationController,
@@ -11,24 +11,12 @@ class FormNavigation
     ClientNameController,
     ChangeTypeController,
     TellUsAboutYourselfController,
-    ].freeze
-
-  CLOSING_FLOW = [
-    AnyOtherChangesController,
-    TextMessageConsentController,
-    WantACopyController,
-    SignSubmitController,
-    SuccessController,
-  ].freeze
-
-  JOB_TERMINATION_FLOW = [
+    # Job termination questions
     TellUsAboutTheLostJobController,
     TellUsMoreAboutTheLostJobController,
     DoYouHaveLostJobDocumentsController,
     AddLostJobDocumentsController,
-  ].freeze
-
-  NEW_JOB_FLOW = [
+    # New job questions
     SelfEmployedController,
     NotYetSupportedController,
     TellUsAboutTheNewJobController,
@@ -36,22 +24,24 @@ class FormNavigation
     HowMuchWillYouMakeController,
     DoYouHaveNewJobDocumentsController,
     AddNewJobDocumentsController,
-  ].freeze
-
-  CHANGE_IN_HOURS_FLOW = [
+    # Change in hours questions
     TellUsAboutChangeInHoursJobController,
     TellUsAboutChangeInHoursController,
     DoYouHaveChangeInHoursDocumentsController,
     AddChangeInHoursDocumentsController,
-  ]
-
-  CHANGE_FLOWS = JOB_TERMINATION_FLOW + NEW_JOB_FLOW + CHANGE_IN_HOURS_FLOW
+    # Closing
+    AnyOtherChangesController,
+    TextMessageConsentController,
+    WantACopyController,
+    SignSubmitController,
+    SuccessController,
+  ].freeze
 
   class << self
     delegate :first, to: :form_controllers
 
     def form_controllers
-      BEGINNING_FLOW + CHANGE_FLOWS + CLOSING_FLOW
+      MAIN
     end
   end
 

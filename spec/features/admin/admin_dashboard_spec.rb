@@ -25,9 +25,9 @@ RSpec.feature "Admin viewing dashboard" do
       expect(page).to have_content("Report ##{report.id}")
       expect(page).to have_content("CONSENT TO SMS", "no")
 
-      click_on report.job_termination_change.id
+      click_on report.reported_changes.last.id
 
-      expect(page).to have_content("Change ##{report.job_termination_change.id}")
+      expect(page).to have_content("Change ##{report.reported_changes.last.id}")
     end
 
     context "with verifications" do
@@ -74,30 +74,14 @@ RSpec.feature "Admin viewing dashboard" do
     end
 
     scenario "can download a csv of all the change reports" do
-      create(:report,
-        :with_member,
-        signature: "st",
-        job_termination_change: build(:change,
-          change_type: :job_termination,
-          manager_name: "Lavar Burton"))
-      create(:report,
-        :with_member,
-        signature: "julie",
-        new_job_change: build(:change,
-          change_type: :new_job,
-          manager_name: "Bob Ross"))
-      create(:report,
-        :with_member,
-        signature: "mike",
-        change_in_hours_change: build(:change,
-          change_type: :change_in_hours,
-          manager_name: "Michael Scott"))
-      create(:report,
-        :with_member,
-        signature: nil,
-        job_termination_change: build(:change,
-          change_type: :job_termination,
-          manager_name: "Mr Burns"))
+      st = create :report, :with_member, signature: "st"
+      create :change, report: st, change_type: :job_termination, manager_name: "Lavar Burton"
+      julia = create :report, :with_member, signature: "julie"
+      create :change, report: julia, change_type: :new_job, manager_name: "Bob Ross"
+      mike = create :report, :with_member, signature: "mike"
+      create :change, report: mike, change_type: :change_in_hours, manager_name: "Michael Scott"
+      nada = create :report, :with_member, signature: nil
+      create :change, report: nada, change_type: :job_termination, manager_name: "Mr Burns"
 
       visit admin_root_path
 
