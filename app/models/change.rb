@@ -36,4 +36,20 @@ class Change < ApplicationRecord
       report.navigator.has_change_in_hours_documents_unfilled?
     end
   end
+
+  def new_job_hours_a_week
+    if same_hours_yes?
+      same_hours_a_week_amount
+    elsif same_hours_no?
+      "#{lower_hours_a_week_amount} - #{upper_hours_a_week_amount}"
+    end
+  end
+
+  def change_in_hours_hours_a_week
+    if upper_hours_a_week_amount.present?
+      "#{lower_hours_a_week_amount} - #{upper_hours_a_week_amount}"
+    else
+      lower_hours_a_week_amount
+    end
+  end
 end

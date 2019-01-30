@@ -1,30 +1,10 @@
 <div class="row">
-  <div class="column one-of-two">
-    <p class="label">
-      Change type
-    </p>
-    <span class="value">
-      Income change: <%= @report.change_in_hours_change.name %>
-    </span>
-  </div>
-
-  <div class="column one-of-two">
-    <p class="label">
-      Employer name
-    </p>
-    <span class="value">
-      <%= @report.change_in_hours_company_name %>
-    </span>
-  </div>
-</div>
-
-<div class="row">
   <div class="column one-of-four">
     <p class="label">
       Date of change
     </p>
     <span class="value">
-      <%= @report.change_date %>
+      <%= change.change_date&.strftime("%D") %>
     </span>
   </div>
 
@@ -33,7 +13,7 @@
       Wage
     </p>
     <span class="value">
-      <%= @report.change_in_hours_hourly_wage %>
+      <%= "$#{change.hourly_wage} /hr" if change.hourly_wage.present? %>
     </span>
   </div>
 
@@ -42,7 +22,7 @@
       Pay frequency
     </p>
     <span class="value">
-      <%= @report.change_in_hours_paid_how_often %>
+      <%= change.paid_how_often %>
     </span>
   </div>
 </div>
@@ -53,32 +33,8 @@
       New hours per week (range)
     </p>
     <span class="value">
-      <%= @report.change_in_hours_hours_a_week %>
+      <%= change.change_in_hours_hours_a_week %>
     </span>
   </div>
 </div>
 
-<%= render partial: 'reports/job_contact_info', locals: { manager_name: @report.change_in_hours_manager_name, manager_phone_number: @report.change_in_hours_manager_phone_number } %>
-
-<div class="row">
-  <div class="column one-of-one">
-    <p class="label">
-      Additional info about hours and wages
-    </p>
-    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.change_in_hours_notes } %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="column one-of-two">
-    <p class="label">
-      Included verification documents?
-    </p>
-
-    <span class="value">
-      <%= @report.change_in_hours_uploaded_proof_words_for_pdf %>
-    </span>
-  </div>
-</div>
-
-<div class="divider"></div>

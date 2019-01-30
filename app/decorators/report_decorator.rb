@@ -12,8 +12,6 @@ class ReportDecorator < SimpleDelegator
       "signature",
       # job termination traits
       "job_termination",
-      "job_termination_company_name",
-      "job_termination_manager_name",
       "job_termination_manager_additional_information",
       "job_termination_manager_phone_number",
       "last_day",
@@ -22,7 +20,6 @@ class ReportDecorator < SimpleDelegator
       "job_termination_uploaded_proof",
       # new job traits
       "new_job",
-      "new_job_company_name",
       "new_job_manager_name",
       "new_job_manager_additional_information",
       "new_job_manager_phone_number",
@@ -37,7 +34,6 @@ class ReportDecorator < SimpleDelegator
       "new_job_uploaded_proof",
       # change in hours traits
       "change_in_hours",
-      "change_in_hours_company_name",
       "change_in_hours_manager_name",
       "change_in_hours_manager_additional_information",
       "change_in_hours_manager_phone_number",
@@ -48,58 +44,6 @@ class ReportDecorator < SimpleDelegator
       "change_in_hours_notes",
       "change_in_hours_uploaded_proof",
     ]
-  end
-
-  def job_termination_company_name
-    job_termination_change&.company_name
-  end
-
-  def new_job_company_name
-    new_job_change&.company_name
-  end
-
-  def change_in_hours_company_name
-    change_in_hours_change&.company_name
-  end
-
-  def job_termination_manager_additional_information
-    job_termination_change&.manager_additional_information
-  end
-
-  def new_job_manager_additional_information
-    new_job_change&.manager_additional_information
-  end
-
-  def change_in_hours_manager_additional_information
-    change_in_hours_change&.manager_additional_information
-  end
-
-  def job_termination_manager_name
-    job_termination_change&.manager_name
-  end
-
-  def new_job_manager_name
-    new_job_change&.manager_name
-  end
-
-  def change_in_hours_manager_name
-    change_in_hours_change&.manager_name
-  end
-
-  def new_job_paid_how_often
-    new_job_change&.paid_how_often
-  end
-
-  def change_in_hours_paid_how_often
-    change_in_hours_change&.paid_how_often
-  end
-
-  def new_job_notes
-    new_job_change&.new_job_notes
-  end
-
-  def change_in_hours_notes
-    change_in_hours_change&.change_in_hours_notes
   end
 
   def job_termination_manager_phone_number
@@ -180,30 +124,6 @@ class ReportDecorator < SimpleDelegator
 
   def first_paycheck
     new_job_change&.first_paycheck&.strftime("%D")
-  end
-
-  def new_job_hourly_wage
-    "$#{new_job_change.hourly_wage} /hr" if new_job_change&.hourly_wage.present?
-  end
-
-  def change_in_hours_hourly_wage
-    "$#{change_in_hours_change.hourly_wage} /hr" if change_in_hours_change&.hourly_wage.present?
-  end
-
-  def hours_a_week
-    if new_job_change&.same_hours_yes?
-      new_job_change.same_hours_a_week_amount
-    elsif new_job_change&.same_hours_no?
-      "#{new_job_change.lower_hours_a_week_amount}-#{new_job_change.upper_hours_a_week_amount}"
-    end
-  end
-
-  def change_in_hours_hours_a_week
-    if change_in_hours_change&.upper_hours_a_week_amount.present?
-      "#{change_in_hours_change.lower_hours_a_week_amount}-#{change_in_hours_change.upper_hours_a_week_amount}"
-    else
-      change_in_hours_change&.lower_hours_a_week_amount
-    end
   end
 
   def job_termination

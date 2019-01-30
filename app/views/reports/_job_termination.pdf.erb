@@ -1,30 +1,10 @@
 <div class="row">
-  <div class="column one-of-two">
-    <p class="label">
-      Change type
-    </p>
-    <span class="value">
-      Income change: <%= change.name %>
-    </span>
-  </div>
-
-  <div class="column one-of-two">
-    <p class="label">
-      Employer name
-    </p>
-    <span class="value">
-      <%= change.company_name %>
-    </span>
-  </div>
-</div>
-
-<div class="row">
   <div class="column one-of-four">
     <p class="label">
       Last day of work
     </p>
     <span class="value">
-      <%= change.last_day.strftime("%D") %>
+      <%= change.last_day&.strftime("%D") %>
     </span>
   </div>
 
@@ -33,7 +13,7 @@
       Last paycheck
     </p>
     <span class="value">
-      <%= change.last_paycheck.strftime("%D") %>
+      <%= change.last_paycheck&.strftime("%D") %>
     </span>
   </div>
 
@@ -44,28 +24,3 @@
     <%= render partial: 'reports/value_or_no_response', locals: { value: number_to_currency(change.last_paycheck_amount) } %>
   </div>
 </div>
-
-<%= render partial: 'reports/job_contact_info', locals: { manager_name: change.manager_name, manager_phone_number: change.manager_phone_number } %>
-
-<div class="row">
-  <div class="column one-of-one">
-    <p class="label">
-      Additional info
-    </p>
-    <%= render partial: 'reports/value_or_no_response', locals: { value: change.manager_additional_information } %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="column one-of-two">
-    <p class="label">
-      Included verification documents?
-    </p>
-
-    <span class="value">
-      <%= change.documents.attached? ? "See attached" : "Client does not have this" %>
-    </span>
-  </div>
-</div>
-
-<div class="divider"></div>

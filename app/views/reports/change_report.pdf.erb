@@ -3,7 +3,7 @@
 <%= render partial: 'reports/member_info' %>
 
 <% @report.reported_changes.each do |change| %>
-  <%= render partial: "reports/#{change.change_type}", locals: {change: change} %>
+  <%= render partial: "reports/change", locals: {change: change} %>
 <% end %>
 
 <div class="row">
