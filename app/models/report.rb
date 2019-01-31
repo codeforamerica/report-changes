@@ -15,6 +15,10 @@ class Report < ActiveRecord::Base
 
   has_many_attached :letters
 
+  def current_change
+    reported_changes.last
+  end
+
   def pdf_documents
     reported_changes.map(&:pdf_documents).flatten
   end

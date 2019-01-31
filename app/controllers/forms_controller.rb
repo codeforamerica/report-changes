@@ -1,7 +1,7 @@
 class FormsController < ApplicationController
   before_action :ensure_report_present, only: %i[edit update]
 
-  helper_method :current_report, :current_percentage, :self_or_other_member_translation_key
+  helper_method :current_report, :current_change, :current_percentage, :self_or_other_member_translation_key
 
   layout "left_aligned"
 
@@ -43,6 +43,10 @@ class FormsController < ApplicationController
 
   def current_report
     Report.find_by(id: session[:current_report_id])
+  end
+
+  def current_change
+    Change.find_by(id: session[:current_change_id])
   end
 
   def current_percentage

@@ -7,6 +7,7 @@ class StaticPagesController < ApplicationController
 
   def clear_report_from_session
     session[:current_report_id] = nil
+    session[:current_change_id] = nil
   end
 
   def save_source_to_session
