@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe AddLostJobDocumentsController do
   it_behaves_like "form controller base behavior", "job_termination"
-  it_behaves_like "add documents controller", "job_termination"
 
   describe "show?" do
     context "when client has job termination documents" do

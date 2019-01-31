@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.shared_examples_for "add documents form" do |change_type|
+RSpec.describe AddDocumentsForm do
   describe "#save" do
-    let(:report) { create :report, :with_change, change_type: change_type }
+    let(:report) { create :report, :with_change, change_type: "job_termination" }
     let(:active_storage_blob) do
       ActiveStorage::Blob.create_after_upload!(
         io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
@@ -54,7 +54,7 @@ RSpec.shared_examples_for "add documents form" do |change_type|
 
   describe ".from_report" do
     it "assigns values from change report" do
-      report = create(:report, :with_navigator, :with_change, change_type: change_type)
+      report = create(:report, :with_navigator, :with_change, change_type: "new_job")
       report.reported_changes.last.documents.attach(
         io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
         filename: "image.jpg",
