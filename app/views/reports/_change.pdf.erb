@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="column one-of-two">
+    <p class="label">
+      Change type
+    </p>
+    <span class="value">
+      Income change: <%= change.name %>
+    </span>
+  </div>
+
+  <div class="column one-of-two">
+    <p class="label">
+      Employer name
+    </p>
+    <span class="value">
+      <%= change.company_name %>
+    </span>
+  </div>
+</div>
+
+<%= render partial: "reports/#{change.change_type}", locals: { change: change } %>
+
+
+<%= render partial: 'reports/job_contact_info', locals: { manager_name: change.manager_name, manager_phone_number: change.manager_phone_number } %>
+
+<div class="row">
+  <div class="column one-of-one">
+    <p class="label">
+      Additional information
+    </p>
+    <% additional_info = change.manager_additional_information || change.new_job_notes || change.change_in_hours_notes %>
+    <%= render partial: 'reports/value_or_no_response', locals: { value: additional_info } %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="column one-of-two">
+    <p class="label">
+      Included verification documents?
+    </p>
+
+    <span class="value">
+      <%= change.documents&.attached? ? "See attached" : "Client does not have this" %>
+    </span>
+  </div>
+</div>
+
+<div class="divider"></div>

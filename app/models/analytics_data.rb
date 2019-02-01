@@ -4,7 +4,7 @@ class AnalyticsData
   end
 
   def to_h
-    hash = report_data.merge(navigator_data).merge(member_data).merge(metadata_data)
+    hash = report_data.merge(navigator_data).merge(member_data).merge(metadata_data).merge(change_counts)
     hash.transform_values { |v| unfilled_to_nil(v) }
   end
 
@@ -14,19 +14,24 @@ class AnalyticsData
 
   def report_data
     {
-      new_job: report.new_job_change.present? ? "yes" : "no",
-      job_termination: report.job_termination_change.present? ? "yes" : "no",
-      change_in_hours: report.change_in_hours_change.present? ? "yes" : "no",
-      days_since_first_day_to_submission: days_since_submission(report.new_job_change.try(:first_day)),
-      days_since_first_paycheck_to_submission: days_since_submission(report.new_job_change.try(:first_paycheck)),
-      days_since_last_day_to_submission: days_since_submission(report.job_termination_change.try(:last_day)),
-      days_since_last_paycheck_to_submission: days_since_submission(report.job_termination_change.try(:last_paycheck)),
-      paid_how_often: report.new_job_change.try(:paid_how_often),
-      paid_yet: report.new_job_change.try(:paid_yet),
-      same_hours: report.new_job_change.try(:same_hours),
+      days_since_first_day_to_submission: days_since_submission(report.first_new_job_change.try(:first_day)),
+      days_since_first_paycheck_to_submission: days_since_submission(report.first_new_job_change.try(:first_paycheck)),
+      days_since_last_day_to_submission: days_since_submission(report.first_job_termination_change.try(:last_day)),
+      days_since_last_paycheck_to_submission: days_since_submission(report.first_job_termination_change&.last_paycheck),
+      paid_how_often: report.first_new_job_change.try(:paid_how_often),
+      paid_yet: report.first_new_job_change.try(:paid_yet),
+      same_hours: report.first_new_job_change.try(:same_hours),
       submitted_at: report.submitted_at,
       time_to_complete: time_to_complete,
       verification_documents_count: report.document_count,
+    }
+  end
+
+  def change_counts
+    {
+      job_termination_count: report.reported_changes.where(change_type: "job_termination").count,
+      new_job_count: report.reported_changes.where(change_type: "new_job").count,
+      change_in_hours_count: report.reported_changes.where(change_type: "change_in_hours").count,
     }
   end
 
@@ -40,7 +45,7 @@ class AnalyticsData
       has_new_job_documents: navigator.try(:has_new_job_documents),
       has_change_in_hours_documents: navigator.try(:has_change_in_hours_documents),
       selected_county_location: navigator.try(:selected_county_location),
-      is_self_employed: navigator.try(:is_self_employed),
+      is_self_employed: report.first_new_job_change.try(:change_navigator).try(:is_self_employed),
       source: navigator.try(:source),
     }
   end

@@ -11,38 +11,35 @@ RSpec.shared_examples_for "form controller successful update" do |valid_params, 
     end
 
     context "with change report" do
-      let(:current_report) do
-        create(:report,
-               :with_navigator,
-               :with_member,
-               :with_metadata,
-               :with_change,
-               change_type: change_type || :job_termination)
-      end
-
-      before do
-        session[:current_report_id] = current_report.id
-      end
-
       context "on successful update" do
         it "redirects to next path" do
+          report = create(:report, :with_navigator, :with_metadata, :with_member)
+          change = create :change, report: report, change_type: (change_type || "job_termination")
+          create :change_navigator, change: change
+          session[:current_report_id] = report.id
+
           put :update, params: { form: valid_params }
 
           expect(response).to redirect_to(subject.next_path)
         end
 
         it "calls the mixpanel service" do
+          report = create(:report, :with_navigator, :with_metadata, :with_member)
+          change = create :change, report: report, change_type: (change_type || "job_termination")
+          create :change_navigator, change: change
+          session[:current_report_id] = report.id
+
           mock_mixpanel_service = spy(MixpanelService)
           fake_analytics_data = { foo: "bar" }
 
           allow(MixpanelService).to receive(:instance).and_return(mock_mixpanel_service)
-          allow(AnalyticsData).to receive(:new).with(current_report) { fake_analytics_data }
+          allow(AnalyticsData).to receive(:new).with(report) { fake_analytics_data }
 
           put :update, params: { form: valid_params }
 
-          current_report.reload
+          report.reload
           expect(mock_mixpanel_service).to have_received(:run).with(
-            unique_id: current_report.id,
+            unique_id: report.id,
             event_name: controller.form_class.analytics_event_name,
             data: fake_analytics_data,
           )

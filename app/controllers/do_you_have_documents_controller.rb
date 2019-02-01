@@ -1,0 +1,1 @@
+class DoYouHaveDocumentsController < FormsController; end

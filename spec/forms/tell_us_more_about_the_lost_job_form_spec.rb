@@ -197,26 +197,25 @@ RSpec.describe TellUsMoreAboutTheLostJobForm do
       form.valid?
       form.save
 
-      report.job_termination_change.reload
+      report.current_change.reload
 
-      expect(report.job_termination_change.last_day.year).to eq 2000
-      expect(report.job_termination_change.last_day.month).to eq 1
-      expect(report.job_termination_change.last_day.day).to eq 15
-      expect(report.job_termination_change.last_paycheck.year).to eq 2018
-      expect(report.job_termination_change.last_paycheck.month).to eq 2
-      expect(report.job_termination_change.last_paycheck.day).to eq 28
-      expect(report.job_termination_change.last_paycheck_amount).to eq 1127.14
+      expect(report.current_change.last_day.year).to eq 2000
+      expect(report.current_change.last_day.month).to eq 1
+      expect(report.current_change.last_day.day).to eq 15
+      expect(report.current_change.last_paycheck.year).to eq 2018
+      expect(report.current_change.last_paycheck.month).to eq 2
+      expect(report.current_change.last_paycheck.day).to eq 28
+      expect(report.current_change.last_paycheck_amount).to eq 1127.14
     end
   end
 
   describe ".from_report" do
-    it "assigns values from change report and other objects" do
+    it "assigns values from change " do
       report = create(:report,
-                     :with_navigator,
-                     job_termination_change: build(:change,
-                     last_day: DateTime.new(2000, 1, 15),
-                     last_paycheck: DateTime.new(2018, 2, 28),
-                     last_paycheck_amount: 1127.14))
+        reported_changes: [build(:change,
+        last_day: DateTime.new(2000, 1, 15),
+        last_paycheck: DateTime.new(2018, 2, 28),
+        last_paycheck_amount: 1127.14)])
 
       form = TellUsMoreAboutTheLostJobForm.from_report(report)
 

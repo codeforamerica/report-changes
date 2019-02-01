@@ -18,45 +18,4 @@ RSpec.describe ChangeTypeForm do
       end
     end
   end
-
-  describe "#save" do
-    context "when no reported_change exists yet" do
-      let(:report) { create :report }
-
-      let(:valid_params) do
-        {
-          change_type: "job_termination",
-        }
-      end
-
-      it "creates a new change" do
-        form = ChangeTypeForm.new(report, valid_params)
-        form.save
-
-        report.reload
-
-        expect(report.reported_changes.pluck(:change_type)).to match_array(["job_termination"])
-      end
-    end
-
-    context "when reported_change already exists" do
-      let(:report) { create :report, :with_change, change_type: "new_job" }
-
-      let(:valid_params) do
-        {
-          change_type: "new_job",
-        }
-      end
-
-      it "does not create new change of same type" do
-        form = ChangeTypeForm.new(report, valid_params)
-        form.valid?
-
-        expect do
-          form.save
-          report.reload
-        end.to_not change { report.reported_changes.detect { |change| change.change_type == "new_job" }.id }
-      end
-    end
-  end
 end

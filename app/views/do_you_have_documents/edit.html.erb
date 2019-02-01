@@ -2,7 +2,7 @@
 
 <% content_for :card_body do %>
   <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
-    <%= f.cfa_radio_set :has_change_in_hours_documents,
+    <%= f.cfa_radio_set :has_documents,
                         label_text: "Do you have a letter or paystubs?",
                         legend_class: "sr-only",
                         collection: [

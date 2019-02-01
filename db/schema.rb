@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_23_193653) do
+ActiveRecord::Schema.define(version: 2019_02_01_010954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,13 @@ ActiveRecord::Schema.define(version: 2019_01_23_193653) do
     t.index ["otp_challenge_expires"], name: "index_admin_users_on_otp_challenge_expires"
     t.index ["otp_session_challenge"], name: "index_admin_users_on_otp_session_challenge", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "change_navigators", force: :cascade do |t|
+    t.bigint "change_id"
+    t.integer "has_documents", default: 0
+    t.integer "is_self_employed", default: 0
+    t.index ["change_id"], name: "index_change_navigators_on_change_id"
   end
 
   create_table "changes", force: :cascade do |t|
@@ -125,10 +132,6 @@ ActiveRecord::Schema.define(version: 2019_01_23_193653) do
     t.string "city"
     t.string "county_from_address"
     t.datetime "created_at", null: false
-    t.integer "has_change_in_hours_documents", default: 0
-    t.integer "has_job_termination_documents", default: 0
-    t.integer "has_new_job_documents", default: 0
-    t.integer "is_self_employed", default: 0
     t.bigint "report_id"
     t.integer "selected_county_location", default: 0
     t.string "source"
@@ -160,5 +163,6 @@ ActiveRecord::Schema.define(version: 2019_01_23_193653) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "change_navigators", "changes"
   add_foreign_key "changes", "reports"
 end

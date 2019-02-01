@@ -1,6 +1,36 @@
 require "rails_helper"
 
-RSpec.shared_examples_for "add documents controller" do |change_type|
+RSpec.describe AddDocumentsController do
+  it_behaves_like "form controller base behavior", "change_in_hours"
+
+  describe "show?" do
+    context "when client has documents for this change" do
+      it "returns true" do
+        report = create :report,
+          reported_changes: [
+            create(:change, change_navigator:
+              create(:change_navigator, has_documents: "yes")),
+          ]
+
+        show_form = AddDocumentsController.show?(report)
+        expect(show_form).to eq(true)
+      end
+    end
+
+    context "when client does not have change in hours documents" do
+      it "returns false" do
+        report = create :report,
+          reported_changes: [
+            create(:change, change_navigator:
+              create(:change_navigator, has_documents: "no")),
+          ]
+
+        show_form = AddDocumentsController.show?(report)
+        expect(show_form).to eq(false)
+      end
+    end
+  end
+
   describe "#update" do
     context "without change report" do
       it "redirects to homepage" do
@@ -12,7 +42,7 @@ RSpec.shared_examples_for "add documents controller" do |change_type|
 
     context "with change report" do
       let(:current_report) do
-        create(:report, :with_navigator, :with_change, change_type: change_type)
+        create :report, reported_changes: [create(:change)]
       end
 
       let(:active_storage_blob) do

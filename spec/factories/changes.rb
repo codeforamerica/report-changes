@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :change do
+    report
+
     trait :job_termination do
       change_type { "job_termination" }
     end

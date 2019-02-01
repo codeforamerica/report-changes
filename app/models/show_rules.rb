@@ -4,14 +4,14 @@ class ShowRules
   end
 
   def self.show_for_job_termination(report)
-    !!report.job_termination_change&.show?
+    report.current_change.change_type == "job_termination"
   end
 
   def self.show_for_new_job(report)
-    !!report.new_job_change&.show?
+    report.current_change.change_type == "new_job"
   end
 
   def self.show_for_change_in_hours(report)
-    !!report.change_in_hours_change&.show?
+    report.current_change.change_type == "change_in_hours"
   end
 end

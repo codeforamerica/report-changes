@@ -4,46 +4,53 @@ RSpec.describe AnalyticsData do
   describe "#to_h" do
     it "returns basic information" do
       navigator = build(:navigator,
-                                  county_from_address: "Littleland",
-                                  has_new_job_documents: "yes",
-                                  has_job_termination_documents: "yes",
-                                  selected_county_location: "arapahoe",
-                                  is_self_employed: "no",
-                                  source: "Land of Ooo")
+        county_from_address: "Littleland",
+        has_new_job_documents: "yes",
+        has_job_termination_documents: "yes",
+        selected_county_location: "arapahoe",
+        source: "Land of Ooo")
 
       member = build(:member, birthday: (22.years.ago - 1.week))
 
       metadata = build(:report_metadata,
-                       consent_to_sms: "yes",
-                       feedback_rating: "positive",
-                       feedback_comments: "great!",
-                       what_county: "A different county.",
-                       email: nil)
+        consent_to_sms: "yes",
+        feedback_rating: "positive",
+        feedback_comments: "great!",
+        what_county: "A different county.",
+        email: nil)
 
-      report = create(:report,
+      report = create :report,
         created_at: DateTime.new(2018, 1, 2, 12, 0, 0),
         navigator: navigator,
         member: member,
         metadata: metadata,
-        submitted_at: DateTime.new(2018, 1, 2, 12, 10, 0),
-        new_job_change: build(:change,
-          change_type: "new_job",
-          paid_how_often: "monthly",
-          paid_yet: "no",
-          first_day: DateTime.new(2016, 1, 2),
-          report: report),
-        job_termination_change: build(:change,
-          change_type: "job_termination",
-          last_paycheck: DateTime.new(2017, 1, 2),
-          last_day: DateTime.new(2016, 1, 2),
-          report: report))
+        submitted_at: DateTime.new(2018, 1, 2, 12, 10, 0)
+      change1 = create :change,
+        change_type: "new_job",
+        paid_how_often: "monthly",
+        paid_yet: "no",
+        first_day: DateTime.new(2016, 1, 2),
+        report: report
+      create :change_navigator, is_self_employed: "no", change: change1
+      change2 = create :change,
+        change_type: "new_job",
+        paid_how_often: "monthly",
+        paid_yet: "no",
+        first_day: DateTime.new(2016, 1, 3),
+        report: report
+      create :change_navigator, is_self_employed: "no", change: change2
+      create :change,
+        change_type: "job_termination",
+        last_paycheck: DateTime.new(2017, 1, 2),
+        last_day: DateTime.new(2016, 1, 2),
+        report: report
 
       data = AnalyticsData.new(report).to_h
 
       expect(data.fetch(:age)).to eq(22)
-      expect(data.fetch(:new_job)).to eq("yes")
-      expect(data.fetch(:job_termination)).to eq("yes")
-      expect(data.fetch(:change_in_hours)).to eq("no")
+      expect(data.fetch(:new_job_count)).to eq(2)
+      expect(data.fetch(:job_termination_count)).to eq(1)
+      expect(data.fetch(:change_in_hours_count)).to eq(0)
       expect(data.fetch(:consent_to_sms)).to eq("yes")
       expect(data.fetch(:county_from_address)).to eq("Littleland")
       expect(data.fetch(:feedback_rating)).to eq("positive")
@@ -87,14 +94,14 @@ RSpec.describe AnalyticsData do
 
     it "sends nil for any 'unfilled' values" do
       change = build(:change,
-                    same_hours: "unfilled",
-                    report: build(:report))
+        same_hours: "unfilled",
+        report: build(:report))
       data = AnalyticsData.new(change.report).to_h
 
       expect(data.fetch(:same_hours)).to be_nil
     end
 
-    context "when member and navigator and_reported_change are not present" do
+    context "when member and navigator and reported_change and change_navigator are not present" do
       it "does not error" do
         expect do
           AnalyticsData.new(build(:report)).to_h

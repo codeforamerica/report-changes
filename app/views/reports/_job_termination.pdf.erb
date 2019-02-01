@@ -1,30 +1,10 @@
 <div class="row">
-  <div class="column one-of-two">
-    <p class="label">
-      Change type
-    </p>
-    <span class="value">
-      Income change: <%= @report.job_termination_change.name %>
-    </span>
-  </div>
-
-  <div class="column one-of-two">
-    <p class="label">
-      Employer name
-    </p>
-    <span class="value">
-      <%= @report.job_termination_change.company_name %>
-    </span>
-  </div>
-</div>
-
-<div class="row">
   <div class="column one-of-four">
     <p class="label">
       Last day of work
     </p>
     <span class="value">
-      <%= @report.last_day %>
+      <%= change.last_day %>
     </span>
   </div>
 
@@ -33,7 +13,7 @@
       Last paycheck
     </p>
     <span class="value">
-      <%= @report.last_paycheck %>
+      <%= change.last_paycheck %>
     </span>
   </div>
 
@@ -41,31 +21,6 @@
     <p class="label">
       Final paystub amount
     </p>
-    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.last_paycheck_amount } %>
+    <%= render partial: 'reports/value_or_no_response', locals: { value: change.last_paycheck_amount } %>
   </div>
 </div>
-
-<%= render partial: 'reports/job_contact_info', locals: { manager_name: @report.job_termination_change.manager_name, manager_phone_number: @report.job_termination_manager_phone_number } %>
-
-<div class="row">
-  <div class="column one-of-one">
-    <p class="label">
-      Additional info
-    </p>
-    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.job_termination_change.manager_additional_information } %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="column one-of-two">
-    <p class="label">
-      Included verification documents?
-    </p>
-
-    <span class="value">
-      <%= @report.job_termination_uploaded_proof_words_for_pdf %>
-    </span>
-  </div>
-</div>
-
-<div class="divider"></div>
