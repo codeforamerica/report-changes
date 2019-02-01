@@ -113,12 +113,12 @@ RSpec.describe TellUsAboutChangeInHoursForm do
 
       report.reload
 
-      expect(report.change_in_hours_change.hourly_wage).to eq("9.50")
-      expect(report.change_in_hours_change.lower_hours_a_week_amount).to eq("20")
-      expect(report.change_in_hours_change.upper_hours_a_week_amount).to be_nil
-      expect(report.change_in_hours_change.paid_how_often).to eq("Every two weeks")
-      expect(report.change_in_hours_change.change_date).to eq(DateTime.new(2018, 1, 15))
-      expect(report.change_in_hours_change.change_in_hours_notes).to eq("Those extra hours were only for one week")
+      expect(report.current_change.hourly_wage).to eq("9.50")
+      expect(report.current_change.lower_hours_a_week_amount).to eq("20")
+      expect(report.current_change.upper_hours_a_week_amount).to be_nil
+      expect(report.current_change.paid_how_often).to eq("Every two weeks")
+      expect(report.current_change.change_date).to eq(DateTime.new(2018, 1, 15))
+      expect(report.current_change.change_in_hours_notes).to eq("Those extra hours were only for one week")
     end
   end
 
@@ -131,7 +131,7 @@ RSpec.describe TellUsAboutChangeInHoursForm do
                      paid_how_often: "Every two weeks",
                      change_date: DateTime.new(2018, 1, 15),
                      change_in_hours_notes: "Those extra hours were only for one week")
-      report = create(:report, change_in_hours_change: change)
+      report = create(:report, reported_changes: [change])
 
       form = TellUsAboutChangeInHoursForm.from_report(report)
 

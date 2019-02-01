@@ -55,4 +55,15 @@ RSpec.describe Report, type: :model do
       end
     end
   end
+
+  describe "#current_change" do
+    it "returns the most recent change" do
+      report = create :report
+      create :change, report: report
+      create :change, report: report
+      change3 = create :change, report: report
+
+      expect(report.current_change).to eq change3
+    end
+  end
 end

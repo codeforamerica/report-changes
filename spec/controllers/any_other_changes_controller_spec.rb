@@ -2,27 +2,7 @@ require "rails_helper"
 
 RSpec.describe AnyOtherChangesController do
   it_behaves_like "form controller base behavior"
-
-  describe "#show" do
-    context "possible other change types to report" do
-      it "shows" do
-        report = create :report, reported_changes: []
-
-        expect(AnyOtherChangesController.show?(report)).to be_truthy
-      end
-    end
-
-    context "all changes have been reported" do
-      it "shows" do
-        report = create :report
-        create :change, change_type: :job_termination, report: report
-        create :change, change_type: :new_job, report: report
-        create :change, change_type: :change_in_hours, report: report
-
-        expect(AnyOtherChangesController.show?(report)).to be_falsey
-      end
-    end
-  end
+  it_behaves_like "form controller always shows"
 
   describe "#update" do
     before do

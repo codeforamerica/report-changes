@@ -11,18 +11,6 @@ class Report < ActiveRecord::Base
           foreign_key: "report_id",
           dependent: :destroy
 
-  has_one :job_termination_change,
-          -> { where(change_type: "job_termination").limit(1) },
-          class_name: "Change"
-
-  has_one :new_job_change,
-          -> { where(change_type: "new_job").limit(1) },
-          class_name: "Change"
-
-  has_one :change_in_hours_change,
-          -> { where(change_type: "change_in_hours").limit(1) },
-          class_name: "Change"
-
   scope :signed, -> { where.not(signature: nil) }
 
   has_many_attached :letters
@@ -43,5 +31,21 @@ class Report < ActiveRecord::Base
     all_change_types = Change.change_types.keys - ["unfilled"]
     reported_change_types = reported_changes.pluck :change_type
     all_change_types - reported_change_types
+  end
+
+  def current_change
+    reported_changes.last
+  end
+
+  def first_job_termination_change
+    reported_changes.where(change_type: "job_termination").first
+  end
+
+  def first_new_job_change
+    reported_changes.where(change_type: "new_job").first
+  end
+
+  def first_change_in_hours_change
+    reported_changes.where(change_type: "change_in_hours").first
   end
 end

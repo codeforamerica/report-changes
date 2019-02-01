@@ -5,6 +5,7 @@ class ChangeTypeForm < Form
 
   def save
     change_type = attributes_for(:change)[:change_type]
-    report.reported_changes.find_or_create_by(change_type: change_type)
+    change = report.reported_changes.create change_type: change_type
+    change.create_change_navigator
   end
 end

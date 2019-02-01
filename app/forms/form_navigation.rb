@@ -14,21 +14,18 @@ class FormNavigation
     # Job termination questions
     TellUsAboutTheLostJobController,
     TellUsMoreAboutTheLostJobController,
-    DoYouHaveLostJobDocumentsController,
-    AddLostJobDocumentsController,
     # New job questions
     SelfEmployedController,
     NotYetSupportedController,
     TellUsAboutTheNewJobController,
     TellUsMoreAboutTheNewJobController,
     HowMuchWillYouMakeController,
-    DoYouHaveNewJobDocumentsController,
-    AddNewJobDocumentsController,
     # Change in hours questions
     TellUsAboutChangeInHoursJobController,
     TellUsAboutChangeInHoursController,
-    DoYouHaveChangeInHoursDocumentsController,
-    AddChangeInHoursDocumentsController,
+    # Documents
+    DoYouHaveDocumentsController,
+    AddDocumentsController,
     # Closing
     AnyOtherChangesController,
     TextMessageConsentController,

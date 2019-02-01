@@ -72,12 +72,12 @@ RSpec.describe TellUsAboutTheLostJobForm do
       form.valid?
       form.save
 
-      report.job_termination_change.reload
+      report.current_change.reload
 
-      expect(report.job_termination_change.company_name).to eq "Abc Corp"
-      expect(report.job_termination_change.manager_name).to eq "Boss McBosser"
-      expect(report.job_termination_change.manager_phone_number).to eq "1112223333"
-      expect(report.job_termination_change.manager_additional_information).to eq "They're my boss"
+      expect(report.current_change.company_name).to eq "Abc Corp"
+      expect(report.current_change.manager_name).to eq "Boss McBosser"
+      expect(report.current_change.manager_phone_number).to eq "1112223333"
+      expect(report.current_change.manager_additional_information).to eq "They're my boss"
     end
   end
 
@@ -85,11 +85,11 @@ RSpec.describe TellUsAboutTheLostJobForm do
     it "assigns values from change report and other objects" do
       report = create(:report,
         :with_navigator,
-        job_termination_change: build(:change,
+        reported_changes: [build(:change,
         company_name: "Abc Corp",
         manager_name: "Boss McBosser",
         manager_phone_number: "1112223333",
-        manager_additional_information: "They're my boss"))
+        manager_additional_information: "They're my boss")])
 
       form = TellUsAboutTheLostJobForm.from_report(report)
 

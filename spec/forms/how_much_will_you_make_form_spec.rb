@@ -178,16 +178,16 @@ RSpec.describe HowMuchWillYouMakeForm do
 
       report.reload
 
-      expect(report.new_job_change.hourly_wage).to eq "9.50"
-      expect(report.new_job_change.same_hours).to eq "no"
-      expect(report.new_job_change.same_hours_a_week_amount).to eq nil
-      expect(report.new_job_change.lower_hours_a_week_amount).to eq "5"
-      expect(report.new_job_change.upper_hours_a_week_amount).to eq "25"
-      expect(report.new_job_change.paid_how_often).to eq "Every two weeks"
-      expect(report.new_job_change.first_paycheck.year).to eq 2018
-      expect(report.new_job_change.first_paycheck.month).to eq 1
-      expect(report.new_job_change.first_paycheck.day).to eq 15
-      expect(report.new_job_change.new_job_notes).to eq "Those extra hours were only for one week"
+      expect(report.current_change.hourly_wage).to eq "9.50"
+      expect(report.current_change.same_hours).to eq "no"
+      expect(report.current_change.same_hours_a_week_amount).to eq nil
+      expect(report.current_change.lower_hours_a_week_amount).to eq "5"
+      expect(report.current_change.upper_hours_a_week_amount).to eq "25"
+      expect(report.current_change.paid_how_often).to eq "Every two weeks"
+      expect(report.current_change.first_paycheck.year).to eq 2018
+      expect(report.current_change.first_paycheck.month).to eq 1
+      expect(report.current_change.first_paycheck.day).to eq 15
+      expect(report.current_change.new_job_notes).to eq "Those extra hours were only for one week"
     end
 
     context "when same_hours is no" do
@@ -202,10 +202,10 @@ RSpec.describe HowMuchWillYouMakeForm do
 
         report.reload
 
-        expect(report.new_job_change.same_hours).to eq "no"
-        expect(report.new_job_change.same_hours_a_week_amount).to eq nil
-        expect(report.new_job_change.lower_hours_a_week_amount).to eq "5"
-        expect(report.new_job_change.upper_hours_a_week_amount).to eq "25"
+        expect(report.current_change.same_hours).to eq "no"
+        expect(report.current_change.same_hours_a_week_amount).to eq nil
+        expect(report.current_change.lower_hours_a_week_amount).to eq "5"
+        expect(report.current_change.upper_hours_a_week_amount).to eq "25"
       end
     end
 
@@ -221,10 +221,10 @@ RSpec.describe HowMuchWillYouMakeForm do
 
         report.reload
 
-        expect(report.new_job_change.same_hours).to eq "yes"
-        expect(report.new_job_change.same_hours_a_week_amount).to eq "50"
-        expect(report.new_job_change.lower_hours_a_week_amount).to eq nil
-        expect(report.new_job_change.upper_hours_a_week_amount).to eq nil
+        expect(report.current_change.same_hours).to eq "yes"
+        expect(report.current_change.same_hours_a_week_amount).to eq "50"
+        expect(report.current_change.lower_hours_a_week_amount).to eq nil
+        expect(report.current_change.upper_hours_a_week_amount).to eq nil
       end
     end
   end

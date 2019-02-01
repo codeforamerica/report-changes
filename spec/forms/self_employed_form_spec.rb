@@ -27,25 +27,28 @@ RSpec.describe SelfEmployedForm do
   end
 
   describe "#save" do
-    let(:report) { create :report, :with_navigator }
-
     let(:valid_params) { { is_self_employed: "no" } }
 
     it "persists the values to the correct models" do
+      report = create :report
+      change = create :change, report: report
+      create :change_navigator, change: change
+
       form = SelfEmployedForm.new(report, valid_params)
       form.valid?
       form.save
 
       report.reload
 
-      expect(report.navigator.is_self_employed_no?).to be_truthy
+      expect(report.current_change.change_navigator.is_self_employed_no?).to be_truthy
     end
   end
 
   describe ".from_report" do
     it "assigns values from change report" do
-      navigator = build(:navigator, is_self_employed: "no")
-      report = create(:report, navigator: navigator)
+      report = create :report
+      change = create :change, report: report
+      create :change_navigator, change: change, is_self_employed: "no"
 
       form = SelfEmployedForm.from_report(report)
 
