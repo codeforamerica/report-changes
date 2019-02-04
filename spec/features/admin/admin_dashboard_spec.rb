@@ -71,42 +71,5 @@ RSpec.feature "Admin viewing dashboard" do
 
       expect(page).to have_content("Report")
     end
-
-    xscenario "can download a csv of all the change reports" do
-      create(:report,
-        :with_member,
-        signature: "st",
-        reported_changes: [build(:change,
-          change_type: :job_termination,
-          manager_name: "Lavar Burton")])
-      create(:report,
-        :with_member,
-        signature: "julie",
-        reported_changes: [build(:change,
-          change_type: :new_job,
-          manager_name: "Bob Ross")])
-      create(:report,
-        :with_member,
-        signature: "mike",
-        reported_changes: [build(:change,
-          change_type: :change_in_hours,
-          manager_name: "Michael Scott")])
-      create(:report,
-        :with_member,
-        signature: nil,
-        reported_changes: [build(:change,
-          change_type: :job_termination,
-          manager_name: "Mr Burns")])
-
-      visit admin_root_path
-
-      click_on "Download All"
-
-      expect(page).to have_text "Lavar Burton"
-      expect(page).to have_text "Bob Ross"
-      expect(page).to have_text "Michael Scott"
-
-      expect(page).not_to have_text "Mr Burns"
-    end
   end
 end

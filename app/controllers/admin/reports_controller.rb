@@ -29,17 +29,5 @@ module Admin
         end
       end
     end
-
-    def download
-      reports = Report.signed.map { |report| ReportDecorator.new(report) }
-      csv = CsvService.new(
-        active_record_collection: reports,
-        header_attributes: ReportDecorator.header_attributes,
-      ).run
-
-      respond_to do |format|
-        format.csv { send_data csv, filename: "change-reports.csv" }
-      end
-    end
   end
 end

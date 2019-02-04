@@ -9,7 +9,6 @@ Rails.application.routes.draw do
 
       resources :reports, only: %i[index show]
       resources :changes, only: %i[index show]
-      get "download_all", to: "reports#download", format: "csv"
 
       root to: "reports#index"
     end
