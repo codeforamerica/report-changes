@@ -111,12 +111,7 @@ RSpec.describe ReportPdfBuilder do
 
   context "Multiple changes with multiple documents" do
     it "has cover pages for each change type's documents" do
-      report = create(:report,
-        :with_member,
-        navigator: build(:navigator,
-          has_job_termination_documents: "yes",
-          has_new_job_documents: "yes",
-          has_change_in_hours_documents: "yes"))
+      report = create :report, :with_member, :with_navigator
       termination = create(:change, change_type: "job_termination", report: report)
       termination.documents.attach(
         io: File.open(Rails.root.join("spec", "fixtures", "document.pdf")),
