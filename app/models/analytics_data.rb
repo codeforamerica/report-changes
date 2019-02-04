@@ -14,13 +14,6 @@ class AnalyticsData
 
   def report_data
     {
-      days_since_first_day_to_submission: days_since_submission(report.first_new_job_change.try(:first_day)),
-      days_since_first_paycheck_to_submission: days_since_submission(report.first_new_job_change.try(:first_paycheck)),
-      days_since_last_day_to_submission: days_since_submission(report.first_job_termination_change.try(:last_day)),
-      days_since_last_paycheck_to_submission: days_since_submission(report.first_job_termination_change&.last_paycheck),
-      paid_how_often: report.first_new_job_change.try(:paid_how_often),
-      paid_yet: report.first_new_job_change.try(:paid_yet),
-      same_hours: report.first_new_job_change.try(:same_hours),
       submitted_at: report.submitted_at,
       time_to_complete: time_to_complete,
       verification_documents_count: report.document_count,
@@ -39,13 +32,7 @@ class AnalyticsData
     navigator = report.navigator
     {
       county_from_address: navigator.try(:county_from_address),
-      has_offer_letter: navigator.try(:has_offer_letter),
-      has_paystub: navigator.try(:has_paystub),
-      has_job_termination_documents: navigator.try(:has_job_termination_documents),
-      has_new_job_documents: navigator.try(:has_new_job_documents),
-      has_change_in_hours_documents: navigator.try(:has_change_in_hours_documents),
       selected_county_location: navigator.try(:selected_county_location),
-      is_self_employed: report.first_new_job_change.try(:change_navigator).try(:is_self_employed),
       source: navigator.try(:source),
     }
   end
@@ -66,12 +53,6 @@ class AnalyticsData
       what_county: metadata.try(:what_county),
       want_a_copy: metadata.try(:email).present?,
     }
-  end
-
-  def days_since_submission(date)
-    if date && report.submitted_at
-      (report.submitted_at - date).to_i / 1.day
-    end
   end
 
   def unfilled_to_nil(value)
