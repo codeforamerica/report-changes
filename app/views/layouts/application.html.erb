@@ -2,6 +2,8 @@
 <html lang="en">
   <head>
     <%= render "analytics/ganalytics" %>
+    <%= render "analytics/fbook_pixel" if content_for? :homepage %>
+
     <% if content_for? :card_title %>
       <title><%= content_for :card_title %> | ReportChangesColorado.org</title>
     <% else %>
