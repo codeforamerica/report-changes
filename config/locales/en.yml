@@ -200,7 +200,7 @@ en:
       change_in_hours_notes:
         self: Is there anything else we should know about your hours or wages at this job?
         other_member: "Is there anything else we should know about %{name}'s hours or wages at this job?"
-  do_you_have_a_letter:
+  do_you_have_documents:
     edit:
       verify_income:
         self: The county needs to verify your income.
