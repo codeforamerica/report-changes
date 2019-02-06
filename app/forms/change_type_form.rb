@@ -1,11 +1,9 @@
 class ChangeTypeForm < Form
-  set_attributes_for :change, :change_type
+  set_attributes_for :navigator, :temp_change_type
 
-  validates_presence_of :change_type, message: "Choose one."
+  validates_presence_of :temp_change_type, message: "Choose one."
 
   def save
-    change_type = attributes_for(:change)[:change_type]
-    change = report.reported_changes.create(change_type: change_type)
-    change.create_change_navigator
+    report.navigator.update(attributes_for(:navigator))
   end
 end

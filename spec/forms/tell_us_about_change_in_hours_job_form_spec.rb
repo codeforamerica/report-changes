@@ -67,9 +67,9 @@ RSpec.describe TellUsAboutChangeInHoursJobForm do
     end
   end
 
-  describe "#save" do
-    let(:report) { create :report, :with_change, change_type: :change_in_hours }
+  let(:report) { create :report, :filled, change_type: :change_in_hours }
 
+  describe "#save" do
     it "persists the values to the correct models" do
       form = TellUsAboutChangeInHoursJobForm.new(report, valid_params)
       form.valid?
@@ -85,11 +85,11 @@ RSpec.describe TellUsAboutChangeInHoursJobForm do
 
   describe ".from_report" do
     it "assigns values from change report" do
-      change = build(:change,
-                     company_name: "Abc Corp",
-                     manager_name: "Boss McBosserson",
-                     manager_phone_number: "1112223333")
-      report = create(:report, reported_changes: [change])
+      report.current_change.update(
+        company_name: "Abc Corp",
+        manager_name: "Boss McBosserson",
+        manager_phone_number: "1112223333",
+      )
 
       form = TellUsAboutChangeInHoursJobForm.from_report(report)
 

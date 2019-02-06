@@ -154,8 +154,9 @@ RSpec.describe HowMuchWillYouMakeForm do
     end
   end
 
+  let(:report) { create :report, :filled, change_type: :new_job }
+
   describe "#save" do
-    let(:report) { create :report, :with_change, change_type: :new_job }
     let(:valid_params) do
       {
         hourly_wage: "9.50",
@@ -231,16 +232,15 @@ RSpec.describe HowMuchWillYouMakeForm do
 
   describe ".from_report" do
     it "assigns values from change report and other objects" do
-      report = create(:report)
-      create(:change,
-             change_type: "new_job",
-             hourly_wage: "9.50",
-             same_hours: "yes",
-             same_hours_a_week_amount: "50",
-             paid_how_often: "Every two weeks",
-             first_paycheck: DateTime.new(2018, 1, 15),
-             new_job_notes: "Those extra hours were only for one week",
-             report: report)
+      report.current_change.update(
+        change_type: "new_job",
+        hourly_wage: "9.50",
+        same_hours: "yes",
+        same_hours_a_week_amount: "50",
+        paid_how_often: "Every two weeks",
+        first_paycheck: DateTime.new(2018, 1, 15),
+        new_job_notes: "Those extra hours were only for one week",
+      )
 
       form = HowMuchWillYouMakeForm.from_report(report)
 

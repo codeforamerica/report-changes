@@ -56,8 +56,9 @@ RSpec.describe TellUsAboutTheLostJobForm do
     end
   end
 
+  let(:report) { create :report, :filled }
+
   describe "#save" do
-    let(:report) { create :report, :with_change }
     let(:valid_params) do
       {
         company_name: "Abc Corp",
@@ -72,7 +73,7 @@ RSpec.describe TellUsAboutTheLostJobForm do
       form.valid?
       form.save
 
-      report.current_change.reload
+      report.reload
 
       expect(report.current_change.company_name).to eq "Abc Corp"
       expect(report.current_change.manager_name).to eq "Boss McBosser"
@@ -83,13 +84,12 @@ RSpec.describe TellUsAboutTheLostJobForm do
 
   describe ".from_report" do
     it "assigns values from change report and other objects" do
-      report = create(:report,
-        :with_navigator,
-        reported_changes: [build(:change,
+      report.current_change.update(
         company_name: "Abc Corp",
         manager_name: "Boss McBosser",
         manager_phone_number: "1112223333",
-        manager_additional_information: "They're my boss")])
+        manager_additional_information: "They're my boss",
+      )
 
       form = TellUsAboutTheLostJobForm.from_report(report)
 

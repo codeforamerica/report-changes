@@ -1,31 +1,10 @@
 <div class="row">
   <div class="column one-of-two">
     <p class="label">
-      Date Submitted
-    </p>
-    <span class="value">
-        <%= @report.submitted_at %>
-      </span>
-  </div>
-  <div class="column one-of-two">
-    <p class="label">
-      Submitted by
-    </p>
-    <span class="value">
-        <%= @report.signature %>
-      </span>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<div class="row">
-  <div class="column one-of-two">
-    <p class="label">
       Full name
     </p>
     <span class="value">
-        <%= @report.client_name %>
+        <%= member.full_name %>
       </span>
   </div>
 
@@ -34,7 +13,7 @@
       Phone Number
     </p>
     <span class="value">
-        <%= @report.client_phone_number %>
+        <%= formatted_phone_number(member.phone_number) %>
       </span>
   </div>
 </div>
@@ -44,14 +23,14 @@
     <p class="label">
       Social Security Number
     </p>
-    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.ssn } %>
+    <%= render partial: 'reports/value_or_no_response', locals: { value: member.ssn } %>
   </div>
 
   <div class="column one-of-four">
     <p class="label">
       Case Number
     </p>
-    <%= render partial: 'reports/value_or_no_response', locals: { value: @report.case_number } %>
+    <%= render partial: 'reports/value_or_no_response', locals: { value: member.case_number } %>
   </div>
 
   <div class="column one-of-four">
@@ -59,9 +38,7 @@
       Date of Birth
     </p>
     <span class="value">
-        <%= @report.birthday %>
+        <%= member.birthday&.strftime("%D") %>
       </span>
   </div>
 </div>
-
-<div class="divider"></div>

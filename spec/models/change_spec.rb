@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Change, type: :model do
   describe "#pdf_documents" do
     it "returns all documents that are content_type application/pdf" do
-      change = create :change, report: build(:report)
+      change = create :change
       change.documents.attach(
         io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
         filename: "image.jpg",
@@ -22,7 +22,8 @@ RSpec.describe Change, type: :model do
 
   describe "#image_documents" do
     it "returns all documents that are of image type" do
-      change = create :change, report: build(:report)
+      change = create :change
+
       change.documents.attach(
         io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
         filename: "image.jpg",
@@ -42,21 +43,21 @@ RSpec.describe Change, type: :model do
   describe "#name" do
     context "job_termination" do
       it "has a name of job termination" do
-        change = create :change, change_type: :job_termination, report: build(:report)
+        change = create :change, change_type: :job_termination
         expect(change.name).to eq "job termination"
       end
     end
 
     context "new_job" do
       it "has a name of new_job" do
-        change = create :change, change_type: :new_job, report: build(:report)
+        change = create :change, change_type: :new_job
         expect(change.name).to eq "new job"
       end
     end
 
     context "change_in_hours" do
       it "has a name of change in hours/pay" do
-        change = create :change, change_type: :change_in_hours, report: build(:report)
+        change = create :change, change_type: :change_in_hours
         expect(change.name).to eq "change in hours/pay"
       end
     end

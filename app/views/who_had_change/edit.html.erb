@@ -2,12 +2,9 @@
 
 <% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
-      <%= f.cfa_radio_set :submitting_for,
+      <%= f.cfa_radio_set :new_or_existing_member,
                           label_text: "Who had this change?",
                           legend_class: "sr-only",
-                          collection: [
-                              { value: :self, label: "Me" },
-                              { value: :other_member, label: "Someone in my household" },
-                          ] %>
+                          collection: who_had_change_collection %>
     <% end %>
 <% end %>

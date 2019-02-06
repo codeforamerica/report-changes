@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe TellUsAboutChangeInHoursForm do
+  let(:report) { create :report, :filled, change_type: :change_in_hours }
   let(:valid_params) do
     {
       hourly_wage: "9.50",
@@ -104,8 +105,6 @@ RSpec.describe TellUsAboutChangeInHoursForm do
   end
 
   describe "#save" do
-    let(:report) { create :report, :with_change, change_type: :change_in_hours }
-
     it "persists the values to the correct models" do
       form = TellUsAboutChangeInHoursForm.new(report, valid_params)
       form.valid?
@@ -124,14 +123,14 @@ RSpec.describe TellUsAboutChangeInHoursForm do
 
   describe ".from_report" do
     it "assigns values from change report" do
-      change = build(:change,
-                     hourly_wage: "9.50",
-                     lower_hours_a_week_amount: "20",
-                     upper_hours_a_week_amount: "25",
-                     paid_how_often: "Every two weeks",
-                     change_date: DateTime.new(2018, 1, 15),
-                     change_in_hours_notes: "Those extra hours were only for one week")
-      report = create(:report, reported_changes: [change])
+      report.current_change.update(
+        hourly_wage: "9.50",
+        lower_hours_a_week_amount: "20",
+        upper_hours_a_week_amount: "25",
+        paid_how_often: "Every two weeks",
+        change_date: DateTime.new(2018, 1, 15),
+        change_in_hours_notes: "Those extra hours were only for one week",
+      )
 
       form = TellUsAboutChangeInHoursForm.from_report(report)
 

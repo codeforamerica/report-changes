@@ -3,45 +3,69 @@ require "rails_helper"
 RSpec.describe AnalyticsData do
   describe "#to_h" do
     it "returns basic information" do
-      navigator = build(:navigator,
-        county_from_address: "Littleland",
-        selected_county_location: "arapahoe",
-        source: "Land of Ooo")
+      report = create :report, :filled,
+        created_at: DateTime.new(2018, 1, 2, 12, 0, 0),
+        submitted_at: DateTime.new(2018, 1, 2, 12, 10, 0)
 
-      member = build(:member, birthday: (22.years.ago - 1.week))
+      report.current_member.update(
+        birthday: 22.years.ago - 1.day,
+      )
 
-      metadata = build(:report_metadata,
+      create :change, change_type: :new_job, member: report.current_member
+
+      create :change, change_type: :new_job, member: report.current_member
+
+      report.metadata.update(
         consent_to_sms: "yes",
         feedback_rating: "positive",
         feedback_comments: "great!",
         what_county: "A different county.",
-        email: nil)
+        email: nil,
+      )
 
-      report = create :report,
-        created_at: DateTime.new(2018, 1, 2, 12, 0, 0),
-        navigator: navigator,
-        member: member,
-        metadata: metadata,
-        submitted_at: DateTime.new(2018, 1, 2, 12, 10, 0)
-      change1 = create :change,
-        change_type: "new_job",
-        paid_how_often: "monthly",
-        paid_yet: "no",
-        first_day: DateTime.new(2016, 1, 2),
-        report: report
-      create :change_navigator, is_self_employed: "no", change: change1
-      change2 = create :change,
-        change_type: "new_job",
-        paid_how_often: "monthly",
-        paid_yet: "no",
-        first_day: DateTime.new(2016, 1, 3),
-        report: report
-      create :change_navigator, is_self_employed: "no", change: change2
-      create :change,
-        change_type: "job_termination",
-        last_paycheck: DateTime.new(2017, 1, 2),
-        last_day: DateTime.new(2016, 1, 2),
-        report: report
+      report.navigator.update(
+        county_from_address: "Littleland",
+        selected_county_location: "arapahoe",
+        source: "Land of Ooo",
+      )
+      # navigator = build(:navigator,
+      #   )
+      #
+      # member = build(:member, birthday: (22.years.ago - 1.week))
+      # member2 = build(:member, birthday: 5.years.ago)
+      # member3 = build(:member, birthday: 100.years.ago)
+      #
+      # metadata = build(:report_metadata,
+      #   consent_to_sms: "yes",
+      #   feedback_rating: "positive",
+      #   feedback_comments: "great!",
+      #   what_county: "A different county.",
+      #   email: nil)
+      #
+      # report = create :report,
+      #   created_at: DateTime.new(2018, 1, 2, 12, 0, 0),
+      #   navigator: navigator,
+      #   metadata: metadata,
+      #   submitted_at: DateTime.new(2018, 1, 2, 12, 10, 0)
+      # change1 = create :change,
+      #   change_type: "new_job",
+      #   paid_how_often: "monthly",
+      #   paid_yet: "no",
+      #   first_day: DateTime.new(2016, 1, 2),
+      #   member: member
+      # create :change_navigator, is_self_employed: "no", change: change1
+      # change2 = create :change,
+      #   change_type: "new_job",
+      #   paid_how_often: "monthly",
+      #   paid_yet: "no",
+      #   first_day: DateTime.new(2016, 1, 3),
+      #   member: member2
+      # create :change_navigator, is_self_employed: "no", change: change2
+      # create :change,
+      #   change_type: "job_termination",
+      #   last_paycheck: DateTime.new(2017, 1, 2),
+      #   last_day: DateTime.new(2016, 1, 2),
+      #   member: member3
 
       data = AnalyticsData.new(report).to_h
 
@@ -63,10 +87,10 @@ RSpec.describe AnalyticsData do
     end
 
     it "sends nil for any 'unfilled' values" do
-      metadata = build(:report_metadata,
-        consent_to_sms: "unfilled",
-        report: build(:report))
-      data = AnalyticsData.new(metadata.report).to_h
+      report = create :report, :filled
+      report.metadata.update consent_to_sms: :unfilled
+
+      data = AnalyticsData.new(report).to_h
 
       expect(data.fetch(:consent_to_sms)).to be_nil
     end

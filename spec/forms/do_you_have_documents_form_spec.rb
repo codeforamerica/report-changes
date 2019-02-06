@@ -1,6 +1,8 @@
  require "rails_helper"
 
  RSpec.describe DoYouHaveDocumentsForm do
+   let(:report) { create :report, :filled }
+
    describe "validations" do
      context "when has_documents is provided" do
        it "is valid" do
@@ -28,15 +30,9 @@
      end
 
      it "persists the values to the correct models" do
-       report = create :report
-       change = create :change, report: report
-       create :change_navigator, change: change, has_documents: "yes"
-
        form = DoYouHaveDocumentsForm.new(report, valid_params)
        form.valid?
        form.save
-
-       report.reload
 
        expect(report.current_change.change_navigator.has_documents_yes?).to be_truthy
      end
@@ -44,11 +40,7 @@
 
    describe ".from_report" do
      it "assigns values from change report navigator" do
-       report = create(:report,
-         reported_changes: [
-           build(:change,
-             change_navigator: build(:change_navigator, has_documents: "yes")),
-         ])
+       report.current_change.change_navigator.update has_documents: "yes"
 
        form = DoYouHaveDocumentsForm.from_report(report)
 

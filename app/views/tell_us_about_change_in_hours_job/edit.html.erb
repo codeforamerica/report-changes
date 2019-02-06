@@ -9,7 +9,7 @@
     </div>
 
     <%= f.cfa_input_field :manager_name,
-                          t(self_or_other_member_translation_key(".manager_name"), name: current_report.member.first_name),
+                          t(self_or_other_member_translation_key(".manager_name"), name: current_report.current_member.first_name),
                           help_text:  t(self_or_other_member_translation_key(".manager_name_help")),
                           optional: true %>
     <%= f.cfa_input_field :manager_phone_number, "What is their phone number?", classes: ["form-width--phone"],

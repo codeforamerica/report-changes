@@ -77,8 +77,9 @@ RSpec.describe TellUsMoreAboutTheNewJobForm do
     end
   end
 
+  let(:report) { create :report, :filled, change_type: :new_job }
+
   describe "#save" do
-    let(:report) { create :report, :with_change, change_type: :new_job }
     let(:valid_params) do
       {
         first_day_day: "15",
@@ -104,8 +105,7 @@ RSpec.describe TellUsMoreAboutTheNewJobForm do
 
   describe ".from_report" do
     it "assigns values from change report and other objects" do
-      report = create(:report, :with_navigator)
-      create(:change, first_day: DateTime.new(2000, 1, 15), paid_yet: "no", report: report)
+      report.current_change.update(first_day: DateTime.new(2000, 1, 15), paid_yet: "no")
 
       form = TellUsMoreAboutTheNewJobForm.from_report(report)
 

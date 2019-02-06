@@ -4,7 +4,7 @@
       First day of work
     </p>
     <span class="value">
-      <%= change.first_day&.strftime("%D") %>
+      <%= change.first_day %>
     </span>
   </div>
 
@@ -22,7 +22,7 @@
       First paycheck
     </p>
     <span class="value">
-      <%= change.first_paycheck&.strftime("%D") %>
+      <%= change.first_paycheck %>
     </span>
   </div>
 
@@ -31,7 +31,7 @@
       Wage
     </p>
     <span class="value">
-      <%= "$#{change.hourly_wage} /hr" if change.hourly_wage.present? %>
+      <%= change.hourly_wage %>
     </span>
   </div>
 </div>

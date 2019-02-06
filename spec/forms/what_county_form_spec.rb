@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe WhatCountyForm do
-  describe "#save" do
-    let(:report) { create :report, :with_metadata }
+  let(:report) { create :report, :filled }
 
+  describe "#save" do
     let(:valid_params) do
       {
         what_county: "A different county",
@@ -23,7 +23,7 @@ RSpec.describe WhatCountyForm do
 
   describe ".from_report" do
     it "assigns values from change report" do
-      report = create(:report, metadata: build(:report_metadata, what_county: "A even more different county"))
+      report.metadata.update what_county: "A even more different county"
 
       form = WhatCountyForm.from_report(report)
 

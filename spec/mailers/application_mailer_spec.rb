@@ -2,13 +2,9 @@ require "rails_helper"
 
 RSpec.describe ApplicationMailer do
   let(:report) do
-    create(:report_with_letter,
-           :with_change,
-           first_name: "Joe",
-           last_name: "MacMillan",
-           change_type: "job_termination",
-           documents: [fixture_file_upload(Rails.root.join("spec", "fixtures", "image.jpg"), "image/jpg")],
-           metadata: build(:report_metadata, email: "fake@example.com"))
+    create :report, :filled,
+      signature: "Joe MacMillan",
+      metadata: build(:report_metadata, email: "fake@example.com")
   end
 
   describe ".office_change_report_submission" do

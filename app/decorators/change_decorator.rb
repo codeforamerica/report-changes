@@ -5,7 +5,15 @@ class ChangeDecorator < SimpleDelegator
     format_phone_number(super)
   end
 
+  def first_day
+    super&.strftime("%D")
+  end
+
   def last_day
+    super&.strftime("%D")
+  end
+
+  def first_paycheck
     super&.strftime("%D")
   end
 
@@ -67,6 +75,22 @@ class ChangeDecorator < SimpleDelegator
 
   def same_hours
     not_unfilled(super)
+  end
+
+  def ssn
+    "#{member.ssn[0..2]}-#{member.ssn[3..4]}-#{member.ssn[5..8]}" if member&.ssn.present?
+  end
+
+  def birthday
+    member&.birthday&.strftime("%D")
+  end
+
+  def client_name
+    member&.full_name
+  end
+
+  def client_phone_number
+    format_phone_number(member.phone_number)
   end
 
   private

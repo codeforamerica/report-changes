@@ -7,11 +7,11 @@
 <% content_for :card_illustration do %>
   <div class="emoji emoji--big emoji--party-popper"></div>
 <% end %>
-<% content_for :card_title, t(self_or_other_member_translation_key(".title")) %>
+<% content_for :card_title, "You have successfully submitted this change report." %>
 <% content_for :card_body do %>
   <p>
     What’s next? We’ll use your answers on this form to see if your household benefits change.
-    <%= t(self_or_other_member_translation_key(".client_notified"), name: current_report.member.first_name) %>
+    <%= t(self_or_other_member_translation_key(".client_notified"), member_names: current_report.member_names) %>
   </p>
 
   <p>

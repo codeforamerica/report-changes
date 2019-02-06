@@ -9,11 +9,3 @@
 admin_user = AdminUser.find_or_initialize_by(email: "admin@example.com")
 admin_user.update!(password: "password")
 puts "Found or created: Admin user with email '#{admin_user.email}' and pass '#{admin_user.password}'"
-
-report = Report.find_or_initialize_by(case_number: "8675309")
-report.update!(phone_number: "5551231234")
-puts "Found or created: Case report with case number '#{report.case_number}'"
-
-member = Member.find_or_initialize_by(first_name: "Todd", last_name: "Chavez")
-member.update!(report: report)
-puts "Found or created: Member with name '#{member.first_name} #{member.last_name}'"

@@ -13,7 +13,7 @@ Rails.application.configure do
     if params[:controller] == "admin/reports" && params[:id]
       params[:id]
     elsif params[:controller] ==  "admin/changes" && params[:id]
-      Change.find(params[:id]).report.id
+      Change.find(params[:id]).member.report.id
     else
       controller.try(:current_report).try(:id)
     end

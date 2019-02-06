@@ -1,4 +1,4 @@
-<% content_for :card_title, t(self_or_other_member_translation_key(".title"), name: current_report.member.first_name) %>
+<% content_for :card_title, t(self_or_other_member_translation_key(".title"), name: current_report.current_member.first_name) %>
 
 <% content_for :card_body do %>
   <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>

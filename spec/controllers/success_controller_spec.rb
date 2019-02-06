@@ -4,9 +4,7 @@ RSpec.describe SuccessController do
   it_behaves_like "form controller always shows"
 
   context "with session" do
-    let(:current_report) do
-      create(:report, :with_navigator, :with_metadata, :with_change)
-    end
+    let(:current_report) { create :report, :filled }
 
     before do
       session[:current_report_id] = current_report.id

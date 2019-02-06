@@ -12,6 +12,10 @@ RSpec.feature "Reporting a change", :a11y, :js do
     choose "Yes"
     proceed_with "Continue"
 
+    expect(page).to have_text "What changed?"
+    choose "Someone's hours or pay changed"
+    proceed_with "Continue"
+
     expect(page).to have_text "Who had this change?"
     choose "Me"
     proceed_with "Continue"
@@ -19,14 +23,6 @@ RSpec.feature "Reporting a change", :a11y, :js do
     expect(page).to have_text "What is your name?"
     fill_in "What is your first name?", with: "Jane"
     fill_in "What is your last name?", with: "Doe"
-    proceed_with "Continue"
-
-    expect(page).to have_text "What changed?"
-    choose "My hours or pay changed"
-    proceed_with "Continue"
-
-    expect(page).to have_text "Tell us about yourself."
-
     fill_in "What is your phone number?", with: "555-222-3333"
     select "January", from: "form[birthday_month]"
     select "1", from: "form[birthday_day]"
@@ -72,11 +68,11 @@ RSpec.feature "Reporting a change", :a11y, :js do
     fill_in "What is your email address?", with: "fake@example.com"
     proceed_with "Continue"
 
-    expect(page).to have_text "Type your name to sign your change report."
+    expect(page).to have_text "Type your name to sign this change report."
     fill_in "Type your full legal name", with: "Person McPeoples"
     proceed_with "Sign and submit"
 
-    expect(page).to have_text "You have successfully submitted your change report"
+    expect(page).to have_text "You have successfully submitted this change report"
     choose "Good", allow_label_click: true
     fill_in "Do you have any feedback for us?", with: "My feedback"
     proceed_with "Submit"

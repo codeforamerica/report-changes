@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe WantACopyForm do
-  describe "#save" do
-    let(:report) { create :report, :with_metadata }
+  let(:report) { create :report, :filled }
 
+  describe "#save" do
     let(:valid_params) do
       {
         email: "fake@example.com",
@@ -23,7 +23,7 @@ RSpec.describe WantACopyForm do
 
   describe ".from_report" do
     it "assigns values from change report" do
-      report = create(:report, metadata: build(:report_metadata, email: "fake@example.com"))
+      report.metadata.update email: "fake@example.com"
 
       form = WantACopyForm.from_report(report)
 

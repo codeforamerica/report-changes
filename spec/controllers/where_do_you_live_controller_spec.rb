@@ -10,10 +10,11 @@ RSpec.describe WhereDoYouLiveController do
   it_behaves_like "form controller unsuccessful update"
 
   describe "show?" do
+    let(:report) { create :report, :filled }
+
     context "when the client lives in Arapahoe County" do
       it "returns false" do
-        navigator = build(:navigator, selected_county_location: :arapahoe)
-        report = create(:report, navigator: navigator)
+        report.navigator.update selected_county_location: :arapahoe
 
         show_form = WhereDoYouLiveController.show?(report)
         expect(show_form).to eq(false)
@@ -22,8 +23,7 @@ RSpec.describe WhereDoYouLiveController do
 
     context "when the client does not live in Arapahoe County" do
       it "returns false" do
-        navigator = build(:navigator, selected_county_location: :not_arapahoe)
-        report = create(:report, navigator: navigator)
+        report.navigator.update selected_county_location: :not_arapahoe
 
         show_form = WhereDoYouLiveController.show?(report)
         expect(show_form).to eq(false)
@@ -32,8 +32,7 @@ RSpec.describe WhereDoYouLiveController do
 
     context "when the client doesn't know if they live in Arapahoe County" do
       it "returns true" do
-        navigator = build(:navigator, selected_county_location: :not_sure)
-        report = create(:report, navigator: navigator)
+        report.navigator.update selected_county_location: :not_sure
 
         show_form = WhereDoYouLiveController.show?(report)
         expect(show_form).to eq(true)

@@ -14,6 +14,10 @@ feature "Uploading verifications", js: true do
     choose "Yes"
     click_on "Continue"
 
+    expect(page).to have_text "What changed?"
+    choose "Someone's hours or pay changed"
+    proceed_with "Continue"
+
     expect(page).to have_text "Who had this change?"
     choose "Me"
     click_on "Continue"
@@ -21,11 +25,11 @@ feature "Uploading verifications", js: true do
     expect(page).to have_text "What is your name?"
     fill_in "What is your first name?", with: "Jane"
     fill_in "What is your last name?", with: "Doe"
+    fill_in "What is your phone number?", with: "555-222-3333"
+    select "January", from: "form[birthday_month]"
+    select "1", from: "form[birthday_day]"
+    select 20.years.ago.year.to_s, from: "form[birthday_year]"
     click_on "Continue"
-
-    expect(page).to have_text "What changed?"
-    choose "My hours or pay changed"
-    proceed_with "Continue"
   end
 
   scenario "add documents" do
