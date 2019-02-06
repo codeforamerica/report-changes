@@ -19,14 +19,40 @@
           <%= t(self_or_other_member_translation_key(".verify_income"), name: current_report.member.first_name) %> The best ways to prove this are:
         </p>
 
-        <ul class="list--bulleted">
-          <li><%= t(self_or_other_member_translation_key(".paystubs")).html_safe %></li>
-          <li><%= t(self_or_other_member_translation_key(".change_in_hours_letter")) %></li>
-        </ul>
+        <% if current_report.current_change.change_type_job_termination? %>
+          <ul class="list--bulleted">
+            <li>A paycheck labeled “final”</li>
+            <li>A letter from your old employer</li>
+          </ul>
+          <p>It would be helpful for the letter to:</p>
+          <ul class="list--bulleted">
+            <li><%= t(self_or_other_member_translation_key(".dont_work_there"), name: current_report.member.first_name) %></li>
+            <li><%= t(self_or_other_member_translation_key(".last_day_work")) %></li>
+            <li><%= t(self_or_other_member_translation_key(".amount_last_paycheck")) %></li>
+            <li>Be on letterhead</li>
+          </ul>
+          <p>
+            If you don’t have this, we’ll work with you to find other ways to prove this change.
+          </p>
+        <% elsif current_report.current_change.change_type_new_job? %>
+          <ul class="list--bulleted">
+            <li><%= t(self_or_other_member_translation_key(".paystubs")).html_safe %></li>
+            <li><%= t(self_or_other_member_translation_key(".offer_letter")) %></li>
+          </ul>
 
-        <p>
-          If you don’t have either of these, we’ll work with you to find other ways to prove this change.
-        </p>
+          <p>
+            If you don’t have either of these, we’ll work with you to find other ways to prove this change.
+          </p>
+        <% elsif current_report.current_change.change_type_change_in_hours? %>
+          <ul class="list--bulleted">
+            <li><%= t(self_or_other_member_translation_key(".paystubs")).html_safe %></li>
+            <li><%= t(self_or_other_member_translation_key(".change_in_hours_letter")) %></li>
+          </ul>
+
+          <p>
+            If you don’t have either of these, we’ll work with you to find other ways to prove this change.
+          </p>
+        <% end %>
       </div>
     </div>
   </div>
