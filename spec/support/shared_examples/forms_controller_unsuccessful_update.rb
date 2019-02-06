@@ -5,7 +5,7 @@ RSpec.shared_examples_for "form controller unsuccessful update" do |invalid_para
     context "on unsucessful update" do
       let(:mock_mixpanel_service) { spy(MixpanelService) }
       let(:fake_analytics_data) { { foo: "bar" } }
-      let(:current_report) { create(:report, :with_navigator) }
+      let(:current_report) { create :report, :filled }
 
       before do
         session[:current_report_id] = current_report.id

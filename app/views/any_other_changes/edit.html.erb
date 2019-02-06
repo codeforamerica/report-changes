@@ -14,8 +14,7 @@
   <% current_report.reported_changes.each do |change| %>
     <p>
       <i class="icon-check"></i>
-      <%= t(self_or_other_member_translation_key(".reported"), name: current_report.member.full_name, change: change.name) %>
+      <%= t(self_or_other_member_translation_key(".reported", passed_in_member: change.member), name: change.member&.full_name, change: change.name) %>
     </p>
-
   <% end %>
 <% end %>

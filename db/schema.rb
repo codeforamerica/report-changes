@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_01_010954) do
+ActiveRecord::Schema.define(version: 2019_02_06_233151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 2019_02_01_010954) do
     t.string "manager_additional_information"
     t.string "manager_name"
     t.string "manager_phone_number"
+    t.bigint "member_id"
     t.text "new_job_notes"
     t.string "paid_how_often"
     t.integer "paid_yet", default: 0
@@ -98,6 +99,7 @@ ActiveRecord::Schema.define(version: 2019_02_01_010954) do
     t.string "same_hours_a_week_amount"
     t.datetime "updated_at", null: false
     t.string "upper_hours_a_week_amount"
+    t.index ["member_id"], name: "index_changes_on_member_id"
     t.index ["report_id"], name: "index_changes_on_report_id"
   end
 
@@ -118,11 +120,14 @@ ActiveRecord::Schema.define(version: 2019_02_01_010954) do
 
   create_table "members", force: :cascade do |t|
     t.datetime "birthday"
+    t.string "case_number"
     t.datetime "created_at", null: false
     t.string "encrypted_ssn"
     t.string "encrypted_ssn_iv"
     t.string "first_name"
+    t.boolean "is_submitter"
     t.string "last_name"
+    t.string "phone_number"
     t.bigint "report_id"
     t.datetime "updated_at", null: false
     t.index ["report_id"], name: "index_members_on_report_id"
@@ -132,11 +137,14 @@ ActiveRecord::Schema.define(version: 2019_02_01_010954) do
     t.string "city"
     t.string "county_from_address"
     t.datetime "created_at", null: false
+    t.integer "current_change_id"
+    t.integer "current_member_id"
     t.bigint "report_id"
     t.integer "selected_county_location", default: 0
     t.string "source"
     t.string "street_address"
     t.integer "submitting_for", default: 0
+    t.integer "temp_change_type", default: 0
     t.datetime "updated_at", null: false
     t.string "zip_code"
     t.index ["report_id"], name: "index_navigators_on_report_id"

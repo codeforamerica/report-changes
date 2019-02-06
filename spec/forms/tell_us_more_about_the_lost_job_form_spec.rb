@@ -178,8 +178,9 @@ RSpec.describe TellUsMoreAboutTheLostJobForm do
     end
   end
 
+  let(:report) { create :report, :filled }
+
   describe "#save" do
-    let(:report) { create :report, :with_change }
     let(:valid_params) do
       {
         last_day_day: "15",
@@ -211,11 +212,11 @@ RSpec.describe TellUsMoreAboutTheLostJobForm do
 
   describe ".from_report" do
     it "assigns values from change " do
-      report = create(:report,
-        reported_changes: [build(:change,
+      report.current_change.update(
         last_day: DateTime.new(2000, 1, 15),
         last_paycheck: DateTime.new(2018, 2, 28),
-        last_paycheck_amount: 1127.14)])
+        last_paycheck_amount: 1127.14,
+      )
 
       form = TellUsMoreAboutTheLostJobForm.from_report(report)
 

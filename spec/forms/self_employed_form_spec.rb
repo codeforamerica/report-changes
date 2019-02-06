@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe SelfEmployedForm do
+  let(:report) { create :report, :filled }
+
   describe "validations" do
     context "when is_self_employed is provided" do
       it "is valid" do
@@ -30,10 +32,6 @@ RSpec.describe SelfEmployedForm do
     let(:valid_params) { { is_self_employed: "no" } }
 
     it "persists the values to the correct models" do
-      report = create :report
-      change = create :change, report: report
-      create :change_navigator, change: change
-
       form = SelfEmployedForm.new(report, valid_params)
       form.valid?
       form.save
@@ -46,9 +44,7 @@ RSpec.describe SelfEmployedForm do
 
   describe ".from_report" do
     it "assigns values from change report" do
-      report = create :report
-      change = create :change, report: report
-      create :change_navigator, change: change, is_self_employed: "no"
+      report.current_change.change_navigator.update is_self_employed: "no"
 
       form = SelfEmployedForm.from_report(report)
 

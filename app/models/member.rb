@@ -1,6 +1,11 @@
 class Member < ActiveRecord::Base
   belongs_to :report
 
+  has_many :reported_changes,
+          class_name: "Change",
+          foreign_key: "member_id",
+          dependent: :destroy
+
   attribute :ssn
   attr_encrypted(
     :ssn,
@@ -16,5 +21,9 @@ class Member < ActiveRecord::Base
 
   def full_name
     [first_name, last_name].compact.join(" ")
+  end
+
+  def client_info_needed?
+    first_name.blank? || last_name.blank? || birthday.blank?
   end
 end

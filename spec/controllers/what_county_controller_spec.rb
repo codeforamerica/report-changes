@@ -7,14 +7,16 @@ RSpec.describe WhatCountyController do
   }
 
   describe "#show" do
+    let(:report) { create :report, :filled }
+
     it "shows when user doesn't live in arapahoe county" do
-      report = create :report, navigator: build(:navigator, selected_county_location: :not_arapahoe)
+      report.navigator.update selected_county_location: :not_arapahoe
 
       expect(WhatCountyController.show?(report)).to eq(true)
     end
 
     it "does not show when user lives in arapahoe county" do
-      report = create :report, navigator: build(:navigator, selected_county_location: :arapahoe)
+      report.navigator.update selected_county_location: :arapahoe
 
       expect(WhatCountyController.show?(report)).to eq(false)
     end

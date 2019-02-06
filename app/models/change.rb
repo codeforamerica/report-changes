@@ -1,5 +1,5 @@
 class Change < ApplicationRecord
-  belongs_to :report
+  belongs_to :member
   has_one :change_navigator
 
   has_many_attached :documents

@@ -30,7 +30,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  client_name:
+  client_info:
     edit:
       title:
         self: What is your name?
@@ -44,39 +44,6 @@ en:
       last_name:
         self: What is your last name?
         other_member: What is their last name?
-  change_type:
-    edit:
-      job_termination:
-        self: My job ended or I stopped working
-        other_member: Their job ended or they stopped working
-      new_job:
-        self: I started a new job
-        other_member: They started a new job
-      change_in_hours:
-        self: My hours or pay changed
-        other_member: Their hours or pay changed
-  self_employed:
-    edit:
-      title:
-        self: Are you self-employed?
-        other_member: "Is %{name} self-employed?"
-      "1099":
-        self: If you file a 1099 form
-        other_member: If they file a 1099 form
-      is_self_employed_yes:
-        self: I am self-employed
-        other_member: They are self-employed
-      is_self_employed_no:
-        self: I am not self-employed
-        other_member: They are not self-employed
-  tell_us_about_yourself:
-    edit:
-      title:
-        self: Tell us about yourself.
-        other_member: "Tell us about %{name}."
-      name:
-        self: What is your name?
-        other_member: What is their name?
       birthday:
         self: What is your date of birth?
         other_member: What is their date of birth?
@@ -91,10 +58,24 @@ en:
         other_member: What is their social security number?
       ssn_help:
         self: If you don't have an SSN or don't want to give one now it's okay to skip this. But if you add it now, the report may be processed faster.
-        other_member: "If %{name} doesn't have an SSN or doesn't want to give one now it's okay to skip this. But if you add it now, the report may be processed faster."
+        other_member: If they don't have an SSN or doesn't want to give one now it's okay to skip this. But if you add it now, the report may be processed faster.
       phone_number:
         self: What is your phone number?
         other_member: What is their phone number?
+  self_employed:
+    edit:
+      title:
+        self: Are you self-employed?
+        other_member: "Is %{name} self-employed?"
+      "1099":
+        self: If you file a 1099 form
+        other_member: If they file a 1099 form
+      is_self_employed_yes:
+        self: I am self-employed
+        other_member: They are self-employed
+      is_self_employed_no:
+        self: I am not self-employed
+        other_member: They are not self-employed
   tell_us_about_the_lost_job:
     edit:
       title:
@@ -230,17 +211,11 @@ en:
         other_member: "You reported that %{name} had a %{change}."
   sign_submit:
     edit:
-      title:
-        self: Type your name to sign your change report.
-        other_member: Type your name to sign this change report.
       submit_agreement:
         self: By entering your name you agree that you want to submit a change report, and that you have been honest on this report.
-        other_member: "By entering your name you agree that you want to submit a change report on behalf of %{full_name}, and that you have been honest on this report."
+        other_member: "By entering your name you agree that you want to submit a change report on behalf of %{member_names}, and that you have been honest on this report."
   success:
     edit:
-      title:
-        self: You have successfully submitted your change report.
-        other_member: You have successfully submitted this change report.
       client_notified:
         self: If they do, you’ll be notified.
-        other_member: "If they do, %{name} will be notified."
+        other_member: "If they do, %{member_names} will be notified."

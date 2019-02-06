@@ -1,9 +1,32 @@
 <h1>Change Request Form</h1>
 
-<%= render partial: 'reports/member_info' %>
+<div class="row">
+  <div class="column one-of-two">
+    <p class="label">
+      Date Submitted
+    </p>
+    <span class="value">
+        <%= @report.submitted_at %>
+      </span>
+  </div>
+  <div class="column one-of-two">
+    <p class="label">
+      Submitted by
+    </p>
+    <span class="value">
+        <%= @report.signature %>
+      </span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="spacer"></div>
 
 <% @report.reported_changes.each do |change| %>
+  <%= render partial: 'reports/member_info', locals: {member: change.member} %>
   <%= render partial: "reports/change", locals: {change: ChangeDecorator.new(change)} %>
+  <div class="page-break"></div>
 <% end %>
 
 <div class="row">

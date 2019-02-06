@@ -8,14 +8,28 @@ RSpec.feature "Admin viewing dashboard" do
   end
 
   context "logged in admin" do
+    let(:report) { create :report, :filled, change_type: "job_termination" }
+
     before do
       user = create(:admin_user)
       login_as(user)
+
+      report.metadata.update consent_to_sms: "no"
+      report.current_member.update first_name: "Todd", last_name: "Chavez"
+
+      report.current_change.documents.attach(
+        io: File.open(Rails.root.join("spec", "fixtures", "document.pdf")),
+        filename: "document.pdf",
+        content_type: "application/pdf",
+      )
+      report.current_change.documents.attach(
+        io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
+        filename: "image.jpg",
+        content_type: "image/jpg",
+      )
     end
 
     scenario "viewing details for a report" do
-      report = create(:report, :with_change, :with_metadata, consent_to_sms: "no")
-
       visit admin_root_path
 
       expect(page).to have_content("Report")
@@ -32,24 +46,6 @@ RSpec.feature "Admin viewing dashboard" do
 
     context "with verifications" do
       scenario "viewing the pdf" do
-        report = build :report
-        create(:member,
-               first_name: "Todd",
-               last_name: "Chavez",
-               report: report)
-        change = create(:change, change_type: "job_termination", report: report)
-
-        change.documents.attach(
-          io: File.open(Rails.root.join("spec", "fixtures", "document.pdf")),
-          filename: "document.pdf",
-          content_type: "application/pdf",
-        )
-        change.documents.attach(
-          io: File.open(Rails.root.join("spec", "fixtures", "image.jpg")),
-          filename: "image.jpg",
-          content_type: "image/jpg",
-        )
-
         visit admin_root_path
 
         click_on "Download"

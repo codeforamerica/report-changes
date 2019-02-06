@@ -13,57 +13,35 @@ RSpec.describe Report, type: :model do
 
   describe "#pdf_documents" do
     it "returns all documents for all changes that are content_type application/pdf" do
-      report = build(:report)
-      create :change,
-             report: report,
-             documents: [fixture_file_upload(Rails.root.join("spec", "fixtures", "document.pdf"), "application/pdf")]
-      create :change,
-             report: report,
-             documents: [fixture_file_upload(Rails.root.join("spec", "fixtures", "document.pdf"), "application/pdf")]
+      report = create :report, :filled
+      report.current_change.documents = [
+        fixture_file_upload(Rails.root.join("spec", "fixtures", "document.pdf"), "application/pdf"),
+        fixture_file_upload(Rails.root.join("spec", "fixtures", "document.pdf"), "application/pdf"),
+      ]
 
       expect(report.pdf_documents.count).to eq 2
       expect(report.pdf_documents.first.filename).to eq "document.pdf"
     end
   end
 
-  describe "#unreported_change_types" do
-    context "when no changes have been reported" do
-      it "returns an array of all the change types" do
-        report = build :report, reported_changes: []
+  describe "#submitter" do
+    it "returns the reports submitter" do
+      report = create :report
+      submitter = create :member, is_submitter: true, report: report
+      create :member, is_submitter: false, report: report
+      create :member, is_submitter: false, report: report
 
-        expect(report.unreported_change_types).to eq ["job_termination", "new_job", "change_in_hours"]
-      end
-    end
-
-    context "when one change has been reported" do
-      it "returns an array of available change types" do
-        report = create :report
-        create :change, change_type: "job_termination", report: report
-
-        expect(report.unreported_change_types).to eq ["new_job", "change_in_hours"]
-      end
-    end
-
-    context "when all changes have been reported" do
-      it "returns an empty array" do
-        report = create :report
-        create :change, change_type: :job_termination, report: report
-        create :change, change_type: :new_job, report: report
-        create :change, change_type: :change_in_hours, report: report
-
-        expect(report.unreported_change_types).to eq []
-      end
+      expect(report.submitter).to eq submitter
     end
   end
 
-  describe "#current_change" do
-    it "returns the most recent change" do
-      report = create :report
-      create :change, report: report
-      create :change, report: report
-      change3 = create :change, report: report
+  describe "#member_names" do
+    it "returns all of the members names" do
+      report = create :report, :filled
+      report.current_member.update first_name: "Frank", last_name: "Sinatra"
+      create :member, first_name: "Quincy", last_name: "Jones", report: report
 
-      expect(report.current_change).to eq change3
+      expect(report.member_names).to eq "Frank Sinatra, Quincy Jones"
     end
   end
 end

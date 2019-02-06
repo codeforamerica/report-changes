@@ -7,10 +7,9 @@ class FormNavigation
     SupportedCountyController,
     WhatCountyController,
     NotYetSupportedController,
-    WhoHadChangeController,
-    ClientNameController,
     ChangeTypeController,
-    TellUsAboutYourselfController,
+    WhoHadChangeController,
+    ClientInfoController,
     # Job termination questions
     TellUsAboutTheLostJobController,
     TellUsMoreAboutTheLostJobController,

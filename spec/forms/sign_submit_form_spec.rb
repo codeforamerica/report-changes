@@ -20,7 +20,7 @@ RSpec.describe SignSubmitForm do
   end
 
   describe "#save" do
-    let(:report) { create :report }
+    let(:report) { create :report, :filled }
 
     let(:valid_params) do
       {

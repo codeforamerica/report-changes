@@ -6,11 +6,11 @@ RSpec.describe Summarizer::ApplicationSummary do
     it "returns a summary of daily change reports for date and timezone" do
       date = DateTime.new(2017, 12, 1, 0, 0)
 
-      create_list(:report, 2, :signed, created_at: date)
+      create_list(:report, 2, signature: "Signature", created_at: date)
 
-      create(:report, :signed, created_at: date - 1.day)
-      create(:report, :signed, created_at: date + 21.hours)
-      create(:report, :signed, created_at: date + 1.day)
+      create(:report, signature: "Signature", created_at: date - 1.day)
+      create(:report, signature: "Signature", created_at: date + 21.hours)
+      create(:report, signature: "Signature", created_at: date + 1.day)
 
       text = Summarizer::ApplicationSummary.new(
         date,
@@ -26,7 +26,7 @@ RSpec.describe Summarizer::ApplicationSummary do
       date = DateTime.new(2017, 12, 1, 12, 0)
 
       create(:report, created_at: date)
-      create(:report, :signed, created_at: date)
+      create(:report, signature: "Signature", created_at: date)
 
       text = Summarizer::ApplicationSummary.new(
         date,

@@ -1,7 +1,5 @@
 FactoryBot.define do
   factory :change do
-    report
-
     trait :job_termination do
       change_type { "job_termination" }
     end
@@ -13,5 +11,7 @@ FactoryBot.define do
     trait :change_in_hours do
       change_type { "change_in_hours" }
     end
+
+    member
   end
 end

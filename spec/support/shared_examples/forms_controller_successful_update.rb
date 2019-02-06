@@ -4,6 +4,8 @@ RSpec.shared_examples_for "form controller successful update" do |valid_params, 
   describe "#update" do
     context "without change report" do
       it "redirects to homepage" do
+        session[:current_report_id] = nil
+
         put :update, params: { form: valid_params }
 
         expect(response).to redirect_to(root_path)
@@ -12,23 +14,19 @@ RSpec.shared_examples_for "form controller successful update" do |valid_params, 
 
     context "with change report" do
       context "on successful update" do
-        it "redirects to next path" do
-          report = create(:report, :with_navigator, :with_metadata, :with_member)
-          change = create :change, report: report, change_type: (change_type || "job_termination")
-          create :change_navigator, change: change
-          session[:current_report_id] = report.id
+        let(:report) { create :report, :filled, change_type: change_type }
 
+        before do
+          session[:current_report_id] = report.id
+        end
+
+        it "redirects to next path" do
           put :update, params: { form: valid_params }
 
           expect(response).to redirect_to(subject.next_path)
         end
 
         it "calls the mixpanel service" do
-          report = create(:report, :with_navigator, :with_metadata, :with_member)
-          change = create :change, report: report, change_type: (change_type || "job_termination")
-          create :change_navigator, change: change
-          session[:current_report_id] = report.id
-
           mock_mixpanel_service = spy(MixpanelService)
           fake_analytics_data = { foo: "bar" }
 

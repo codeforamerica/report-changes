@@ -52,8 +52,18 @@ class FormsController < ApplicationController
     end
   end
 
-  def self_or_other_member_translation_key(key)
-    current_report.navigator.submitting_for_other_member? ? "#{key}.other_member" : "#{key}.self"
+  def self_or_other_member_translation_key(key, passed_in_member: nil)
+    member = if passed_in_member.present?
+               passed_in_member
+             elsif current_report.current_member.present?
+               current_report.current_member
+             elsif current_report.members.where(is_submitter: false).first
+               current_report.members.where(is_submitter: false).first
+             elsif current_report.submitter.present?
+               current_report.submitter
+             end
+
+    member.is_submitter? ? "#{key}.self" : "#{key}.other_member"
   end
 
   private

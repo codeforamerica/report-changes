@@ -38,9 +38,9 @@ class AnalyticsData
   end
 
   def member_data
-    member = report.member
     {
-      age: member.try(:age),
+      age: report.current_member&.age,
+      people_count: report.members&.count,
     }
   end
 

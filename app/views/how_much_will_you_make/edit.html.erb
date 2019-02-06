@@ -1,4 +1,4 @@
-<% content_for :card_title, t(self_or_other_member_translation_key(".title"), name: current_report.member.first_name) %>
+<% content_for :card_title, t(self_or_other_member_translation_key(".title"), name: current_report.current_member.first_name) %>
 
 <% content_for :card_body do %>
   <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
@@ -20,7 +20,7 @@
       current_report.current_change.paid_yet_yes? ? t(self_or_other_member_translation_key(".first_paycheck.paid_yet_yes")) : t(self_or_other_member_translation_key(".first_paycheck.paid_yet_no")),
       help_text: "Estimate if you're not sure.",
       options: { start_year: Time.now.year, end_year: Time.now.year + 2 } %>
-    <%= f.cfa_input_field :new_job_notes,  t(self_or_other_member_translation_key(".new_job_notes"), name: current_report.member.first_name),
+    <%= f.cfa_input_field :new_job_notes,  t(self_or_other_member_translation_key(".new_job_notes"), name: current_report.current_member.first_name),
                           help_text: t(self_or_other_member_translation_key(".new_job_notes_help")),
                           optional: true %>
   <% end %>

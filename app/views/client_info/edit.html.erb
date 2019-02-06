@@ -1,0 +1,20 @@
+<% content_for :card_title, t(self_or_other_member_translation_key(".title")) %>
+
+<% content_for :card_body do %>
+    <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
+      <%= f.cfa_input_field :first_name, t(self_or_other_member_translation_key(".first_name")), help_text: t(self_or_other_member_translation_key(".name_help")) %>
+      <%= f.cfa_input_field :last_name, t(self_or_other_member_translation_key(".last_name")), help_text: t(self_or_other_member_translation_key(".name_help")) %>
+    <%= f.cfa_date_select :birthday, t(self_or_other_member_translation_key(".birthday")), { options: { start_year: Time.now.year, end_year: 1900 } } %>
+    <%= f.cfa_input_field :case_number,
+      t(self_or_other_member_translation_key(".case_number")),
+      help_text: t(self_or_other_member_translation_key(".case_number_help")),
+      options: { placeholder: "1BXXXXX" },
+      optional: true %>
+    <%= f.cfa_input_field :ssn,
+      t(self_or_other_member_translation_key(".ssn")),
+      classes: ["form-width--ssn"],
+      optional: true,
+      notice: t(self_or_other_member_translation_key(".ssn_help")) %>
+    <%= f.cfa_input_field :phone_number, t(self_or_other_member_translation_key(".phone_number")), classes: ["form-width--phone"], optional: true %>
+    <% end %>
+<% end %>

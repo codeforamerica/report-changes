@@ -3,18 +3,18 @@ class ApplicationMailer < ActionMailer::Base
 
   def office_change_report_submission(report)
     report = ReportDecorator.new(report)
-    attachments[attachment_name(report.client_name)] = ReportPdfBuilder.new(report).run
+    attachments[attachment_name(report.signature)] = ReportPdfBuilder.new(report).run
 
     mail(
       from: %("ReportChangesColorado" <#{ENV['SENDING_EMAIL_ADDRESS']}>),
       to: CredentialsHelper.county_email_address,
-      subject: "A new change report from #{report.client_name} was submitted!",
+      subject: "A new change report from #{report.signature} was submitted!",
     )
   end
 
   def report_copy_to_client(report)
     report = ReportDecorator.new(report)
-    attachments[attachment_name(report.client_name)] = ReportPdfBuilder.new(report).run
+    attachments[attachment_name(report.signature)] = ReportPdfBuilder.new(report).run
 
     mail(
       from: %("ReportChangesColorado" <#{ENV['SENDING_EMAIL_ADDRESS']}>),

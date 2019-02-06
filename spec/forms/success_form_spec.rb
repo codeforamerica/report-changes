@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe SuccessForm do
-  describe "validations" do
-    let(:report) { create :report, :with_metadata }
+  let(:report) { create :report, :filled }
 
+  describe "validations" do
     it "is invalid without feedback rating or comments" do
       form = SuccessForm.new(report)
 
@@ -27,8 +27,6 @@ RSpec.describe SuccessForm do
   end
 
   describe "#save" do
-    let(:report) { create :report, :with_metadata }
-
     let(:valid_params) do
       {
         feedback_rating: "positive",

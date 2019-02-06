@@ -8,11 +8,11 @@ RSpec.describe SignSubmitController do
   it_behaves_like "form controller unsuccessful update"
   it_behaves_like "form controller always shows"
 
+  let(:report) { create :report, :filled, signature: "Best E. Person" }
+  before { session[:current_report_id] = report.id }
+
   describe "edit" do
     it "assigns existing attributes" do
-      current_report = create(:report, signature: "Best E. Person")
-      session[:current_report_id] = current_report.id
-
       get :edit
 
       form = assigns(:form)
@@ -33,9 +33,6 @@ RSpec.describe SignSubmitController do
         end
 
         it "does not enqueue a pdf mailer job" do
-          current_report = create(:report, :with_navigator)
-          session[:current_report_id] = current_report.id
-
           allow(EmailChangeReportToOfficeJob).to receive(:perform_later)
 
           put :update, params: { form: valid_params }
@@ -44,9 +41,6 @@ RSpec.describe SignSubmitController do
         end
 
         it "does not enqueue a confirmation text job" do
-          current_report = create(:report, :with_navigator, metadata: build(:report_metadata, consent_to_sms: :yes))
-          session[:current_report_id] = current_report.id
-
           allow(TextConfirmationToClientJob).to receive(:perform_later)
 
           put :update, params: { form: valid_params }
@@ -56,40 +50,30 @@ RSpec.describe SignSubmitController do
       end
 
       it "enqueues a pdf mailer job" do
-        current_report = create(:report, :with_navigator, :with_metadata)
-        session[:current_report_id] = current_report.id
-
         allow(EmailChangeReportToOfficeJob).to receive(:perform_later)
 
         put :update, params: { form: valid_params }
 
-        expect(EmailChangeReportToOfficeJob).to have_received(:perform_later).with(report: current_report)
+        expect(EmailChangeReportToOfficeJob).to have_received(:perform_later).with(report: report)
       end
 
       context "when the client has consented to SMS" do
         it "enqueues a confirmation text job" do
-          current_report = create(:report,
-                                  :with_navigator,
-                                  phone_number: "1113334444",
-                                  metadata: build(:report_metadata, consent_to_sms: :yes))
-          session[:current_report_id] = current_report.id
-
+          create :member, report: report, is_submitter: true, phone_number: "1113334444"
+          report.metadata.update consent_to_sms: "yes"
           allow(TextConfirmationToClientJob).to receive(:perform_later)
 
           put :update, params: { form: valid_params }
 
           expect(TextConfirmationToClientJob).to have_received(:perform_later).
-            with(phone_number: current_report.phone_number)
+            with(phone_number: "1113334444")
         end
       end
 
       context "when the client has not consented to SMS" do
         it "does not enqueue a confirmation text job" do
-          current_report = create(:report,
-                                  :with_navigator,
-                                  metadata: build(:report_metadata, consent_to_sms: :no))
-          session[:current_report_id] = current_report.id
-
+          create :member, report: report, is_submitter: true, phone_number: "1113334444"
+          report.metadata.update consent_to_sms: "no"
           allow(TextConfirmationToClientJob).to receive(:perform_later)
 
           put :update, params: { form: valid_params }
@@ -100,27 +84,19 @@ RSpec.describe SignSubmitController do
 
       context "when the client wants an emailed copy of the report" do
         it "enqueues a email report copy job" do
-          current_report = create(:report,
-            :with_navigator,
-            phone_number: "1113334444",
-            metadata: build(:report_metadata, email: "fake@example.com"))
-          session[:current_report_id] = current_report.id
-
+          report.metadata.update email: "fake@example.com"
           allow(EmailReportCopyToClientJob).to receive(:perform_later)
 
           put :update, params: { form: valid_params }
 
           expect(EmailReportCopyToClientJob).to have_received(:perform_later).
-            with(report: current_report)
+            with(report: report)
         end
       end
 
       context "when the client does not want an emailed copy of the report" do
         it "does not enqueue a email report copy job" do
-          current_report = create(:report,
-            :with_navigator, :with_metadata)
-          session[:current_report_id] = current_report.id
-
+          report.metadata.update email: nil
           allow(EmailReportCopyToClientJob).to receive(:perform_later)
 
           put :update, params: { form: valid_params }

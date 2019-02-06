@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe TextMessageConsentForm do
-  describe "#save" do
-    let(:report) { create :report, :with_metadata }
+  let(:report) { create :report, :filled }
 
+  describe "#save" do
     let(:valid_params) do
       {
         consent_to_sms: "yes",
@@ -23,7 +23,7 @@ RSpec.describe TextMessageConsentForm do
 
   describe ".from_report" do
     it "assigns values from change report" do
-      report = create(:report, :with_metadata, consent_to_sms: "no")
+      report.metadata.update consent_to_sms: "no"
 
       form = TextMessageConsentForm.from_report(report)
 

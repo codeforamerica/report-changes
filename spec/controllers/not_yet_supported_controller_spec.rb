@@ -3,11 +3,12 @@ require "rails_helper"
 RSpec.describe NotYetSupportedController do
   it_behaves_like "form controller base behavior"
 
+  let(:report) { create :report, :filled }
+
   describe "show?" do
     context "when the client selects Arapahoe as their county" do
       it "returns false" do
-        navigator = build(:navigator, selected_county_location: :arapahoe)
-        report = create(:report, navigator: navigator)
+        report.navigator.update(selected_county_location: :arapahoe)
 
         show_form = NotYetSupportedController.show?(report)
         expect(show_form).to eq(false)
@@ -16,8 +17,7 @@ RSpec.describe NotYetSupportedController do
 
     context "when the client's address is in Arapahoe County" do
       it "returns false" do
-        navigator = build(:navigator, county_from_address: "Arapahoe County")
-        report = create(:report, navigator: navigator)
+        report.navigator.update(county_from_address: "Arapahoe County")
 
         show_form = NotYetSupportedController.show?(report)
         expect(show_form).to eq(false)
@@ -26,10 +26,10 @@ RSpec.describe NotYetSupportedController do
 
     context "when the client's county is not Arapahoe" do
       it "returns true" do
-        navigator = build(:navigator,
-                          selected_county_location: :not_sure,
-                          county_from_address: "Jefferson County")
-        report = create(:report, navigator: navigator)
+        report.navigator.update(
+          selected_county_location: :not_sure,
+          county_from_address: "Jefferson County",
+        )
 
         show_form = NotYetSupportedController.show?(report)
         expect(show_form).to eq(true)
@@ -38,10 +38,7 @@ RSpec.describe NotYetSupportedController do
 
     context "when a client is self-employed" do
       it "returns true" do
-        report = create :report
-        create :navigator, selected_county_location: :arapahoe, report: report
-        change = create :change, report: report
-        create :change_navigator, change: change, is_self_employed: "yes"
+        report.current_change.change_navigator.update(is_self_employed: "yes")
 
         show_form = NotYetSupportedController.show?(report)
 
@@ -51,10 +48,8 @@ RSpec.describe NotYetSupportedController do
 
     context "when a client is not self-employed" do
       it "returns false" do
-        report = create :report
-        create :navigator, selected_county_location: :arapahoe, report: report
-        change = create :change, report: report
-        create :change_navigator, change: change, is_self_employed: "no"
+        report.navigator.update(county_from_address: "Arapahoe County")
+        report.current_change.change_navigator.update(is_self_employed: "no")
 
         show_form = NotYetSupportedController.show?(report)
 

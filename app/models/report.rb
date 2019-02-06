@@ -1,15 +1,15 @@
 class Report < ActiveRecord::Base
   has_one :navigator, dependent: :destroy
-  has_one :member, dependent: :destroy
 
   has_one :metadata,
           class_name: "ReportMetadata",
           dependent: :destroy
 
+  has_many :members, dependent: :destroy
+
   has_many :reported_changes,
           class_name: "Change",
-          foreign_key: "report_id",
-          dependent: :destroy
+          through: :members
 
   scope :signed, -> { where.not(signature: nil) }
 
@@ -34,7 +34,11 @@ class Report < ActiveRecord::Base
   end
 
   def current_change
-    reported_changes.last
+    navigator&.current_change
+  end
+
+  def current_member
+    navigator&.current_member
   end
 
   def first_job_termination_change
@@ -47,5 +51,13 @@ class Report < ActiveRecord::Base
 
   def first_change_in_hours_change
     reported_changes.where(change_type: "change_in_hours").first
+  end
+
+  def submitter
+    members.where(is_submitter: true).first
+  end
+
+  def member_names
+    members.map(&:full_name).join(", ")
   end
 end
