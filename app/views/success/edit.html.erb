@@ -1,4 +1,9 @@
 <% content_for :success, true %>
+<% content_for :fbook_tracking do %>
+  <script>
+    fbq('track', 'CompleteRegistration');
+  </script>
+<% end %>
 <% content_for :card_illustration do %>
   <div class="emoji emoji--big emoji--party-popper"></div>
 <% end %>
