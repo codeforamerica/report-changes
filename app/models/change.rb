@@ -1,6 +1,6 @@
 class Change < ApplicationRecord
   belongs_to :member
-  has_one :change_navigator
+  has_one :change_navigator, dependent: :destroy
 
   has_many_attached :documents
 

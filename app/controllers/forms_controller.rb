@@ -115,6 +115,18 @@ class FormsController < ApplicationController
     )
   end
 
+  def clear_empty_members
+    current_report.members.where(first_name: nil, last_name: nil, birthday: nil).destroy_all
+  end
+
+  def clear_empty_changes
+    current_report.reported_changes.each do |change|
+      if change.change_navigator.has_documents_unfilled?
+        change.destroy
+      end
+    end
+  end
+
   class << self
     def to_param
       controller_name.dasherize
