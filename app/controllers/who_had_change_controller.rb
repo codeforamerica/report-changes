@@ -1,4 +1,6 @@
 class WhoHadChangeController < FormsController
+  before_action :clear_empty_members, :clear_empty_changes
+
   helper_method :who_had_change_collection
 
   def who_had_change_collection

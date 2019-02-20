@@ -22,9 +22,6 @@ class WhoHadChangeForm < Form
     change = Change.create(change_type: report.navigator.temp_change_type, member: member)
     ChangeNavigator.create(change: change)
 
-    # Clear out temp_change_type
-    report.navigator.update(temp_change_type: nil)
-
     # Save the member and change to the navigator for later reference
     report.navigator.update(current_member_id: member.id, current_change_id: change.id)
   end

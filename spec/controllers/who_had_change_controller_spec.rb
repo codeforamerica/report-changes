@@ -47,4 +47,30 @@ RSpec.describe WhoHadChangeController do
       end
     end
   end
+
+  describe "#clear_empty_members" do
+    it "clears out the empty members" do
+      create :member, first_name: nil, last_name: nil, birthday: nil, report: report
+      create :member, first_name: nil, last_name: nil, birthday: nil, report: report
+      create :member, first_name: "Frank", last_name: "Ocean", birthday: Date.today, report: report
+
+      get :edit
+
+      expect(report.members.count).to eq 1
+    end
+  end
+
+  describe "#clear_empty_changes" do
+    it "clears out the empty changes" do
+      member = create :member, first_name: "Frank", last_name: "Ocean", birthday: Date.today, report: report
+      create :change, change_navigator: create(:change_navigator, has_documents: :unfilled), member: member
+      create :change, change_navigator: create(:change_navigator, has_documents: :unfilled), member: member
+      create :change, change_navigator: create(:change_navigator, has_documents: :unfilled), member: member
+      create :change, change_navigator: create(:change_navigator, has_documents: :yes), member: member
+
+      get :edit
+
+      expect(report.reported_changes.count).to eq 1
+    end
+  end
 end
