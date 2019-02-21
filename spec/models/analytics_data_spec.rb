@@ -28,44 +28,6 @@ RSpec.describe AnalyticsData do
         selected_county_location: "arapahoe",
         source: "Land of Ooo",
       )
-      # navigator = build(:navigator,
-      #   )
-      #
-      # member = build(:member, birthday: (22.years.ago - 1.week))
-      # member2 = build(:member, birthday: 5.years.ago)
-      # member3 = build(:member, birthday: 100.years.ago)
-      #
-      # metadata = build(:report_metadata,
-      #   consent_to_sms: "yes",
-      #   feedback_rating: "positive",
-      #   feedback_comments: "great!",
-      #   what_county: "A different county.",
-      #   email: nil)
-      #
-      # report = create :report,
-      #   created_at: DateTime.new(2018, 1, 2, 12, 0, 0),
-      #   navigator: navigator,
-      #   metadata: metadata,
-      #   submitted_at: DateTime.new(2018, 1, 2, 12, 10, 0)
-      # change1 = create :change,
-      #   change_type: "new_job",
-      #   paid_how_often: "monthly",
-      #   paid_yet: "no",
-      #   first_day: DateTime.new(2016, 1, 2),
-      #   member: member
-      # create :change_navigator, is_self_employed: "no", change: change1
-      # change2 = create :change,
-      #   change_type: "new_job",
-      #   paid_how_often: "monthly",
-      #   paid_yet: "no",
-      #   first_day: DateTime.new(2016, 1, 3),
-      #   member: member2
-      # create :change_navigator, is_self_employed: "no", change: change2
-      # create :change,
-      #   change_type: "job_termination",
-      #   last_paycheck: DateTime.new(2017, 1, 2),
-      #   last_day: DateTime.new(2016, 1, 2),
-      #   member: member3
 
       data = AnalyticsData.new(report).to_h
 

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe ChangeTypeController do
   it_behaves_like "form controller base behavior"
   it_behaves_like "form controller successful update", {
-    temp_change_type: "job_termination",
+    selected_change_type: "job_termination",
   }
   it_behaves_like "form controller unsuccessful update"
   it_behaves_like "form controller always shows"
@@ -15,7 +15,7 @@ RSpec.describe ChangeTypeController do
 
       expect(report.navigator.current_member).not_to be_nil
 
-      put :update, params: { form: { temp_change_type: "job_termination" } }
+      put :update, params: { form: { selected_change_type: "job_termination" } }
 
       report.reload
 

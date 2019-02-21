@@ -140,11 +140,11 @@ ActiveRecord::Schema.define(version: 2019_02_06_233151) do
     t.integer "current_change_id"
     t.integer "current_member_id"
     t.bigint "report_id"
+    t.integer "selected_change_type", default: 0
     t.integer "selected_county_location", default: 0
     t.string "source"
     t.string "street_address"
     t.integer "submitting_for", default: 0
-    t.integer "temp_change_type", default: 0
     t.datetime "updated_at", null: false
     t.string "zip_code"
     t.index ["report_id"], name: "index_navigators_on_report_id"
