@@ -19,7 +19,7 @@ class WhoHadChangeForm < Form
              end
 
     # Create the change using the type saved on the navigator
-    change = Change.create(change_type: report.navigator.temp_change_type, member: member)
+    change = Change.create(change_type: report.navigator.selected_change_type, member: member)
     ChangeNavigator.create(change: change)
 
     # Save the member and change to the navigator for later reference

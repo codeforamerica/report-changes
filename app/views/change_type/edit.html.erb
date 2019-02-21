@@ -3,7 +3,7 @@
 
 <% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
-        <%= f.cfa_radio_set :temp_change_type,
+        <%= f.cfa_radio_set :selected_change_type,
           collection: [
             { value: :job_termination, label: "A job ended or someone stopped working" },
             { value: :new_job, label: "A new job" },

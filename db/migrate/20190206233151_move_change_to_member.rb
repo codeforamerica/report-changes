@@ -5,7 +5,7 @@ class MoveChangeToMember < ActiveRecord::Migration[5.2]
     add_column :members, :phone_number, :string
     add_column :members, :case_number, :string
 
-    add_column :navigators, :temp_change_type, :integer, default: 0
+    add_column :navigators, :selected_change_type, :integer, default: 0
     add_column :navigators, :current_member_id, :integer
     add_column :navigators, :current_change_id, :integer
   end
