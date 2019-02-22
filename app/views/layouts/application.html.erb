@@ -6,10 +6,18 @@
 
     <% if content_for? :card_title %>
       <title><%= content_for :card_title %> | ReportChangesColorado.org</title>
+    <% elsif content_for? :homepage %>
+      <title>Report changes to your Colorado benefits case: SNAP, Medicaid, ColoradoWorks, Adult Financial</title>
     <% else %>
       <title>ReportChangesColorado.org</title>
     <% end %>
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <% if content_for? :homepage %>
+      <meta name="description" content="Do you have a benefits case in Colorado? Use this to report a change in job status, hours, or pay.">
+    <% end %>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
