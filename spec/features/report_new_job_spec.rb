@@ -64,7 +64,7 @@ RSpec.feature "Reporting a change", :a11y, :js do
     proceed_with "Continue"
 
     expect(page).to have_text "Add the letter or paystubs."
-    page.attach_file("form[letters][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
+    page.attach_file("form[documents][]", Rails.root.join("spec", "fixtures", "image.jpg"), make_visible: true)
     expect(page).to have_text "image.jpg"
     proceed_with "Continue"
 
