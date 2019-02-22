@@ -4,7 +4,7 @@ feature "Reporting a change", :a11y, :js do
   scenario "all change types" do
     visit "/"
     expect(page).to have_text "Report changes to your benefits case"
-    expect(page).to have_title "ReportChangesColorado.org"
+    expect(page).to have_title "Report changes to your Colorado benefits case"
     proceed_with "Start my report", match: :first
 
     expect(page).to have_text "Welcome! Here’s how reporting a change works"
