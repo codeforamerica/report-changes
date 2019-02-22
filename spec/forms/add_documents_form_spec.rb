@@ -16,7 +16,7 @@ RSpec.describe AddDocumentsForm do
 
       let(:valid_params) do
         {
-          letters: ["", active_storage_blob.signed_id],
+          documents: ["", active_storage_blob.signed_id],
         }
       end
 
@@ -32,7 +32,7 @@ RSpec.describe AddDocumentsForm do
 
       it "ignores values that are already present" do
         report.current_change.documents.attach(active_storage_blob)
-        valid_params[:letters] = [report.current_change.documents.first.signed_id]
+        valid_params[:documents] = [report.current_change.documents.first.signed_id]
 
         form = described_class.new(report, valid_params)
         form.valid?
@@ -44,7 +44,7 @@ RSpec.describe AddDocumentsForm do
 
       it "removes values that are not included anymore" do
         report.current_change.documents.attach(active_storage_blob)
-        valid_params[:letters] = []
+        valid_params[:documents] = []
 
         form = described_class.new(report, valid_params)
         form.valid?
@@ -66,8 +66,8 @@ RSpec.describe AddDocumentsForm do
 
         form = described_class.from_report(report)
 
-        expect(form.letters.count).to eq 1
-        expect(form.letters.first.filename).to eq "image.jpg"
+        expect(form.documents.count).to eq 1
+        expect(form.documents.first.filename).to eq "image.jpg"
       end
     end
   end
