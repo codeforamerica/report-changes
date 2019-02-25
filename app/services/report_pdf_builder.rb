@@ -44,6 +44,8 @@ class ReportPdfBuilder
       combined_pdf << CombinePDF.parse(pdf)
     end
 
+    length = combined_pdf.pages.length
+    combined_pdf.number_pages number_format: " %d / #{length} ", number_location: [:bottom_right]
     combined_pdf.to_pdf
   end
 end
