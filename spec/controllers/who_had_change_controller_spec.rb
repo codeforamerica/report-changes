@@ -40,8 +40,8 @@ RSpec.describe WhoHadChangeController do
 
         choices = [
           { value: "new_submitter", label: "Me" },
-          { value: "new_someone_else", label: "Someone in my household" },
           { value: "existing_member_#{report.current_member.id}", label: "Chili Burger" },
+          { value: "new_someone_else", label: "Someone in my household" },
         ]
         expect(controller.who_had_change_collection).to eq choices
       end

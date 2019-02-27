@@ -21,16 +21,17 @@
 
 <div class="divider"></div>
 
-<div class="spacer"></div>
-
-<% @report.reported_changes.each do |change| %>
-  <%= render partial: 'reports/member_info', locals: {member: change.member} %>
-  
+<% @changes_grouped_by_member.each do |change| %>
+  <%= render partial: 'reports/member_info', locals: {member: MemberDecorator.new(change.member)} %>
   <div class="divider"></div>
-  
   <%= render partial: "reports/change", locals: {change: ChangeDecorator.new(change)} %>
-  <div class="page-break"></div>
+
+  <% unless change.equal?(@changes_grouped_by_member.last) %>
+    <div class="page-break"></div>
+  <% end %>
 <% end %>
+
+<div class="divider"></div>
 
 <div class="row">
   <p>
