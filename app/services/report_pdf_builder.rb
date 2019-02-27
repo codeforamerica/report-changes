@@ -6,15 +6,18 @@ class ReportPdfBuilder
   end
 
   def run
+    changes_grouped_by_member = @report.members.map(&:reported_changes).flatten
+
     report_pdf_html = ApplicationController.render(
       layout: "pdf_layout",
       template: "reports/change_report",
-      assigns: { report: report },
+      assigns: { report: report, changes_grouped_by_member: changes_grouped_by_member },
     )
     report_pdf = WickedPdf.new.pdf_from_string(report_pdf_html)
 
     change_type_cover_sheet_and_documents = []
-    report.reported_changes.each do |change|
+
+    changes_grouped_by_member.each do |change|
       if change.documents.any?
         cover_sheet_html = ApplicationController.render(
           layout: "pdf_layout",

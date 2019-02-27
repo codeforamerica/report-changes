@@ -25,7 +25,7 @@ RSpec.describe ChangeDecorator do
 
         decorator = described_class.new(change)
 
-        expect(decorator.manager_phone_number).to be_nil
+        expect(decorator.manager_phone_number).to eq "no response"
       end
     end
   end
@@ -474,7 +474,7 @@ RSpec.describe ChangeDecorator do
 
         decorator = described_class.new(change)
 
-        expect(decorator.client_phone_number).to be_nil
+        expect(decorator.client_phone_number).to eq "no response"
       end
     end
   end

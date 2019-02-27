@@ -29,7 +29,7 @@ RSpec.describe ReportPdfBuilder do
       expect(pdf_text).to include("Income change: new job")
       expect(pdf_text).to include("Income change: change in hours/pay")
       expect(pdf_text.scan("This is the test pdf contents").size).to eq 2
-      expect(pdf_text).to include("10 / 10")
+      expect(pdf_text).to include("9 / 9")
     end
   end
 

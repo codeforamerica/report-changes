@@ -2,7 +2,7 @@ class ChangeDecorator < SimpleDelegator
   include ActionView::Helpers::NumberHelper
 
   def manager_phone_number
-    format_phone_number(super)
+    decorate_phone_number(super)
   end
 
   def first_day
@@ -90,14 +90,16 @@ class ChangeDecorator < SimpleDelegator
   end
 
   def client_phone_number
-    format_phone_number(member.phone_number)
+    decorate_phone_number(member.phone_number)
   end
 
   private
 
-  def format_phone_number(phone_number)
+  def decorate_phone_number(phone_number)
     if phone_number.present?
       "#{phone_number[0..2]}-#{phone_number[3..5]}-#{phone_number[6..9]}"
+    else
+      "no response"
     end
   end
 
