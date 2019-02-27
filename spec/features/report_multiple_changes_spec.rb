@@ -266,7 +266,9 @@ feature "Reporting a change", :a11y, :js do
     proceed_with "Continue"
 
     expect(page).to have_text "Type your name to sign this change report."
-    expect(page).to have_text "Jane Doe, Ilhan Omar, Alexandria Ocasio-Cortez, "
+    expect(page).to have_text "Jane Doe"
+    expect(page).to have_text "Ilhan Omar"
+    expect(page).to have_text "Alexandria Ocasio-Cortez"
     fill_in "Type your full legal name", with: "Jane Doe"
     proceed_with "Sign and submit"
 
