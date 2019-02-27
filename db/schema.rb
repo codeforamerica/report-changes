@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_06_233151) do
+ActiveRecord::Schema.define(version: 2019_02_27_002422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,13 +94,11 @@ ActiveRecord::Schema.define(version: 2019_02_06_233151) do
     t.text "new_job_notes"
     t.string "paid_how_often"
     t.integer "paid_yet", default: 0
-    t.bigint "report_id"
     t.integer "same_hours", default: 0
     t.string "same_hours_a_week_amount"
     t.datetime "updated_at", null: false
     t.string "upper_hours_a_week_amount"
     t.index ["member_id"], name: "index_changes_on_member_id"
-    t.index ["report_id"], name: "index_changes_on_report_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -144,7 +142,6 @@ ActiveRecord::Schema.define(version: 2019_02_06_233151) do
     t.integer "selected_county_location", default: 0
     t.string "source"
     t.string "street_address"
-    t.integer "submitting_for", default: 0
     t.datetime "updated_at", null: false
     t.string "zip_code"
     t.index ["report_id"], name: "index_navigators_on_report_id"
@@ -163,14 +160,11 @@ ActiveRecord::Schema.define(version: 2019_02_06_233151) do
   end
 
   create_table "reports", force: :cascade do |t|
-    t.string "case_number"
     t.datetime "created_at", null: false
-    t.string "phone_number"
     t.string "signature"
     t.datetime "submitted_at"
     t.datetime "updated_at", null: false
   end
 
   add_foreign_key "change_navigators", "changes"
-  add_foreign_key "changes", "reports"
 end
