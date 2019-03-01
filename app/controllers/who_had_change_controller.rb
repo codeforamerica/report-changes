@@ -8,7 +8,7 @@ class WhoHadChangeController < FormsController
     already_detailed_members = current_report.members.where(is_submitter: false).map do |member|
       { value: "existing_member_#{member.id}", label: member.full_name }
     end
-    new_someone_else = [{ value: "new_someone_else", label: "Someone in my household" }]
+    new_someone_else = [{ value: "new_someone_else", label: new_someone_else_label }]
 
     new_or_existing_submitter + already_detailed_members + new_someone_else
   end
@@ -20,6 +20,14 @@ class WhoHadChangeController < FormsController
       "existing_member_#{current_report.submitter.id}"
     else
       "new_submitter"
+    end
+  end
+
+  def new_someone_else_label
+    if current_report.members.where(is_submitter: false).empty?
+      "Someone in my household"
+    else
+      "Someone else in my household"
     end
   end
 end
