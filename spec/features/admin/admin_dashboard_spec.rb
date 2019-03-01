@@ -73,7 +73,8 @@ RSpec.feature "Admin viewing dashboard" do
         report.members.first.update(
           is_submitter: "yes",
           phone_number: "5555555555",
-          case_number: "SUBMITTER CASE NUMBER")
+          case_number: "SUBMITTER CASE NUMBER",
+        )
         create(:member,
           report: report,
           is_submitter: "no",
@@ -96,7 +97,8 @@ RSpec.feature "Admin viewing dashboard" do
         report.members.first.update(
           is_submitter: "no",
           phone_number: "5555555555",
-          case_number: "FIRST OTHER PERSONCASE NUMBER")
+          case_number: "FIRST OTHER PERSONCASE NUMBER",
+        )
         create(:member,
           report: report,
           is_submitter: "no",
