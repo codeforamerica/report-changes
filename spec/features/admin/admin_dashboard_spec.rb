@@ -67,5 +67,51 @@ RSpec.feature "Admin viewing dashboard" do
 
       expect(page).to have_content("Report")
     end
+
+    context "when a submitter is included in the report" do
+      scenario "admin page uses the submitter phone and case number" do
+        report.members.first.update(
+          is_submitter: "yes",
+          phone_number: "5555555555",
+          case_number: "SUBMITTER CASE NUMBER")
+        create(:member,
+          report: report,
+          is_submitter: "no",
+          phone_number: "1111111111",
+          case_number: "OTHER PERSON")
+
+        visit admin_root_path
+
+        expect(page).to have_content("SUBMITTER CASE NUMBER")
+
+        click_on report.id
+
+        expect(page).to have_content("SUBMITTER CASE NUMBER")
+        expect(page).to have_content("5555555555")
+      end
+    end
+
+    context "when no submitter is included in the report" do
+      scenario "report uses first non-submitter phone and case number" do
+        report.members.first.update(
+          is_submitter: "no",
+          phone_number: "5555555555",
+          case_number: "FIRST OTHER PERSONCASE NUMBER")
+        create(:member,
+          report: report,
+          is_submitter: "no",
+          phone_number: "1111111111",
+          case_number: "OTHER PERSON")
+
+        visit admin_root_path
+
+        expect(page).to have_content("FIRST OTHER PERSONCASE NUMBER")
+
+        click_on report.id
+
+        expect(page).to have_content("FIRST OTHER PERSONCASE NUMBER")
+        expect(page).to have_content("5555555555")
+      end
+    end
   end
 end
