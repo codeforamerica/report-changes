@@ -12,9 +12,15 @@
     <p class="label">
       Phone Number
     </p>
-    <span class="value">
+    <% if member.phone_number.present? %>
+      <span class="value">
         <%= member.phone_number %>
       </span>
+    <% else %>
+      <span class="value italics">
+        no response
+      </span>
+    <% end %>
   </div>
 </div>
 
