@@ -9,10 +9,10 @@ class ReportDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    case_number: Field::String,
+    case_number: CaseNumberField,
     created_at: Field::DateTime,
     reported_changes: Field::HasMany.with_options(class_name: "Change"),
-    phone_number: Field::String,
+    phone_number: PhoneNumberField,
     signature: Field::String,
     submitted_at: Field::DateTime,
     updated_at: Field::DateTime,
