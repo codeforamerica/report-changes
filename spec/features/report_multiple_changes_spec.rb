@@ -172,7 +172,7 @@ feature "Reporting a change", :a11y, :js do
 
     expect(page).to have_text "Who had this change?"
     expect(page).to have_text "Ilhan Omar"
-    choose "Someone in my household"
+    choose "Someone else in my household"
     proceed_with "Continue"
 
     expect(page).to have_text "Who are you reporting this change for?"
