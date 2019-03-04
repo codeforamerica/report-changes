@@ -10,6 +10,14 @@
     <p class="label">
       Supervisor or manager's phone number
     </p>
-    <%= render partial: 'reports/value_or_no_response', locals: { value: manager_phone_number } %>
+    <% if manager_phone_number.present? %>
+      <span class="value">
+        <%= manager_phone_number %>
+      </span>
+    <% else %>
+      <span class="value italics">
+        no response
+      </span>
+    <% end %>
   </div>
 </div>
