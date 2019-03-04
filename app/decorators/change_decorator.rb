@@ -98,8 +98,6 @@ class ChangeDecorator < SimpleDelegator
   def decorate_phone_number(phone_number)
     if phone_number.present?
       "#{phone_number[0..2]}-#{phone_number[3..5]}-#{phone_number[6..9]}"
-    else
-      "no response"
     end
   end
 
