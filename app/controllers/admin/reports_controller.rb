@@ -29,5 +29,13 @@ module Admin
         end
       end
     end
+
+    def download
+      csv = CsvService.run
+
+      respond_to do |format|
+        format.csv { send_data csv, filename: "change-reports.csv" }
+      end
+    end
   end
 end

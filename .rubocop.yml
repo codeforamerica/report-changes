@@ -104,7 +104,7 @@ Metrics/AbcSize:
 
 Metrics/BlockLength:
   CountComments: true  # count full line comments?
-  Max: 25
+  Max: 40
   ExcludedMethods: []
   Exclude:
     - "spec/**/*"
