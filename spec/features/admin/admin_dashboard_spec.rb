@@ -115,5 +115,36 @@ RSpec.feature "Admin viewing dashboard" do
         expect(page).to have_content("5555555555")
       end
     end
+
+    scenario "can download a csv of all the change reports" do
+      multiple_change_report = create(:report, :filled, signature: "multiple changes for multiple people")
+      create(:change,
+        change_type: :job_termination,
+        manager_name: "Lavar Burton",
+        member: multiple_change_report.members.first)
+      another_member = create(:member,
+        report: multiple_change_report,
+        first_name: "another",
+        last_name: "person")
+      create(:change,
+        change_type: :new_job,
+        manager_name: "Bob Ross",
+        member: another_member)
+
+      no_signature_report = create(:report, :filled, signature: nil)
+      create(:change,
+        change_type: :job_termination,
+        manager_name: "Mr Burns",
+        member: no_signature_report.members.first)
+
+      visit admin_root_path
+
+      click_on "Download All"
+
+      expect(page).to have_text "Lavar Burton"
+      expect(page).to have_text "Bob Ross"
+
+      expect(page).not_to have_text "Mr Burns"
+    end
   end
 end
