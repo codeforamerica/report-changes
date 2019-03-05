@@ -5,6 +5,10 @@ class MemberDecorator < SimpleDelegator
     decorate_phone_number(super)
   end
 
+  def birthday
+    super&.strftime("%D")
+  end
+
   private
 
   def decorate_phone_number(phone_number)
