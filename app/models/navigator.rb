@@ -10,6 +10,6 @@ class Navigator < ActiveRecord::Base
        _prefix: :selected_change_type
 
   def supported_county?
-    selected_county_location_arapahoe? || county_from_address == "Arapahoe County"
+    CountyFinder::VALID_COUNTIES.include? county
   end
 end

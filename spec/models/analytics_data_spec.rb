@@ -24,8 +24,8 @@ RSpec.describe AnalyticsData do
       )
 
       report.navigator.update(
-        county_from_address: "Littleland",
-        selected_county_location: "arapahoe",
+        county: "Arapahoe",
+        zip_code: "80046",
         source: "Land of Ooo",
       )
 
@@ -36,15 +36,13 @@ RSpec.describe AnalyticsData do
       expect(data.fetch(:job_termination_count)).to eq(1)
       expect(data.fetch(:change_in_hours_count)).to eq(0)
       expect(data.fetch(:consent_to_sms)).to eq("yes")
-      expect(data.fetch(:county_from_address)).to eq("Littleland")
+      expect(data.fetch(:county)).to eq("Arapahoe")
       expect(data.fetch(:feedback_rating)).to eq("positive")
       expect(data.fetch(:feedback_comments)).to eq("great!")
-      expect(data.fetch(:selected_county_location)).to eq("arapahoe")
       expect(data.fetch(:source)).to eq("Land of Ooo")
       expect(data.fetch(:verification_documents_count)).to eq(0)
       expect(data.fetch(:submitted_at)).to eq(DateTime.new(2018, 1, 2, 12, 10, 0))
       expect(data.fetch(:time_to_complete)).to eq(10 * 60)
-      expect(data.fetch(:what_county)).to eq("A different county.")
       expect(data.fetch(:want_a_copy)).to be_falsey
     end
 

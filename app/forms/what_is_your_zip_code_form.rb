@@ -1,8 +1,7 @@
-class CountyLocationForm < Form
-  set_attributes_for :navigator, :selected_county_location, :source
+class WhatIsYourZipCodeForm < Form
+  set_attributes_for :navigator, :zip_code
 
-  validates_presence_of :selected_county_location,
-    message: "Please answer this question"
+  validates :zip_code, length: { is: 5, message: "Please add a five digit ZIP code" }
 
   def save
     unless report.present?
@@ -13,6 +12,7 @@ class CountyLocationForm < Form
     end
 
     report.navigator.update(attributes_for(:navigator))
+    report.navigator.update(county: CountyFinder.from_zip_code(zip_code))
   end
 
   def self.existing_attributes(report)

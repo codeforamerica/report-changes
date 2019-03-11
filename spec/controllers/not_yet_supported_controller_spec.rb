@@ -6,30 +6,18 @@ RSpec.describe NotYetSupportedController do
   let(:report) { create :report, :filled }
 
   describe "show?" do
-    context "when the client selects Arapahoe as their county" do
+    context "one of our counties" do
       it "returns false" do
-        report.navigator.update(selected_county_location: :arapahoe)
+        report.navigator.update(county: "Arapahoe")
 
         show_form = NotYetSupportedController.show?(report)
         expect(show_form).to eq(false)
       end
     end
 
-    context "when the client's address is in Arapahoe County" do
-      it "returns false" do
-        report.navigator.update(county_from_address: "Arapahoe County")
-
-        show_form = NotYetSupportedController.show?(report)
-        expect(show_form).to eq(false)
-      end
-    end
-
-    context "when the client's county is not Arapahoe" do
+    context "not in one of our counties" do
       it "returns true" do
-        report.navigator.update(
-          selected_county_location: :not_sure,
-          county_from_address: "Jefferson County",
-        )
+        report.navigator.update(zip_code: "blah")
 
         show_form = NotYetSupportedController.show?(report)
         expect(show_form).to eq(true)
@@ -48,7 +36,7 @@ RSpec.describe NotYetSupportedController do
 
     context "when a client is not self-employed" do
       it "returns false" do
-        report.navigator.update(county_from_address: "Arapahoe County")
+        report.navigator.update(county: "Arapahoe")
         report.current_change.change_navigator.update(is_self_employed: "no")
 
         show_form = NotYetSupportedController.show?(report)

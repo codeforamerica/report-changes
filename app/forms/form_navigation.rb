@@ -2,10 +2,7 @@ class FormNavigation
   MAIN = [
     HowItWorksController,
     DemoConfirmationController,
-    CountyLocationController,
-    WhereDoYouLiveController,
-    SupportedCountyController,
-    WhatCountyController,
+    WhatIsYourZipCodeController,
     NotYetSupportedController,
     ChangeTypeController,
     WhoHadChangeController,

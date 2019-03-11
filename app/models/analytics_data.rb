@@ -31,8 +31,7 @@ class AnalyticsData
   def navigator_data
     navigator = report.navigator
     {
-      county_from_address: navigator.try(:county_from_address),
-      selected_county_location: navigator.try(:selected_county_location),
+      county: navigator.try(:county),
       source: navigator.try(:source),
     }
   end
@@ -50,7 +49,6 @@ class AnalyticsData
       consent_to_sms: metadata.try(:consent_to_sms),
       feedback_rating: metadata.try(:feedback_rating),
       feedback_comments: metadata.try(:feedback_comments),
-      what_county: metadata.try(:what_county),
       want_a_copy: metadata.try(:email).present?,
     }
   end

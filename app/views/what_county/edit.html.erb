@@ -1,7 +1,0 @@
-<% content_for :card_title, "What county do you live in?" %>
-
-<% content_for :card_body do %>
-    <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
-    <%= f.cfa_input_field :what_county, "County name" %>
-  <% end %>
-<% end %>
