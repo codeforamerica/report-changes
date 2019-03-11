@@ -10,8 +10,7 @@ feature "Uploading verifications", js: true do
     expect(page).to have_text "Welcome! Here’s how reporting a change works"
     click_on "Start the form"
 
-    expect(page).to have_text "do you live in Arapahoe County?"
-    choose "Yes"
+    fill_in "What's your zip code in Colorado?", with: "80046"
     click_on "Continue"
 
     expect(page).to have_text "What changed?"

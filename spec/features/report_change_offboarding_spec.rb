@@ -5,10 +5,8 @@ RSpec.feature "Report change" do
     visit "/"
     click_on "Start my report", match: :first
     click_on "Start the form"
-    choose "No"
-    click_on "Continue"
 
-    expect(page).to have_content "What county do you live in?"
+    fill_in "What's your zip code in Colorado?", with: "00000"
     click_on "Continue"
 
     expect(page).to have_content "Sorry, you'll need to report this change a different way."
@@ -23,8 +21,7 @@ RSpec.feature "Report change" do
     expect(page).to have_text "Welcome! Here’s how reporting a change works"
     click_on "Start the form"
 
-    expect(page).to have_text "do you live in Arapahoe County?"
-    choose "Yes"
+    fill_in "What's your zip code in Colorado?", with: "80046"
     click_on "Continue"
 
     expect(page).to have_text "What changed?"

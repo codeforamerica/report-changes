@@ -18,6 +18,6 @@ RSpec.feature "Demo site" do
     expect(page).to have_text "Thanks for visiting the ReportChangesColorado example tool!"
     click_on "Continue demo"
 
-    expect(page).to have_text "do you live in Arapahoe County?"
+    expect(page).to have_text "What's your zip code in Colorado?"
   end
 end

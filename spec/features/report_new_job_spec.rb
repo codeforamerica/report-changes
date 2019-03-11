@@ -8,8 +8,7 @@ RSpec.feature "Reporting a change", :a11y, :js do
     expect(page).to have_text "Welcome! Here’s how reporting a change works"
     proceed_with "Start the form"
 
-    expect(page).to have_text "do you live in Arapahoe County?"
-    choose "Yes"
+    fill_in "What's your zip code in Colorado?", with: "80046"
     proceed_with "Continue"
 
     expect(page).to have_text "What changed?"

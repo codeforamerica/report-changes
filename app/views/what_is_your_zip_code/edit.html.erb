@@ -1,0 +1,9 @@
+<% content_for :card_title, "What's your zip code in Colorado?" %>
+
+<% content_for :card_help, "If where you stay changes regularly, provide the zip code of the county you'd like to manage your case." %>
+
+<% content_for :card_body do %>
+    <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
+    <%= f.cfa_input_field :zip_code, "<span class='sr-only'>What's your zip code in Colorado?</span>" %>
+    <% end %>
+<% end %>

@@ -21,17 +21,7 @@ feature "Reporting a change", :a11y, :js do
     expect(page).to have_title "Welcome! Here’s how reporting a change works: | ReportChangesColorado.org"
     proceed_with "Start the form"
 
-    expect(page).to have_text "do you live in Arapahoe County?"
-    choose "I'm not sure"
-    proceed_with "Continue"
-
-    expect(page).to have_text "Where do you live?"
-    fill_in "Street address", with: "1355 South Laredo Court"
-    fill_in "City", with: "Aurora"
-    fill_in "Zip code", with: "80017"
-    proceed_with "Continue"
-
-    expect(page).to have_text "Great, it looks like you live in Arapahoe County."
+    fill_in "What's your zip code in Colorado?", with: "80046"
     proceed_with "Continue"
 
     expect(page).to have_text "What changed?"
