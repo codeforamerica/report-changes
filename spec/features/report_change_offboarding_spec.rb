@@ -14,6 +14,21 @@ RSpec.feature "Report change" do
     expect(page).to have_content("Find my county office")
   end
 
+  scenario "county not listed" do
+    visit "/"
+    click_on "Start my report", match: :first
+    click_on "Start the form"
+
+    click_on "Select your county instead"
+
+    select "Not listed", from: "What's your county in Colorado?"
+    click_on "Continue"
+
+    expect(page).to have_content "Sorry, you'll need to report this change a different way."
+    expect(page).to have_content("Go to PEAK")
+    expect(page).to have_content("Find my county office")
+  end
+
   scenario "self employment not supported" do
     visit "/"
     click_on "Start my report", match: :first
