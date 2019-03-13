@@ -4,6 +4,12 @@
 
 <% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
-    <%= f.cfa_input_field :zip_code, "<span class='sr-only'>What's your zip code in Colorado?</span>" %>
+    <%= f.cfa_input_field :zip_code, "<span class='sr-only'>What's your zip code in Colorado?</span>", classes: ["form-width--zip"] %>
     <% end %>
+<% end %>
+
+<% content_for :outside_card_link do %>
+  <div class="text--centered">
+    <%= link_to "Select your county instead", what_county_do_you_live_in_screens_path, class: ["link--subtle"] %>
+  </div>
 <% end %>

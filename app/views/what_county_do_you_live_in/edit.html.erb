@@ -1,0 +1,15 @@
+<% content_for :card_title, "What's your county in Colorado?" %>
+
+<% content_for :card_help, "If where you stay changes regularly, provide the county that manages your case." %>
+
+<% content_for :card_body do %>
+  <%= fields_for(:form, @form, builder: IBIFormBuilder) do |f| %>
+    <%= f.ibi_select :county, "<span class='sr-only'>What's your county in Colorado?</span>", CountyFinder::VALID_COUNTIES %>
+  <% end %>
+<% end %>
+
+<% content_for :outside_card_link do %>
+  <div class="text--centered">
+    <%= link_to "Provide my zip code instead", what_is_your_zip_code_screens_path, class: ["link--subtle"] %>
+  </div>
+<% end %>

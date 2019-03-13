@@ -3,6 +3,7 @@ class FormNavigation
     HowItWorksController,
     DemoConfirmationController,
     WhatIsYourZipCodeController,
+    WhatCountyDoYouLiveInController,
     NotYetSupportedController,
     ChangeTypeController,
     WhoHadChangeController,
