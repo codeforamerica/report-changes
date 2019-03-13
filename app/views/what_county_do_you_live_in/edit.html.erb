@@ -3,8 +3,8 @@
 <% content_for :card_help, "If where you stay changes regularly, provide the county that manages your case." %>
 
 <% content_for :card_body do %>
-  <%= fields_for(:form, @form, builder: IBIFormBuilder) do |f| %>
-    <%= f.ibi_select :county, "<span class='sr-only'>What's your county in Colorado?</span>", CountyFinder::VALID_COUNTIES %>
+  <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
+    <%= f.cfa_select :county, "<span class='sr-only'>What's your county in Colorado?</span>", CountyFinder::VALID_COUNTIES %>
   <% end %>
 <% end %>
 
