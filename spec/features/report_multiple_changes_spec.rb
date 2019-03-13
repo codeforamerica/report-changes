@@ -12,7 +12,10 @@ feature "Reporting a change", :a11y, :js do
     proceed_with "Start the form"
 
     expect(page).to have_text "What's your zip code in Colorado?"
-    fill_in "What's your zip code in Colorado?", with: "80046"
+    proceed_with "Select your county instead"
+
+    expect(page).to have_text "What's your county in Colorado?"
+    select "Arapahoe", from: "What's your county in Colorado?"
     proceed_with "Continue"
 
     expect(page).to have_text "What changed?"
