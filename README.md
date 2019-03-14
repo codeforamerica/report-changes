@@ -63,7 +63,7 @@ This application is a long questionnaire. You will probably want to work on part
 it without completing the whole application.
 
 After booting the server and filling out the first few questions,
-go to `http://localhost:3000/sections` to jump around.
+go to `http://localhost:3000/screens` to jump around.
 
 ### Testing
 
@@ -89,7 +89,7 @@ HTML
 ### Styleguide/Branding
 This application was designed using an Atomic design system.
 
-The styleguide can be viewed at [GetCalFresh Styleguide](http://localhost:3000/cfa/styleguide).
+The styleguide can be viewed at [/cfa/Styleguide](http://localhost:3000/cfa/styleguide).
 
 ## Deploying
 
@@ -112,3 +112,16 @@ Before deploying to production, we want to make sure that:
 * All buildpacks are the same between staging and production
 
 To promote the staging environment to production click the "Promote to production..." button in the colorado-benefits pipeline in Heroku.
+
+# Adding New Counties
+
+Here are the steps to add a new Colorado county.
+1. Add the county name to the VALID_COUNTIES array in the [CountyFinder](https://github.com/codeforamerica/colorado-benefits/blob/master/app/services/county_finder.rb).
+2. Add the counties zip codes to the COUNTY_ZIP_CODES hash in the CountyFinder.
+    - The zip codes can be gathered by matching the county fips to the zips.
+    - FIPs are found at the [NRCS website](https://www.nrcs.usda.gov/wps/portal/nrcs/detail/national/home/?cid=nrcs143_013697)
+    - Find the FIPS for your county.
+    - County to zip code mapping is on the [HUD website](https://www.huduser.gov/portal/datasets/usps_crosswalk.html)
+    - Search for that FIPS
+    - All the zip codes with that FIPS are that County's zip codes.
+    - Copy and paste
