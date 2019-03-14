@@ -9,8 +9,12 @@ module CredentialsHelper
       environment_credential_for_key(:ganalytics)
     end
 
-    def county_email_address
-      environment_credential_for_key(:county_email_address, alternate_value: "county@example.com")
+    def county_email_address(report)
+      if report.navigator.county == "Arapahoe"
+        environment_credential_for_key(:arapahoe_county_email_address, alternate_value: "arapahoe@example.com")
+      elsif report.navigator.county == "Pitkin"
+        environment_credential_for_key(:pitkin_county_email_address, alternate_value: "pitkin@example.com")
+      end
     end
 
     def twilio_phone_number

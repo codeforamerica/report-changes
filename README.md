@@ -125,3 +125,5 @@ Here are the steps to add a new Colorado county.
     - Search for that FIPS
     - All the zip codes with that FIPS are that County's zip codes.
     - Copy and paste
+3. Add the delivery email to the encrypted credentials.yml file.
+4. Add email to the [CredentialsHelper](https://github.com/codeforamerica/colorado-benefits/blob/master/app/helpers/credentials_helper.rb#L12)
