@@ -7,7 +7,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       from: %("ReportChangesColorado" <#{ENV['SENDING_EMAIL_ADDRESS']}>),
-      to: CredentialsHelper.county_email_address,
+      to: CredentialsHelper.county_email_address(report),
       subject: "A new change report from #{report.signature} was submitted!",
     )
   end
