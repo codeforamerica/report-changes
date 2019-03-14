@@ -94,7 +94,7 @@ feature "Reporting a change", :a11y, :js do
     text_messages = FakeSmsClient.sent_messages
 
     expect(text_messages.count).to eq(1)
-    expect(text_messages.first.message).to include("Your change report has been submitted to Arapahoe County")
+    expect(text_messages.first.message).to include("Your change report has been submitted to your county")
 
     emails = ActionMailer::Base.deliveries
 
