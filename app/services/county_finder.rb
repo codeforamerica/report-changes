@@ -51,9 +51,19 @@ class CountyFinder
       "80128",
       "80015",
     ],
+    "Pitkin" => [
+      "81611",
+      "81615",
+      "81621",
+      "81656",
+      "81623",
+      "81642",
+      "81654",
+      "81612",
+    ],
   }.freeze
 
-  VALID_COUNTIES = ["Arapahoe"].freeze
+  VALID_COUNTIES = ["Arapahoe", "Pitkin"].freeze
 
   def self.from_zip_code(zip_code)
     zip_code_county_map = {}

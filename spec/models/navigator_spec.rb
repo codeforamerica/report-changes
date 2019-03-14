@@ -14,6 +14,16 @@ RSpec.describe Navigator do
       end
     end
 
+    context "with Pitkin" do
+      it "returns true" do
+        navigator = build(:navigator,
+          county: "Pitkin",
+          report: report)
+
+        expect(navigator.supported_county?).to be_truthy
+      end
+    end
+
     context "with neither selected county location nor county from address matching arapahoe" do
       it "returns false" do
         navigator = build(:navigator,
