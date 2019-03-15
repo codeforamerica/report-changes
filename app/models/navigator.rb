@@ -10,6 +10,6 @@ class Navigator < ActiveRecord::Base
        _prefix: :selected_change_type
 
   def supported_county?
-    CountyFinder::VALID_COUNTIES.include? county
+    CountyFinder::VALID_COUNTIES.include? report.county
   end
 end

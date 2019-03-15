@@ -41,7 +41,7 @@ RSpec.describe WhatIsYourZipCodeForm do
       report = Report.last
 
       expect(report.navigator.zip_code).to eq "80046"
-      expect(report.navigator.county).to eq "Arapahoe"
+      expect(report.county).to eq "Arapahoe"
     end
   end
 

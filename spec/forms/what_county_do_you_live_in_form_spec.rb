@@ -42,14 +42,13 @@ RSpec.describe WhatCountyDoYouLiveInForm do
 
       report.reload
 
-      expect(report.navigator.county).to eq "Arapahoe"
+      expect(report.county).to eq "Arapahoe"
     end
   end
 
   describe ".from_report" do
     it "assigns values from change report" do
-      report = create(:report)
-      create :navigator, report: report, county: "Arapahoe"
+      report = create(:report, county: "Arapahoe")
 
       form = WhatCountyDoYouLiveInForm.from_report(report)
 

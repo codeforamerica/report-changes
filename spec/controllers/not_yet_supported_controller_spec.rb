@@ -8,7 +8,7 @@ RSpec.describe NotYetSupportedController do
   describe "show?" do
     context "one of our counties" do
       it "returns false" do
-        report.navigator.update(county: "Arapahoe")
+        report.update(county: "Arapahoe")
 
         show_form = NotYetSupportedController.show?(report)
         expect(show_form).to eq(false)
@@ -17,7 +17,14 @@ RSpec.describe NotYetSupportedController do
 
     context "not in one of our counties" do
       it "returns true" do
-        report.navigator.update(zip_code: "blah")
+        report.update(county: "Not Listed")
+
+        show_form = NotYetSupportedController.show?(report)
+        expect(show_form).to eq(true)
+      end
+
+      it "returns true" do
+        report.update(county: nil)
 
         show_form = NotYetSupportedController.show?(report)
         expect(show_form).to eq(true)
@@ -36,7 +43,7 @@ RSpec.describe NotYetSupportedController do
 
     context "when a client is not self-employed" do
       it "returns false" do
-        report.navigator.update(county: "Arapahoe")
+        report.update(county: "Arapahoe")
         report.current_change.change_navigator.update(is_self_employed: "no")
 
         show_form = NotYetSupportedController.show?(report)

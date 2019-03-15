@@ -12,7 +12,7 @@ class WhatIsYourZipCodeForm < Form
     end
 
     report.navigator.update(attributes_for(:navigator))
-    report.navigator.update(county: CountyFinder.from_zip_code(zip_code))
+    report.update(county: CountyFinder.from_zip_code(zip_code))
   end
 
   def self.existing_attributes(report)

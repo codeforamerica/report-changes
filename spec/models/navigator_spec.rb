@@ -2,13 +2,10 @@ require "rails_helper"
 
 RSpec.describe Navigator do
   describe ".supported_county?" do
-    let(:report) { build(:report) }
-
     context "with arapahoe" do
       it "returns true" do
-        navigator = build(:navigator,
-                           county: "Arapahoe",
-                           report: report)
+        report = create :report, county: "Arapahoe"
+        navigator = build(:navigator, report: report)
 
         expect(navigator.supported_county?).to be_truthy
       end
@@ -16,9 +13,8 @@ RSpec.describe Navigator do
 
     context "with Pitkin" do
       it "returns true" do
-        navigator = build(:navigator,
-          county: "Pitkin",
-          report: report)
+        report = create :report, county: "Arapahoe"
+        navigator = build(:navigator, report: report)
 
         expect(navigator.supported_county?).to be_truthy
       end
@@ -26,9 +22,8 @@ RSpec.describe Navigator do
 
     context "with neither selected county location nor county from address matching arapahoe" do
       it "returns false" do
-        navigator = build(:navigator,
-                           county: nil,
-                           report: report)
+        report = create :report, county: nil
+        navigator = build(:navigator, report: report)
 
         expect(navigator.supported_county?).to be_falsey
       end
