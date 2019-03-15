@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_11_225812) do
+ActiveRecord::Schema.define(version: 2019_03_15_180929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,7 +133,6 @@ ActiveRecord::Schema.define(version: 2019_03_11_225812) do
 
   create_table "navigators", force: :cascade do |t|
     t.string "city"
-    t.string "county"
     t.datetime "created_at", null: false
     t.integer "current_change_id"
     t.integer "current_member_id"
@@ -160,6 +159,7 @@ ActiveRecord::Schema.define(version: 2019_03_11_225812) do
   end
 
   create_table "reports", force: :cascade do |t|
+    t.string "county"
     t.datetime "created_at", null: false
     t.string "signature"
     t.datetime "submitted_at"

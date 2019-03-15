@@ -1,5 +1,5 @@
 class WhatCountyDoYouLiveInForm < Form
-  set_attributes_for :navigator, :county
+  set_attributes_for :report, :county
 
   validates_presence_of :county
 
@@ -11,12 +11,12 @@ class WhatCountyDoYouLiveInForm < Form
       report.create_metadata
     end
 
-    report.navigator.update(attributes_for(:navigator))
+    report.update(attributes_for(:report))
   end
 
   def self.existing_attributes(report)
     if report.present?
-      HashWithIndifferentAccess.new(report.navigator.attributes)
+      HashWithIndifferentAccess.new(report.attributes)
     else
       {}
     end
