@@ -17,6 +17,7 @@ class AnalyticsData
       submitted_at: report.submitted_at,
       time_to_complete: time_to_complete,
       verification_documents_count: report.document_count,
+      county: report.county,
     }
   end
 
@@ -31,7 +32,6 @@ class AnalyticsData
   def navigator_data
     navigator = report.navigator
     {
-      county: navigator.try(:county),
       source: navigator.try(:source),
     }
   end

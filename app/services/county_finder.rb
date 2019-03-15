@@ -76,6 +76,6 @@ class CountyFinder
   end
 
   def self.email_address(report)
-    ENV["#{report.county.upcase}_EMAIL_ADDRESS"] if report.county.present?
+    ENV.fetch("#{report.county.upcase}_EMAIL_ADDRESS", "example@example.com") if report.county.present?
   end
 end

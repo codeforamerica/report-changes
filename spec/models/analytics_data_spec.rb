@@ -4,6 +4,7 @@ RSpec.describe AnalyticsData do
   describe "#to_h" do
     it "returns basic information" do
       report = create :report, :filled,
+        county: "Arapahoe",
         created_at: DateTime.new(2018, 1, 2, 12, 0, 0),
         submitted_at: DateTime.new(2018, 1, 2, 12, 10, 0)
 
@@ -24,7 +25,6 @@ RSpec.describe AnalyticsData do
       )
 
       report.navigator.update(
-        county: "Arapahoe",
         zip_code: "80046",
         source: "Land of Ooo",
       )
