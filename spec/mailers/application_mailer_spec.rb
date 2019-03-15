@@ -22,23 +22,27 @@ RSpec.describe ApplicationMailer do
       end
     end
 
-    context "araphaoe" do
+    context "arapahoe" do
       it "sets recipient email from credentials" do
-        report.navigator.update(county: "Arapahoe")
+        with_modified_env ARAPAHOE_EMAIL_ADDRESS: "arapahoe@example.com" do
+          report.update(county: "Arapahoe")
 
-        email = ApplicationMailer.office_change_report_submission(report)
+          email = ApplicationMailer.office_change_report_submission(report)
 
-        expect(email.to).to eq(["arapahoe@example.com"])
+          expect(email.to).to eq(["arapahoe@example.com"])
+        end
       end
     end
 
     context "pitkin" do
       it "sets recipient email from credentials" do
-        report.navigator.update(county: "Pitkin")
+        with_modified_env PITKIN_EMAIL_ADDRESS: "pitkin@example.com" do
+          report.update(county: "Pitkin")
 
-        email = ApplicationMailer.office_change_report_submission(report)
+          email = ApplicationMailer.office_change_report_submission(report)
 
-        expect(email.to).to eq(["pitkin@example.com"])
+          expect(email.to).to eq(["pitkin@example.com"])
+        end
       end
     end
 
