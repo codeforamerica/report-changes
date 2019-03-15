@@ -74,4 +74,8 @@ class CountyFinder
     end
     zip_code_county_map[zip_code]
   end
+
+  def self.email_address(report)
+    ENV["#{report.county.upcase}_EMAIL_ADDRESS"] if report.county.present?
+  end
 end
