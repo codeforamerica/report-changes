@@ -6,7 +6,7 @@ namespace :summarizer do
     text = Summarizer::ApplicationSummary.new(
       DateTime.now - 1.day,
         "America/Denver", # Timezone for Denver
-      ).daily_summary
+    ).daily_summary
     client = Slack::Web::Client.new
     client.chat_postMessage(channel: args[:channel], text: text, as_user: true)
   end

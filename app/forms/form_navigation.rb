@@ -4,6 +4,7 @@ class FormNavigation
     DemoConfirmationController,
     WhatIsYourZipCodeController,
     WhatCountyDoYouLiveInController,
+    OverlappingZipCodeController,
     NotYetSupportedController,
     ChangeTypeController,
     WhoHadChangeController,

@@ -14,6 +14,36 @@ RSpec.feature "Report change" do
     expect(page).to have_content("Find my county office")
   end
 
+  scenario "overlapping zip used, county not yet supported" do
+    visit "/"
+    click_on "Start my report", match: :first
+    click_on "Start the form"
+
+    fill_in "What's your zip code in Colorado?", with: "80016"
+    click_on "Continue"
+
+    expect(page).to have_content "Your zip code exists in more than one county."
+    choose "Douglas County"
+    click_on "Continue"
+
+    expect(page).to have_content "Sorry, you'll need to report this change a different way."
+    expect(page).to have_content("Go to PEAK")
+    expect(page).to have_content("Find my county office")
+  end
+
+  scenario "overlapping zip, where none are supported" do
+    visit "/"
+    click_on "Start my report", match: :first
+    click_on "Start the form"
+
+    fill_in "What's your zip code in Colorado?", with: "80430"
+    click_on "Continue"
+
+    expect(page).to have_content "Sorry, you'll need to report this change a different way."
+    expect(page).to have_content("Go to PEAK")
+    expect(page).to have_content("Find my county office")
+  end
+
   scenario "county not listed" do
     visit "/"
     click_on "Start my report", match: :first
