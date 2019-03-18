@@ -10,6 +10,16 @@ class Navigator < ActiveRecord::Base
        _prefix: :selected_change_type
 
   def supported_county?
-    CountyFinder::VALID_COUNTIES.include? report.county
+    CountyService::VALID_COUNTIES.include? report.county
+  end
+
+  def overlapping_zip?
+    CountyService::ZIP_CODE_COUNTIES.fetch(zip_code, []).length > 1
+  end
+
+  def zip_code_includes_supported_county?
+    CountyService::VALID_COUNTIES.any? do |valid_county|
+      CountyService::ZIP_CODE_COUNTIES[zip_code].include? valid_county
+    end
   end
 end

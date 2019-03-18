@@ -27,7 +27,7 @@ class TellUsMoreAboutTheLostJobForm < Form
         :last_paycheck_year,
         :last_paycheck_month,
         :last_paycheck_day,
-      ))
+                                 ))
   end
 
   def self.existing_attributes(report)

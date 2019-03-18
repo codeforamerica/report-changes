@@ -1,0 +1,11 @@
+<% content_for :card_title, "Your zip code exists in more than one county." %>
+
+<% content_for :card_help, "Choose the county that handles your case." %>
+
+<% content_for :card_body do %>
+    <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
+      <%= f.cfa_radio_set :county,
+                          label_text: "<span class='sr-only'>Choose the county that handles your case.</span>",
+                          collection: overlapping_county_collection %>
+    <% end %>
+<% end %>

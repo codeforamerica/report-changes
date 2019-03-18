@@ -12,6 +12,6 @@ class WhatCountyDoYouLiveInController < FormsController
   end
 
   def county_drop_down_collection
-    CountyFinder::VALID_COUNTIES + ["Not listed"]
+    CountyService::VALID_COUNTIES + ["Not listed"]
   end
 end
