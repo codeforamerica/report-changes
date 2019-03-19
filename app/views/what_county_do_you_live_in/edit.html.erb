@@ -5,11 +5,7 @@
 <% content_for :card_body do %>
   <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
     <%= f.cfa_select :county, "<span class='sr-only'>What's your county in Colorado?</span>", county_drop_down_collection %>
+  <%= link_to "Provide my zip code instead", what_is_your_zip_code_screens_path, class: ["link--subtle"] %>
   <% end %>
-<% end %>
 
-<% content_for :outside_card_link do %>
-  <div class="text--centered">
-    <%= link_to "Provide my zip code instead", what_is_your_zip_code_screens_path, class: ["link--subtle"] %>
-  </div>
 <% end %>
