@@ -117,13 +117,6 @@ To promote the staging environment to production click the "Promote to productio
 
 Here are the steps to add a new Colorado county.
 1. Add the county name to the VALID_COUNTIES array in the [CountyFinder](https://github.com/codeforamerica/colorado-benefits/blob/master/app/services/county_finder.rb).
-2. Add the counties zip codes to the COUNTY_ZIP_CODES hash in the CountyFinder.
-    - The zip codes can be gathered by matching the county fips to the zips.
-    - FIPs are found at the [NRCS website](https://www.nrcs.usda.gov/wps/portal/nrcs/detail/national/home/?cid=nrcs143_013697)
-    - Find the FIPS for your county.
-    - County to zip code mapping is on the [HUD website](https://www.huduser.gov/portal/datasets/usps_crosswalk.html)
-    - Search for that FIPS
-    - All the zip codes with that FIPS are that County's zip codes.
-    - Copy and paste
-3. Add the delivery email to the encrypted credentials.yml file.
-4. Add email to the [CredentialsHelper](https://github.com/codeforamerica/colorado-benefits/blob/master/app/helpers/credentials_helper.rb#L12)
+2. Add the delivery email to the Heroku environment variables. Needs to look like `ARAPAHOE_EMAIL_ADDRESS` or `PITKIN_EMAIL_ADDRESS`.
+3. Add the logo to the homepage.
+4. Party 🎉
