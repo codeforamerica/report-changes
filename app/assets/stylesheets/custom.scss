@@ -162,3 +162,11 @@
 .vertical-steps__step:not(:last-child) {
   margin-bottom: $padding-small;
 }
+
+#county-logos img {
+  width: 120px;
+  padding-bottom: 20px;
+  @include media($tablet-up) {
+    width: 150px;
+  }
+}

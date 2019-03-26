@@ -63,7 +63,7 @@
     <hr class="is-desktop-hidden"/>
 
     <div class="grid">
-      <div class="grid__item width-seven-twelfths">
+      <div class="grid__item width-full">
         <p class="h3">
           If your income increases by a certain amount you need to report the change to your benefits case. If your income falls or your expenses increase, you may be eligible for more benefits.
         </p>
@@ -72,9 +72,15 @@
           We’ll guide you through the process with simple step-by-step directions.
         </p>
       </div>
-      <div class="grid__item width-one-fourth shift-one-sixth trust-badge">
+    </div>
+  </section>
+
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-full text--centered" id="county-logos">
         <%= image_tag("arapahoe.jpg", alt: "Arapahoe County seal") %>
-        <p class="text--small">In partnership with the Colorado Department of Human Services and Arapahoe County.</p>
+        <%= image_tag("pitkin.png", alt: "Pitkin County logo") %>
+        <p class="text--small">In partnership with the Colorado Department of Human Services and Arapahoe and Pitkin Counties.</p>
       </div>
     </div>
   </section>
