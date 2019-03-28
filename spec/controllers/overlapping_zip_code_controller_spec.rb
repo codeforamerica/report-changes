@@ -30,7 +30,7 @@ RSpec.describe OverlappingZipCodeController do
 
     context "zip code overlaps, without one of our valid counties" do
       it "returns false" do
-        report.navigator.update(zip_code: "80249")
+        report.navigator.update(zip_code: "81140")
 
         show_form = described_class.show?(report)
         expect(show_form).to eq(false)
