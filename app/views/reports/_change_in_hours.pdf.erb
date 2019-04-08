@@ -1,39 +1,28 @@
-<div class="row">
-  <div class="column one-of-four">
-    <p class="label">
-      Date of change
-    </p>
-    <span class="value">
-      <%= change.change_date %>
-    </span>
-  </div>
-
-  <div class="column one-of-four">
-    <p class="label">
-      Wage
-    </p>
-    <span class="value">
-      <%= change.hourly_wage %>
-    </span>
-  </div>
-
-  <div class="column one-of-two">
-    <p class="label">
-      Pay frequency
-    </p>
-    <span class="value">
-      <%= change.paid_how_often %>
-    </span>
-  </div>
-</div>
-
-<div class="row">
-  <div class="column one-of-four">
-    <p class="label">
-      New hours per week (range)
-    </p>
-    <span class="value">
-      <%= change.change_in_hours_hours_a_week %>
-    </span>
-  </div>
-</div>
+<table>
+  <thead>
+    <tr>
+      <td>Job Details</td>
+      <td></td>
+    </tr>
+  </thead>
+  <tr>
+    <td>Employer name</td>
+    <td><%= change.company_name %></td>
+  </tr>
+  <tr>
+    <td>Date of change</td>
+    <td><%= change.change_date %></td>
+  </tr>
+  <tr>
+    <td>Wage</td>
+    <td><%= change.hourly_wage %></td>
+  </tr>
+  <tr>
+    <td>Pay frequency</td>
+    <td><%= change.paid_how_often %></td>
+  </tr>
+  <tr>
+    <td>New hours per week (range)</td>
+    <td><%= change.change_in_hours_hours_a_week %></td>
+  </tr>
+</table>

@@ -1,26 +1,24 @@
-<div class="row">
-  <div class="column one-of-four">
-    <p class="label">
-      Last day of work
-    </p>
-    <span class="value">
-      <%= change.last_day %>
-    </span>
-  </div>
-
-  <div class="column one-of-four">
-    <p class="label">
-      Last paycheck
-    </p>
-    <span class="value">
-      <%= change.last_paycheck %>
-    </span>
-  </div>
-
-  <div class="column one-of-two">
-    <p class="label">
-      Final paystub amount
-    </p>
-    <%= render partial: 'reports/value_or_no_response', locals: { value: change.last_paycheck_amount } %>
-  </div>
-</div>
+<table>
+  <thead>
+    <tr>
+      <td>Job Details</td>
+      <td></td>
+    </tr>
+  </thead>
+  <tr>
+    <td>Employer name</td>
+    <td><%= change.company_name %></td>
+  </tr>
+  <tr>
+    <td>Last day of work</td>
+    <td><%= change.last_day %></td>
+  </tr>
+  <tr>
+    <td>Last paycheck</td>
+    <td><%= change.last_paycheck %></td>
+  </tr>
+  <tr>
+    <td>Final paystub amount</td>
+    <td><%= render partial: 'reports/value_or_no_response', locals: { value: change.last_paycheck_amount } %></td>
+  </tr>
+</table>
