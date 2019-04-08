@@ -10,11 +10,18 @@
 
   .label {
     font-weight: 800;
+    display: inline-block;
+    border: 1px solid #D8D8D8;
+    padding: 10px;
+    width: 100%;
+    min-height: 28px;
+    background-color: #D8D8D8;
+    margin-bottom: 0;
   }
 
   .value {
     display: inline-block;
-    border: 1px solid black;
+    border: 1px solid #D8D8D8;
     padding: 10px;
     width: 100%;
     min-height: 28px;
@@ -69,4 +76,24 @@
     page-break-after:always;
   }
 
+  table {
+    table-layout: fixed;
+    width: 92%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+
+  td {
+    border: 1px solid #D8D8D8;
+    padding: 10px;
+  }
+
+  thead tr td:first-of-type {
+    font-weight: 800;
+    background-color: #D8D8D8;
+  }
+
+  tr td:first-of-type {
+    font-weight: 800;
+  }
 }
