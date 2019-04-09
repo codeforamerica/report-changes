@@ -19,6 +19,10 @@
   </tr>
   <tr>
     <td>Final paystub amount</td>
-    <td><%= render partial: 'reports/value_or_no_response', locals: { value: change.last_paycheck_amount } %></td>
+    <% if change.last_paycheck_amount.present? %>
+      <td><%= change.last_paycheck_amount %></td>
+    <% else %>
+      <td class="italics">no response</td>
+    <% end %>
   </tr>
 </table>
