@@ -4,7 +4,7 @@
   line-height: 1em;
 
   .divider {
-    margin-top: 40px;
+    margin: 40px 0;
     border-bottom: 5px solid black;
   }
 
@@ -12,7 +12,7 @@
     font-weight: 800;
     display: inline-block;
     border: 1px solid #D8D8D8;
-    padding: 10px;
+    padding: 10px 10px 0px 10px;
     width: 100%;
     min-height: 28px;
     background-color: #D8D8D8;
@@ -22,7 +22,7 @@
   .value {
     display: inline-block;
     border: 1px solid #D8D8D8;
-    padding: 10px;
+    padding: 10px 10px 0px 10px;
     width: 100%;
     min-height: 28px;
   }
@@ -39,22 +39,18 @@
 
   .column {
     display: inline-block;
-    margin-right: 30px;
+    margin-right: 20px;
 
     &.one-of-one {
-      width: 92%;
+      width: 97.5%;
     }
 
     &.one-of-two {
-      width: 44%;
+      width: 47.3%;
     }
 
     &.one-of-four {
-      width: 20%;
-    }
-
-    &.three-of-four {
-      width: 65%;
+      width: 22.3%;
     }
   }
 
@@ -78,9 +74,10 @@
 
   table {
     table-layout: fixed;
-    width: 92%;
+    width: 100%;
     margin-top: 25px;
     margin-bottom: 25px;
+    border-collapse: collapse;
   }
 
   td {
