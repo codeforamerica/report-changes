@@ -24,13 +24,6 @@ RSpec.describe AnyOtherChangesController do
       it "keep going to next page" do
         expect(response).to redirect_to(want_a_copy_screens_path)
       end
-
-      it "clears out current_member and current_change" do
-        controller.current_report.reload
-
-        expect(controller.current_report.navigator.current_member).to be_nil
-        expect(controller.current_report.navigator.current_change).to be_nil
-      end
     end
   end
 end
