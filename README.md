@@ -113,10 +113,14 @@ Before deploying to production, we want to make sure that:
 
 To promote the staging environment to production click the "Promote to production..." button in the colorado-benefits pipeline in Heroku.
 
-# Adding New Counties
+## Adding New Counties
 
 Here are the steps to add a new Colorado county.
 1. Add the county name to the VALID_COUNTIES array in the [CountyFinder](https://github.com/codeforamerica/colorado-benefits/blob/master/app/services/county_finder.rb).
 2. Add the delivery email to the Heroku environment variables. Needs to look like `ARAPAHOE_EMAIL_ADDRESS` or `PITKIN_EMAIL_ADDRESS`.
 3. Add the logo to the homepage.
 4. Party 🎉
+
+## Admin Users
+- User accounts are set as inactive after 90 days of no activity. Admins can reset them by setting `last_sign_in_at` to `nil`.
+- User accounts are locked out after three bad attempts. Admins can reset them by setting `locked_at` to `nil` and `failed_attempts` to `0`.
