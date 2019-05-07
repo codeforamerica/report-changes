@@ -21,7 +21,7 @@ feature "Uploading verifications", js: true do
     choose "Me"
     click_on "Continue"
 
-    expect(page).to have_text "What is your name?"
+    expect(page).to have_text "Tell us about yourself."
     fill_in "What is your first name?", with: "Jane"
     fill_in "What is your last name?", with: "Doe"
     fill_in "What is your phone number?", with: "555-222-3333"
