@@ -33,7 +33,7 @@ en:
   client_info:
     edit:
       title:
-        self: What is your name?
+        self: Tell us about yourself.
         other_member: Who are you reporting this change for?
       name_help:
         self: As it appears on your ID.
