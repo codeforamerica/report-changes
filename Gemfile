@@ -58,11 +58,11 @@ group :test do
   gem "axe-matchers"
   gem "capybara"
   gem "capybara-selenium"
-  gem "chromedriver-helper"
   gem "climate_control"
   gem "launchy"
   gem "rspec_junit_formatter"
   gem "timecop"
+  gem "webdrivers", "~> 3.0"
 end
 
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]

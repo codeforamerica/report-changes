@@ -10,6 +10,7 @@ require "capybara/rails"
 require "capybara/rspec"
 require "selenium/webdriver"
 require "axe/rspec"
+require "webdrivers"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
