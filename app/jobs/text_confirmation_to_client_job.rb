@@ -1,11 +1,10 @@
 class TextConfirmationToClientJob < ApplicationJob
   def perform(phone_number:)
-    message = "Your change report has been submitted to your county. " +
-      "It'll be reviewed to see if your benefits need to change. " +
-      "Reply to this msg any time for more info."
-
-    SmsClient.send(to: phone_number,
-                   from: CredentialsHelper.twilio_phone_number,
-                   message: message)
+    unless Rails.env.test?
+      Twilio::REST::Client.new.studio.flows("FW335afc37e2d22e5ee70dce44ab66cddd").executions.create(
+        to: phone_number,
+        from: "+17207535874",
+      )
+    end
   end
 end
