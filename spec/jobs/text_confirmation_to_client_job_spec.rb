@@ -1,6 +1,6 @@
 require "rails_helper"
 
-xdescribe TextConfirmationToClientJob do
+describe TextConfirmationToClientJob do
   describe "#perform" do
     it "calls send on the SmsClient with the message, to, and from" do
       twilio_api = instance_double("Twilio::REST::Client")

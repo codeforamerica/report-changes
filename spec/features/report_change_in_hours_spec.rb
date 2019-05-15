@@ -73,6 +73,8 @@ RSpec.feature "Reporting a change", :a11y, :js do
 
     expect(page).to have_text "Type your name to sign this change report."
     fill_in "Type your full legal name", with: "Person McPeoples"
+
+    allow(Twilio::REST::Client).to receive_message_chain(:new, :studio, :flows, :executions, :create)
     proceed_with "Sign and submit"
 
     expect(page).to have_text "You have successfully submitted this change report"
