@@ -90,12 +90,6 @@ feature "Reporting a change", :a11y, :js do
     proceed_with "Submit"
 
     expect(page).to have_content("Thanks for your feedback")
-
-    text_messages = FakeSmsClient.sent_messages
-
-    expect(text_messages.count).to eq(1)
-    expect(text_messages.first.message).to include("Your change report has been submitted to your county")
-
     emails = ActionMailer::Base.deliveries
 
     expect(emails.count).to eq 2
