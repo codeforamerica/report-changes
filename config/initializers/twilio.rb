@@ -3,7 +3,7 @@ if Rails.env.development? || Rails.env.test? || Rails.env.demo?
   SmsClient = FakeSmsClient
 else
   Twilio.configure do |config|
-    config.account_sid = CredentialsHelper.environment_credential_for_key(:twilio_account_sid)
-    config.auth_token = CredentialsHelper.environment_credential_for_key(:twilio_auth_token)
+    config.account_sid = ENV["TWILIO_ACCOUNT_SID"]
+    config.auth_token = ENV["TWILIO_AUTH_TOKEN"]
   end
 end
