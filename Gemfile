@@ -9,6 +9,7 @@ gem "attr_encrypted"
 gem "aws-sdk-s3", require: false
 gem "bootsnap", ">= 1.1.0", require: false
 gem "cfa-styleguide", git: "https://github.com/codeforamerica/cfa-styleguide-gem"
+gem "chardinjs-rails"
 gem "combine_pdf"
 gem "delayed_job_active_record"
 gem "delayed_job_web"

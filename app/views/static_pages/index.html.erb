@@ -10,15 +10,16 @@
           </h1>
 
           <%= link_to screen_path(FormNavigation.first) do %>
-            <button class="button button--large button--cta">Start my report <i class="button__icon icon-arrow_forward"></i></button>
+            <button class="button button--large button--cta" data-intro="Click to start the demo." data-position="top">Start my report <i class="button__icon icon-arrow_forward"></i></button>
           <% end %>
 
-          <p>It only takes 10 minutes</p>
+          <p><span data-intro="Set expectations for the client by telling them how long the process will take." data-position="bottom">It only takes 10 minutes</span></p>
+
         </div>
         <div class="grid__item width-one-half is-tablet-hidden--inline vertical-line">
           <div class="grid__item text--small width-one-half">
             <p class="h4">Supported programs:</p>
-            <ul>
+            <ul data-intro="Clients don't always know which benefits they're enrolled in, or may call them by different names. An integrated system allows clients to report changes without having to identify their benefit." data-position="right">
               <li><i class="icon-done"></i> SNAP (food stamps)</li>
               <li><i class="icon-done"></i> Medicaid</li>
               <li><i class="icon-done"></i> ColoradoWorks</li>

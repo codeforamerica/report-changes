@@ -16,6 +16,7 @@
 // = require devise-otp
 // = require handlebars.runtime
 // = require cfa_styleguide_main
+//= require chardinjs
 // = require_tree ./templates
 // = require_tree .
 
@@ -53,4 +54,17 @@ var noneOfTheAbove = (function() {
 
 $(document).ready(function () {
   noneOfTheAbove.init();
+
+  $('body').on('chardinJs:start', function(e){
+    $('.chardinjs-show-element').addClass('white-text-overlay');
+  })
+  $('body').on('chardinJs:stop', function(e){
+    $('.white-text-overlay').removeClass('white-text-overlay');
+  })
+
+  if ( window.location.pathname != "/screens/what-is-your-zip-code" ) {
+    $("#progress").removeAttr("data-intro").removeAttr("data-position");
+  }
+
+  $('body').chardinJs('start');
 })
