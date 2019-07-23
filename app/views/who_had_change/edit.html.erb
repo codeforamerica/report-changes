@@ -1,4 +1,4 @@
-<% content_for :card_title, "Who had this change?" %>
+<% content_for :card_title, "<span data-intro='Clients often submit changes on behalf of their household members.' data-position='left'>Who had this change?</span>".html_safe %>
 
 <% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
@@ -7,4 +7,8 @@
                           legend_class: "sr-only",
                           collection: who_had_change_collection %>
     <% end %>
+
+    <script>
+        $("#form_new_or_existing_member_new_submitter").parent().attr("data-intro", "Choose this one to continue the demo.").attr("data-position", "left").css("color","black")
+    </script>
 <% end %>
