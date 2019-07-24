@@ -17,4 +17,18 @@
       notice: t(self_or_other_member_translation_key(".ssn_help")) %>
     <%= f.cfa_input_field :phone_number, t(self_or_other_member_translation_key(".phone_number")), classes: ["form-width--phone"], optional: true %>
     <% end %>
+
+    <script>
+        $("#form_case_number").attr("data-intro", "The majority of clients do not know their case numbers. Never rely on this as a method for identifying clients. Providing information on where to find it and what the number looks like is helpful, however.").attr("data-position", "left")
+
+        $(".notice").attr("data-intro", "If you're asking for sensitive information, explain why. 72% of users provided a SSN in our pilot.").attr("data-position", "right")
+
+        $("#form_phone_number").attr("data-intro", "Although it's important for caseworkers to be able to follow up with clients, not everyone has a phone. To serve everyone, this question needs to be optional. In our pilot, 75% of users supplied a phone number.").attr("data-position", "right").val("555-555-5555").css("color", "black")
+
+        $("#form_first_name").val("Fake first name").attr("data-intro", "For this demo, you can use any name and birthday, then skip optional fields.").attr("data-position", "left").css("color","black")
+        $("#form_last_name").val("Fake last name")
+        $("#form_birthday_month").val("1")
+        $("#form_birthday_day").val("1")
+        $("#form_birthday_year").val("1900")
+    </script>
 <% end %>
