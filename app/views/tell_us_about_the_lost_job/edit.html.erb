@@ -21,4 +21,14 @@
                            t(self_or_other_member_translation_key(".manager_additional_information"), name: current_report.current_member.first_name),
                            optional: true %>
     <% end %>
+
+    <script>
+      $("#form_manager_additional_information").attr("data-intro","Not everything can fit in a multiple choice question. Clients appreciate having an open text option to explain their situation in their own words. Caseworkers appreciate the extra context. 44% of reports used this feature.").attr("data-position","left")
+
+      $("#form_manager_name").attr("data-intro", "Many clients struggle to obtain verification documents, especially for job termination. Collateral contacts are often an easier and more effective method for both clients and caseworkers.").attr("data-position","right")
+
+      $("#form_manager_phone_number").attr("data-intro","In our pilot we found that 47% of users provided a manager phone number; 53% provided a manager name; 42% provided both").attr("data-position","right")
+
+      $("#form_company_name").val("Fake lost job company name")
+    </script>
 <% end %>
