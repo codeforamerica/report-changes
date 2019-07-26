@@ -6,4 +6,8 @@
   <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
     <%= f.cfa_input_field :email, "What is your email address?", optional: true, type: :email %>
   <% end %>
+
+  <script>
+    $(".form-card__title").attr("data-intro", "Give clients the opportunity to save reports for their records. 76% of users requested a copy.").attr("data-position", "left")
+  </script>
 <% end %>

@@ -1,11 +1,17 @@
 <% content_for :card_title, "Type your name to sign this change report." %>
 
 <% content_for :card_body do %>
-    <p><%= t(self_or_other_member_translation_key(".submit_agreement"), member_names: current_report.member_names) %></p>
+    <span ><p data-intro="Use simple and clear language rather than legalese." data-position="left"><%= t(self_or_other_member_translation_key(".submit_agreement"), member_names: current_report.member_names) %></p></span>
 
     <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
       <%= f.cfa_input_field :signature, "Type your full legal name" %>
     <% end %>
 <% end %>
 
-<% content_for :card_footer_button_label, "Sign and submit" %>
+<% content_for :card_footer_button_label do %>
+   Sign and submit
+   <script>
+    $("#form_signature").val("Fake signature")
+     $(".button").attr("data-intro", "Type anything and continue. Don't worry, you won't be submitting a real report.").attr("data-postion", "left")
+   </script>
+  <% end %>

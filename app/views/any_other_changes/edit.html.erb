@@ -17,4 +17,9 @@
       <%= t(self_or_other_member_translation_key(".reported", passed_in_member: change.member), name: change.member&.full_name, change: change.name) %>
     </p>
   <% end %>
+  <script>
+    $(".icon-check").parent().attr("data-intro", "Show the client which steps they have already completed.").attr("data-position", "left")
+    $("#form_any_other_changes_no").attr("checked", "true").parent().attr("data-intro", "Choose this one to continue the demo.").attr("data-position", "left").css("color","black")
+    $(".form-card__title").attr("data-intro", "Allow clients to report multiple changes at once. Changes often happen in clusters.").attr("data-position", "left")
+  </script>
 <% end %>

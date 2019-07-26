@@ -4,12 +4,14 @@
     fbq('track', 'CompleteRegistration');
   </script>
 <% end %>
+
 <% content_for :card_illustration do %>
+<div data-intro="Use visual design and clear language to confirm that the report has been successfully submitted." data-position="left">
   <div class="emoji emoji--big emoji--party-popper"></div>
 <% end %>
-<% content_for :card_title, "You have successfully submitted this change report." %>
+<% content_for :card_title, 'You have successfully submitted this change report. </div>'.html_safe %>
 <% content_for :card_body do %>
-  <p>
+  <p data-intro="Tell clients what the next step is. Be specific as possible." data-position="left">
     What’s next? We’ll use your answers on this form to see if your household benefits change.
     <%= t(self_or_other_member_translation_key(".client_notified"), member_names: current_report.member_names) %>
   </p>
@@ -48,4 +50,9 @@
       </div>
     </div>
   <% end %>
+
+  <script>
+
+    $("fieldset:first").attr("data-intro","Applying for benefits is often stressful. Avoid distracting Applicants mid-way through their application by asking them to improve it for other people. Keep an optional survey at the end and they will be more willing to give feedback.").attr("data-position","left")
+  </script>
 <% end %>
