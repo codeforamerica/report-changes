@@ -1,6 +1,6 @@
 <% content_for :card_title, "<span data-intro='For this pilot, we needed to manually route reports to counties. We found that clients were more likely to know their ZIP code than their county.' data-position='left'>What's your zip code in Colorado?</span>".html_safe %>
 
-<% content_for :card_help, '<span data-intro="Clients may not identify with the word homeless, even if the county considers them to be. Use language that describes their situation." data-position="right">If where you stay changes regularly, provide the zip code of the county that manages your case.</span>'.html_safe %>
+<% content_for :card_help, "<span data-intro='Clients may not identify with the word \"homeless\", even if the county considers them to be. Use language that describes their situation.' data-position='right'>If where you stay changes regularly, provide the zip code of the county that manages your case.</span>".html_safe %>
 
 <% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
@@ -9,6 +9,6 @@
     <% end %>
 
     <script>
-        $("#form_zip_code").attr("data-intro", "Try 80013 for this demo.").attr("data-position", "left").val("80013").css("color", "black");
+        $("#form_zip_code").attr("data-intro", "This demo has been filled out with dummy data.").attr("data-position", "left").val("80013").css("color", "black");
     </script>
 <% end %>

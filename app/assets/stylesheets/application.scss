@@ -14,10 +14,28 @@
  */
 
 // Chardin
-.white-text-overlay {
-  color: white;
+#annotation-btn {
+  position:fixed;
+  top: 50px;
+  right: 50px;
 }
 
+.annotate-float {
+  z-index: 999;
+}
+
+.white-text-overlay {
+  color: white;
+
+  .text--help {
+    color: white;
+  }
+}
+
+.chardinjs-tooltiptext {
+  font-size: 16px;
+  line-height: 1.5;
+}
 
 @import 'cfa_styleguide_main';
 @import 'overrides';

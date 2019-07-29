@@ -29,6 +29,7 @@
     <%= content_for(:fbook_tracking) %>
     <div class="page-wrapper <%= "dark-background" if content_for? :success %>">
       <%= render 'shared/demo_banner' if GateKeeper.demo_environment? %>
+      <button id="annotation-btn" class="button" >Hide annotations</button>
       <%= render 'shared/header' unless content_for? :homepage %>
       <%= content_for(:content) ? content_for(:content) : yield %>
     </div>
