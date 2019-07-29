@@ -57,9 +57,12 @@ $(document).ready(function () {
 
   $('body').on('chardinJs:start', function(e){
     $('.chardinjs-show-element').addClass('white-text-overlay');
+    $("#annotation-btn").text("Hide annotations").removeClass('annotate-float').addClass('chardinjs-show-element');
   })
   $('body').on('chardinJs:stop', function(e){
     $('.white-text-overlay').removeClass('white-text-overlay');
+    $("#annotation-btn").text("Show annotations").addClass('annotate-float').removeClass('chardinjs-show-element');
+
   })
 
   if ( window.location.pathname != "/screens/what-is-your-zip-code" ) {
@@ -67,4 +70,8 @@ $(document).ready(function () {
   }
 
   $('body').chardinJs('start');
+
+  $("#annotation-btn").click(function(e){
+    $('body').chardinJs('toggle');
+  })
 })
