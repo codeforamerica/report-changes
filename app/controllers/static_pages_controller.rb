@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   before_action :clear_report_from_session, :save_source_to_session
+  layout "off_ramp"
 
   def index; end
 
