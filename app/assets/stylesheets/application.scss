@@ -14,6 +14,10 @@
  */
 
 // Chardin
+.shrunk-overlay {
+  position: static !important;
+}
+
 #annotation-btn {
   position:fixed;
   top: 50px;
@@ -24,18 +28,21 @@
   z-index: 999;
 }
 
-.white-text-overlay {
-  color: white;
-
-  .text--help {
-    color: white;
-  }
-}
-
 .chardinjs-tooltiptext {
   font-size: 16px;
   line-height: 1.5;
+  color: #8F00AD;
+  font-style: italic;
 }
+
+.chardinjs-helper-layer {
+  border-color: #8F00AD !important;
+}
+
+.chardinjs-right:before, .chardinjs-bottom:before, .chardinjs-left:after , .chardinjs-top:after {
+  background-color: #8F00AD !important;
+}
+
 
 @import 'cfa_styleguide_main';
 @import 'overrides';
