@@ -39,9 +39,27 @@
   border-color: #8F00AD !important;
 }
 
-.chardinjs-right:before, .chardinjs-bottom:before, .chardinjs-left:after , .chardinjs-top:after {
+.chardinjs-right:before, .chardinjs-bottom:before, .chardinjs-left:after, .chardinjs-top:after {
   background-color: #8F00AD !important;
 }
+
+.chardinjs-show-element {
+  opacity: unset;
+}
+
+.white-annotate {
+  color: white;
+}
+
+.white-annotate-bars:before, .white-annotate-bars:after {
+  background-color: white !important;
+}
+
+.white-annotate-helper-bars {
+  border-color: white !important;
+}
+
+
 
 
 @import 'cfa_styleguide_main';
