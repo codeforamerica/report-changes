@@ -61,6 +61,18 @@ $(document).ready(function () {
       $(".chardinjs-overlay").addClass("shrunk-overlay");
     }
 
+    if ( window.location.pathname == "/" ) {
+        $(".chardinjs-tooltiptext").addClass("white-annotate");
+        $(".chardinjs-right").addClass("white-annotate-bars");
+        $(".chardinjs-left").addClass("white-annotate-bars");
+        $(".chardinjs-top").addClass("white-annotate-bars");
+        $(".chardinjs-bottom").addClass("white-annotate-bars");
+        $(".chardinjs-helper-layer").addClass("white-annotate-helper-bars");
+      }
+
+      if ( window.location.pathname == "/screens/success" ) {
+        $(".chardinjs-tooltiptext").addClass("white-annotate");
+      }
   })
   $('body').on('chardinJs:stop', function(e){
     $("#annotation-btn").text("Show annotations").addClass('annotate-float').removeClass('chardinjs-show-element');
