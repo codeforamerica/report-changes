@@ -400,6 +400,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.8)
     timecop (0.9.1)
+    tooltipster-rails (4.2.6)
     ttfunk (1.5.1)
     twilio-ruby (5.14.0)
       faraday (~> 0.9)
@@ -481,6 +482,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   timecop
+  tooltipster-rails
   twilio-ruby
   tzinfo-data
   web-console (>= 3.3.0)

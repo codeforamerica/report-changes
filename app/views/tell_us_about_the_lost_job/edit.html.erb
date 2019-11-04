@@ -23,11 +23,14 @@
     <% end %>
 
     <script>
-      $("#form_manager_additional_information").attr("data-intro","Not everything can fit in a multiple choice question. Clients appreciate having an open text option to explain their situation in their own words. Caseworkers appreciate the extra context. 44% of reports used this feature.").attr("data-position","left")
-
       $("#form_manager_name").parent().attr("data-intro", "Many clients struggle to obtain verification documents, especially for job termination. Collateral contacts are often an easier and more effective method for both clients and caseworkers.").attr("data-position","left")
+      $("<div class='tooltip tooltip-toggle' data-number='1' title=\"Many clients struggle to obtain verification documents, especially for job termination. Collateral contacts are often an easier and more effective method for both clients and caseworkers.\">3</div>").insertBefore($("#form_manager_name"));
 
       $("#form_manager_phone_number").parent().attr("data-intro","In our pilot we found that 47% of users provided a manager phone number. This means caseworkers can pursue verification right away.").attr("data-position","right")
+      $("<div class='tooltip tooltip-toggle tooltip-toggle--right' data-number='2' title=\"In our pilot we found that 47% of users provided a manager phone number. This means caseworkers can pursue verification right away.\">2</div>").insertBefore($("#form_manager_phone_number"));
+
+      $("#form_manager_additional_information").attr("data-intro", "Not everything can fit in a multiple choice question. Clients appreciate having an open text option to explain their situation in their own words. Caseworkers appreciate the extra context. 44% of reports used this feature.").attr("data-position", "left")
+      $("<div class='tooltip tooltip-toggle' data-number='3' title=\"Not everything can fit in a multiple choice question. Clients appreciate having an open text option to explain their situation in their own words. Caseworkers appreciate the extra context. 44% of reports used this feature.\">3</div>").insertBefore($("#form_manager_additional_information"));
 
       $("#form_company_name").val("Acme Inc")
     </script>

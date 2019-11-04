@@ -13,6 +13,7 @@
         ] %>
     <% end %>
     <script>
-      $(".form-card__title").attr("data-intro", "94% of users opted into receiving text messages. Although this pilot only used the numbers for surveys, there is a huge potential to send notices and reminders via texts.").attr("data-position", "left")
+      $(".form-card__title").attr("data-intro", "94% of users opted into receiving text messages. Although this pilot only used the numbers for surveys, there is a huge potential to send notices and reminders via texts.").attr("data-position", "left");
+      $("<div class='tooltip tooltip-toggle' data-number='1' title=\"94% of users opted into receiving text messages. Although this pilot only used the numbers for surveys, there is a huge potential to send notices and reminders via texts.\">1</div>").insertBefore($(".form-card__title"));
     </script>
 <% end %>

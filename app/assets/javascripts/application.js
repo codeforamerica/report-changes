@@ -16,7 +16,8 @@
 // = require devise-otp
 // = require handlebars.runtime
 // = require cfa_styleguide_main
-//= require chardinjs
+// = require chardinjs
+// = require tooltipster.bundle.min
 // = require_tree ./templates
 // = require_tree .
 
@@ -51,9 +52,16 @@ var noneOfTheAbove = (function() {
   }
 })();
 
-
 $(document).ready(function () {
   noneOfTheAbove.init();
+
+
+  $('.tooltip').tooltipster({
+    theme: 'tooltipster-light',
+    side: ['right', 'left', 'top', 'bottom'],
+    trigger: 'click',
+    maxWidth: 500
+  });
 
   $('body').on('chardinJs:start', function(e){
     $("#annotation-btn").text("Hide annotations").removeClass('annotate-float').addClass('chardinjs-show-element');
@@ -80,10 +88,13 @@ $(document).ready(function () {
 
   if ( window.location.pathname != "/screens/what-is-your-zip-code" ) {
     $("#progress").removeAttr("data-intro").removeAttr("data-position");
+    $("#progress div.tooltip").remove();
   }
 
-  $('body').chardinJs('start');
-  $("#annotation-btn").click(function(e){
-    $('body').chardinJs('toggle');
-  })
+  // $('body').chardinJs('start');
+  // $("#annotation-btn").click(function(e){
+  //   $('body').chardinJs('toggle');
+  // })
 })
+
+

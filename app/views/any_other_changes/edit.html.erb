@@ -18,8 +18,11 @@
     </p>
   <% end %>
   <script>
-    $(".icon-check").parent().attr("data-intro", "Show the client which steps they have already completed.").attr("data-position", "left")
-    $("#form_any_other_changes_no").attr("checked", "true")
     $(".form-card__title").attr("data-intro", "Allow clients to report multiple changes at once. Changes often happen in clusters.").attr("data-position", "left")
+    $("<div class='tooltip tooltip-toggle' data-number='1' title=\"Allow clients to report multiple changes at once. Changes often happen in clusters.\">1</div>").insertBefore($(".form-card__title"));
+    $(".icon-check").parent().attr("data-intro", "Show the client which steps they have already completed.").attr("data-position", "left");
+    $("<div class='tooltip tooltip-toggle' data-number='2' title=\"Show the client which steps they have already completed.\">2</div>").insertBefore($(".icon-check"));
+    $("#form_any_other_changes_no").attr("checked", "true");
+
   </script>
 <% end %>

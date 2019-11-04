@@ -5,6 +5,9 @@
 
   <script>
     $(".form-card__title").attr("data-intro","The upload function also works on mobile phones. Cell phones are the primary way low income people access the internet, so it's important that all features work on mobile.").attr("data-position","left")
+    $("<div class='tooltip tooltip-toggle' data-number='1' title=\"The upload function also works on mobile phones. Cell phones are the primary way low income people access the internet, so it's important that all features work on mobile.\">1</div>").insertBefore($(".form-card__title"));
+
     $(".verification-upload-icon").attr("data-intro","Clients are more likely to have access to a phone with a camera than a scanner or fax machine.").attr("data-position","left")
+    $("<div class='tooltip tooltip-toggle' data-number='2' title=\"Clients are more likely to have access to a phone with a camera than a scanner or fax machine.\">2</div>").insertBefore($(".verification-upload-icon"));
   </script>
 <% end %>

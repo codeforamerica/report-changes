@@ -58,8 +58,9 @@
   </div>
 
   <script>
-    $("#form_has_documents_yes").attr("checked", "true")
-    $(".reveal__link").attr("data-intro","Provide clear guidance on what verification documents should include. Being vague confuses clients and can lead them to waste their time obtaining unhelpful documents.").attr("data-position","right")
+    $("#form_has_documents_yes").attr("checked", "true");
+    $(".reveal__link").attr("data-intro","Provide clear guidance on what verification documents should include. Being vague confuses clients and can lead them to waste their time obtaining unhelpful documents.").attr("data-position","right");
+    $("<div class='tooltip tooltip-toggle' data-number='1' title=\"Provide clear guidance on what verification documents should include. Being vague confuses clients and can lead them to waste their time obtaining unhelpful documents.\">1</div>").insertAfter($(".reveal__link"));
   </script>
 
 <% end %>

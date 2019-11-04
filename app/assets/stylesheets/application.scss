@@ -11,6 +11,8 @@
  * It is generally better to create a new file per style scope.
  *
  *= require chardinjs
+ *= require tooltipster.bundle.min
+ *= require plugins/tooltipster/sideTip/themes/tooltipster-sideTip-light.min
  */
 
 // Chardin
@@ -59,8 +61,28 @@
   border-color: white !important;
 }
 
+.tooltip-toggle {
+  opacity: 0.9;
+  z-index: 99;
+  position: absolute;
+  margin-top: -15px;
+  margin-left: -15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  border: 1px dashed #990000;
+  background-color: #8F00AD;
+  text-align: center;
+  line-height: 50px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0px 2px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
 
-
+.tooltip-toggle--right {
+  right: 15%;
+}
 
 @import 'cfa_styleguide_main';
 @import 'overrides';
