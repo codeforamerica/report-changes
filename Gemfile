@@ -65,7 +65,7 @@ group :test do
   gem "rspec_junit_formatter"
   gem "rubyzip", ">= 1.3.0"
   gem "timecop"
-  gem "webdrivers", "~> 3.0"
+  gem "webdrivers", "~> 4.1"
 end
 
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
