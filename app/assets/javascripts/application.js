@@ -55,7 +55,6 @@ var noneOfTheAbove = (function() {
 $(document).ready(function () {
   noneOfTheAbove.init();
 
-
   $('.tooltip').tooltipster({
     theme: 'tooltipster-light',
     side: ['right', 'left', 'top', 'bottom'],
@@ -71,38 +70,22 @@ $(document).ready(function () {
     }
   });
 
-  $('body').on('chardinJs:start', function(e){
-    $("#annotation-btn").text("Hide annotations").removeClass('annotate-float').addClass('chardinjs-show-element');
-    if ( window.location.pathname != "/" ) {
-      $(".chardinjs-overlay").addClass("shrunk-overlay");
+  $("#annotation-btn").click(function() {
+    if ($(this).text() === "Hide annotations") {
+      $(".tooltip").hide();
+      $(this).text("Show annotations");
+    } else {
+      $(".tooltip").each(function() {
+        $(this).text($(this).data("number"));
+        $(this).show();
+      });
+      $(this).text("Hide annotations");
     }
-
-    if ( window.location.pathname == "/" ) {
-        $(".chardinjs-tooltiptext").addClass("white-annotate");
-        $(".chardinjs-right").addClass("white-annotate-bars");
-        $(".chardinjs-left").addClass("white-annotate-bars");
-        $(".chardinjs-top").addClass("white-annotate-bars");
-        $(".chardinjs-bottom").addClass("white-annotate-bars");
-        $(".chardinjs-helper-layer").addClass("white-annotate-helper-bars");
-      }
-
-      if ( window.location.pathname == "/screens/success" ) {
-        $(".chardinjs-tooltiptext").addClass("white-annotate");
-      }
-  })
-  $('body').on('chardinJs:stop', function(e){
-    $("#annotation-btn").text("Show annotations").addClass('annotate-float').removeClass('chardinjs-show-element');
-  })
+  });
 
   if ( window.location.pathname != "/screens/what-is-your-zip-code" ) {
-    $("#progress").removeAttr("data-intro").removeAttr("data-position");
     $("#progress div.tooltip").remove();
   }
-
-  // $('body').chardinJs('start');
-  // $("#annotation-btn").click(function(e){
-  //   $('body').chardinJs('toggle');
-  // })
 })
 
 
