@@ -63,6 +63,7 @@ group :test do
   gem "climate_control"
   gem "launchy"
   gem "rspec_junit_formatter"
+  gem "rubyzip", ">= 1.3.0"
   gem "timecop"
   gem "webdrivers", "~> 3.0"
 end
