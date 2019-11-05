@@ -52,6 +52,11 @@ var noneOfTheAbove = (function() {
   }
 })();
 
+function resetIndicator(instance, helper) {
+  $indicator = $(helper.origin);
+  $indicator.text($indicator.data("number"));
+}
+
 $(document).ready(function () {
   noneOfTheAbove.init();
 
@@ -59,7 +64,8 @@ $(document).ready(function () {
     theme: 'tooltipster-light',
     side: ['right', 'left', 'top', 'bottom'],
     trigger: 'click',
-    maxWidth: 500
+    maxWidth: 500,
+    functionAfter: resetIndicator
   });
 
   $('.tooltip').click(function(){
@@ -69,6 +75,7 @@ $(document).ready(function () {
       $(this).text('X');
     }
   });
+
 
   $("#annotation-btn").click(function() {
     if ($(this).text() === "Hide annotations") {
