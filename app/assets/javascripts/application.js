@@ -63,6 +63,14 @@ $(document).ready(function () {
     maxWidth: 500
   });
 
+  $('.tooltip').click(function(){
+    if ($(this).text() == 'X') {
+      $(this).text($(this).data("number"));
+    } else {
+      $(this).text('X');
+    }
+  });
+
   $('body').on('chardinJs:start', function(e){
     $("#annotation-btn").text("Hide annotations").removeClass('annotate-float').addClass('chardinjs-show-element');
     if ( window.location.pathname != "/" ) {
