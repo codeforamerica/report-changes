@@ -10,7 +10,7 @@
           </h1>
 
           <div>
-            <div class="tooltip-toggle tooltip" data-number="1" title="Click to start the demo.">1</div>
+            <div id="first-tooltip" class="tooltip-toggle tooltip" data-number="1" title="You’ll see these annotations throughout the demo. Tap a purple circle to see the note. Tap again to close it. You can also hide all annotations with the button in the corner. Click this button to start the demo. ">1</div>
             <%= link_to screen_path(FormNavigation.first) do %>
               <button class="button button--large button--cta">Start my report <i class="button__icon icon-arrow_forward"></i></button>
             <% end %>
@@ -120,4 +120,10 @@
       padding-bottom: 5px;
     }
   </style>
+
+  <script>
+    $(function() {
+      $('#first-tooltip').tooltipster('open');
+    });
+  </script>
 <% end %>
