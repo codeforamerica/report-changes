@@ -1,4 +1,4 @@
-<% content_for :card_title, "<div class='tooltip tooltip-toggle' data-number='1' title='Clients often submit changes on behalf of their household members.'>1</div><span data-intro='Clients often submit changes on behalf of their household members.' data-position='left'>Who had this change?</span>".html_safe %>
+<% content_for :card_title, "Who had this change?" %>
 <% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
       <%= f.cfa_radio_set :new_or_existing_member,
@@ -9,5 +9,6 @@
 
     <script>
         $("#form_new_or_existing_member_new_submitter").attr("checked", "true")
+        $("<div class='tooltip tooltip-toggle' data-number='1' title=\"Clients often submit changes on behalf of their household members.\">1</div>").insertBefore($(".form-card__title"));
     </script>
 <% end %>

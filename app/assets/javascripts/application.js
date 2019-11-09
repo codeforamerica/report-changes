@@ -69,10 +69,10 @@ $(document).ready(function () {
   });
 
   $('.tooltip').click(function(){
-    if ($(this).text() == 'X') {
+    if ($(this).text() == '✕') {
       $(this).text($(this).data("number"));
     } else {
-      $(this).text('X');
+      $(this).text('✕');
     }
   });
 

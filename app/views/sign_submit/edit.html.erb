@@ -6,16 +6,14 @@
     <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
       <%= f.cfa_input_field :signature, "Type your full legal name" %>
     <% end %>
-    <script>
-      $("<div class='tooltip tooltip-toggle' data-number='1' title=\"Use simple and clear language rather than legalese.\">1</div>").insertBefore($("#instructions"));
-    </script>
+  
 <% end %>
 
 <% content_for :card_footer_button_label do %>
    Sign and submit
    <script>
      $("<div class='tooltip tooltip-toggle' data-number='1' title=\"Use simple and clear language rather than legalese.\">1</div>").insertBefore($("#instructions"));
-     $("#form_signature").val("Fake signature");
+     $("#form_signature").val("Malcom Reynolds");
      $(".button[type='submit']").attr("data-intro", "Don't worry, you won't be submitting a real report.").attr("data-postion", "left");
      $("<div class='tooltip tooltip-toggle' data-number='2' title=\"Don't worry, you won't be submitting a real report.\">2</div>").insertBefore($(".button[type='submit']"));
    </script>

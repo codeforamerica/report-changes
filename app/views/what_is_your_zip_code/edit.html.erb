@@ -1,15 +1,17 @@
-<% content_for :card_title, "<div class='tooltip tooltip-toggle' data-number='1' title='For this pilot, we needed to manually route reports to counties. We found that clients were more likely to know their ZIP code than their county.'>1</div><span data-intro='For this pilot, we needed to manually route reports to counties. We found that clients were more likely to know their ZIP code than their county.' data-position='left'>What's your zip code in Colorado?</span>".html_safe %>
+<% content_for :card_title, "What's your zip code in Colorado?" %>
 
-<% content_for :card_help, "<div class='tooltip tooltip-toggle tooltip-toggle--right' data-number='2' title='Clients may not identify with the word \"homeless\", even if the county considers them to be. Use language that describes their situation.'>2</div><span data-intro='Clients may not identify with the word \"homeless\", even if the county considers them to be. Use language that describes their situation.' data-position='right'>If where you stay changes regularly, provide the zip code of the county that manages your case.</span>".html_safe %>
+<% content_for :card_help, "If where you stay changes regularly, provide the zip code of the county that manages your case." %>
 
 <% content_for :card_body do %>
     <%= fields_for(:form, @form, builder: Cfa::Styleguide::CfaFormBuilder) do |f| %>
-    <%= f.cfa_input_field :zip_code, "<span class='sr-only'>What's your zip code in Colorado?</span>", classes: ["form-width--zip"]  %>
-    <%= link_to "Select your county instead", what_county_do_you_live_in_screens_path, class: ["link--subtle"] %>
+      <%= f.cfa_input_field :zip_code, "<span class='sr-only'>What's your zip code in Colorado?</span>", classes: ["form-width--zip"]  %>
+      <%= link_to "Select your county instead", what_county_do_you_live_in_screens_path, class: ["link--subtle"] %>
     <% end %>
 
     <script>
         $("#form_zip_code").attr("data-intro", "This demo has been filled out with dummy data.").attr("data-position", "left").val("80013").css("color", "black");
+        $("<div class='tooltip tooltip-toggle' data-number='1' title=\"For this pilot, we needed to manually route reports to counties. We found that clients were more likely to know their ZIP code than their county.\">1</div>").insertBefore($(".form-card__title"));
+        $("<div class='tooltip tooltip-toggle' data-number='2' title='Clients may not identify with the word \"homeless\", even if the county considers them to be. Use language that describes their situation.'>2</div>").insertAfter($(".text--help"));
         $("<div class='tooltip tooltip-toggle' data-number='3' title='This demo has been filled out with dummy data.'>3</div>").insertBefore($("#form_zip_code"));
         $("<div class='tooltip tooltip-toggle tooltip-toggle-right' data-number='4' title='This demo has been filled out with dummy data.'>4</div>").insertBefore($("#progress"));
     </script>

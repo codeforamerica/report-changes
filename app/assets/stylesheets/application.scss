@@ -22,8 +22,8 @@
 
 #annotation-btn {
   position:fixed;
-  top: 50px;
-  right: 50px;
+  top: 65px;
+  right: 15px;
   z-index: 9999;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .tooltip-toggle {
-  opacity: 0.8;
+  opacity: 0.7;
   z-index: 99;
   position: absolute;
   margin-top: -25px;
@@ -84,6 +84,30 @@
 
 .tooltip-toggle--right {
   right: 15%;
+}
+
+.tooltipster-sidetip.tooltipster-light .tooltipster-box {
+  border-color: black;
+}
+
+.tooltipster-sidetip.tooltipster-light.tooltipster-bottom .tooltipster-arrow-border {
+  border-bottom-color: black;
+}
+
+.tooltipster-sidetip.tooltipster-light.tooltipster-left .tooltipster-arrow-border {
+  border-left-color: black;
+}
+
+.tooltipster-sidetip.tooltipster-light.tooltipster-right .tooltipster-arrow-border {
+  border-right-color: black;
+}
+
+.tooltipster-sidetip.tooltipster-light.tooltipster-top .tooltipster-arrow-border {
+  border-top-color: black;
+}
+
+.tooltipster-sidetip.tooltipster-light .tooltipster-content {
+  line-height: 24px;
 }
 
 @import 'cfa_styleguide_main';

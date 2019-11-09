@@ -10,7 +10,7 @@
           </h1>
 
           <div>
-            <div id="first-tooltip" class="tooltip-toggle tooltip" data-number="1" title="You’ll see these annotations throughout the demo. Tap a purple circle to see the note. Tap again to close it. You can also hide all annotations with the button in the corner. Click this button to start the demo. ">1</div>
+            <div id="first-tooltip" class="tooltip-toggle tooltip" data-number="1" title="You’ll see these annotations throughout the demo. Annotations give more details about the design process and decisions. Tap a purple circle to see the note. Tap again to close it. You can also hide all annotations with the button in the corner. Click this button to start the demo. ">1</div>
             <%= link_to screen_path(FormNavigation.first) do %>
               <button class="button button--large button--cta">Start my report <i class="button__icon icon-arrow_forward"></i></button>
             <% end %>
@@ -50,6 +50,7 @@
     <div class="grid is-desktop-hidden--inline">
       <div class="grid__item text--small width-one-half">
         <p class="h4">Supported programs:</p>
+        <div class="tooltip-toggle tooltip" data-number="3" title="Clients don't always know which benefits they're enrolled in, or may call them by different names. An integrated system allows clients to report changes without having to identify their benefit.">3</div>
         <ul class="list--padded">
           <li><i class="icon-done"></i> SNAP (food stamps)</li>
           <li><i class="icon-done"></i> Medicaid</li>
@@ -113,18 +114,10 @@
     </div>
   </section>
 
-  <style>
-    .chardinjs-tooltip {
-      background-color: rgba(0, 0, 0, 0.5);
-      padding-left: 5px;
-      padding-bottom: 5px;
-    }
-  </style>
 
   <script>
     $(function() {
-      $('#first-tooltip').tooltipster('open');
-      $('#first-tooltip').text('X');
+
     });
   </script>
 <% end %>
