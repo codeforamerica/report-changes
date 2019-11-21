@@ -61,3 +61,8 @@
   }
   height: inherit;
 }
+
+.form-card + .progress-indicator {
+  margin-top: 2em;
+  margin-bottom: 4em;
+}
