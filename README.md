@@ -1,6 +1,6 @@
-# Colorado Benefits
+# Report Changes
 
-Code repository for Colorado Benefits, an application for reporting life changes that affect public assistance benefits by
+Code repository for Report Changes, an application for reporting life changes that affect public assistance benefits by
 [Code for America](https://www.codeforamerica.org).
 
 ## Getting Set Up
